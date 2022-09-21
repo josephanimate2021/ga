@@ -5,7 +5,8 @@ const env = {
   hostname: '127.0.0.1',
   port: 80,
   MOVIE_FOLDER: "./files/movies",
-  STARTER_FOLDER: "./files/starters"
+  STARTER_FOLDER: "./files/starters",
+  node_env: "dev"
 };
 
 // basic utilities
@@ -31,6 +32,7 @@ const server = http.createServer((req, res) => {
     res.statusCode = 404;
     res.end('404 not found');
   }
+  if (env.node_env == "dev") console.log(req.method, purl.path);
 });
 
 server.listen(env.port, env.hostname, () => console.log(`Server running at http://${env.hostname}:${env.port}/`));
