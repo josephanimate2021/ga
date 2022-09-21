@@ -32,7 +32,7 @@ const server = http.createServer((req, res) => {
     res.statusCode = 404;
     res.end('404 not found');
   }
-  if (env.node_env == "dev") console.log(req.method, purl.path);
+  if (env.node_env == "dev") console.log(req.method, purl.path, "-", res.statusCode);
 });
 
 server.listen(env.port, env.hostname, () => console.log(`Server running at http://${env.hostname}:${env.port}/`));
