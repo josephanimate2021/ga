@@ -7,8 +7,15 @@ const env = {
   port: 80,
   MOVIE_FOLDER: "./files/movies",
   STARTER_FOLDER: "./files/starters",
+  ASSETS_FOLDER: "./files/assets",
   node_env: "dev"
 };
+const folder = env.ASSETS_FOLDER;
+env.BG_FOLDER = `${folder}/backgrounds`;
+env.PROPS_FOLDER = `${folder}/props`;
+env.SOUNDS_FOLDER = `${folder}/sounds`;
+env.CHARS_FOLDER = `${folder}/chars`;
+env.DATABASES_FOLDER = `${folder}/meta`;
 
 // basic utilities
 const theme = require("./theme/list");
