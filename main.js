@@ -23,7 +23,7 @@ const pages = require("./pages");
 const url = require('url');
 const fs = require('fs');
 
-const utiltiies = {
+const utilties = {
   theme,
   pages
 };
@@ -41,7 +41,7 @@ Object.assign(process.env, require("./env"));
 const server = http.createServer((req, res) => {
   try {
     const purl = url.parse(req.url, true);
-    const found = utiltiies.find(u => u(req, res, purl));
+    const found = utilties.find(u => u(req, res, purl));
     if (found) {
       req.body = body(req, res).then(data => `${data}`);
       res.statusCode = 302;
