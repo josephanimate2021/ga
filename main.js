@@ -25,7 +25,7 @@ const server = http.createServer((req, res) => {
   const purl = url.parse(req.url, true);
   const found = utiltiies.find(u => u(req, res, purl));
   if (found) {
-    res.statusCode = 200;
+    res.statusCode = 302;
     res.setHeader("Location", "/studio");
   } else {
     res.statusCode = 404;
