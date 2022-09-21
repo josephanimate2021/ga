@@ -39,17 +39,21 @@ if (!fs.existsSync(env.CHARS_FOLDER)) fs.mkdirSync(env.CHARS_FOLDER);
 if (!fs.existsSync(env.DATABASES_FOLDER)) fs.mkdirSync(env.DATABASES_FOLDER);
 Object.assign(process.env, require("./env"));
 const server = http.createServer((req, res) => {
-  const purl = url.parse(req.url, true);
-  const found = utiltiies.find(u => u(req, res, purl));
-  if (found) {
-    req.body = body(req, res).then(data => `${data}`);
-    res.statusCode = 302;
-    res.setHeader("Location", "/studio");
-  } else {
-    res.statusCode = 404;
-    res.end('404 not found');
+  try {
+    const purl = url.parse(req.url, true);
+    const found = utiltiies.find(u => u(req, res, purl));
+    if (found) {
+      req.body = body(req, res).then(data => `${data}`);
+      res.statusCode = 302;
+      res.setHeader("Location", "/studio");
+    } else {
+      res.statusCode = 404;
+    }
+    if (env.node_env == "dev") console.log(req.method, purl.path, "-", res.statusCode);
+  } catch (x) {
+    console.error(x);
+    res.statusCode = 500;
   }
-  if (env.node_env == "dev") console.log(req.method, purl.path, "-", res.statusCode);
 });
 
 server.listen(env.port, env.hostname, () => console.log(`Server running at http://${env.hostname}:${env.port}/`));
