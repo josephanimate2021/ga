@@ -18,7 +18,7 @@ env.CHARS_FOLDER = `${folder}/chars`;
 env.DATABASES_FOLDER = `${folder}/meta`;
 
 // basic utilities
-const theme = require("./theme/list");
+const theme = require("./theme/core");
 const pages = require("./pages");
 const url = require('url');
 const fs = require('fs');
