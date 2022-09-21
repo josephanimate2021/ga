@@ -1,5 +1,6 @@
 // vars
 const http = require('http');
+const body = require("./req/body");
 
 const env = {
   hostname: '127.0.0.1',
@@ -26,6 +27,7 @@ const server = http.createServer((req, res) => {
   const purl = url.parse(req.url, true);
   const found = utiltiies.find(u => u(req, res, purl));
   if (found) {
+    req.body = body(req, res).then(data => `${data}`);
     res.statusCode = 302;
     res.setHeader("Location", "/studio");
   } else {
