@@ -1,6 +1,7 @@
 module.exports = function (req, res, url) {
   switch (url.pathname) {
     case "/studio": {
+      res.setHeader("Content-Type", "text/html; charset=utf8");
       res.end(`<!DOCTYPE html>
 <html>
 <head>
