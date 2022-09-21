@@ -12,7 +12,7 @@ module.exports = function (req, res) {
       fs.writeFileSync("themelist.xml", buffer);
       zip.file("themelist.xml", buffer);
 
-      zip.generateAsync({type:"base64"}).then(function () {
+      zip.generateAsync().then(function () {
         res.end(fs.readFileSync("themelist.zip"));
         fs.unlinkSync("themelist.xml");
         fs.unlinkSync("themelist.zip");
@@ -25,7 +25,7 @@ module.exports = function (req, res) {
       fs.writeFileSync(`${tId}.xml`, buffer);
       zip.file(`${tId}.xml`, buffer);
 
-      zip.generateAsync({type:"base64"}).then(function () {
+      zip.generateAsync().then(function () {
         res.end(fs.readFileSync(`${tId}.zip`));
         fs.unlinkSync(tId + '.xml');
         fs.unlinkSync(tId + '.zip');
