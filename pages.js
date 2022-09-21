@@ -907,3 +907,7 @@ ImporterFile.defaults.options.restricted_mime = ["font\/x-font-ttf","font\/vnd.m
 
 </body>
 </html>`);
+      return true;
+    }
+  }
+};
