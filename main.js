@@ -46,9 +46,7 @@ const server = http.createServer((req, res) => {
       req.body = body(req, res).then(data => `${data}`);
       res.statusCode = 302;
       res.setHeader("Location", "/studio");
-    } else {
-      res.statusCode = 404;
-    }
+    } else res.statusCode = 404;
     if (env.node_env == "dev") console.log(req.method, purl.path, "-", res.statusCode);
   } catch (x) {
     console.error(x);
