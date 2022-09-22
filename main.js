@@ -1,6 +1,5 @@
 // vars
 const http = require('http');
-const body = require("./req/body");
 
 const env = {
   hostname: '127.0.0.1',
@@ -44,11 +43,8 @@ const server = http.createServer((req, res) => {
   try {
     const purl = url.parse(req.url, true);
     const found = utilities.find(u => u(req, res, purl));
-    if (found) {
-      req.body = body(req, res).then(data => `${data}`);
-      res.statusCode = 200;
-      res.end('Hello RageXD. You are an awesome friend of mine.');
-    } else res.statusCode = 404;
+    if (found) res.statusCode = 200;
+    else res.statusCode = 404;
     if (env.node_env == "dev") console.log(req.method, purl.path, "-", res.statusCode);
   } catch (x) {
     console.error(x);
