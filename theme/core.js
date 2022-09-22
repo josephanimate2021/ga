@@ -7,13 +7,10 @@ module.exports = function (req, res) {
   if (req.method != "POST") return;
   switch (req.url) {
     case "/goapi/getThemeList/": {
-      if (fs.existsSync(file)) fs.createReadStream(file).pipe(res);
-      else {console.log}
+      fs.createReadStream(file).pipe(res);
       return true;
     } case "/goapi/getTheme/": {
-      loadPost(req, res).then(data => {
-        if (fs.existsSync(file.slice(0, -8 + `${data.themeId}.zip`))) fs.createReadStream(file.slice(0, -8 + `${data.themeId}.zip`)).pipe(res));
-        else {console.log}
+      loadPost(req, res).then(data => fs.createReadStream(`./files/themes/${data.themeId}.zip`).pipe(res));
       return true;
     }
   }
