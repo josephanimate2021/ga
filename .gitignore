@@ -2,3 +2,7 @@ files/*
 node_modules/*
 env.json
 package-lock.json
+themelist.xml
+themelist.zip
+theme.zip
+theme.xml

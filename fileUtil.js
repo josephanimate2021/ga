@@ -1,4 +1,5 @@
 const JSZip = require('jszip');
+const zip = new JSZip;
 const fs = require('fs');
 
 module.exports = {
@@ -9,20 +10,34 @@ module.exports = {
     for ( var i = 0; i < length; i++ ) result += characters.charAt(Math.floor(Math.random() * charactersLength));
     return result;
   },
-  makeZip(path, name) {
-    const zip = new JSZip();
-
-    try {
-      const buffer = fs.readFileSync(path);
-      fs.writeFileSync(name, buffer);
-      zip.file(name, buffer);
-
-      zip.generateNodeStream({ type: 'base64', streamFiles: true }).pipe(fs.createWriteStream(name.slice(0, -3 + "zip"))).on('finish', function () {
-        return `${name.slice(0, -3 + "zip")} written.`;
-      });
-    } catch (err) {
-      console.error(err);
-      return false;
-    }
+  zipList() {
+    return new Promise((res, rej) => {
+      try {
+        const buffer = fs.readFileSync('./files/themes/list.xml');
+        fs.writeFileSync("themelist.xml", buffer);
+        zip.file("themelist.xml", buffer);
+  
+        zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(fs.createWriteStream('themelist.zip')).on('finish', function () {
+          res("themelist.zip written.");
+        });
+      } catch (err) {
+        rej(err);
+      }
+    });
+  },
+  zipTheme(tId) {
+    return new Promise((res, rej) => {
+      try {
+        const buffer = fs.readFileSync(`./files/themes/${tId}.xml`);
+        fs.writeFileSync("theme.xml", buffer);
+        zip.file("theme.xml", buffer);
+  
+        zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(fs.createWriteStream('theme.zip')).on('finish', function () {
+          res("theme.zip written.");
+        });
+      } catch (err) {
+        rej(err);
+      }
+    });
   }
 }
