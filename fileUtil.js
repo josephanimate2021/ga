@@ -29,11 +29,11 @@ module.exports = {
     return new Promise((res, rej) => {
       try {
         const buffer = fs.readFileSync(`./files/themes/${tId}.xml`);
-        fs.writeFileSync(`${tId}.xml`, buffer);
-        zip.file(`${tId}.xml`, buffer);
+        fs.writeFileSync("theme.xml", buffer);
+        zip.file("theme.xml", buffer);
   
-        zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(fs.createWriteStream(`${tId}.zip`)).on('finish', function () {
-          res(`${tId}.zip written.`);
+        zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(fs.createWriteStream('theme.zip')).on('finish', function () {
+          res("theme.zip written.");
         });
       } catch (err) {
         rej(err);
