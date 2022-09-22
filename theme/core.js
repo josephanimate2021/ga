@@ -14,7 +14,7 @@ module.exports = function (req, res) {
     } case "/goapi/getTheme/": {
       loadPost(req, res).then(data => {
         zipTheme(data.themeId).then(b => {
-          if (b = `${data.themeId}.zip written.`) fs.createReadStream(`${data.themeId}.zip`).pipe(res);
+          if (b = "theme.zip written.") fs.createReadStream("theme.zip").pipe(res);
           else res.end();
         }).catch(e => console.log(e));
       });
