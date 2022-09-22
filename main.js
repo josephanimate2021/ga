@@ -20,13 +20,15 @@ env.DATABASES_FOLDER = `${folder}/meta`;
 // basic utilities
 const theme = require("./theme/core");
 const pages = require("./pages");
+const crossdomain = require("./crossdomain");
 const url = require('url');
 const fs = require('fs');
 
-const utilities = {
+const utilities = [
   theme,
+  crossdomain,
   pages
-};
+];
 
 if (!fs.existsSync(`./env.json`)) fs.writeFileSync(`./env.json`, JSON.stringify(env));
 if (!fs.existsSync(folder)) fs.mkdirSync(folder);
