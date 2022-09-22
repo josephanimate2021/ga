@@ -6,7 +6,7 @@ module.exports = function (req, res) {
   switch (req.url) {
     case "/goapi/getThemeList/": {
       fUtil.makeZip("./files/themes/list.xml", "themelist.xml").then(b => {
-        if (b = "themelist.zip written") fs.createReadStream("themelist.zip").pipe(res);
+        if (b = "themelist.zip written.") fs.createReadStream("themelist.zip").pipe(res);
         else res.end();
       }).catch(e => console.log(e));
       return true;
