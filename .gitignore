@@ -1,4 +1,7 @@
-files/*
+files/movies/*
+files/starters/*
+files/assets/*
+files/meta/*
 node_modules/*
 env.json
 package-lock.json
