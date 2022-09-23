@@ -9,10 +9,12 @@ const env = {
   ASSETS_FOLDER: "./files/assets",
   node_env: "dev"
 };
-const folder = env.ASSETS_FOLDER;
+const folder = env.ASSETS_FOLDER, sFolder = `${folder}/sounds`;
 env.BG_FOLDER = `${folder}/backgrounds`;
 env.PROPS_FOLDER = `${folder}/props`;
-env.SOUNDS_FOLDER = `${folder}/sounds`;
+env.MUSIC_FOLDER = `${sFolder}/music`;
+env.SOUNDS_FOLDER = `${sFolder}/effects`;
+env.VOICEOVERS_FOLDER = `${sFolder}/voiceovers`;
 env.CHARS_FOLDER = `${folder}/chars`;
 env.DATABASES_FOLDER = `${folder}/meta`;
 
@@ -36,6 +38,8 @@ if (!fs.existsSync(env.STARTER_FOLDER)) fs.mkdirSync(env.STARTER_FOLDER);
 if (!fs.existsSync(env.BG_FOLDER)) fs.mkdirSync(env.BG_FOLDER);
 if (!fs.existsSync(env.PROPS_FOLDER)) fs.mkdirSync(env.PROPS_FOLDER);
 if (!fs.existsSync(env.SOUNDS_FOLDER)) fs.mkdirSync(env.SOUNDS_FOLDER);
+if (!fs.existsSync(env.MUSIC_FOLDER)) fs.mkdirSync(env.MUSIC_FOLDER);
+if (!fs.existsSync(env.VOICEOVERS_FOLDER)) fs.mkdirSync(env.VOICEOVERS_FOLDER);
 if (!fs.existsSync(env.CHARS_FOLDER)) fs.mkdirSync(env.CHARS_FOLDER);
 if (!fs.existsSync(env.DATABASES_FOLDER)) fs.mkdirSync(env.DATABASES_FOLDER);
 Object.assign(process.env, require("./env"));
