@@ -56,5 +56,8 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(env.port, env.hostname, () => console.log(`Server running at http://${env.hostname}:${env.port}/`));
+server.listen(env.port, env.hostname, () => {
+  if (env.port == 80) console.log(`Server running at http://localhost/`);
+  else console.log(`Server running at http://localhost:${env.port}/`);
+});
   
