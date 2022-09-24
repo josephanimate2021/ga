@@ -33,6 +33,12 @@ module.exports = {
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
 		return id;
 	},
+	loadCharacter(id) {
+		fs.readFile(fUtil.fileString(process.env.CHARS_FOLDER + `/${id}.xml`), (e, b) => {
+			if (e) return false;
+			else return b;
+		});
+	},
 	saveCharacterThumb(thumbdata, id) {
 		const thumb = Buffer.from(thumbdata, "base64");
 		if (fUtil.exists(process.env.CHARS_FOLDER + `/${id}.png`)) fs.writeFileSync(process.env.CHARS_FOLDER + `/${id.slice(0, -3) + "000"}.png`, thumb);
