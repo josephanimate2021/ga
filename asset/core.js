@@ -31,8 +31,10 @@ function getAssetXmls(data) {
   var files, xml;
   if (data.type == "char") {
     files = getAssets("char");
-    const xml = `<ugc more="0">${files.map(v => `<char id="${v.id}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}.png" copyable="${v.copyable}"><tags>${v.tags || ""}</tags></char>`).join('')}</ugc>`;
-  } else xml = `<ugc more="0"></ugc>`;
+    xml = `<ugc more="0">${files.map(v => `<char id="${v.id}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}.png" copyable="${v.copyable}"><tags>${v.tags || ""}</tags></char>`).join('')}</ugc>`;
+  } else {
+    xml = `<ugc more="0"></ugc>`;
+  }
   return xml;
 }
 // server functions
