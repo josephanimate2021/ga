@@ -9,7 +9,8 @@ module.exports = function (req, res, url) {
   }
   switch (url.pathname) {
     case "/charcreator": {
-      html = `<html><head>
+        res.setHeader("Content-Type", "text/html; charset=utf8");
+        html = `<html><head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <link rel="dns-prefetch" href="https://josephanimate2021.github.io">
@@ -198,9 +199,10 @@ $(window).on('amplitude_loaded', function() {
 </script>
 
 </body></html>`;
-      break;
+        break;
     } case "/studio": {
-      html = `<!DOCTYPE html>
+        res.setHeader("Content-Type", "text/html; charset=utf8");
+        html = `<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -1106,9 +1108,8 @@ ImporterFile.defaults.options.restricted_mime = ["font\/x-font-ttf","font\/vnd.m
 
 </body>
 </html>`;
-      break;
+        break;
     }
   }
-  res.setHeader("Content-Type", "text/html; charset=utf8");
   res.end(html);
 };

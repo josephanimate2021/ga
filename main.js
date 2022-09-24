@@ -48,8 +48,7 @@ Object.assign(process.env, require("./env"));
 const server = http.createServer((req, res) => {
   try {
     const purl = url.parse(req.url, true);
-    const found = utilities.find(u => u(req, res, purl));
-    if (found) res.statusCode = 200;
+    if (utilities.find(u => u(req, res, purl))) res.statusCode = 200;
     else res.statusCode = 404;
     if (env.node_env == "dev") console.log(req.method, purl.path, "-", res.statusCode);
     if (req.method == "GET" && purl.path == "/") res.end('Hello World');

@@ -10,6 +10,9 @@ module.exports = {
     for ( var i = 0; i < length; i++ ) result += characters.charAt(Math.floor(Math.random() * charactersLength));
     return result;
   },
+  exists(filepath) {
+    return fs.existsSync(filepath);
+  },
   zipList() {
     return new Promise((res, rej) => {
       try {
