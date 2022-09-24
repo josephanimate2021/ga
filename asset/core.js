@@ -9,14 +9,12 @@ module.exports = function (req, res) {
     case "POST": {
       switch (req.url) {
         case "/goapi/getUserAssetsXml/": {
-          res.statusCode = 200;
-          loadPost(req, res).then(data => {
-            console.log(data); 
+          loadPost(req, res).then(data => asset.getAssetXmls(data.type)).then(b => {
+            console.log(b);
+            res.end(Buffer.from(b));
           }).catch(e => console.log(e));
         }
       }
     }
   }
 }
-  
-      
