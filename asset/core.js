@@ -1,6 +1,5 @@
 // vars
 const fs = require('fs');
-const folder = process.env.ASSETS_FOLDER;
 const loadPost = require("../req/body");
 // functions
 function getAssets(type) {
@@ -8,13 +7,13 @@ function getAssets(type) {
     case "char": {
       const table = [];
       const themes = {};
-      fs.readdirSync(folder + `/chars`).forEach(file => {
+      fs.readdirSync(process.env.CHARS_FOLDER).forEach(file => {
         if (!file.includes(".xml")) return;
         const id = file.slice(0, -4);
-        const xml = fs.existsSync(folder + `/chars/${id}.xml`);
-        const png = fs.existsSync(folder + `/chars/${id}.png`);
+        const xml = fs.existsSync(process.env.CHARS_FOLDER + `/${id}.xml`);
+        const png = fs.existsSync(process.env.CHARS_FOLDER + `/${id}.png`);
         if (xml && png) {
-          const buffer = fs.readFileSync(folder = `/chars/${id}.xml`);
+          const buffer = fs.readFileSync(process.env.CHARS_FOLDER + `/${id}.xml`);
           const beg = buffer.indexOf(`theme_id="`) + 10;
           const end = buffer.indexOf(`"`, beg);
           const theme = buffer.subarray(beg, end).toString();
