@@ -11,7 +11,7 @@ function getAssets(type) {
     case "char": {
       folder = process.env.CHARS_FOLDER;
       use = "xml";
-      push = "char";
+      push = type;
       break;
     } case "movie": {
       folder = process.env.STARTERS_FOLDER;
