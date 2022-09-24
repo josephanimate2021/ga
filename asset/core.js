@@ -7,6 +7,24 @@ const fs = require('fs');
 // server functions
 module.exports = function (req, res) {
   switch (req.method) {
+    case "GET": {
+      const match = req.url.match(/\/assets\/([^/]+)$/);
+      const id = match[1];
+      try {
+        res.end(fs.readFileSync(process.env.CHARS_FOLDER + `/${id}.png`));
+      } catch (e) {
+        try {
+          res.end(fs.readFileSync(process.env.BG_FOLDER + `/${id}.png`));
+        } catch (e) {
+          try {
+            res.end(fs.readFileSync(process.env.PRPOS_FOLDER + `/${id}.png`));
+          } catch (e) {
+            res.end('404 Not Found.');
+          }
+        }
+      }
+      return true;
+    }
     case "POST": {
       switch (req.url) {
         case "/goapi/getUserAssetsXml/": {
