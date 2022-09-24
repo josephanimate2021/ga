@@ -33,15 +33,22 @@ module.exports = {
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
 		return id;
 	},
-	saveCharacterThumb(thumbdata) {
+	saveCharacterThumb(thumbdata, id) {
 		const thumb = Buffer.from(thumbdata, "base64");
-		fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
+		if (fUtil.exists(process.env.CHARS_FOLDER + `/${id}.png`)) fs.writeFileSync(process.env.CHARS_FOLDER + `/${id.slice(0, -3) + "000"}.png`, thumb);
+		else fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
 	},
 	getAssetXmls(data) {
-		var files, xml;
+		var files, xml, tId;
 		switch (data.type) {
 			case "char": {
-				files = this.getChars(data.themeId = "custom" ? "family" : data.themeId);
+				switch (data.themeId) {
+					case "custom": {
+						tId = "family";
+						break;
+					}
+				}
+				files = this.getChars(tId);
 				xml = `<ugc more="0">${files.map(v => `<char id="${v.id}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}.png" copyable="${v.copyable}"><tags>${v.tags || ""}</tags></char>`).join('')}</ugc>`;
 				break;
 			} default: {
@@ -49,7 +56,6 @@ module.exports = {
 				break;
 			}
 		}
-		console.log(xml);
 		return xml;
 	}
 };
