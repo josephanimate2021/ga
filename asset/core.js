@@ -2,7 +2,6 @@
 const fs = require('fs');
 const folder = process.env.ASSETS_FOLDER;
 const loadPost = require("../req/body");
-
 // functions
 function getAssets(type) {
   switch (type) {
