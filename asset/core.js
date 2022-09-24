@@ -9,9 +9,9 @@ module.exports = function (req, res) {
     case "POST": {
       switch (req.url) {
         case "/goapi/getUserAssetsXml/": {
-          loadPost(req, res).then(data => asset.getAssetXmls(data)).then(b => {
-            console.log(b);
-            res.end(Buffer.from(b));
+          res.statusCode = 200;
+          loadPost(req, res).then(data => {
+            console.log(data); 
           }).catch(e => console.log(e));
         }
       }
