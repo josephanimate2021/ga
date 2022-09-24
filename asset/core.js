@@ -33,14 +33,14 @@ function getAssetXmls(data) {
     files = getAssets("char");
     const xml = `<ugc more="0">${files.map(v => `<char id="${v.id}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}.png" copyable="${v.copyable}"><tags>${v.tags || ""}</tags></char>`).join('')}</ugc>`;
   } else xml = `<ugc more="0"></ugc>`;
-  return Buffer.from(xml);
+  return xml;
 }
 // server functions
 module.exports = function (req, res) {
   switch (req.method) {
     case "POST": {
       switch (req.url) {
-        case "/goapi/getUserAssetsXml/": loadPost(req, res).then(data => getAssetXmls(data)).then(b => res.end(b)).catch(e => console.log(e));
+        case "/goapi/getUserAssetsXml/": loadPost(req, res).then(data => getAssetXmls(data)).then(b => res.end(Buffer.from(b))).catch(e => console.log(e));
       }
     }
   }
