@@ -80,9 +80,9 @@ module.exports = {
     }
     return table;
   },
-  getAssetXmls(data) {
+  getAssetXmls(type) {
     var files, xml;
-    switch (data.type) {
+    switch (type) {
       case "char": {
         files = this.getAssets("char");
         xml = `<ugc more="0">${files.map(v => `<char id="${v.id}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}.png" copyable="${v.copyable}"><tags>${v.tags || ""}</tags></char>`).join('')}</ugc>`;
