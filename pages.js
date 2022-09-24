@@ -1,6 +1,12 @@
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
-  var html;
+  var html, tId;
+  switch (url.query.themeId) {
+    case "family": {
+      tId = "custom";
+      break;
+    }
+  }
   switch (url.pathname) {
     case "/charcreator": {
       html = `<html><head>
