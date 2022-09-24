@@ -9,7 +9,7 @@ module.exports = function (req, res) {
     case "POST": {
       switch (req.url) {
         case "/goapi/getUserAssetsXml/": {
-          loadPost(req, res).then(data => asset.getAssetXmls(data.type)).then(b => {
+          loadPost(req, res).then(data => asset.getAssetXmls(data)).then(b => {
             console.log(b);
             res.end(Buffer.from(b));
           }).catch(e => console.log(e));
