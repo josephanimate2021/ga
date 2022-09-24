@@ -92,10 +92,10 @@ function getAssetXmls(data) {
   return xml;
 }
 // server functions
-module.exports = function (req, res) {
+module.exports = function (req, res, url) {
   switch (req.method) {
     case "POST": {
-      switch (req.url) {
+      switch (url.pathname) {
         case "/goapi/getUserAssetsXml/": loadPost(req, res).then(data => getAssetXmls(data)).then(b => res.end(Buffer.from(b))).catch(e => console.log(e));
       }
     }
