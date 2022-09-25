@@ -30,7 +30,10 @@ module.exports = {
 	upload(ptype, buffer, name) {
 		const id = fUtil.makeid(12);
 		const dot = name.lastIndexOf('.');
-		const ext = name.substr(dot + 1);
+		const endExt = name.substr(dot + 1);
+		var ext;
+		if (endExt == "PNG") ext = "png";
+		else ext = endExt;
 		fs.writeFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`, buffer);
 		// database stuff
 		var meta = {
