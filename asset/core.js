@@ -5,6 +5,7 @@ const asset = require('./main');
 const fUtil = require('../fileUtil');
 const fs = require('fs');
 const xml = require('../xml');
+const base = Buffer.alloc(1, 0);
 // functions
 // server functions
 module.exports = function (req, res) {
@@ -36,22 +37,9 @@ module.exports = function (req, res) {
       switch (req.url) {
         case "/goapi/getUserAssets/": {
           loadPost(req, res).then(data => {
-            asset.getXmls(data).then(b => {
-              const zip = nodezip.create();
-              fUtil.addToZip(zip, "desc.xml", Buffer.from(b));
-              asset.getFolders(data.type).then(folder => {
-                asset.getIds(folder).then(id => {
-                  const buffer = fs.readFileSync(`${folder}/${id}`);
-                  fUtil.addToZip(zip, `${data.type}/${id}`, buffer);
-                  res.end(zip.zip());
-                }).catch(e => {
-                  console.log(e);
-                  res.end(Buffer.from(xml.assetError(e)));
-                });
-              }).catch(e => {
-                console.log(e);
-                res.end(Buffer.from(xml.assetError(e)));
-              });
+            asset.getXmls(data, true).then(b => {
+              res.write(base);
+              res.end(b);
             }).catch(e => {
               console.log(e);
               res.end(Buffer.from(xml.assetError(e)));
