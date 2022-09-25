@@ -82,7 +82,7 @@ module.exports = function (req, res) {
             res.end();
           });
           return true;
-      } case "/upload_prop_headable": {
+        } case "/upload_prop_headable": {
           new formidable.IncomingForm().parse(req, (e, f, files) => {
             if (!files.import) return;
             var path = files.import.path;
@@ -92,6 +92,7 @@ module.exports = function (req, res) {
             res.end();
           });
           return true;
+        }
       }
     }
   }

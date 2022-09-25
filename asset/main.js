@@ -31,36 +31,28 @@ module.exports = {
 		const id = fUtil.makeid(12);
 		const dot = name.lastIndexOf('.');
 		const ext = name.substr(dot + 1);
+		fs.writeFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`, buffer);
 		// database stuff
-		var meta;
+		var meta = {
+			otherProp: "1",
+			handheld: "0",
+			hat: "0",
+		};
 		switch (ptype) {
-			case "placeable": {
-				fs.writeFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`, buffer);
-				meta = {
-					otherProp: "1",
-					handheld: "0",
-					hat: "0",
-				};
+			case "holdable": {
+				meta.handheld = "1",
 				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
 				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
-			} case "holdable": {
-				fs.writeFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`, buffer);
-				meta = {
-					otherProp: "0",
-					handheld: "1",
-					hat: "0",
-				};
-				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
-				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
+				break;
 			} case "headable": {
-				fs.writeFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`, buffer);
-				meta = {
-					otherProp: "0",
-					handheld: "0",
-					hat: "1",
-				};
+				meta.hat = "1",
 				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
 				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
+				break;
+			} case "placeable": {
+				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
+				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
+				break;
 			}
 		}
 	},
