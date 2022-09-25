@@ -122,6 +122,9 @@ module.exports = function (req, res) {
             res.end();
           });
           return true;
+        } case "/goapi/saveMovie/": {
+          loadPost(req, res).then(data => asset.saveMovie(data)).then(id => res.end(0 + id)).catch(e => console.log(e));
+          return true;
         }
       }
     }
