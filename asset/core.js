@@ -62,18 +62,7 @@ module.exports = function (req, res) {
           res.end();
           return true;
         } case "/goapi/saveCCCharacter/": {
-          loadPost(req, res).then(data => asset.saveCharacter(data)).then(id => {
-            const name = fUtil.exists(process.env.DATABASES_FOLDER + "/names");
-            const state = fUtil.exists(process.env.DATABASES_FOLDER + "/states");
-            const tag = fUtil.exists(process.env.DATABASES_FOLDER + "/tags");
-            if (!name) fs.mkdirSync(process.env.DATABASES_FOLDER + `/names`);
-            if (!state) fs.mkdirSync(process.env.DATABASES_FOLDER + `/states`);
-            if (!tag) fs.mkdirSync(process.env.DATABASES_FOLDER + `/tags`);
-            fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, "Untitled");
-            fs.writeFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`, "Y");
-            fs.writeFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`, "");
-            res.end(0 + id);
-          }).catch(e => console.log(e));
+          loadPost(req, res).then(data => asset.saveCharacter(data)).then(id => res.end(0 + id)).catch(e => console.log(e));
           return true;
         } case "/goapi/getCcCharCompositionXml/": {
           loadPost(req, res).then(async data => {

@@ -3,7 +3,8 @@ const fUtil = require("../fileUtil");
 const get = require("../req/get");
 const themes = {};
 
-function addTheme(id, buffer) {
+function addTheme(id) {
+	const buffer = fs.readFileSync(process.env.CHARS_FOLDER + `/${id}.xml`);
 	const beg = buffer.indexOf(`theme_id="`) + 10;
 	const end = buffer.indexOf(`"`, beg);
 	const theme = buffer.subarray(beg, end).toString();
@@ -13,11 +14,7 @@ function addTheme(id, buffer) {
 module.exports = {
 	getTheme(id) {
 		if (themes[id]) return themes[id];
-		else {
-			this.loadCharacter(id).then(b => {
-				return addTheme(id, b);
-			}).catch(e => console.log(e));
-		}
+		else return addTheme(id);
 	},
 	getChars(theme) {
 		const table = [];
@@ -38,9 +35,8 @@ module.exports = {
 					tag: fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`),
 					state: fs.readFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`)
 				};
-				if (!theme || theme == this.getTheme(id)) {
-					table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
-				}
+				if (theme != this.getTheme(id)) return;
+				else table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
 			}
 		});
 		return table;
@@ -129,7 +125,10 @@ module.exports = {
 		const thumb = Buffer.from(data.thumbdata, "base64");
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.xml`, data.body);
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
-		addTheme(id, data.body);
+		fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, "Untitled");
+		fs.writeFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`, "Y");
+		fs.writeFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`, "");
+		addTheme(id);
 		return id;
 	},
 	loadCharacter(id) {
@@ -167,6 +166,9 @@ module.exports = {
 					switch (data.themeId) {
 						case "custom": {
 							tId = "family";
+							break;
+						} case "anime": {
+							tId = "guy";
 							break;
 						}
 					}
