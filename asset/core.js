@@ -35,6 +35,26 @@ module.exports = function (req, res) {
         case "/goapi/getUserAssets/": {
           loadPost(req, res).then(data => asset.getXmls(data).then(b => res.end(Buffer.from(b))).catch(e => console.log(e)));
           return true;
+        } case "/goapi/deleteAsset/": {
+          loadPost(req, res).then(data => {
+            try {
+              fs.unlinkSync(process.env.PROPS_FOLDER + `/${data.assetId}`);
+            } catch (e) {
+              try {
+                fs.unlinkSync(process.env.BG_FOLDER + `/${data.assetId}`);
+              } catch (e) {
+                console.log(e);
+              }
+            }
+            fs.unlinkSync(process.env.DATABASES_FOLDER + `/${data.assetId.slice(0, -4)}.json`);
+            fs.unlinkSync(process.env.DATABASES_FOLDER + `/names/${data.assetId.slice(0, -4)}.txt`);
+          });
+          return true;
+        } case "/goapi/updateAsset/": {
+          loadPost(req, res).then(data => {
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${data.assetId.slice(0, -4)}.txt`, data.title);
+          });
+          return true;
         } case "/goapi/getUserAssetsXml/": {
           loadPost(req, res).then(data => asset.getXmls(data).then(b => res.end(Buffer.from(b))).catch(e => console.log(e)));
           return true;

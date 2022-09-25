@@ -141,7 +141,6 @@ module.exports = {
 					break;
 				}
 			}
-			console.log(xml);
 			res(xml);
 		});
 	}

@@ -326,7 +326,7 @@ module.exports = function (req, res, url) {
                 
                 <object data="https://josephanimate2021.github.io/animation/66453a3ba2cc5e1b/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
                     <!-- The flashvars are a huge mess, have fun looking at them. :) -->
-                    <param name="flashvars" value="apiserver=/&storePath=https://josephanimate2021.github.io/store/3a981f5cb2739137/<store>&isEmbed=1&ctc=go&ut=60&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=https://josephanimate2021.github.io/static/55910a7cd204c37c/<client_theme>&themeId=custom&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=../pages/html/list.html&tray=${url.query.tray || "custom"}">            
+                    <param name="flashvars" value="apiserver=/&storePath=https://josephanimate2021.github.io/store/3a981f5cb2739137/<store>&isEmbed=1&ctc=go&ut=30&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=https://josephanimate2021.github.io/static/55910a7cd204c37c/<client_theme>&themeId=custom&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=../pages/html/list.html&tray=${url.query.tray || "custom"}">            
                     <param name="allowScriptAccess" value="always">
                     <param name="allowFullScreen" value="true">
                 </object>
