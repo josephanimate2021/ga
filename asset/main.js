@@ -126,7 +126,7 @@ module.exports = {
 					const baseUrl = process.env.CHAR_BASE_URL;
 					get(`${baseUrl}/${nId}.txt`).then(chars => {
 						var line = chars.toString("utf8").split("\n").find(v => v.substring(0, 3) == id.slice(-3));
-						if (line) return Buffer.from(line.substring(3));
+						if (line) res(Buffer.from(line.substring(3)));
 						else rej("Error: Your Character Has Failed To Load. Please Try Again Later.");
 					}).catch(e => rej(e));
 				}
