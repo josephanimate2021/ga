@@ -27,6 +27,23 @@ module.exports = {
 		});
 		return table;
 	},
+	upload(ptype, buffer, ext) {
+		const id = fUtil.makeid(12);
+		// database stuff
+		var meta;
+		switch (ptype) {
+			case "placeable": {
+				fs.writeFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`, buffer);
+				meta = {
+					otherProp: "1",
+					handheld: "0",
+					hat: "0",
+				};
+				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
+				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, `${id}.${ext}`);
+			}
+		}
+	},
 	getProps() {
 		const table = [];
 		fs.readdirSync(process.env.PROPS_FOLDER).forEach(file => {
@@ -35,10 +52,8 @@ module.exports = {
 			const ext = file.substr(dot + 1);
 			if (!fs.existsSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`)) return;
 			const name = fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`);
-			const meta = fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}.json`);
-			const handheld = meta.handheld = "Y" ? "1" : "0";
-			const hat = meta.hat = "Y" ? "1" : "0";
-			const otherProp = meta.otherProp = "Y" ? "1" : "0";
+			const meta = require('.' + process.env.DATABASES_FOLDER + `/${id}.json`);
+			const { otherProp, handheld, hat } = meta;	
 			table.unshift({id: `${id}.${ext}`, title: name, holdable: handheld, headable: hat, placeable: otherProp});
 		});
 		return table;
@@ -86,7 +101,7 @@ module.exports = {
 						}
 					}
 					files = this.getChars(tId);
-					xml = `<ugc more="0">${files.map(v => `<char id="${v.id}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}" copyable="${v.copyable}"><tags>${v.tags || ""}</tags></char>`).join('')}</ugc>`;
+					xml = `<ugc more="0">${files.map(v => `<char id="${v.id}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}.png" copyable="${v.copyable}"><tags>${v.tags || ""}</tags></char>`).join('')}</ugc>`;
 					break;
 				} case "prop": {
 					files = this.getProps();
@@ -97,7 +112,7 @@ module.exports = {
 							v.holdable
 						}" headable="${v.headable}" placeable="${
 							v.placeable
-						}" facing="left" width="0" height="0"/>`).join('')
+						}" facing="left" width="0" height="0" asset_url="/assets/${v.id}"/>`).join('')
 					}</ugc>`;
 					break;
 				} default: {
@@ -105,6 +120,7 @@ module.exports = {
 					break;
 				}
 			}
+			console.log(xml);
 			res(xml);
 		});
 	}

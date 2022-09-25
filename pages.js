@@ -164,6 +164,7 @@ module.exports = function (req, res, url) {
                     <link rel="icon" href="/favicon.png" type="image/png">
                     <title>Video Studio</title>
                     <script src="https://josephanimate2021.github.io/lvm-static/api/jquery/index.js"></script>
+                    <script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/studio.js.gz.js"></script>
                     <style>
                     html, body {
                         background: #696969;
@@ -217,6 +218,7 @@ module.exports = function (req, res, url) {
                     **/
                     /* popup */
                     #preview_popup,
+                    .preview_popup,
                     #import_popup {
                         position: absolute;
                         background: #f2f7fc;
@@ -228,6 +230,7 @@ module.exports = function (req, res, url) {
                         color: #525a6b;
                     }
                     /* preview popup */
+                    .preview_popup,
                     #preview_popup {
                         margin: -225px 0 0 -360px;
                     }
@@ -242,6 +245,7 @@ module.exports = function (req, res, url) {
                     }
                     /* popup container */
                     #preview_popup_container,
+                    .preview_popup_container,
                     #import_popup_container {
                         background: #00000082;
                         position: fixed;
@@ -286,9 +290,9 @@ module.exports = function (req, res, url) {
 		                        <a class="close-button" onclick="hideImporter()">X</a>
 		                        <!-- Import form -->
 		                        <div id="import_image">
-                                        <button id="import-btn" onclick="document.getElementById('prop').click()">Upload Props</button>
+                                        <button onclick="document.getElementById('import_as').style.display = 'block'">Upload An Asset As...</button>
                                         <p>Because everything else is in beta, <br>prop uploading is only supported. <br>no worries, everything else is bound to come soon.</p>
-                                        <form enctype='multipart/form-data' style="display:none" action='/upload_prop' method='post'><input id='prop' type="file" name='import' accept=".png,.jpg" /></form>
+                                        <div id="import_as" style="display:none"><center><button onclick="document.getElementById('import_as').style.display = 'none'">↑</button></center><br><button onclick="document.getElementById('holdable').click()">Holdable Prop</button><br><br><button onclick="document.getElementById('headable').click()">Headable Prop</button><br><br><button onclick="document.getElementById('placeable').click()">Other Prop</button><form enctype='multipart/form-data' style="display:none" action='/upload_prop' method='post' target='dummy'><input id='placeable' type="file" onchange="this.form.submit()" name='import' accept=".png,.jpg" /></form><form enctype='multipart/form-data' style="display:none" action='/upload_prop_holdable' method='post' target='dummy'><input id='holdable' type="file" onchange="this.form.submit()" name='import' accept=".png,.jpg" /></form><form enctype='multipart/form-data' style="display:none" action='/upload_prop_headable' method='post' target='dummy'><input id='headable' type="file" onchange="this.form.submit()" name='import' accept=".png,.jpg" /></form></div>
                                 </div>
                         </div>
                 </div>
@@ -306,9 +310,19 @@ module.exports = function (req, res, url) {
                         </object>
                     </div>
                 </div>
+                <div class="preview_popup_container" id="video-tutorial" style="display:none">
+                    <div class="preview_popup">
+                        <h2>&nbsp;</h2>
+                            <div class="preview_player">
+                                <div id="wistia_player" class="wistia_embed" style="width:860px;height:445px">&nbsp;</div>
+                                </div>
+                            <a class="close-button" href="#" onclick="hideTutorial()">&#215;</a>
+                        </div>
+                     </div>
+                </div>
                 
                 <!-- Video Studio -->
-                <main>
+                <main id="studio_holder">
                 
                 <object data="https://josephanimate2021.github.io/animation/66453a3ba2cc5e1b/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
                     <!-- The flashvars are a huge mess, have fun looking at them. :) -->
@@ -372,7 +386,7 @@ module.exports = function (req, res, url) {
 	///
 	// Show upload window
 	function showImporter() {
-		document.getElementById("import_popup_container").style.display = "block";
+		$("#import_popup_container").show();
 	};
 
 	///
@@ -392,15 +406,23 @@ module.exports = function (req, res, url) {
 	function hidePreviewer() {
 		$("#preview_popup_container").hide();
 	}
+    function hideTutorial() {
+		$("#video-tutorial").hide();
+	}
 	// Hide Asset Importer popup
 	function hideImporter() {
-		document.getElementById("import_popup_container").style.display = "none";
-		studio[0].importerStatus("clear");
+		$("#import_popup_container").hide();
 	}
-	document.getElementById("prop").onchange = function() {
-	        this.form.submit();
-        }	        
-</script>
+    var videoTutorial = new VideoTutorial($("#video-tutorial"));
+    VideoTutorial.tutorials.composition = {
+        title: 'Composition Tutorial',
+        wistiaId: 'nuy96pslyp',
+    };
+    VideoTutorial.tutorials.enterexit = {
+        title: 'Enter and Exit Effects Tutorial',
+        wistiaId: 'fvjsa3jnzc',
+    }
+</script><script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script>
                 
                 </main>
                 

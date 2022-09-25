@@ -1,35 +1,31 @@
 // vars
 const loadPost = require("../req/body");
-const nodezip = require("node-zip");
+const formidable = require("formidable");
 const asset = require('./main');
 const fUtil = require('../fileUtil');
 const fs = require('fs');
 const xml = require('../xml');
-const base = Buffer.alloc(1, 0);
 // functions
 // server functions
 module.exports = function (req, res) {
   switch (req.method) {
     case "GET": {
-      const match = req.url.match(/\/assets\/([^/]+)$/);
+      const match = req.url.match(/\/assets\/([^.]+)(?:\.(png|jpg))?$/);
       if (!match) return;
       const id = match[1];
+      const ext = match[2];
       try {
-        res.end(fs.readFileSync(process.env.CHARS_FOLDER + `/${id}.png`));
-      } catch (e) {
         try {
-          res.end(fs.readFileSync(process.env.BG_FOLDER + `/${id}.png`));
-        } catch (e) {
           try {
-            res.end(fs.readFileSync(process.env.PRPOS_FOLDER + `/${id}.png`));
+            res.end(fs.readFileSync(process.env.CHARS_FOLDER + `/${id}.${ext}`));
           } catch (e) {
-            try {
-              res.end('404 not found.');
-            } catch (e) {
-              console.log(e);
-            }
+            res.end(fs.readFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`));
           }
+        } catch (e) {
+          res.end(fs.readFileSync(process.env.BG_FOLDER + `/${id}.${ext}`));
         }
+      } catch (e) {
+        res.end('404 Not Found');
       }
       return true;
     }
@@ -66,6 +62,18 @@ module.exports = function (req, res) {
               (res.statusCode = 200), res.end(0 + v);
             }).catch(e => { res.statusCode = 404, console.log(e), res.end(1 + Buffer.from(xml.error(e))) });
           });
+        } case "/upload_prop": {
+          new formidable.IncomingForm().parse(req, (e, f, files) => {
+            if (!files.import) return;
+            var path = files.import.path;
+            var buffer = fs.readFileSync(path);
+            const dot = files.import.name.lastIndexOf('.');
+            const ext = files.import.name.substr(dot + 1);
+            asset.upload("placeable", buffer, ext);
+            fs.unlinkSync(path);
+            res.end();
+          });
+          return true;
         }
       }
     }

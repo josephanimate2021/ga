@@ -6,6 +6,6 @@
 	},
 	"dependencies": {
 		"jszip": "^3.10.1",
-		"node-zip": "github:kyriosli/node-zip"
+		"formidable": "^1.2.1"
 	}
 }
