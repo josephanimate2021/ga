@@ -35,16 +35,9 @@ module.exports = function (req, res) {
     }
     case "POST": {
       switch (req.url) {
+        // i don't know what to expect here. but a blank asset error will give you other options.
         case "/goapi/getUserAssets/": {
-          loadPost(req, res).then(data => {
-            asset.getXmls(data, true).then(b => {
-              res.write(base);
-              res.end(b);
-            }).catch(e => {
-              console.log(e);
-              res.end(Buffer.from(xml.assetError(e)));
-            });
-          });
+          loadPost(req, res).then(data => asset.getXmls(data).then(b => res.end(Buffer.from(b))).catch(e => console.log(e)));
           return true;
         } case "/goapi/getUserAssetsXml/": {
           loadPost(req, res).then(data => asset.getXmls(data).then(b => res.end(Buffer.from(b))).catch(e => console.log(e)));

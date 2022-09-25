@@ -1,3 +1,4 @@
+const fs = require("fs");
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
   var html, tId;
@@ -12,1103 +13,395 @@ module.exports = function (req, res, url) {
             }
         }
         html = `<html><head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<link rel="dns-prefetch" href="https://josephanimate2021.github.io">
-
-<title>The Character Creator from Vyond - Make a Character Online!</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<meta name="description" content="The Character Creator from Vyond - Create a character online with Vyond.">
-<meta property="og:site_name" content="Vyond">
-<meta property="fb:app_id" content="177116303202">
-
-<meta name="google-site-verification" content="K_niiTfCVi72gwvxK00O4NjsVybMutMUnc-ZnN6HUuA">
-
-<link rel="canonical" href="${url.pathname}">
-
-<link href="https://josephanimate2021.github.io/fonts/1/sailec.css" rel="stylesheet" type="text/css">
-<link href="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/css/common_combined.css.gz.css" rel="stylesheet" type="text/css">
-
-<link href="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/css/cc.css.gz.css" rel="stylesheet" type="text/css">
-<!--[if lt IE 9]>
-<style text="text/css">
-.top-nav.collapse {height: auto;overflow: visible;}
-</style>
-<![endif]-->
-
-<script type="text/javascript" src="https://pi.pardot.com/pd.js"></script><script type="text/javascript" src="https://pi.pardot.com/pd.js"></script><script type="text/javascript" async="" src="https://cdn.amplitude.com/libs/amplitude-4.1.1-min.gz.js"></script><script type="text/javascript" async="" src="https://sjs.bizographics.com/insight.min.js"></script><script type="text/javascript" async="" src="//www.googleadservices.com/pagead/conversion_async.js"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://cdn.amplitude.com/libs/amplitude-4.1.1-min.gz.js"></script><script src="https://connect.facebook.net/signals/config/784667875001149?v=2.9.15&amp;r=stable" async=""></script><script async="" src="//connect.facebook.net/en_US/fbevents.js"></script><script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-TXV7MD"></script><script type="text/javascript" async="" src="https://ga.vyond.com/ajax/cookie_policy"></script><script type="text/javascript" src="https://pi.pardot.com/pd.js"></script><script type="text/javascript" async="" src="//munchkin.marketo.net/155/munchkin.js"></script><script type="text/javascript" async="" src="https://cdn.amplitude.com/libs/amplitude-4.1.1-min.gz.js"></script><script src="https://connect.facebook.net/signals/config/784667875001149?v=2.9.15&amp;r=stable" async=""></script><script async="" src="//connect.facebook.net/en_US/fbevents.js"></script><script type="text/javascript" async="" src="https://sjs.bizographics.com/insight.min.js"></script><script type="text/javascript" async="" src="//www.googleadservices.com/pagead/conversion_async.js"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-TXV7MD"></script><script type="text/javascript" async="" src="https://ga.vyond.com/ajax/cookie_policy"></script><script>
-var srv_tz_os = -4, view_name = "go", user_cookie_name = "u_info";
-var user_role = 11;
-</script>
-
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/common_combined.js.gz.js"></script>
-<script type="text/javascript" src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/../po/goserver_js-en_US.json.gz.json"></script>
-<script type="text/javascript">
-var I18N_LANG = 'en_US';
-var GT = new Gettext({'locale_data': json_locale_data});
-</script>
-
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/sessionChecker.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/amplitude/go_amp.js.gz.js"></script>
-
-<!-- Vyond Cookie Consent -->
-<script>(function(v,y,o,n){v[n]=v[n]||[];
-var f=y.getElementsByTagName(o)[0],d=y.createElement(o);
-d.type='text/javascript';d.async=true;d.src=
-'https://ga.vyond.com/ajax/cookie_policy';
-f.parentNode.insertBefore(d,f);
-})(window,document,'script','_vyccq');</script>
-<!-- End Vyond Cookie Consent -->
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TXV7MD');
-
-dataLayer.push({"userId":"0TBAAga2Mn6g"});
-</script>
-<!-- Google Tag Manager -->
-
-<script>
-
-</script>
-
-
-
-<script type="text/javascript" async="" src="//munchkin.marketo.net/munchkin.js"></script><script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/956549168/?random=1577875084777&amp;cv=9&amp;fst=1577875084777&amp;num=1&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;eid=376635470&amp;u_h=900&amp;u_w=1600&amp;u_ah=860&amp;u_aw=1600&amp;u_cd=24&amp;u_his=2&amp;u_tz=-360&amp;u_java=false&amp;u_nplug=4&amp;u_nmime=6&amp;gtm=2wgc61&amp;sendb=1&amp;ig=1&amp;frm=0&amp;url=https%3A%2F%2Ftvy4gv.000webhostapp.com%2FThe%2520Character%2520Creator%2520from%2520Vyond%2520-%2520Make%2520a%2520Character%2520Online%2520cw.html&amp;tiba=The%20Character%20Creator%20from%20Vyond%20-%20Make%20a%20Character%20Online!&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script><script type="text/javascript" src="https://pi.pardot.com/analytics?ver=3&amp;visitor_id=109029277&amp;pi_opt_in=&amp;campaign_id=3286&amp;account_id=715453&amp;title=The%20Character%20Creator%20from%20Vyond%20-%20Make%20a%20Character%20Online!&amp;url=https%3A%2F%2Ftvy4gv.000webhostapp.com%2FThe%2520Character%2520Creator%2520from%2520Vyond%2520-%2520Make%2520a%2520Character%2520Online%2520cw.html&amp;referrer="></script><script type="text/javascript" async="" src="//munchkin.marketo.net/munchkin.js"></script><script type="text/javascript" async="" src="//munchkin.marketo.net/munchkin.js"></script><script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/956549168/?random=1580006012218&amp;cv=9&amp;fst=1580006012218&amp;num=1&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;u_h=900&amp;u_w=1600&amp;u_ah=860&amp;u_aw=1600&amp;u_cd=24&amp;u_his=2&amp;u_tz=-360&amp;u_java=false&amp;u_nplug=4&amp;u_nmime=6&amp;gtm=2wg1f1&amp;sendb=1&amp;ig=1&amp;frm=0&amp;url=https%3A%2F%2Fkennystuff001001001.000webhostapp.com%2Foldvyondstuff%2Fcharactercreator&amp;tiba=The%20Character%20Creator%20from%20Vyond%20-%20Make%20a%20Character%20Online!&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script><script type="text/javascript" src="https://pi.pardot.com/analytics?ver=3&amp;visitor_id=&amp;pi_opt_in=&amp;campaign_id=3286&amp;account_id=715453&amp;title=The%20Character%20Creator%20from%20Vyond%20-%20Make%20a%20Character%20Online!&amp;url=https%3A%2F%2Fkennystuff001001001.000webhostapp.com%2Foldvyondstuff%2Fcharactercreator&amp;referrer="></script><script type="text/javascript" src="https://pi.pardot.com/analytics?ver=3&amp;visitor_id=&amp;pi_opt_in=&amp;campaign_id=3286&amp;account_id=715453&amp;title=The%20Character%20Creator%20from%20Vyond%20-%20Make%20a%20Character%20Online!&amp;url=https%3A%2F%2Fkennystuff001001001.000webhostapp.com%2Foldvyondstuff%2Fcharactercreator&amp;referrer="></script></head>
-<body class="en_US has-user" contenteditable="false">
-<script type="text/javascript">
-if (self !== top) {
-            jQuery('body').hide();
-    }
-</script>
-
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXV7MD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
-<script type="text/javascript">
-        jQuery.extend(CCStandaloneBannerAdUI, {"actionshopSWF":"https:\/\/josephanimate2021.github.io\/animation\/66453a3ba2cc5e1b\/actionshop.swf","apiserver":"\/","clientThemePath":"https:\/\/josephanimate2021.github.io\/static\/55910a7cd204c37c\/<client_theme>","userId":"0TBAAga2Mn6g"});
-</script>
-
-<div class="page-container">
-
-
-<div class="site-header">
-    <div class="navbar site-nav site-nav--legacy" role="navigation">
-            <div class="collapse navbar-collapse navbar-ex1-collapse"><ul class="nav navbar-nav navbar-right"><li>Powered by Vyond &amp; Kenny Animate&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li></ul></div></div></div><div class="container container-cc">
-
-<div>
-    <div id="char_creator_client" align="center"><object data="https://josephanimate2021.github.io/animation/414827163ad4eb60/cc.swf" type="application/x-shockwave-flash" id="char_creator" width="960" height="600"><param name="align" value="middle"><param name="allowScriptAccess" value="always"><param name="allowFullScreen" value="true"><param name="wmode" value="transparent"><param name="flashvars" value="apiserver=%2F&amp;m_mode=school&amp;bs=adam&amp;isLogin=Y&amp;isEmbed=0&amp;ctc=go&amp;tlang=en_US&amp;storePath=https%3A%2F%2Fjosephanimate2021.github.io%2Fstore%2F3a981f5cb2739137%2F%3Cstore%3E&amp;clientThemePath=https%3A%2F%2Fjosephanimate2021.github.io%2Fstatic%2Fad44370a650793d9%2F%3Cclient_theme%3E&amp;appCode=go&amp;page=&amp;siteId=go&amp;userId=00EDZP3Cu0aw&amp;themeId=${url.query.themeId || "family"}&amp;ut=30"><param name="movie" value="https://josephanimate2021.github.io/animation/414827163ad4eb60/cc.swf"></object></div>
-</div>
-<script>
-var character = "${url.query.bs || "adam"}";
-
-$('#char_creator_client').flash({
-   id: "char_creator",
-   swf: "https://josephanimate2021.github.io/animation/414827163ad4eb60/cc.swf",
-   height: 600,
-   width: 960,
-
-   align: "middle",
-   allowScriptAccess: "always",
-   allowFullScreen: "true",
-   wmode: "transparent",
-
-   hasVersion: "10.3",
-
-   flashvars: {"apiserver":"\/","m_mode":"school","bs":character,"isLogin":"Y","isEmbed":"0","ctc":"go","tlang":"en_US","storePath":"https:\/\/josephanimate2021.github.io\/store\/3a981f5cb2739137\/<store>","clientThemePath":"https:\/\/josephanimate2021.github.io\/static\/ad44370a650793d9\/<client_theme>","appCode":"go","page":"","siteId":"go","userId":"00EDZP3Cu0aw","themeId":"${url.query.themeId || "family"}","ut":30}});
-
-function goSubscribe()
-{
-    var url = 'https://www.vyond.com/pricing';
-    window.open(url, 'goSubscribe');
-}
-
-function characterSaved()
-{
-    SetCookie('cc_saved', '1', 1, '/');
-    window.location = '/studio?tray=${tId}';
-}
-</script>
-    </div>
-
-<script>
-function fbShare(ccId)
-{
-    if (ccId == undefined) {
-        return;
-    }
-    var url = encodeURIComponent('/?cc_id=' + ccId);
-    var title = encodeURIComponent('I just created a new character on Vyond');
-    var shareUrl = 'https://www.facebook.com/sharer.php?u=' + url + '&t=' + title;
-
-    window.open(shareUrl, 'fbshare', 'height=350, width=650, top=100, left=100, toolbar=no, menubar=no, scrollbars=no, resizable=no, status=no');
-}
-</script>
-
-<script>
-$(window).on('amplitude_loaded', function() {
-    amplitudeTrackEvent(
-        AMPLITUDE_EVENT.LAUNCH_CHARACTER_CREATOR,
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <link rel="dns-prefetch" href="https://josephanimate2021.github.io">
+        <title>The Character Creator from Vyond - Make a Character Online!</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="The Character Creator from Vyond - Create a character online with Vyond.">
+        <meta property="og:site_name" content="Vyond">
+        <meta property="fb:app_id" content="177116303202">
+        <meta name="google-site-verification" content="K_niiTfCVi72gwvxK00O4NjsVybMutMUnc-ZnN6HUuA">
+        <link rel="canonical" href="${url.pathname}">
+        <link href="https://josephanimate2021.github.io/fonts/1/sailec.css" rel="stylesheet" type="text/css">
+        <link href="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/css/common_combined.css.gz.css" rel="stylesheet" type="text/css">
+        <link href="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/css/cc.css.gz.css" rel="stylesheet" type="text/css">
+        <!--[if lt IE 9]>
+        <style text="text/css">
+        .top-nav.collapse {height: auto;overflow: visible;}
+        </style>
+        <![endif]-->
+        <script type="text/javascript" src="https://pi.pardot.com/pd.js"></script><script type="text/javascript" src="https://pi.pardot.com/pd.js"></script><script type="text/javascript" async="" src="https://cdn.amplitude.com/libs/amplitude-4.1.1-min.gz.js"></script><script type="text/javascript" async="" src="https://sjs.bizographics.com/insight.min.js"></script><script type="text/javascript" async="" src="//www.googleadservices.com/pagead/conversion_async.js"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://cdn.amplitude.com/libs/amplitude-4.1.1-min.gz.js"></script><script src="https://connect.facebook.net/signals/config/784667875001149?v=2.9.15&amp;r=stable" async=""></script><script async="" src="//connect.facebook.net/en_US/fbevents.js"></script><script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-TXV7MD"></script><script type="text/javascript" async="" src="https://ga.vyond.com/ajax/cookie_policy"></script><script type="text/javascript" src="https://pi.pardot.com/pd.js"></script><script type="text/javascript" async="" src="//munchkin.marketo.net/155/munchkin.js"></script><script type="text/javascript" async="" src="https://cdn.amplitude.com/libs/amplitude-4.1.1-min.gz.js"></script><script src="https://connect.facebook.net/signals/config/784667875001149?v=2.9.15&amp;r=stable" async=""></script><script async="" src="//connect.facebook.net/en_US/fbevents.js"></script><script type="text/javascript" async="" src="https://sjs.bizographics.com/insight.min.js"></script><script type="text/javascript" async="" src="//www.googleadservices.com/pagead/conversion_async.js"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-TXV7MD"></script><script type="text/javascript" async="" src="https://ga.vyond.com/ajax/cookie_policy"></script><script>
+        var srv_tz_os = -4, view_name = "go", user_cookie_name = "u_info";
+        var user_role = 11;
+        </script>
+        <script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/common_combined.js.gz.js"></script>
+        <script type="text/javascript" src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/../po/goserver_js-en_US.json.gz.json"></script>
+        <script type="text/javascript">
+        var I18N_LANG = 'en_US';
+        var GT = new Gettext({'locale_data': json_locale_data});
+        </script>
+        <script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/sessionChecker.js.gz.js"></script>
+        <script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/amplitude/go_amp.js.gz.js"></script>
+        <!-- Vyond Cookie Consent -->
+        <script>(function(v,y,o,n){v[n]=v[n]||[];
+        var f=y.getElementsByTagName(o)[0],d=y.createElement(o);
+        d.type='text/javascript';d.async=true;d.src=
+        'https://ga.vyond.com/ajax/cookie_policy';
+        f.parentNode.insertBefore(d,f);
+        })(window,document,'script','_vyccq');</script>
+        <!-- End Vyond Cookie Consent -->
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-TXV7MD');
+        dataLayer.push({"userId":"0TBAAga2Mn6g"});
+        </script>
+        <!-- Google Tag Manager -->
+        <script>
+        </script>
+        <script type="text/javascript" async="" src="//munchkin.marketo.net/munchkin.js"></script><script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/956549168/?random=1577875084777&amp;cv=9&amp;fst=1577875084777&amp;num=1&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;eid=376635470&amp;u_h=900&amp;u_w=1600&amp;u_ah=860&amp;u_aw=1600&amp;u_cd=24&amp;u_his=2&amp;u_tz=-360&amp;u_java=false&amp;u_nplug=4&amp;u_nmime=6&amp;gtm=2wgc61&amp;sendb=1&amp;ig=1&amp;frm=0&amp;url=https%3A%2F%2Ftvy4gv.000webhostapp.com%2FThe%2520Character%2520Creator%2520from%2520Vyond%2520-%2520Make%2520a%2520Character%2520Online%2520cw.html&amp;tiba=The%20Character%20Creator%20from%20Vyond%20-%20Make%20a%20Character%20Online!&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script><script type="text/javascript" src="https://pi.pardot.com/analytics?ver=3&amp;visitor_id=109029277&amp;pi_opt_in=&amp;campaign_id=3286&amp;account_id=715453&amp;title=The%20Character%20Creator%20from%20Vyond%20-%20Make%20a%20Character%20Online!&amp;url=https%3A%2F%2Ftvy4gv.000webhostapp.com%2FThe%2520Character%2520Creator%2520from%2520Vyond%2520-%2520Make%2520a%2520Character%2520Online%2520cw.html&amp;referrer="></script><script type="text/javascript" async="" src="//munchkin.marketo.net/munchkin.js"></script><script type="text/javascript" async="" src="//munchkin.marketo.net/munchkin.js"></script><script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/956549168/?random=1580006012218&amp;cv=9&amp;fst=1580006012218&amp;num=1&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;u_h=900&amp;u_w=1600&amp;u_ah=860&amp;u_aw=1600&amp;u_cd=24&amp;u_his=2&amp;u_tz=-360&amp;u_java=false&amp;u_nplug=4&amp;u_nmime=6&amp;gtm=2wg1f1&amp;sendb=1&amp;ig=1&amp;frm=0&amp;url=https%3A%2F%2Fkennystuff001001001.000webhostapp.com%2Foldvyondstuff%2Fcharactercreator&amp;tiba=The%20Character%20Creator%20from%20Vyond%20-%20Make%20a%20Character%20Online!&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script><script type="text/javascript" src="https://pi.pardot.com/analytics?ver=3&amp;visitor_id=&amp;pi_opt_in=&amp;campaign_id=3286&amp;account_id=715453&amp;title=The%20Character%20Creator%20from%20Vyond%20-%20Make%20a%20Character%20Online!&amp;url=https%3A%2F%2Fkennystuff001001001.000webhostapp.com%2Foldvyondstuff%2Fcharactercreator&amp;referrer="></script><script type="text/javascript" src="https://pi.pardot.com/analytics?ver=3&amp;visitor_id=&amp;pi_opt_in=&amp;campaign_id=3286&amp;account_id=715453&amp;title=The%20Character%20Creator%20from%20Vyond%20-%20Make%20a%20Character%20Online!&amp;url=https%3A%2F%2Fkennystuff001001001.000webhostapp.com%2Foldvyondstuff%2Fcharactercreator&amp;referrer="></script></head>
+        <body class="en_US has-user" contenteditable="false">
+        <script type="text/javascript">
+        if (self !== top) {
+                    jQuery('body').hide();
+            }
+        </script>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXV7MD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+        <script type="text/javascript">
+                jQuery.extend(CCStandaloneBannerAdUI, {"actionshopSWF":"https:\/\/josephanimate2021.github.io\/animation\/66453a3ba2cc5e1b\/actionshop.swf","apiserver":"\/","clientThemePath":"https:\/\/josephanimate2021.github.io\/static\/55910a7cd204c37c\/<client_theme>","userId":"0TBAAga2Mn6g"});
+        </script>
+        <div class="page-container">
+        <div class="site-header">
+            <div class="navbar site-nav site-nav--legacy" role="navigation">
+                    <div class="collapse navbar-collapse navbar-ex1-collapse"><ul class="nav navbar-nav navbar-right"><li>Powered by Vyond &amp; Kenny Animate&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li></ul></div></div></div><div class="container container-cc">
+        <div>
+            <div id="char_creator_client" align="center"><object data="https://josephanimate2021.github.io/animation/414827163ad4eb60/cc.swf" type="application/x-shockwave-flash" id="char_creator" width="960" height="600"><param name="align" value="middle"><param name="allowScriptAccess" value="always"><param name="allowFullScreen" value="true"><param name="wmode" value="transparent"><param name="flashvars" value="apiserver=%2F&amp;m_mode=school&amp;bs=adam&amp;isLogin=Y&amp;isEmbed=0&amp;ctc=go&amp;tlang=en_US&amp;storePath=https%3A%2F%2Fjosephanimate2021.github.io%2Fstore%2F3a981f5cb2739137%2F%3Cstore%3E&amp;clientThemePath=https%3A%2F%2Fjosephanimate2021.github.io%2Fstatic%2Fad44370a650793d9%2F%3Cclient_theme%3E&amp;appCode=go&amp;page=&amp;siteId=go&amp;userId=00EDZP3Cu0aw&amp;themeId=${url.query.themeId || "family"}&amp;ut=30"><param name="movie" value="https://josephanimate2021.github.io/animation/414827163ad4eb60/cc.swf"></object></div>
+        </div>
+        <script>
+        var character = "${url.query.bs || "adam"}";
+        $('#char_creator_client').flash({
+           id: "char_creator",
+           swf: "https://josephanimate2021.github.io/animation/414827163ad4eb60/cc.swf",
+           height: 600,
+           width: 960,
+           align: "middle",
+           allowScriptAccess: "always",
+           allowFullScreen: "true",
+           wmode: "transparent",
+           hasVersion: "10.3",
+           flashvars: {"apiserver":"\/","m_mode":"school","bs":character,"isLogin":"Y","isEmbed":"0","ctc":"go","tlang":"en_US","storePath":"https:\/\/josephanimate2021.github.io\/store\/3a981f5cb2739137\/<store>","clientThemePath":"https:\/\/josephanimate2021.github.io\/static\/ad44370a650793d9\/<client_theme>","appCode":"go","page":"","siteId":"go","userId":"00EDZP3Cu0aw","themeId":"${url.query.themeId || "family"}","ut":30}});
+        function goSubscribe()
         {
-            theme: 'Whiteboard Animation'
+            var url = 'https://www.vyond.com/pricing';
+            window.open(url, 'goSubscribe');
         }
-    );
-});
-
-    // Amplitude interface for Flash player.
-    function logAmplitudeEvent(eventName, eventProperties) {
-        amplitudeTrackEvent(eventName, eventProperties);
-    }
-</script>
-
-
-<!-- FOOTER -->
-
-<footer class="site-footer">
-    <div class="container">
-        Vyond™ is a trademark of GoAnimate, Inc. © 2019 GoAnimate, Inc. <a href="https://www.vyond.com/terms">Terms of Service</a> | <a href="https://www.vyond.com/privacy">Privacy Policy</a> | <a href="https://www.vyond.com/cookies">Cookies Policy</a>
-    </div>
-</footer>
-
-
-<div id="studio_container" style="display: none;">
-    <div id="studio_holder"><!-- Full Screen Studio -->
-        <div style="top: 50%; position: relative;">
-            You can't use Vyond because Flash might be disabled. <a href="https://get.adobe.com/flashplayer/">Enable Flash</a>.
-        </div>
-    </div>
-</div>
-
-</div>
-<!-- END OF PAGE STRUCTURE -->
-
-
-
-<div id="offer_container">
-</div>
-<script type="text/javascript">
-    </script>
-
-<script type="text/javascript">
-
-</script>
-
-</body></html>`;
-        break;
-    } case "/studio": {
-        res.setHeader("Content-Type", "text/html; charset=utf8");
-        html = `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<link rel="dns-prefetch" href="https://d2bm7x1jqouzel.cloudfront.net">
-<link rel="dns-prefetch" href="//d3v4eglovri8yt.cloudfront.net">
-
-<title>The Video Maker from Vyond - Make a Video for YouTube!</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<meta name="description" content="The Video Maker lets You make a video for YouTube for free! Drag & drop or type & go.  It's Fast, Fun, Easy and Free -  Vyond!">
-<meta property="og:site_name" content="Vyond">
-<meta property="fb:app_id" content="177116303202">
-
-<meta name="google-site-verification" content="K_niiTfCVi72gwvxK00O4NjsVybMutMUnc-ZnN6HUuA">
-
-
-<link href="https://josephanimate2021.github.io/fonts/1/sailec.css" rel="stylesheet" type="text/css">
-<link href="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/css/common_combined.css.gz.css" rel="stylesheet" type="text/css">
-
-<link href="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/css/studio.css.gz.css" rel="stylesheet" type="text/css">
-<link href="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/css/video_voice_vendor.css.gz.css" rel="stylesheet" type="text/css">
-<link href="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/css/worknote.css.gz.css" rel="stylesheet" type="text/css">
-<link href="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/css/importer.css.gz.css" rel="stylesheet" type="text/css">
-<link href="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/css/importer_share.css.gz.css" rel="stylesheet" type="text/css">
-<!--[if lt IE 9]>
-<style text="text/css">
-.top-nav.collapse {height: auto;overflow: visible;}
-</style>
-<![endif]-->
-
-<script>
-var srv_tz_os = -4, view_name = "go", user_cookie_name = "u_info";
-var user_role = 11;
-</script>
-
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/jquery/jquery-1.11.0.min.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/bootstrap3/bootstrap.min.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/bootstrap3/bootstrap-switch.min.js.gz.js"></script>
-
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/go2.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/jquery/jquery.swfobject.min.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/jquery/jquery.blockUI-2.66.0.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/jquery/jquery.scrollTo.min.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/app.js.gz.js"></script>
-
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/cookie.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/Gettext.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/email.js.gz.js"></script>
-
-<script type="text/javascript" src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/../po/goserver_js-en_US.json.gz.json"></script>
-<script type="text/javascript">
-var I18N_LANG = 'en_US';
-var GT = new Gettext({'locale_data': json_locale_data});
-</script>
-
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/movie.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/cookie.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/studio.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/jquery/jquery.tmpl.min.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/lib/pako.min.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/amplitude/go_amp.js.gz.js"></script>
-
-<!-- Vyond Cookie Consent -->
-<script>(function(v,y,o,n){v[n]=v[n]||[];
-var f=y.getElementsByTagName(o)[0],d=y.createElement(o);
-d.type='text/javascript';d.async=true;d.src=
-'https://ga.vyond.com/ajax/cookie_policy';
-f.parentNode.insertBefore(d,f);
-})(window,document,'script','_vyccq');</script>
-<!-- End Vyond Cookie Consent -->
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TXV7MD');
-
-dataLayer.push({"userId":"0TBAAga2Mn6g"});
-</script>
-<!-- Google Tag Manager -->
-
-<script>
-
-</script>
-
-
-        <script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/h5preview/media-controller.js.gz.js"></script>
-        <script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/h5preview/preview-player.js.gz.js"></script>
-
-</head>
-<body class="en_US has-user" >
-<script type="text/javascript">
-if (self !== top) {
-            jQuery('body').hide();
-    }
-</script>
-
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXV7MD"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
-<script type="text/javascript">
-        jQuery.extend(CCStandaloneBannerAdUI, {"actionshopSWF":"https:\/\/d3v4eglovri8yt.cloudfront.net\/animation\/66453a3ba2cc5e1b\/actionshop.swf","apiserver":"http:\/\/ga.vyond.com\/","clientThemePath":"https:\/\/d3v4eglovri8yt.cloudfront.net\/static\/b51fc9816191318d\/<client_theme>","userId":"0TBAAga2Mn6g"});
-</script>
-
-<div class="page-container">
-
-
-<!-- END OF HEADER -->
-
-<div style="position:relative;">
-    <div id="studioBlock"><!-- --></div>
-
-    <div id="playerBlock"></div>
-
-    <div style="display: none;">
-    <div class="templates">
-        <div class="studiotemplatebrowser">
-            <div class="close"><a href="javascript:hideCCWidget()" onclick="javascript:return hideCCWidget()">X</a></div>
-            <h1>Latest Releases</h1>
-            <div class="thumbcontainer">
-                <!-- All thumbcells here -->
+        function characterSaved()
+        {
+            SetCookie('cc_saved', '1', 1, '/');
+            window.location = '/studio?tray=${tId}';
+        }
+        </script>
             </div>
-            <div class="more">
-                <a href="#">More Characters &gt;</a>
+        <script>
+        function fbShare(ccId)
+        {
+            if (ccId == undefined) {
+                return;
+            }
+            var url = encodeURIComponent('/?cc_id=' + ccId);
+            var title = encodeURIComponent('I just created a new character on Vyond');
+            var shareUrl = 'https://www.facebook.com/sharer.php?u=' + url + '&t=' + title;
+            window.open(shareUrl, 'fbshare', 'height=350, width=650, top=100, left=100, toolbar=no, menubar=no, scrollbars=no, resizable=no, status=no');
+        }
+        </script>
+        <script>
+        $(window).on('amplitude_loaded', function() {
+            amplitudeTrackEvent(
+                AMPLITUDE_EVENT.LAUNCH_CHARACTER_CREATOR,
+                {
+                    theme: 'Whiteboard Animation'
+                }
+            );
+        });
+            // Amplitude interface for Flash player.
+            function logAmplitudeEvent(eventName, eventProperties) {
+                amplitudeTrackEvent(eventName, eventProperties);
+            }
+        </script>
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <div class="container">
+                Vyond™ is a trademark of GoAnimate, Inc. © 2019 GoAnimate, Inc. <a href="https://www.vyond.com/terms">Terms of Service</a> | <a href="https://www.vyond.com/privacy">Privacy Policy</a> | <a href="https://www.vyond.com/cookies">Cookies Policy</a>
             </div>
-        </div>
-        <div class="thumbcell">
-            <a href="" class="buttonlink">
-                <span class="button">
-                    <span class="buynow">Buy now</span><br />
-                    <span class="bucks">%d GoBucks</span>
-                </span>
-            </a>
-            <p class="gotit">Got It!</p>
-        </div>
-    </div>
-</div>
-    <div class="templates" style="display: none;">
-    <div class="voice-vendor-ad" style="display: none;">
-        <div class="close"><a href="javascript:hideVoiceAdWidget()" onclick="javascript:return hideVoiceAdWidget()">&times;</a></div>
-        <div id="studio-voice-vendor-container">
-            <ul>
-                <li><a
-                    class="gtm-ga-pageview-t2"
-                    id="voice-vendor-iw"
-                    target="_blank"
-                    href="https://www.inwhatlanguage.com/goanimate-translations/"
-                    data-gtmv-page="/pageTracker/voicebanner/InWhatLanguage"
-                    onclick="setvoicebannercookie();"
-                ><img src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/img/video_voice/btn_iw.png" /></a></li>
-                <li><a
-                    class="gtm-ga-pageview-t2"
-                    id="voice-vendor-vb"
-                    target="_blank"
-                    href="https://voicebunny.com/?p=vyond"
-                    data-gtmv-page="/pageTracker/voicebanner/VoiceBunny"
-                    onclick="setvoicebannercookie();"
-                ><img src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/img/video_voice/btn_vb.png" /></a></li>
-                <li>
-                    <hr class="sperator" />
-                    <a
-                        class="voiceover-tips gtm-ga-pageview-t2"
-                        target="_blank"
-                        href="http://goanimate.com/video-maker-tips/tutorial-why-you-should-break-up-your-dialogue-audio-into-small-pieces-before-importing/"
-                        data-gtmv-page="/pageTracker/voicebanner/VoiceoverTips"
-                        onclick="setvoicebannercookie();"
-                    ><span><i class="lightbulb"></i>Voiceover Tips &gt;</span></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<script type="text/javascript">
-function setvoicebannercookie() { SetCookie('vbcdt','1568805507', 31, '/'); }
-function voiceBanner(bannerId) {
-    var banner = $('#voice-vendor-' + bannerId);
-    if (banner.length) {
-        banner.click();
-
-        window.open(banner.attr('href'), '_blank');
-    }
-}
-</script>
-
-    <div id="previewPlayerContainer">
-        <div class="preview-player" id="previewPlayer">
-            <h2>Preview Video</h2>
-            <div class="preview-upsell"><a href="https://www.vyond.com/pricing" target="_blank">Subscribe now</a> to remove the free trial watermark.</div>
-            <div id="playerdiv"></div>
-            <div id="h5-playerdiv">
-                <video class="hidden" id="h5-preview-player" width="100%" height="100%"></video>
-                <div class="player-overlay loading">
-                    <div class="loading-icon">
-                        <div class="loading-message"></div>
-                    </div>
-                    <div class="replay-button"></div>
-                </div>
-                <div class="video-controls">
-                    <div class="playback-button">
-                        <div class="icon-image"></div>
-                    </div>
-                    <div class="seek-bar">
-                        <div class="value-bar total-bar"></div>
-                        <div class="value-bar buffered-bar"></div>
-                        <div class="value-bar played-bar"></div>
-                        <div class="slider-thumb"></div>
-                        <div class="time-tooltip">00:00</div>
-                    </div>
-                    <div class="time-display">
-                        <div class="text">00:00 / 00:00</div>
-                    </div>
-                    <div class="volume-control">
-                        <div class="volume-icon">
-                            <div class="icon-image"></div>
-                        </div>
-                        <div class="volume-slider">
-                            <div class="slider-track">
-                                <div class="track-value-bar"></div>
-                            </div>
-                            <div class="slider-thumb"></div>
-                        </div>
-                    </div>
+        </footer>
+        <div id="studio_container" style="display: none;">
+            <div id="studio_holder"><!-- Full Screen Studio -->
+                <div style="top: 50%; position: relative;">
+                    You can't use Vyond because Flash might be disabled. <a href="https://get.adobe.com/flashplayer/">Enable Flash</a>.
                 </div>
             </div>
-            <div id="preview-alert-block" class="preview-alert-block clearfix">Auto-pause at end of scenes is not supported in our web video player.<br/>The auto-pause feature is supported once you download the video as presentation in the "Share/Export" overlay.</div>
-            <div class="buttons clearfix">
-                <button class="preview-button edit" type="button" onclick="switchBackToStudio();">Back to editing</button>
-                <button class="preview-button save" type="button" onclick="publishStudio();">Save Now</button>            </div>
-
-            <a class="close_btn" href="#" onclick="switchBackToStudio(); return false;">&#215;</a>
         </div>
-    </div>
-
-    <div class="video-tutorial" id="video-tutorial">
-        <div class="video-tutorial-body">
-            <h2>&nbsp;</h2>
-            <div class="video-tutorial-player">
-                <div id="wistia_player" class="wistia_embed" style="width:860px;height:445px">&nbsp;</div>
-            </div>
-            <a class="close_btn" href="#" onclick="return false;">&#215;</a>
         </div>
-        <div class="video-tutorial-footer clearfix">
-            <button class="tutorial-button" type="button">
-                Close            </button>
+        <!-- END OF PAGE STRUCTURE -->
+        <div id="offer_container">
         </div>
-    </div>
-</div>
-
-<div style="display:none">
-<div class="ga-importer">
-    <div class="ga-importer-header">
-        <form class="ga-importer-base-form" action="https://vyondonlinelegacy.herokuapp.com/ajax/saveUserProp" method="post">
-            <a class="ga-importer-collapse" href="#" title="Collapse" onclick="hideImporter(); return false;">&#215;</a>
-
-            <div class="fileinputs">
-                <div class="importer-button file-trigger">SELECT FILES</div>
-                <input class="ga-importer-file-input" type="file" name="file" multiple>
-            </div>
-
-            <span class="hints">
-                <i class="glyph-pro glyph-circle-question_mark"></i>
-                <div class="tooltip in" style="display:none;">
-                    <div class="tooltip-arrow"></div>
-                    <div class="tooltip-inner">
-                        <ul>
-                            <li>Maximum file size: 15MB</li>
-                            <li>Images: JPG, PNG<br>To cover the whole stage in a 1080p video, use an image at least 1920px x 1080px.</li>
-                            <li>Audio: MP3, WAV, M4A</li>
-                            <li>Video: MP4.</li>
-                            <li>Fonts: TTF, OTF (Professional only)</li>
-                        </ul>
-                    </div>
-                </div>
-            </span>
-
-            <input type="hidden" name="subtype" value="">
-        </form>
-    </div>
-    <div class="ga-importer-content">
-        <div class="ga-importer-start">
-            <div class="ga-importer-start-draghere">Drag files here</div>
-
-            <div class="ga-importer-instruction general">
-                <ul>
-                    <li><strong>Maximum file size:</strong> 15MB</li>
-                    <li><strong>Images:</strong> JPG, PNG<br>To cover the whole stage in a 1080p video, use an image at least 1920px x 1080px.</li>
-                    <li><strong>Audio:</strong> MP3, WAV, M4A</li>
-                    <li><strong>Video:</strong> MP4.</li>
-                    <li><strong>Fonts:</strong> TTF, OTF (Professional only)</li>
-                </ul>
-            </div>
-        </div>
-        <div class="ga-importer-results">
-            <div class="ga-importer-notice clearfix">
-                <div class="ga-importer-notice-count">
-                    Files added. <a class="open-your-library">View Library</a>
-                </div>
-            </div>
-            <ul class="ga-importer-files"></ul>
-        </div>
-        <div class="ga-importer-queue-message">
-            Assign a category to start importing
-            <span class="hints pull-right">
-                <i class="i-help"></i>
-                <div class="tooltip in" style="display:none;">
-                    <div class="tooltip-arrow"></div>
-                    <div class="tooltip-inner">
-                        <p>Imported files are categorized to simplify browsing.</p>
-                        <p>Use the "IMPORT AS" drop down to see the available categories based on the format of the file you import.</p>
-                    </div>
-                </div>
-            </span>
-        </div>
-        <ul class="ga-importer-queue"></ul>
-    </div>
-    <div class="ga-import-dnd-hint">
-        Release to start uploading    </div>
-</div>
-</div>
-
-    <script>
-        interactiveTutorial.isShowTutorial = false;
-
-        var hideHTMLBox = function() {
-            window.close();
-        };
-
-        function tutorialStarted() {
-        }
-        function tutorialStep(sn) {
-        }
-        function tutorialCompleted() {
-            $.ajax({
-                type: 'POST',
-                url: '/ajax/tutorialStatus/completed'
-            });
-        }
-        var enable_full_screen = true;
-
-        var studio_data = {
-            id: "Studio",
-            swf: "https://josephanimate2021.github.io/animation/66453a3ba2cc5e1b/go_full.swf",
-            width: "100%",
-            height: "100%",
-
-            align: "middle",
-            allowScriptAccess: "always",
-            allowFullScreen: "true",
-            wmode: "window",
-
-            hasVersion: "10.3"
-        };
-
-        if (!enable_full_screen) {
-            studio_data.width  = 960;
-            studio_data.height  = 630;
-            resize_studio = false;
-        }
-
-        studio_data.flashvars = {"movieId":"","loadas":0,"asId":"","originalId":"","apiserver":"\/","storePath":"https:\/\/josephanimate2021.github.io\/store\/3a981f5cb2739137\/<store>","clientThemePath":"https:\/\/josephanimate2021.github.io\/static\/55910a7cd204c37c\/<client_theme>","animationPath":"https:\/\/josephanimate2021.github.io\/animation\/66453a3ba2cc5e1b\/","userId":"0TBAAga2Mn6g","username":"BluePeacocks","uemail":"ins21863@bcaoo.com","numContact":"0","ut":30,"ve":false,"isEmbed":0,"nextUrl":"/player?movieId=<movieId>","bgload":"https:\/\/josephanimate2021.github.io\/animation\/66453a3ba2cc5e1b\/go_full.swf","lid":"1","ctc":"go","themeColor":"silver","tlang":"en_US","siteId":"13","templateshow":"false","forceshow":"false","appCode":"go","lang":"en","tmcc":4048901,"fb_app_url":"https:\/\/ga.vyond.com\/","is_published":"0","is_private_shared":"1","is_password_protected":false,"upl":1,"hb":"1","pts":"1","msg_index":"","ad":0,"has_asset_bg":0,"has_asset_char":0,"initcb":"studioLoaded","retut":0,"featured_categories":null,"s3base":"https:\/\/s3.amazonaws.com\/fs.goanimate.com\/,https:\/\/assets.vyond.com\/","st":"","uisa":0,"u_info":"OjI6dzVQck1nblJuVitRRVNzQ3V0Z3VaZ0RwWlU2SVlkeVVKdEhhdWJJeVM2cHpBVTJMX2szQ2liMjJYMU5rRE5VTmoxdWJTdjhMcV8xU0hfNnhaNm05ckpXeGdEZW0zem15Y201cV9hcjVwQ1FPRDRhY1dqeEtFQUpZT3o1dTh1SFUzU3RtdERTNU1nS0E9PQ==","logo":1,"tm":"FIN","tray":"${url.query.tray || "custom"}","isWide":1,"newusr":1,"goteam_draft_only":0};
-
-        var _ccad = null;
-
-        function proceedWithFullscreenStudio() {
-            // These should be executed only when we are really ready to show the studio
-            window.onbeforeunload = function(e) {
-                var e = e || window.event;
-                var msg = null;
-                if (loadedFullscreenStudio && studioApiReady) {
-                    msg = 'You are about to lose all your unsaved changes in the studio.';
-                }
-                if (e && msg != null) {
-                    e.returnValue = msg;
-                }
-
-                if (msg != null) {
-                    return msg;
-                }
-            };
-
-            show_cc_ad = false;
-            // CC template studio widget
-            if (show_cc_ad) {
-                _ccad = new CCBannerAd("business");
-                (function() {
-                    var ccId = undefined;
-                    _ccad
-                        .onBuyCCInsufficientBalance(function() {
-                            $('#Studio').get(0).showBuyGoBuckPopUp();
-                        })
-                        .onBuyCCComplete(function(aid, trackInfo, templateId) {
-                            if (trackInfo) {
-                            var logger = CCStandaloneBannerAdUI.gaLogTx.createCCPartLogger(aid);
-                            if (templateId) {
-                                logger.setTemplateId(templateId);
-                            }
-                            $.grep(trackInfo.parts, function(n, i) {
-                                return $.inArray(n.ctype, [ 'GoUpper', 'GoLower', 'upper_body', 'lower_body', 'hair' ]) >= 0;
-                            }).each(function(n) {
-                                logger.addItem(n);
-                            });
-                            logger.submit();
-                            }
-
-                            ccId = aid;
-                            if (typeof ccId != undefined) {
-                                try {
-                                    $('#Studio').get(0).reloadAllCC(ccId);
-                                } catch (e) {
-                                }
-                                ccId = undefined;
-                            }
-                        });
-                })();
-            }
-
-            show_voice_ad = true;
-            $('#studio_container').append($('div.templates div.voice-vendor-ad').clone());
-            if (show_voice_ad) {
-                showVoiceAdWidget();
-            }
-
-
-            $('div#studioBlock').css('height', '0px');
-            $('#studio_holder').flash(studio_data);
-            full_screen_studio();
-
-            ajust_studio();
-        }
-
-        function hideCCWidget() {
-            show_cc_ad = false;
-            $('div.studiotemplatebrowser').css('display', 'none');
-            var widget_right = 0;
-            if (show_voice_ad) {
-                $('#studio_container div.voice-vendor-ad').css('right', widget_right);
-                widget_right += $('#studio_container div.voice-vendor-ad').css('width');
-            }
-            if (show_worknote) {
-                $('#studio_container div.studio-worknote').css('right', widget_right);
-            }
-            ajust_studio();
-            return false;
-        }
-
-        function showVoiceAdWidget() {
-            show_voice_ad = true;
-            $('#studio_container div.voice-vendor-ad').css('display', 'block');
-            var widget_right = 0;
-            if (show_cc_ad) {
-                widget_right += $('div.studiotemplatebrowser').css('width');
-            }
-            $('#studio_container div.voice-vendor-ad').css('right', widget_right);
-            widget_right += $('#studio_container div.voice-vendor-ad').css('width');
-            if (show_worknote) {
-                $('#studio_container div.studio-worknote').css('right', widget_right);
-            }
-            ajust_studio();
-            return false;
-        }
-
-        function hideVoiceAdWidget() {
-            show_voice_ad = false;
-            $('#studio_container div.voice-vendor-ad').css('display', 'none');
-            var widget_right = 0;
-            if (show_cc_ad) {
-                widget_right += $('div.studiotemplatebrowser').css('width');
-            }
-            if (show_worknote) {
-                $('#studio_container div.studio-worknote').css('right', widget_right);
-            }
-            ajust_studio();
-            return false;
-        }
-
-        function showWorknoteWidget() {
-            show_worknote = true;
-            $('#studio_container div.studio-worknote').css('display', 'block');
-            var widget_right = 0;
-            if (show_cc_ad) {
-                widget_right += $('div.studiotemplatebrowser').css('width');
-            }
-            if (show_voice_ad) {
-                widget_right += $('#studio_container div.voice-vendor-ad').css('width');
-            }
-            $('#studio_container div.studio-worknote').css('right', widget_right);
-            ajust_studio();
-            return false;
-        }
-
-        function hideWorknoteWidget() {
-            show_worknote = false;
-            $('#studio_container div.studio-worknote').css('display', 'none');
-            ajust_studio();
-            return false;
-        }
-
-        function toggleWorknoteContent() {
-            $('#studio_container .studio-worknote').toggleClass('collapsed expand');
-            ajust_studio();
-            return false;
-        }
-
-        var studioApiReady = false;
-        function studioLoaded() {
-            studioApiReady = true;
-            $(document).trigger('studioApiReady');
-        };
-
-        var studioWorknoteModule = null;
-
-        var studioModule = null;
-
-        var videoTutorial = null;
-
-        $(document).ready(function() {
-            if (enable_full_screen) {
-
-                if (!false) {
-                    $('#studio_container').css('top', '0px');
-                }
-                $('#studio_container').show();
-                $('.site-footer').hide();
-                $('#studioBlock').css('height', '1800px');
-
-                if (false) {
-                    checkCopyMovie('javascript:proceedWithFullscreenStudio()', '');
-                } else if (false) {
-                    checkEditMovie('');
-                } else {
-                    proceedWithFullscreenStudio();
-                }
-
-                $(window).on('resize', function() {
-                    ajust_studio();
-                });
-                $(window).on('studio_resized', function() {
-                    if (show_cc_ad) {
-                        _ccad.refreshThumbs();
+        <script type="text/javascript">
+            </script>
+        <script type="text/javascript">
+        </script>
+        </body></html>`;
+                break;
+            } case "/studio": {
+                res.setHeader("Content-Type", "text/html; charset=utf8");
+                html = `<html lang="en">
+                <head>
+                    <meta charset="utf-8">
+                    <link rel="icon" href="/favicon.png" type="image/png">
+                    <title>Video Studio</title>
+                    <script src="https://josephanimate2021.github.io/lvm-static/api/jquery/index.js"></script>
+                    <style>
+                    html, body {
+                        background: #696969;
+                        margin: 0px;
                     }
-                });
+                    
+                    /**
+                    main
+                    **/
+                    main {
+                        padding: 0;
+                    }
+                    
+                    /**
+                    character page stuff
+                    **/
+                    #character_studio,
+                    #character_browser {
+                        display: block;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                    /* character studio */
+                    #character_studio {
+                        width: 960px;
+                        height: 600px;
+                    }
+                    /* character browser */
+                    #character_browser {
+                        width: 100%;
+                        height: 100%;
+                    }
+                    
+                    /**
+                    other pages
+                    **/
+                    #video_studio,
+                    #video_player {
+                        width: 100%;
+                        height: 100%;
+                    }
+                    #preview_player {
+                        height: 360px;
+                        width: 640px;
+                        display: block;
+                        margin: auto;
+                    }
+                    
+                    /**
+                    popups
+                    **/
+                    /* popup */
+                    #preview_popup,
+                    #import_popup {
+                        position: absolute;
+                        background: #f2f7fc;
+                        top: 50%;
+                        left: 50%;
+                        padding: 20px 40px;
+                        border-radius: 4px;
+                        box-shadow: 0 8px 12px 2px #00000065;
+                        color: #525a6b;
+                    }
+                    /* preview popup */
+                    #preview_popup {
+                        margin: -225px 0 0 -360px;
+                    }
+                    /* import popup */
+                    #import_popup {
+                        margin: -154px 0 0 -220.5px;
+                    }
+                    #preview_popup h2,
+                    #import_popup h2  {
+                        margin: 0px 0px 15px;
+                        font-weight: 400;
+                    }
+                    /* popup container */
+                    #preview_popup_container,
+                    #import_popup_container {
+                        background: #00000082;
+                        position: fixed;
+                        width: 100%;
+                        height: 100%;
+                    }
+                    /* close button */
+                    .close-button {
+                        position: absolute;
+                        top: 10px;
+                        right: 40px;
+                        color: #4f5b93;
+                    }
+                    
+                    /**
+                    form stuff
+                    **/
+                    .button_import {
+                        background: #4f5b93;
+                        border: 1px solid #8892bf;
+                        border-radius: 3px;
+                        padding: 4px 10px;
+                        color: #fff;
+                        width: 100%;
+                        margin-top: 20px;
+                    }
+                    ::-webkit-file-upload-button {
+                        background: #4f5b93;
+                        border: 1px solid #8892bf;
+                        border-radius: 3px;
+                        padding: 4px 10px;
+                        color: #fff;
+                    }
+                    </style>
+                </head>
+                <body>
+                
+                <!-- Asset Importer -->
+                <div id="import_popup_container" style="display:none">
+                        <div id="import_popup">
+                                 <h2 id="import-an-asset">Import an Asset</h2>
+		                        <a class="close-button" onclick="hideImporter()">X</a>
+		                        <!-- Import form -->
+		                        <div id="import_image">
+                                        <button id="import-btn" onclick="document.getElementById('prop').click()">Upload Props</button>
+                                        <p>Because everything else is in beta, <br>prop uploading is only supported. <br>no worries, everything else is bound to come soon.</p>
+                                        <form enctype='multipart/form-data' style="display:none" action='/upload_prop' method='post'><input id='prop' type="file" onchange="this.form.submit()" name='import' accept=".png,.jpg" /></form>
+                                </div>
+                        </div>
+                </div>
+                
+                <!-- Video Previewer -->
+                <div id="preview_popup_container" style="display:none">
+                    <div id="preview_popup">
+                        <h2 id="preview-video">Preview Video</h2>
+                        <p class="close-button" onclick="hidePreviewer()">X</p>
+                        <object data="https://josephanimate2021.github.io/animation/930/player.swf" type="application/x-shockwave-flash" id="preview_player">
+                            <!-- The flashvars are a huge mess, have fun looking at them. :) -->
+                            <param name="flashvars" value="apiserver=/&storePath=https://josephanimate2021.github.io/store/3a981f5cb2739137/<store>&isEmbed=1&ctc=go&ut=60&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=https://josephanimate2021.github.io/static/55910a7cd204c37c/<client_theme>&tlang=en_US&isInitFromExternal=1&goteam_draft_only=1&isWide=1&collab=0&startFrame=previewStartFrame&autostart=1&nextUrl=../pages/html/list.html&tray=${url.query.tray || "custom"}">
+                            <param name="allowScriptAccess" value="always">
+                            <param name="allowFullScreen" value="true">
+                        </object>
+                    </div>
+                </div>
+                
+                <!-- Video Studio -->
+                <main>
+                
+                <object data="https://josephanimate2021.github.io/animation/66453a3ba2cc5e1b/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
+                    <!-- The flashvars are a huge mess, have fun looking at them. :) -->
+                    <param name="flashvars" value="apiserver=/&storePath=https://josephanimate2021.github.io/store/3a981f5cb2739137/<store>&isEmbed=1&ctc=go&ut=60&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=https://josephanimate2021.github.io/static/55910a7cd204c37c/<client_theme>&themeId=custom&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=../pages/html/list.html&tray=${url.query.tray || "custom"}">            
+                    <param name="allowScriptAccess" value="always">
+                    <param name="allowFullScreen" value="true">
+                </object>
+                
+                </main>
+                
+                <!-- Keeps the page from reloading on form submission -->
+                <iframe style="display:none" name="dummy"></iframe>
+                <script>
+	////
+	//// This JS contains important Video Studio stuff
+	////
+	
+	///
+	/// Variables
+	///
+	var previewPlayerTempData = "";
+	const fu = document.getElementById('fileupload'),
+		sub = document.getElementById('submit');
 
-                if (studioApiReady) {
-                    var api = studioApi($('#studio_holder'));
-                    api.bindStudioEvents();
-                    studioModule = new StudioModule();
-                }
+	///
+	/// Previewer
+	///
+	function initPreviewPlayer(dataXmlStr, startFrame, containsChapter, themeList) {
+		// New variable to be used by loadPreviewer()
+		movieDataXmlStr = dataXmlStr;
+		// Movie XML
+		filmXmlStr = dataXmlStr.split("<filmxml>")[1].split("</filmxml>")[0];
+		// Show preview popup
+		$("#preview_popup_container").show();
+		// Load the Video Previewer
+		loadPreviewer();
+	}
+	function loadPreviewer() {
+		// I think this is in case of an error??
+		if (movieDataXmlStr === null) {
+			return;
+		}
+		// I don't know
+		savePreviewData(movieDataXmlStr);
+	}
+	function savePreviewData(a) {
+		// Set temp data variable
+		previewPlayerTempData = a
+	}
+	function retrievePreviewPlayerData() {
+		// Store in separate variable
+		var recentPreviewPlayerTempData = previewPlayerTempData;
+		// Clear original variable
+		previewPlayerTempData = "";
+		// Return recent temp data
+		return recentPreviewPlayerTempData;
+	}
 
-                $('.ga-importer').prependTo($('#studio_container'));
-            } else {
-                $('#studioBlock').flash(studio_data);
-            }
+	///
+	/// Importing
+	///
+	// Show upload window
+	function showImporter() {
+		document.getElementById("import_popup_container").style.display = "block";
+	};
 
-            // Video Tutorial
-            videoTutorial = new VideoTutorial($("#video-tutorial"));
-        })
-        // restore studio when upsell overlay hidden
-        .on('hidden.bs.modal', '#upsell-modal', function(e) {
-            if ($(e.target).attr('id') == 'upsell-modal') {
-                restoreStudio();
-            }
-        })
-        .on('studioApiReady', function() {
-            var api = studioApi($('#studio_holder'));
-            api.bindStudioEvents();
-            studioModule = new StudioModule();
-        })
-
-    var previewPlayer = new PreviewPlayer("wss://preview.vyond.com", true),
-        previewPlayerRetryCount = 5;
-
-    previewPlayer.setVideoElement(document.getElementById('h5-preview-player'));
-    previewPlayer.setMovieId('');
-    previewPlayer.setUserAuthenticationToken('1:7f087dd376fada71ad439e06bc539a052d32280ed86d4aa0797c01f8c65b8de0:7EQNjCBkQhPaXI+obO7amIiCOEz3uR7agLD6iZZNUxI=');
-    previewPlayer.setFromPptConversion(false);
-    previewPlayer.connect();
-            
-$("#previewPlayerContainer, #video-tutorial").hide();
-
-var movieDataXmlStr = null,
-    filmXmlStr = null,
-    previewStartFrame = 0;
-
-function checkBrowser() {
-    return window.WebSocket && window.MediaSource;
-}
-
-function checkTheme(themeList) {
-    if (themeList === undefined) {
-        return true;
-    }
-
-    var themeCount = themeList.length,
-        h5Themes = {
-            'common' : true,
-            'infographics': true,
-            'business': true,
-            'whiteboard': true,
-            'commoncraft': true
-        };
-
-    for (var i = 0; i < themeCount; i++) {
-        if (h5Themes[themeList[i]] === undefined) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-function checkPreviewServer() {
-    return previewPlayer._connectionState === PreviewPlayerConstants.STATE_READY;
-}
-
-function loadH5Preview() {
-    if (filmXmlStr === null) {
-        return;
-    }
-
-    $('#h5-playerdiv').data('previewPlayerControl').reset();
-    previewPlayer.preview(filmXmlStr, previewStartFrame);
-    $('#previewPlayer').addClass('using-h5');
-}
-
-function loadLegacyPreview() {
-    if (movieDataXmlStr === null) {
-        return;
-    }
-
-    pauseH5PreviewPlayer();
-
-    savePreviewData(movieDataXmlStr);
-    createPreviewPlayer("playerdiv", {
-        height: 360,
-        width: 640,
-        player_url: "https://josephanimate2021.github.io/animation/930/player.swf",
-        quality: "high"
-    }, {
-        movieOwner: "", movieOwnerId: "", ut: "-1",
-        movieLid: "8", movieTitle: "", movieDesc: "", userId: "", username: "", uemail: "",
-        apiserver: "https://vyondonlinelegacy.herokuapp.com/", thumbnailURL: "", copyable: "0", isPublished: "0", ctc: "go", tlang: "en_US", is_private_shared: "0",
-        autostart: "1", appCode: "go", is_slideshow: "0", originalId: "0", is_emessage: "0", isEmbed: "0", refuser: "",
-        utm_source: "", uid: "", isTemplate: "1", showButtons: "0", chain_mids: "", showshare: "0", averageRating: "",
-                    s3base: "https://s3.amazonaws.com/fs.goanimate.com/,https://assets.vyond.com/",
-                ratingCount: "", fb_app_url: "https://ga.vyond.com/", numContact: 0, isInitFromExternal: 1, storePath: "https://josephanimate2021.github.io/store/3a981f5cb2739137/<store>", clientThemePath: "https://josephanimate2021.github.io/static/55910a7cd204c37c/<client_theme>", animationPath: "https://josephanimate2021.github.io/animation/930/",
-        startFrame: previewStartFrame
-    });
-    $('#previewPlayer').removeClass('using-h5');
-}
-
-function initPreviewPlayer(dataXmlStr, startFrame, containsChapter, themeList) {
-    movieDataXmlStr = dataXmlStr;
-    previewStartFrame = startFrame;
-
-    filmXmlStr = dataXmlStr.split("<filmxml>")[1].split("</filmxml>")[0];
-
-    if (typeof startFrame == 'undefined') {
-        startFrame = 1;
-    } else {
-        startFrame = Math.max(1, parseInt(startFrame));
-    }
-
-    if (containsChapter) {
-        $("#preview-alert-block").show();
-    } else {
-        $("#preview-alert-block").hide();
-    }
-
-    previewSceen();
-
-    $("#previewPlayerContainer").show();
-
-    var isThemeSupport = checkTheme(themeList);
-
-    if (checkBrowser() && isThemeSupport && checkPreviewServer()) { // Preview with next
-        loadH5Preview();
-    } else {
-        // fallback to legacy preview
-        loadLegacyPreview();
-
-        if (!checkPreviewServer() && (previewPlayerRetryCount > 0)) { // Retry on WebSocket connection problem
-            previewPlayer.connect();
-            previewPlayerRetryCount--;
-        }
-    }
-}
-
-function pauseH5PreviewPlayer() {
-    $("#h5-preview-player").get(0).pause();
-}
-
-function switchBackToStudio() {
-    try {
-        ($("#previewPlayerContainer #Player").get(0) || {pause:function(){}}).pause();
-    } catch (err) {};
-
-    pauseH5PreviewPlayer();
-
-    $("#previewPlayerContainer").hide();
-    restoreStudio();
-    document.getElementById("Studio").onExternalPreviewPlayerCancel();
-}
-function publishStudio() {
-    try {
-        ($("#previewPlayerContainer #Player").get(0) || {pause:function(){}}).pause();
-    } catch (err) {};
-
-    pauseH5PreviewPlayer();
-
-    $("#previewPlayerContainer").hide();
-    restoreStudio();
-    document.getElementById("Studio").onExternalPreviewPlayerPublish();
-}
-function exitStudio(share) {
-    loadedFullscreenStudio = false;
-    window.location = '/';
-}
-
-function studioUpsellUpgrade() {
-    $('#upsell-modal').modal('hide');
-    restoreStudio();
-    document.getElementById("Studio").onUpsellUpgrade();
-}
-
-function customFontBanner() {
-    var plansAndPricingUrl = 'https://www.vyond.com/pricing';
-    window.open(plansAndPricingUrl, '_blank');
-}
-
-window.addEventListener(PreviewPlayerEvent.ANIMATION_INCOMPATIBLE, function() {
-    loadLegacyPreview();
-});
-
-VideoTutorial.tutorials.composition = {
-    title: 'Composition Tutorial',
-    wistiaId: 'nuy96pslyp',
-};
-VideoTutorial.tutorials.enterexit = {
-    title: 'Enter and Exit Effects Tutorial',
-    wistiaId: 'fvjsa3jnzc',
-}
+	///
+	/// Other stuff
+	///
+	// Redirect to Video Browser on Video Studio exit
+	function exitStudio() {
+		window.location = "/videos/browse.php";
+	}
+	// Hide interactive tutorial
+	interactiveTutorial = {
+		neverDisplay: function() {
+			return true
+		}
+	};
+	// Hide Video Previewer popup
+	function hidePreviewer() {
+		$("#preview_popup_container").hide();
+	}
+	// Hide Asset Importer popup
+	function hideImporter() {
+		document.getElementById("import_popup_container").style.display = "none";
+        studio[0].importerStatus("clear");
+	}
 </script>
-
-<script id="importer-share-asset-tmpl" type="text/x-jquery-tmpl">
-<li class="share-asset clearfix">
-    <div class="share-asset-selection">
-        <input type="checkbox" checked>
-    </div>
-    <div class="share-asset-icon"></div>
-    <div class="share-asset-body">
-        <div class="filename"></div>
-        <div class="actions clearfix">
-            <span class="category small"></span>
-            <div class="share-type none">
-                <span class="none" title="Not shared" data-placement="left"><span class="glyph-pro glyph-lock"></span></span>
-                <span class="team" title="All members" data-placement="left"><span class="glyph-pro glyph-group"></span></span>
-                <span class="shared" title="Custom..." data-placement="left"><span class="glyph-pro glyph-parents"></span></span>
-            </div>
-        </div>
-    </div>
-</li>
-</script>
-
-<script id="importer-file-tmpl" type="text/x-jquery-tmpl">
-<li class="ga-importer-file clearfix fade">
-    <div class="ga-importer-file-icon"><div class="ga-importer-file-progress-bar"><div class="upload-progress"></div></div></div>
-    <div class="ga-importer-file-body">
-        <div class="filename"></div>
-        <div class="actions clearfix">
-            <span class="menu"></span>
-            <span class="category"></span>
-            <a class="cancel" href="#" data-action="cancel-upload" title="Cancel">&times;</a>
-            <a class="clear" href="#" data-action="clear-file" title="Clear">&times;</a>
-            <a class="add-to-scene" href="#" data-action="add-to-scene">Add to scene</a>
-            <a class="add-to-frame" href="#" data-action="add-to-frame">Add to frame</a>
-            <span class="processing">
-                <span class="processing-video">Processing. Please wait...</span>
-                <span class="processing-font">Processing time: ~3 mins</span>
-            </span>
-            <span class="error"></span>
-        </div>
-    </div>
-</li>
-</script>
-
-<script id="importer-select-sound-tmpl" type="text/x-jquery-tmpl">
-<div class="dropdown">
-<a class="import-as-btn dropdown-toggle" data-toggle="dropdown" href="#">Import as <span class="caret"></span></a>
-<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-    <li><a tabindex="-1" href="#" data-subtype="bgmusic">Music</a></li>
-    <li><a tabindex="-1" href="#" data-subtype="soundeffect">Sound Effect</a></li>
-    <li><a tabindex="-1" href="#" data-subtype="voiceover">Voice-Over</a></li>
-</ul>
-</div>
-</script>
-
-<script id="importer-select-prop-tmpl" type="text/x-jquery-tmpl">
-<div class="dropdown">
-<a class="import-as-btn dropdown-toggle" data-toggle="dropdown" href="#">Import as <span class="caret"></span></a>
-<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-    <li><a tabindex="-1" href="#" data-subtype="prop">Prop</a></li>
-    <li><a tabindex="-1" href="#" data-subtype="bg">Backdrop</a></li>
-</ul>
-</div>
-</script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/importer_share.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/importer.js.gz.js"></script>
-<script>window.searchTermsDataUrl = 'https://josephanimate2021.github.io/store/3a981f5cb2739137/common/terms.json';</script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/search-suggestion.js.gz.js"></script>
-<script src="https://josephanimate2021.github.io/static/55910a7cd204c37c/go/js/preview-player-control.js.gz.js"></script>
-<script>
-ImporterFile.defaults.options.accept_mime = ["image\/png","image\/jpeg","image\/gif","image\/bmp","audio\/mpeg","audio\/wav","audio\/x-wav","audio\/vnd.wave","audio\/wave","audio\/mp3","audio\/mp4","audio\/ogg","audio\/vorbis","audio\/aac","audio\/m4a","audio\/x-m4a","video\/mp4","video\/mpeg4","video\/x-flv","video\/x-ms-wmv","application\/mp4"];
-ImporterFile.defaults.options.restricted_mime = ["font\/x-font-ttf","font\/vnd.ms-opentype"];
-</script>
-
-<script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script>
-
-<script>
-    (function() {
-
-        'use strict';
-
-        var studioMode = 'full',
-            themeName = 'business',
-            copiedId = '',
-            editType = null;
-
-        switch (studioMode) {
-            case 'full':
-                editType = AMPLITUDE_EVENT_PROPERTIES.VM_NEW;
-                break;
-            case 'edit':
-                editType = AMPLITUDE_EVENT_PROPERTIES.VM_EDIT;
-                break;
-            case 'copy':
-                editType = AMPLITUDE_EVENT_PROPERTIES.VM_COPY;
-                break;
-            case 'remix':
-                editType = AMPLITUDE_EVENT_PROPERTIES.VM_REMIX;
-                break;
-            default:
-                break;
-        }
-        if (editType !== null) {
-            $(window).on('amplitude_loaded', function() {
-                logAmplitudeEvent(AMPLITUDE_EVENT.LAUNCH_VM, {
-                    theme: themeName,
-                    edit_type: editType,
-                    video_id: '',
-                    copied_id: copiedId
-                }, {
-                    latest_vm_launched: AMPLITUDE_EVENT_PROPERTIES.LEGACY_VM,
-                    latest_vm_launched_legacy_date: '2019-09-18 07:18:27'
-                });
-            });
-        }
-    }());
-
-    // Amplitude interface for Flash player.
-    function logAmplitudeEvent(eventName, eventProperties, userData) {
-        if (typeof amplitude === 'object') {
-            if (eventName === AMPLITUDE_EVENT.PLAYS_VIDEO) {
-                eventProperties["referral"] = document.referrer;
-            }
-            if (userData !== undefined) {
-                amplitude.getInstance().setUserProperties(userData);
-            }
-            amplitude.getInstance().logEvent(eventName, eventProperties);
-        }
-    }
-</script>
-
-
-<!-- FOOTER -->
-
-
-<div id="studio_container" style="display: none;">
-    <div id="studio_holder"><!-- Full Screen Studio -->
-        <div style="top: 50%; position: relative;">
-            You can't use Vyond because Flash might be disabled. <a href="https://get.adobe.com/flashplayer/">Enable Flash</a>.
-        </div>
-    </div>
-</div>
-
-</div>
-<!-- END OF PAGE STRUCTURE -->
-
-
-
-<div id="offer_container">
-</div>
-<script type="text/javascript">
-    </script>
-
-<script type="text/javascript">
-
-</script>
-
-</body>
-</html>`;
+                
+                </main>
+                
+                </body></html>`;
         break;
     }
   }

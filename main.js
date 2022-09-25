@@ -53,7 +53,6 @@ const server = http.createServer((req, res) => {
     if (utilities.find(u => u(req, res, purl))) res.statusCode = 200;
     else res.statusCode = 404;
     if (env.node_env == "dev") console.log(req.method, purl.path, "-", res.statusCode);
-    if (req.method == "GET" && purl.path == "/") res.end('Hello World');
   } catch (x) {
     console.error(x);
     res.statusCode = 500;

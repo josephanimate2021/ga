@@ -1,39 +1,6 @@
 const fs = require('fs');
 const fUtil = require("../fileUtil");
 const get = require("../req/get");
-const nodezip = require('node-zip');
-
-async function createZip(xml, data) {
-	const zip = nodezip.create();
-	fUtil.addToZip(zip, "desc.xml", Buffer.from(xml));
-	getFolders(data.type).then(folder => getIds(folder).then(id => {
-		const buffer = fs.readFileSync(`${folder}/${id}`);
-		fUtil.addToZip(zip, `${data.type}/${id}`, buffer);
-		return await zip.zip();
-	}).catch(e => console.log(e));
-}
-function getFolders(type) {
-	return new Promise((res) => {
-		switch (type) {
-			case "bg": {
-				res(process.env.BG_FOLDER);
-				break;
-			} case "prop": {
-				res(process.env.PROPS_FOLDER);
-				break;
-			} case "movie": {
-				res(process.env.STARTERS_FOLDER);
-				break;
-			} case "sound": {
-				res(process.env.SOUNDS_FOLDER);
-				break;
-			}
-		}
-	});
-}
-function getIds(folder) {
-	return new Promise(res => fs.readdirSync(folder).forEach(file => res(file)));
-}
 
 module.exports = {
 	getChars(theme) {
@@ -57,6 +24,22 @@ module.exports = {
 				};
 				table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
 			}
+		});
+		return table;
+	},
+	getProps() {
+		const table = [];
+		fs.readdirSync(process.env.PROPS_FOLDER).forEach(file => {
+			const id = file.slice(0, -4);
+			const dot = file.lastIndexOf('.');
+			const ext = file.substr(dot + 1);
+			if (!fs.existsSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`)) return;
+			const name = fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`);
+			const meta = fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}.json`);
+			const handheld = meta.handheld = "Y" ? "1" : "0";
+			const hat = meta.hat = "Y" ? "1" : "0";
+			const otherProp = meta.otherProp = "Y" ? "1" : "0";
+			table.unshift({id: `${id}.${ext}`, title: name, holdable: handheld, headable: hat, placeable: otherProp});
 		});
 		return table;
 	},
@@ -91,8 +74,8 @@ module.exports = {
 		if (fUtil.exists(process.env.CHARS_FOLDER + `/${id}.png`)) fs.writeFileSync(process.env.CHARS_FOLDER + `/${id.slice(0, -3) + "000"}.png`, thumb);
 		else fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
 	},
-	getXmls(data, makeZip = false) {
-		return new Promise((res, rej) => {
+	getXmls(data) {
+		return new Promise((res) => {
 			var files, xml, tId;
 			switch (data.type) {
 				case "char": {
@@ -105,13 +88,24 @@ module.exports = {
 					files = this.getChars(tId);
 					xml = `<ugc more="0">${files.map(v => `<char id="${v.id}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}" copyable="${v.copyable}"><tags>${v.tags || ""}</tags></char>`).join('')}</ugc>`;
 					break;
+				} case "prop": {
+					files = this.getProps();
+					xml = `<ugc more="0">${files.map(
+						v => `<prop subtype="0" id="${v.id}" name="${
+							v.title
+						}" enable="Y" holdable="${
+							v.holdable
+						}" headable="${v.headable}" placeable="${
+							v.placeable
+						}" facing="left" width="0" height="0"/>`).join('')
+					}</ugc>`;
+					break;
 				} default: {
 					xml = `<ugc more="0"></ugc>`;
 					break;
 				}
 			}
-			if (makeZip) res(createZip(xml, data));
-			else res(xml);
+			res(xml);
 		});
 	}
 };
