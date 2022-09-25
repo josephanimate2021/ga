@@ -1,6 +1,7 @@
 const fs = require('fs');
 const fUtil = require("../fileUtil");
 const get = require("../req/get");
+const nodezip = require('node-zip');
   
 module.exports = {
 	getFolders(type) {
@@ -84,7 +85,7 @@ module.exports = {
 		if (fUtil.exists(process.env.CHARS_FOLDER + `/${id}.png`)) fs.writeFileSync(process.env.CHARS_FOLDER + `/${id.slice(0, -3) + "000"}.png`, thumb);
 		else fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
 	},
-	getXmls(data) {
+	async getXmls(data, makeZip = false) {
 		return new Promise((res, rej) => {
 			var files, xml, tId;
 			switch (data.type) {
@@ -103,7 +104,15 @@ module.exports = {
 					break;
 				}
 			}
-			res(xml);
+			if (makeZip) {
+				const zip = nodezip.create();
+				fUtil.addToZip(zip, "desc.xml", Buffer.from(xml));
+				const folder = this.getFolders(data.type);
+				const id = this.getIds(folder);
+				const buffer = fs.readFileSync(`${folder}/${id}`);
+				fUtil.addToZip(zip, `${data.type}/${id}`, buffer);
+				res(await zip.zip());
+			} else res(xml);
 		});
 	}
 };
