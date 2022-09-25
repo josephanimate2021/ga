@@ -37,15 +37,21 @@ module.exports = {
 			otherProp: "1",
 			handheld: "0",
 			hat: "0",
+			wear: "0"
 		};
 		switch (ptype) {
-			case "holdable": {
-				meta.handheld = "1",
+			case "wearable": {
+				meta.wear = "1";
+				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
+				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
+				break;
+			} case "holdable": {
+				meta.handheld = "1";
 				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
 				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
 				break;
 			} case "headable": {
-				meta.hat = "1",
+				meta.hat = "1";
 				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
 				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
 				break;
@@ -65,8 +71,8 @@ module.exports = {
 			if (!fs.existsSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`)) return;
 			const name = fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`);
 			const meta = require('.' + process.env.DATABASES_FOLDER + `/${id}.json`);
-			const { otherProp, handheld, hat } = meta;	
-			table.unshift({id: `${id}.${ext}`, title: name, holdable: handheld, headable: hat, placeable: otherProp});
+			const { otherProp, handheld, hat, wear } = meta;	
+			table.unshift({id: `${id}.${ext}`, title: name, holdable: handheld, wearable: wear, headable: hat, placeable: otherProp});
 		});
 		return table;
 	},
@@ -124,7 +130,7 @@ module.exports = {
 							v.holdable
 						}" headable="${v.headable}" placeable="${
 							v.placeable
-						}" facing="left" width="0" height="0" asset_url="/assets/${v.id}"/>`).join('')
+						}" wearable="${v.wearable}" facing="left" width="0" height="0" asset_url="/assets/${v.id}"/>`).join('')
 					}</ugc>`;
 					break;
 				} default: {
