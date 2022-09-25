@@ -32,8 +32,14 @@ module.exports = {
 		const thmb = Buffer.from(data.thumbnail_large, "base64");
 		const id = !data.movieId ? fUtil.makeid(12) : data.movieId;
 		fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.zip`, body);
-		fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.png`, thmb);
+		if (data.is_triggered_by_autosave && !data.movieId) fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.png`, this.generateThumbFromUrl());
+		else fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.png`, thmb);
 		return id;
+	},
+	generateThumbFromUrl() {
+		get('https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Thumbnails/master/thumbnails/257666432.jpg').then(v => {
+			return v;
+		});
 	},
 	saveStarter(data) {
 		const body = Buffer.from(data.body_zip, "base64");
