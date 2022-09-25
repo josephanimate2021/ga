@@ -72,7 +72,26 @@ module.exports = function (req, res) {
             res.end();
           });
           return true;
-        }
+        } case "/upload_prop_holdable": {
+          new formidable.IncomingForm().parse(req, (e, f, files) => {
+            if (!files.import) return;
+            var path = files.import.path;
+            var buffer = fs.readFileSync(path);
+            asset.upload("holdable", buffer, files.import.name);
+            fs.unlinkSync(path);
+            res.end();
+          });
+          return true;
+      } case "/upload_prop_headable": {
+          new formidable.IncomingForm().parse(req, (e, f, files) => {
+            if (!files.import) return;
+            var path = files.import.path;
+            var buffer = fs.readFileSync(path);
+            asset.upload("headable", buffer, files.import.name);
+            fs.unlinkSync(path);
+            res.end();
+          });
+          return true;
       }
     }
   }
