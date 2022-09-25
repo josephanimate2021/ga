@@ -7,6 +7,8 @@ const env = {
   MOVIE_FOLDER: "./files/movies",
   STARTER_FOLDER: "./files/starters",
   ASSETS_FOLDER: "./files/assets",
+  CHAR_BASE_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Character-Dump/master/characters",
+  THUMBNAILS_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Thumbnails/master/thumbnails",
   node_env: "dev"
 };
 const folder = env.ASSETS_FOLDER, sFolder = `${folder}/sounds`;
@@ -33,7 +35,7 @@ const utilities = [
   pages
 ];
 
-if (!fs.existsSync(`./env.json`)) fs.writeFileSync(`./env.json`, JSON.stringify(env));
+fs.writeFileSync(`./env.json`, JSON.stringify(env));
 if (!fs.existsSync(folder)) fs.mkdirSync(folder);
 if (!fs.existsSync(env.MOVIE_FOLDER)) fs.mkdirSync(env.MOVIE_FOLDER);
 if (!fs.existsSync(env.STARTER_FOLDER)) fs.mkdirSync(env.STARTER_FOLDER);

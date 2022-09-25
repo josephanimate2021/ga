@@ -31,6 +31,10 @@ module.exports = {
       }
     });
   },
+  addToZip(zip, zipName, buffer) {
+		zip.add(zipName, buffer);
+		if (zip[zipName].crc32 < 0) zip[zipName].crc32 += 4294967296;
+	},
   zipTheme(tId) {
     return new Promise((res, rej) => {
       try {

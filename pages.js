@@ -1,15 +1,16 @@
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
   var html, tId;
-  switch (url.query.themeId) {
-    case "family": {
-      tId = "custom";
-      break;
-    }
-  }
   switch (url.pathname) {
     case "/charcreator": {
         res.setHeader("Content-Type", "text/html; charset=utf8");
+        switch (url.query.themeId) {
+            default: {
+                // everyone loves comedy world. so why not test some things out using this theme.
+                tId = "custom";
+                break;
+            }
+        }
         html = `<html><head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

@@ -4,5 +4,8 @@ module.exports = {
 	},
   header() {
     return;
-  }
+  },
+  assetError(message = "Something has failed. please try again later.") {
+		return `<error><code>${message}</code><message></message><text></text></error>`;
+	},
 };

@@ -5,6 +5,7 @@
 		"start": "node main.js"
 	},
 	"dependencies": {
-		"jszip": "^3.10.1"
+		"jszip": "^3.10.1",
+		"node-zip": "github:kyriosli/node-zip"
 	}
 }

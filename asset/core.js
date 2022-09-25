@@ -1,5 +1,6 @@
 // vars
 const loadPost = require("../req/body");
+const nodezip = require("node-zip");
 const asset = require('./main');
 const fUtil = require('../fileUtil');
 const fs = require('fs');
@@ -10,6 +11,7 @@ module.exports = function (req, res) {
   switch (req.method) {
     case "GET": {
       const match = req.url.match(/\/assets\/([^/]+)$/);
+      if (!match) return;
       const id = match[1];
       try {
         res.end(fs.readFileSync(process.env.CHARS_FOLDER + `/${id}.png`));
@@ -20,7 +22,11 @@ module.exports = function (req, res) {
           try {
             res.end(fs.readFileSync(process.env.PRPOS_FOLDER + `/${id}.png`));
           } catch (e) {
-            res.end('404 Not Found.');
+            try {
+              res.end('404 not found.');
+            } catch (e) {
+              console.log(e);
+            }
           }
         }
       }
@@ -28,8 +34,32 @@ module.exports = function (req, res) {
     }
     case "POST": {
       switch (req.url) {
-        case "/goapi/getUserAssetsXml/": {
-          loadPost(req, res).then(data => asset.getAssetXmls(data)).then(b => res.end(Buffer.from(b))).catch(e => console.log(e));
+        case "/goapi/getUserAssets/": {
+          loadPost(req, res).then(data => {
+            asset.getXmls(data).then(b => {
+              const zip = nodezip.create();
+              fUtil.addToZip(zip, "desc.xml", Buffer.from(b));
+              asset.getFolders(data.type).then(folder => {
+                asset.getIds(folder).then(id => {
+                  const buffer = fs.readFileSync(`${folder}/${id}`);
+                  fUtil.addToZip(zip, `${data.type}/${id}`, buffer);
+                  res.end(zip.zip());
+                }).catch(e => {
+                  console.log(e);
+                  res.end(Buffer.from(xml.assetError(e)));
+                });
+              }).catch(e => {
+                console.log(e);
+                res.end(Buffer.from(xml.assetError(e)));
+              });
+            }).catch(e => {
+              console.log(e);
+              res.end(Buffer.from(xml.assetError(e)));
+            });
+          });
+          return true;
+        } case "/goapi/getUserAssetsXml/": {
+          loadPost(req, res).then(data => asset.getXmls(data).then(b => res.end(Buffer.from(b))).catch(e => console.log(e)));
           return true;
         } case "/goapi/getCCPreMadeCharacters": {
           res.end();
@@ -49,12 +79,11 @@ module.exports = function (req, res) {
           }).catch(e => console.log(e));
           return true;
         } case "/goapi/getCcCharCompositionXml/": {
-          loadPost(req, res).then(data => asset.loadCharacter(data.assetId || data.original_asset_id)).then(b => {
-            if (!b) res.end(1 + xml.error());
-            else res.end(Buffer.from(b));
-          }).catch(e => {
-            res.end(1 + xml.error(e));
-            console.log(e);
+          loadPost(req, res).then(async data => {
+            res.setHeader("Content-Type", "text/html; charset=UTF-8");
+            asset.loadCharacter(data.assetId || data.original_asset_id).then((v) => {
+              (res.statusCode = 200), res.end(0 + v);
+            }).catch(e => { res.statusCode = 404, console.log(e), res.end(1 + Buffer.from(xml.error(e))) });
           });
         }
       }
