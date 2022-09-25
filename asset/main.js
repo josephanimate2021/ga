@@ -27,8 +27,10 @@ module.exports = {
 		});
 		return table;
 	},
-	upload(ptype, buffer, ext) {
+	upload(ptype, buffer, name) {
 		const id = fUtil.makeid(12);
+		const dot = name.lastIndexOf('.');
+		const ext = name.substr(dot + 1);
 		// database stuff
 		var meta;
 		switch (ptype) {
@@ -40,7 +42,25 @@ module.exports = {
 					hat: "0",
 				};
 				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
-				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, `${id}.${ext}`);
+				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
+			} case "holdable": {
+				fs.writeFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`, buffer);
+				meta = {
+					otherProp: "0",
+					handheld: "1",
+					hat: "0",
+				};
+				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
+				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
+			} case "headable": {
+				fs.writeFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`, buffer);
+				meta = {
+					otherProp: "0",
+					handheld: "0",
+					hat: "1",
+				};
+				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
+				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
 			}
 		}
 	},
