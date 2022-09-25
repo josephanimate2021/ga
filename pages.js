@@ -288,7 +288,7 @@ module.exports = function (req, res, url) {
 		                        <div id="import_image">
                                         <button id="import-btn" onclick="document.getElementById('prop').click()">Upload Props</button>
                                         <p>Because everything else is in beta, <br>prop uploading is only supported. <br>no worries, everything else is bound to come soon.</p>
-                                        <form enctype='multipart/form-data' style="display:none" action='/upload_prop' method='post'><input id='prop' type="file" onchange="this.form.submit()" name='import' accept=".png,.jpg" /></form>
+                                        <form enctype='multipart/form-data' style="display:none" action='/upload_prop' method='post'><input id='prop' type="file" name='import' accept=".png,.jpg" /></form>
                                 </div>
                         </div>
                 </div>
@@ -395,8 +395,11 @@ module.exports = function (req, res, url) {
 	// Hide Asset Importer popup
 	function hideImporter() {
 		document.getElementById("import_popup_container").style.display = "none";
-        studio[0].importerStatus("clear");
+		studio[0].importerStatus("clear");
 	}
+	document.getElementById("prop").onchange = function() {
+	        this.form.submit();
+        }	        
 </script>
                 
                 </main>
