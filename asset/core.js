@@ -92,6 +92,16 @@ module.exports = function (req, res) {
             res.end();
           });
           return true;
+        } case "/upload_prop_wearable": {
+          new formidable.IncomingForm().parse(req, (e, f, files) => {
+            if (!files.import) return;
+            var path = files.import.path;
+            var buffer = fs.readFileSync(path);
+            asset.upload("wearable", buffer, files.import.name);
+            fs.unlinkSync(path);
+            res.end();
+          });
+          return true;
         }
       }
     }
