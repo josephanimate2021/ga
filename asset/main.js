@@ -116,21 +116,24 @@ module.exports = {
 	loadCharacter(id) {
 		return new Promise((res, rej) => {
 			try {
-				fs.readFile(fUtil.fileString(process.env.CHARS_FOLDER + `/${id}.xml`), (e, b) => {
-					if (e) rej(e);
-					else res(b);
-				});
+				try {
+					fs.readFile(fUtil.fileString(process.env.CHARS_FOLDER + `/${id}.xml`), (e, b) => {
+						if (e) rej(e);
+						else res(b);
+					});
+				} catch (e) {
+					const nId = (id.slice(0, -3) + "000").padStart(9, 0);
+					const baseUrl = process.env.CHAR_BASE_URL;
+					get(`${baseUrl}/${nId}.txt`).then(chars => {
+						var line = chars.toString("utf8").split("\n").find(v => v.substring(0, 3) == id.slice(-3));
+						if (line) return Buffer.from(line.substring(3));
+						else rej("Error: Your Character Has Failed To Load. Please Try Again Later.");
+					}).catch(e => rej(e));
+				}
 			} catch (e) {
-				res(this.loadCharacterFromUrl(id));
+				rej(e);
 			}
 		});
-	},
-	loadCharacterFromUrl(id) {
-		const aId = id.slice(0, -3) + "000";
-		get(`${process.env.CHAR_BASE_URL}/${aId}.txt`).then(chars => {
-			var line = chars.toString("utf8").split("\n").find(v => v.substring(0, 3) == aId);
-			if (line) return Buffer.from(line.substring(3));
-		}).catch(e => console.log(e));
 	},
 	saveCharacterThumb(thumbdata, id) {
 		const thumb = Buffer.from(thumbdata, "base64");
