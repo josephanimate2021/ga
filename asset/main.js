@@ -1,8 +1,22 @@
 const fs = require('fs');
 const fUtil = require("../fileUtil");
 const get = require("../req/get");
+const themes = {};
+
+function addTheme(id, buffer) {
+	const beg = buffer.indexOf(`theme_id="`) + 10;
+	const end = buffer.indexOf(`"`, beg);
+	const theme = buffer.subarray(beg, end).toString();
+	return (themes[id] = theme);
+}
 
 module.exports = {
+	getTheme(id) {
+		return new Promise((res, rej) => {
+			if (themes[id]) res(themes[id]);
+			this.loadCharacter(id).then((b) => res(addTheme(id, b))).catch(e => rej(e));
+		});
+	},
 	getChars(theme) {
 		const table = [];
 		fs.readdirSync(process.env.CHARS_FOLDER).forEach(file => {
@@ -111,6 +125,7 @@ module.exports = {
 		const thumb = Buffer.from(data.thumbdata, "base64");
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.xml`, data.body);
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
+		addTheme(id, data.body);
 		return id;
 	},
 	loadCharacter(id) {
