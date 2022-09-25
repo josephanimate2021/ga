@@ -12,10 +12,12 @@ function addTheme(id, buffer) {
 
 module.exports = {
 	getTheme(id) {
-		return new Promise((res, rej) => {
-			if (themes[id]) res(themes[id]);
-			this.loadCharacter(id).then((b) => res(addTheme(id, b))).catch(e => rej(e));
-		});
+		if (themes[id]) return themes[id];
+		else {
+			this.loadCharacter(id).then(b => {
+				return addTheme(id, b);
+			}).catch(e => console.log(e));
+		}
 	},
 	getChars(theme) {
 		const table = [];
