@@ -35,6 +35,14 @@ module.exports = {
 		fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.png`, thmb);
 		return id;
 	},
+	saveStarter(data) {
+		const body = Buffer.from(data.body_zip, "base64");
+		const thmb = Buffer.from(data.thumbnail, "base64");
+		const id = !data.movieId ? fUtil.makeid(12) : data.movieId;
+		fs.writeFileSync(process.env.STARTERS_FOLDER + `/${id}.zip`, body);
+		fs.writeFileSync(process.env.STARTERS_FOLDER + `/${id}.png`, thmb);
+		return id;
+	},
 	upload(ptype, buffer, name) {
 		const id = fUtil.makeid(12);
 		const dot = name.lastIndexOf('.');
