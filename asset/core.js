@@ -67,9 +67,7 @@ module.exports = function (req, res) {
             if (!files.import) return;
             var path = files.import.path;
             var buffer = fs.readFileSync(path);
-            const dot = files.import.name.lastIndexOf('.');
-            const ext = files.import.name.substr(dot + 1);
-            asset.upload("placeable", buffer, ext);
+            asset.upload("placeable", buffer, files.import.name);
             fs.unlinkSync(path);
             res.end();
           });
