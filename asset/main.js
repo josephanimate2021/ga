@@ -36,7 +36,9 @@ module.exports = {
 					tag: fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`),
 					state: fs.readFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`)
 				};
-				table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
+				if (!theme || theme == this.getTheme(id)) {
+					table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
+				}
 			}
 		});
 		return table;
