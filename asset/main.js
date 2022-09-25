@@ -6,40 +6,36 @@ const nodezip = require('node-zip');
 async function createZip(xml, data) {
 	const zip = nodezip.create();
 	fUtil.addToZip(zip, "desc.xml", Buffer.from(xml));
-	const folder = this.getFolders(data.type);
-	const id = this.getIds(folder);
-	const buffer = fs.readFileSync(`${folder}/${id}`);
-	fUtil.addToZip(zip, `${data.type}/${id}`, buffer);
-	return await zip.zip();
+	getFolders(data.type).then(folder => getIds(folder).then(id => {
+		const buffer = fs.readFileSync(`${folder}/${id}`);
+		fUtil.addToZip(zip, `${data.type}/${id}`, buffer);
+		return await zip.zip();
+	}).catch(e => console.log(e));
+}
+function getFolders(type) {
+	return new Promise((res) => {
+		switch (type) {
+			case "bg": {
+				res(process.env.BG_FOLDER);
+				break;
+			} case "prop": {
+				res(process.env.PROPS_FOLDER);
+				break;
+			} case "movie": {
+				res(process.env.STARTERS_FOLDER);
+				break;
+			} case "sound": {
+				res(process.env.SOUNDS_FOLDER);
+				break;
+			}
+		}
+	});
+}
+function getIds(folder) {
+	return new Promise(res => fs.readdirSync(folder).forEach(file => res(file)));
 }
 
 module.exports = {
-	getFolders(type) {
-		return new Promise((res) => {
-			switch (type) {
-				case "bg": {
-					res(process.env.BG_FOLDER);
-					break;
-				} case "prop": {
-					res(process.env.PROPS_FOLDER);
-					break;
-				} case "movie": {
-					res(process.env.STARTERS_FOLDER);
-					break;
-				} case "sound": {
-					res(process.env.SOUNDS_FOLDER);
-					break;
-				}
-			}
-		});
-	},
-	getIds(folder) {
-		return new Promise((res) => {
-			fs.readdirSync(folder).forEach(file => {
-				res(file.slice(0, -4));
-			});
-		});
-	},
 	getChars(theme) {
 		const table = [];
 		fs.readdirSync(process.env.CHARS_FOLDER).forEach(file => {
