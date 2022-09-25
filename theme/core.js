@@ -15,7 +15,17 @@ module.exports = function (req, res, url) {
           redirect = `/charcreator?themeId=${theme}&original_asset_id=${id.substring(1)}`;
           break;
         } default: {
-          redirect = `/charcreator?themeId=${theme}&bs=${theme = "family" ? "adam" : theme = "anime" ? "guy" : "default"}`;
+          var type;
+          switch (theme) {
+            case "family": {
+              type = "adam";
+              break;
+            } case "anime": {
+              type = "guy";
+              break;
+            }
+          }
+          redirect = `/charcreator?themeId=${theme}&bs=$type}`;
           break;
         }
       }
