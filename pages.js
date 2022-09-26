@@ -1,14 +1,16 @@
 const fs = require("fs");
 const asset = require("./asset/main");
+const fUtil = require("./fileUtil");
 
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
   var html, tId;
   switch (url.pathname) {
     case "/": {
-	const files = asset.listMovies();
-	html = `<html><head><title>Your Videos</title></head><body>${files.map(v => asset.compileListHtml(v)).join('')}</body></html>`;
-	break;
+        if (!fUtil.exists(`${process.env.MOVIE_FOLDER}/xmls`)) fs.mkdirSync(`${process.env.MOVIE_FOLDER}/xmls`);
+        const files = asset.listMovies();
+        html = `<html><head><title>Your Videos</title></head><body>${files.map(v => `${v.html}`).join('') || '<center><h1>You currently have no movies right now. <a href="/studio">Create one now</a></center>'}</body></html>`;
+        break;
     } case "/charcreator": {
         res.setHeader("Content-Type", "text/html; charset=utf8");
         switch (url.query.themeId) {

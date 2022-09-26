@@ -9,7 +9,7 @@ const unzipMovieForList = async (id) => {
 	const keys = Object.keys(result.files);
 	for (let key of keys) {
 		const item = result.files[key];
-		fs.writeFileSync(`${process.env.MOVIE_FOLDER}/${id}.xml`, Buffer.from(await item.async("arraybuffer")));
+		fs.writeFileSync(`${process.env.MOVIE_FOLDER}/xmls/${id}.xml`, Buffer.from(await item.async("arraybuffer")));
 	}
 };
 
@@ -22,22 +22,20 @@ function getTheme(id) {
 }
 
 module.exports = {
-	compileListHtml(v) {
-		if (!fUtil.exists(v.file)) return `<center><h1>You currently have no movies at the moment. <a href="/studio">Create one now</a></h1></center>`;
-		else return `<center><img src="/movies/${v.id}.png"/> ${v.title} <a href="/movies/${v.id}.zip">↓</a></center>`;
-	},
 	listMovies() {
 		const table = [];
-		fs.readdirSync(process.env.MOVIE_FOLDER).forEach(file => {
+		fs.readdirSync(`${process.env.MOVIE_FOLDER}/xmls`).forEach(file => {
 			const id = file.slice(0, -4);
-			const dot = file.lastIndexOf('.');
-			const ext = file.substr(dot + 1);
-			if (ext == "png") return;
-			const buffer = fs.readFileSync(process.env.MOVIE_FOLDER + `/${id}.xml`);
+			const xml = fUtil.exists(process.env.MOVIE_FOLDER + `/xmls/${id}.xml`);
+			const zip = fUtil.exists(process.env.MOVIE_FOLDER + `/${id}.zip`);
+			const png = fUtil.exists(process.env.MOVIE_FOLDER + `/${id}.png`);
+			const buffer = fs.readFileSync(process.env.MOVIE_FOLDER + `/xmls/${id}.xml`);
 			const begTitle = buffer.indexOf("<title>") + 16;
 			const endTitle = buffer.indexOf("]]></title>");
 			const title = buffer.slice(begTitle, endTitle).toString().trim();
-			table.unshift({title: title, id: id, file: `${process.env.MOVIE_FOLDER}/${file}`});
+			if (xml && zip && png) {
+				table.unshift({html: `<center><img src="/movies/${id}.png"/> ${title} <a href="/movies/${id}.zip">Download</a></center>`});
+			}
 		});
 		return table;
 	},
@@ -69,7 +67,7 @@ module.exports = {
 	saveMovie(data) {
 		var thumb;
 		const body = Buffer.from(data.body_zip, "base64");
-		if (data.save_thumbnail) thumb = Buffer.from(data.thumbnail_large, "base64");
+		if (data.save_thumbnail) thumb = Buffer.from(data.thumbnail, "base64");
 		else thumb = this.generateThumbFromUrl();
 		const id = !data.movieId ? fUtil.makeid(12) : data.movieId;
 		fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.zip`, body);
