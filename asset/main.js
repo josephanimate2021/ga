@@ -140,7 +140,7 @@ module.exports = {
 			const name = fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`);
 			const meta = require('.' + process.env.DATABASES_FOLDER + `/${id}.json`);
 			const { otherProp, handheld, hat, wear } = meta;	
-			table.unshift({id: `${id}.${ext}`, title: name, holdable: handheld, wearable: wear, headable: hat, placeable: otherProp});
+			table.unshift({id: file, title: name, holdable: handheld, wearable: wear, headable: hat, placeable: otherProp});
 		});
 		return table;
 	},
