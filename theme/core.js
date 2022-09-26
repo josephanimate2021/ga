@@ -18,14 +18,17 @@ module.exports = function (req, res, url) {
           var type;
           switch (theme) {
             case "family": {
-              type = "adam";
+              type = "&bs=adam";
               break;
             } case "anime": {
-              type = "guy";
+              type = "&bs=guy";
+              break;
+            } default: {
+              type = '';
               break;
             }
           }
-          redirect = `/charcreator?themeId=${theme}&bs=${type}`;
+          redirect = `/charcreator?themeId=${theme}${type}`;
           break;
         }
       }
