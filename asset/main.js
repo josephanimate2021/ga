@@ -1,6 +1,17 @@
 const fs = require('fs');
 const fUtil = require("../fileUtil");
 const get = require("../req/get");
+const jszip = require('jszip');
+const unzipMovieForList = async (id) => {
+	const fileContent = fs.readFileSync(process.env.MOVIE_FOLDER + `/${id}.zip`);
+	const jszipInstance = new jszip();
+	const result = await jszipInstance.loadAsync(fileContent);
+	const keys = Object.keys(result.files);
+	for (let key of keys) {
+		const item = result.files[key];
+		fs.writeFileSync(`${process.env.MOVIE_FOLDER}/${id}.xml`, Buffer.from(await item.async("arraybuffer")));
+	}
+};
 
 function getTheme(id) {
 	const buffer = fs.readFileSync(process.env.CHARS_FOLDER + `/${id}.xml`);
@@ -63,6 +74,7 @@ module.exports = {
 		const id = !data.movieId ? fUtil.makeid(12) : data.movieId;
 		fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.zip`, body);
 		fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.png`, thumb);
+		unzipMovieForList(id);
 		return id;
 	},
 	generateThumbFromUrl() {
