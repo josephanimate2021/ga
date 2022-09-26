@@ -1,9 +1,15 @@
 const fs = require("fs");
+const asset = require("./asset/main");
+
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
   var html, tId;
   switch (url.pathname) {
-    case "/charcreator": {
+    case "/": {
+	const files = asset.listMovies();
+	html = `<html><head><title>Your Videos</title></head><body>${files.map(v => asset.compileListHtml(v)).join('')}</body></html>`;
+	break;
+    } case "/charcreator": {
         res.setHeader("Content-Type", "text/html; charset=utf8");
         switch (url.query.themeId) {
             default: {
