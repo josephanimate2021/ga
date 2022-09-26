@@ -11,6 +11,25 @@ function getTheme(id) {
 }
 
 module.exports = {
+	compileListHtml(v) {
+		if (!fUtil.exists(v.file)) return `<center><h1>You currently have no movies at the moment. <a href="/studio">Create one now</a></h1></center>`;
+		else return `<center><img src="/movies/${v.id}.png"/> ${v.title} <a href="/movies/${v.id}.zip">↓</a></center>`;
+	},
+	listMovies() {
+		const table = [];
+		fs.readdirSync(process.env.MOVIE_FOLDER).forEach(file => {
+			const id = file.slice(0, -4);
+			const dot = file.lastIndexOf('.');
+			const ext = file.substr(dot + 1);
+			if (ext == "png") return;
+			const buffer = fs.readFileSync(process.env.MOVIE_FOLDER + `/${id}.xml`);
+			const begTitle = buffer.indexOf("<title>") + 16;
+			const endTitle = buffer.indexOf("]]></title>");
+			const title = buffer.slice(begTitle, endTitle).toString().trim();
+			table.unshift({title: title, id: id, file: `${process.env.MOVIE_FOLDER}/${file}`});
+		});
+		return table;
+	},
 	getChars(theme) {
 		const table = [];
 		if (!fUtil.exists(process.env.CHARS_FOLDER + `/${theme}`)) return table;
