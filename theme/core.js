@@ -25,7 +25,7 @@ module.exports = function (req, res, url) {
               break;
             }
           }
-          redirect = `/charcreator?themeId=${theme}&bs=$type}`;
+          redirect = `/charcreator?themeId=${theme}&bs=${type}`;
           break;
         }
       }

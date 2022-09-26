@@ -84,6 +84,7 @@ module.exports = function (req, res, url) {
         </div>
         <script>
         var character = "${url.query.bs || "adam"}";
+        var origId = "${url.query.original_asset_id || ""}";
         $('#char_creator_client').flash({
            id: "char_creator",
            swf: "https://josephanimate2021.github.io/animation/414827163ad4eb60/cc.swf",
@@ -94,7 +95,7 @@ module.exports = function (req, res, url) {
            allowFullScreen: "true",
            wmode: "transparent",
            hasVersion: "10.3",
-           flashvars: {"apiserver":"\/","m_mode":"school","bs":character,"isLogin":"Y","isEmbed":"0","ctc":"go","tlang":"en_US","storePath":"https:\/\/josephanimate2021.github.io\/store\/3a981f5cb2739137\/<store>","clientThemePath":"https:\/\/josephanimate2021.github.io\/static\/ad44370a650793d9\/<client_theme>","appCode":"go","page":"","siteId":"go","userId":"00EDZP3Cu0aw","themeId":"${url.query.themeId || "family"}","ut":30}});
+           flashvars: {"apiserver":"\/","m_mode":"school","bs":character,"original_asset_id":origId,"isLogin":"Y","isEmbed":"0","ctc":"go","tlang":"en_US","storePath":"https:\/\/josephanimate2021.github.io\/store\/3a981f5cb2739137\/<store>","clientThemePath":"https:\/\/josephanimate2021.github.io\/static\/ad44370a650793d9\/<client_theme>","appCode":"go","page":"","siteId":"go","userId":"00EDZP3Cu0aw","themeId":"${url.query.themeId || "family"}","ut":30}});
         function goSubscribe()
         {
             var url = 'https://www.vyond.com/pricing';
@@ -301,10 +302,10 @@ module.exports = function (req, res, url) {
                 <div id="preview_popup_container" style="display:none">
                     <div id="preview_popup">
                         <h2 id="preview-video">Preview Video</h2>
-                        <p class="close-button" onclick="hidePreviewer()">X</p>
+                        <a class="close-button" href="javascript:hidePreviewer()">X</a>
                         <object data="https://josephanimate2021.github.io/animation/930/player.swf" type="application/x-shockwave-flash" id="preview_player">
                             <!-- The flashvars are a huge mess, have fun looking at them. :) -->
-                            <param name="flashvars" value="apiserver=/&storePath=https://josephanimate2021.github.io/store/3a981f5cb2739137/<store>&isEmbed=1&ctc=go&ut=60&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=https://josephanimate2021.github.io/static/55910a7cd204c37c/<client_theme>&tlang=en_US&isInitFromExternal=1&goteam_draft_only=1&isWide=1&collab=0&startFrame=previewStartFrame&autostart=1&nextUrl=../pages/html/list.html&tray=${url.query.tray || "custom"}">
+                            <param name="flashvars" value="apiserver=/&storePath=https://josephanimate2021.github.io/store/3a981f5cb2739137/<store>&ut=30&clientThemePath=https://josephanimate2021.github.io/static/55910a7cd204c37c/<client_theme>&isInitFromExternal=1&isWide=1&startFrame=1&autostart=1">
                             <param name="allowScriptAccess" value="always">
                             <param name="allowFullScreen" value="true">
                         </object>
@@ -314,9 +315,9 @@ module.exports = function (req, res, url) {
                     <div class="preview_popup">
                         <h2>&nbsp;</h2>
                             <div class="preview_player">
-                                <div id="wistia_player" class="wistia_embed" style="width:860px;height:445px">&nbsp;</div>
+                                <div id="wistia_player" class="wistia_embed" style="width:640px;height:360px">&nbsp;</div>
                                 </div>
-                            <a class="close-button" href="#" onclick="hideTutorial()">&#215;</a>
+                            <a class="close-button" href="javascript:hideTutorial()">X</a>
                         </div>
                      </div>
                 </div>
@@ -326,7 +327,7 @@ module.exports = function (req, res, url) {
                 
                 <object data="https://josephanimate2021.github.io/animation/66453a3ba2cc5e1b/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
                     <!-- The flashvars are a huge mess, have fun looking at them. :) -->
-                    <param name="flashvars" value="apiserver=/&storePath=https://josephanimate2021.github.io/store/3a981f5cb2739137/<store>&isEmbed=1&ctc=go&ut=30&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=https://josephanimate2021.github.io/static/55910a7cd204c37c/<client_theme>&themeId=custom&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=../pages/html/list.html&tray=${url.query.tray || "custom"}">            
+                    <param name="flashvars" value="apiserver=/&storePath=https://josephanimate2021.github.io/store/3a981f5cb2739137/<store>&isEmbed=1&ctc=go&ut=30&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=https://josephanimate2021.github.io/static/55910a7cd204c37c/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/&tray=${url.query.tray || "custom"}">            
                     <param name="allowScriptAccess" value="always">
                     <param name="allowFullScreen" value="true">
                 </object>

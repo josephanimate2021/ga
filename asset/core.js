@@ -16,11 +16,7 @@ module.exports = function (req, res) {
       const ext = match[2];
       try {
         try {
-          try {
-            res.end(fs.readFileSync(process.env.CHARS_FOLDER + `/${id}.${ext}`));
-          } catch (e) {
-            res.end(fs.readFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`));
-          }
+          res.end(fs.readFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`));
         } catch (e) {
           res.end(fs.readFileSync(process.env.BG_FOLDER + `/${id}.${ext}`));
         }

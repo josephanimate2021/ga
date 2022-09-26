@@ -22,6 +22,7 @@ env.DATABASES_FOLDER = `${folder}/meta`;
 
 // basic utilities
 const theme = require("./theme/core");
+const char = require("./asset/get/charthumbs");
 const asset = require("./asset/core");
 const pages = require("./pages");
 const crossdomain = require("./crossdomain");
@@ -29,6 +30,7 @@ const url = require('url');
 const fs = require('fs');
 
 const utilities = [
+  char,
   asset,
   theme,
   crossdomain,

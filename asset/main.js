@@ -1,32 +1,28 @@
 const fs = require('fs');
 const fUtil = require("../fileUtil");
 const get = require("../req/get");
-const themes = {};
 
-function addTheme(id) {
+function getTheme(id) {
 	const buffer = fs.readFileSync(process.env.CHARS_FOLDER + `/${id}.xml`);
 	const beg = buffer.indexOf(`theme_id="`) + 10;
 	const end = buffer.indexOf(`"`, beg);
 	const theme = buffer.subarray(beg, end).toString();
-	return (themes[id] = theme);
+	return theme;
 }
 
 module.exports = {
-	getTheme(id) {
-		if (themes[id]) return themes[id];
-		else return addTheme(id);
-	},
 	getChars(theme) {
 		const table = [];
-		fs.readdirSync(process.env.CHARS_FOLDER).forEach(file => {
+		if (!fUtil.exists(process.env.CHARS_FOLDER + `/${theme}`)) return table;
+		else fs.readdirSync(`${process.env.CHARS_FOLDER}/${theme}`).forEach(file => {
 			const dot = file.lastIndexOf(".");
 			const ext = file.substr(dot + 1);
 			if (ext == "png") return;
 			const id = file.slice(0, -4);
-			const xml = fUtil.exists(process.env.CHARS_FOLDER + `/${id}.xml`);
-			const thumb = fUtil.exists(process.env.CHARS_FOLDER + `/${id}.png`);
+			const xml = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
+			const thumb = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.png`);
 			if (xml && thumb) {
-				const buffer = fs.readFileSync(process.env.CHARS_FOLDER + `/${id}.xml`);
+				const buffer = fs.readFileSync(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
 				const beg = buffer.indexOf(`theme_id="`) + 10;
 				const end = buffer.indexOf(`"`, beg);
 				theme ||= buffer.subarray(beg, end).toString();
@@ -35,8 +31,7 @@ module.exports = {
 					tag: fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`),
 					state: fs.readFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`)
 				};
-				if (theme != this.getTheme(id)) return;
-				else table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
+				table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
 			}
 		});
 		return table;
@@ -128,28 +123,28 @@ module.exports = {
 		fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, "Untitled");
 		fs.writeFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`, "Y");
 		fs.writeFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`, "");
-		addTheme(id);
+		const tId = getTheme(id);
+		const tidFolder = fUtil.exists(process.env.CHARS_FOLDER + `/${tId}`);
+		if (!tidFolder) fs.mkdirSync(process.env.CHARS_FOLDER + `/${tId}`);
+		fs.writeFileSync(process.env.CHARS_FOLDER + `/${tId}/${id}.xml`, data.body);
+		fs.writeFileSync(process.env.CHARS_FOLDER + `/${tId}/${id}.png`, thumb);
 		return id;
 	},
 	loadCharacter(id) {
 		return new Promise((res, rej) => {
-			try {
-				try {
-					fs.readFile(fUtil.fileString(process.env.CHARS_FOLDER + `/${id}.xml`), (e, b) => {
-						if (e) rej(e);
-						else res(b);
-					});
-				} catch (e) {
-					const nId = (id.slice(0, -3) + "000").padStart(9, 0);
-					const baseUrl = process.env.CHAR_BASE_URL;
-					get(`${baseUrl}/${nId}.txt`).then(chars => {
-						var line = chars.toString("utf8").split("\n").find(v => v.substring(0, 3) == id.slice(-3));
-						if (line) res(Buffer.from(line.substring(3)));
-						else rej("Error: Your Character Has Failed To Load. Please Try Again Later.");
-					}).catch(e => rej(e));
-				}
-			} catch (e) {
-				rej(e);
+			if (!fUtil.exists(process.env.CHARS_FOLDER + `/${id}.xml`)) {
+				const nId = (id.slice(0, -3) + "000").padStart(9, 0);
+				const baseUrl = process.env.CHAR_BASE_URL;
+				get(`${baseUrl}/${nId}.txt`).then(chars => {
+					var line = chars.toString("utf8").split("\n").find(v => v.substring(0, 3) == id.slice(-3));
+					if (line) res(Buffer.from(line.substring(3)));
+					else rej("Error: A Stock Character Has Failed To Load. Please Try Again Later.");
+				}).catch(e => rej(e));
+			} else {
+				fs.readFile(fUtil.fileString(process.env.CHARS_FOLDER + `/${id}.xml`), (e, b) => {
+					if (e) rej(e);
+					else res(b);
+				});
 			}
 		});
 	},
@@ -167,13 +162,13 @@ module.exports = {
 						case "custom": {
 							tId = "family";
 							break;
-						} case "anime": {
-							tId = "guy";
+						} default: {
+							tId = data.themeId;
 							break;
 						}
 					}
 					files = this.getChars(tId);
-					xml = `<ugc more="0">${files.map(v => `<char id="${v.id}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}.png" copyable="${v.copyable}"><tags>${v.tags || ""}</tags></char>`).join('')}</ugc>`;
+					xml = `<ugc more="0">${files.map(v => `<char id="${v.id}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/chars/${v.theme}/${v.id}.png" copyable="${v.copyable}"><tags>${v.tags || ""}</tags></char>`).join('')}</ugc>`;
 					break;
 				} case "prop": {
 					files = this.getProps();
