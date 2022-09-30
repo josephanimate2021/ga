@@ -11,8 +11,8 @@ const env = {
   THUMBNAILS_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Thumbnails/master/thumbnails",
   // anistick swfs beta
   SWF_URL: "https://josephanimate2021.github.io/Animium-Swfs",
-  STORE_URL: "https://josephanimate2021.github.io/store/3a981f5cb2739137/",
-  CLIENT_URL: "https://josephanimate2021.github.io/static/55910a7cd204c37c/",
+  STORE_URL: "https://josephanimate2021.github.io/store/3a981f5cb2739137",
+  CLIENT_URL: "https://josephanimate2021.github.io/static/55910a7cd204c37c",
   // env
   node_env: "dev"
 };
