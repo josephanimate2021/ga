@@ -5,6 +5,7 @@ const asset = require('./main');
 const fUtil = require('../fileUtil');
 const fs = require('fs');
 const xml = require('../xml');
+const base = Buffer.alloc(1, 0);
 // functions
 // server functions
 module.exports = function (req, res) {
@@ -29,7 +30,11 @@ module.exports = function (req, res) {
       switch (req.url) {
         // i don't know what to expect here. but a blank asset error will give you other options.
         case "/goapi/getUserAssets/": {
-          res.end(Buffer.from('<ugc more="0"></ugc>'));
+          loadPost(req, res).then(data => asset.getXmlsForZip(data)).then((buff) => {
+            res.setHeader("Content-Type", "application/zip");
+            res.write(base);
+            res.end(buff);
+          }).catch(e => console.log(e));
           return true;
         } case "/goapi/deleteAsset/": {
           loadPost(req, res).then(data => {

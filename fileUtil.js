@@ -31,9 +31,9 @@ module.exports = {
       }
     });
   },
-  addToZip(nodezip, zipName, buffer) {
-    nodezip.add(zipName, buffer);
-		if (nodezip[zipName].crc32 < 0) nodezip[zipName].crc32 += 4294967296;
+  addToZip(zip, zipName, buffer) {
+		zip.add(zipName, buffer);
+		if (zip[zipName].crc32 < 0) zip[zipName].crc32 += 4294967296;
 	},
   zipTheme(tId) {
     return new Promise((res, rej) => {

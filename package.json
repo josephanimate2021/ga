@@ -6,7 +6,8 @@
 		"error": "pause"
 	},
 	"dependencies": {
+		"formidable": "^1.2.1",
 		"jszip": "^3.10.1",
-		"formidable": "^1.2.1"
+		"node-zip": "github:kyriosli/node-zip"
 	}
 }

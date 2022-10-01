@@ -2,6 +2,7 @@ const fs = require('fs');
 const fUtil = require("../fileUtil");
 const get = require("../req/get");
 const jszip = require('jszip');
+const nodezip = require("node-zip");
 const unzipMovieForList = async (id) => {
 	const fileContent = fs.readFileSync(process.env.MOVIE_FOLDER + `/${id}.zip`);
 	const jszipInstance = new jszip();
@@ -134,13 +135,32 @@ module.exports = {
 		const table = [];
 		fs.readdirSync(process.env.PROPS_FOLDER).forEach(file => {
 			const id = file.slice(0, -4);
-			const dot = file.lastIndexOf('.');
-			const ext = file.substr(dot + 1);
 			if (!fs.existsSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`)) return;
 			const name = fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`);
 			const meta = require('.' + process.env.DATABASES_FOLDER + `/${id}.json`);
 			const { otherProp, handheld, hat, wear } = meta;	
 			table.unshift({id: file, title: name, holdable: handheld, wearable: wear, headable: hat, placeable: otherProp});
+		});
+		return table;
+	},
+	getBackgrounds() {
+		const table = [];
+		fs.readdirSync(process.env.BG_FOLDER).forEach(file => {
+			const id = file.slice(0, -4);
+			if (!fs.existsSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`)) return;
+			const name = fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`);
+			table.unshift({id: file, title: name});
+		});
+		return table;
+	},
+	getStarters() {
+		const table = [];
+		fs.readdirSync(process.env.STARTERS_FOLDER).forEach(file => {
+			const id = file.slice(0, -4);
+			if (!fs.existsSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`)) return;
+			const name = fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`);
+			const tag = fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`);
+			table.unshift({id: id, title: name, tags: `${tag || ""}`});
 		});
 		return table;
 	},
@@ -181,6 +201,48 @@ module.exports = {
 		const thumb = Buffer.from(thumbdata, "base64");
 		if (fUtil.exists(process.env.CHARS_FOLDER + `/${id}.png`)) fs.writeFileSync(process.env.CHARS_FOLDER + `/${id.slice(0, -3) + "000"}.png`, thumb);
 		else fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
+	},
+	getFolders(type) {
+		return new Promise((res) => {
+			switch(type) {
+				case "bg": {
+					res(process.env.BG_FOLDER);
+					break;
+				} case "movie": {
+					res(process.env.STARTERS_FOLDER);
+					break;
+				}
+			}
+		});
+	},
+	getFiles(folder) {
+		return new Promise((res) => fs.readdirSync(folder).forEach(file => res(file)));
+	},
+	async getXmlsForZip(data) {
+		var xml, files;
+		switch (data.type) {
+			case "bg": {
+				files = this.getBackgrounds();
+				xml = `<ugc more="0">${
+					files.map(v => `<background subtype="0" id="${v.id}" name="${v.title}" enable="Y"/>`).join("")
+				}</ugc>`;
+				break;
+			} default: {
+				xml = `<ugc more="0"></ugc>`;
+				break;
+			}
+		}
+		const zip = nodezip.create();
+		fUtil.addToZip(zip, "desc.xml", Buffer.from(xml));
+	
+		this.getFolders(data.type).then(folder => {
+			this.getFiles(folder).then(file => {
+				const buffer = fs.readFileSync(`${folder}/${file}`);
+				fUtil.addToZip(zip, `${data.type}/${file}`, buffer);
+			}).catch(e => console.log(e));
+		}).catch(e => console.log(e));
+
+		return await zip.zip();
 	},
 	getXmls(data) {
 		return new Promise((res) => {
