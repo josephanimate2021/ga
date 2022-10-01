@@ -113,6 +113,16 @@ module.exports = function (req, res) {
         } case "/goapi/saveTemplate/": {
           loadPost(req, res).then(data => asset.saveStarter(data)).then(id => res.end(0 + id)).catch(e => console.log(e));
           return true;
+        } case "/ajax/tutorialStatus/skipped":
+        case "/ajax/tutorialStatus/completed": {
+          fs.writeFileSync(process.env.DATABASES_FOLDER + `/tutorialStatus.txt`, "false");
+          return true;
+        } case "/ajax/listRedirect": {
+          const url = '/';
+          res.statusCode = 302;
+          res.setHeader("Location", url);
+          res.end();
+          return true;
         }
       }
     }

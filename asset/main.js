@@ -34,7 +34,7 @@ module.exports = {
 			const endTitle = buffer.indexOf("]]></title>");
 			const title = buffer.slice(begTitle, endTitle).toString().trim();
 			if (xml && zip && png) {
-				table.unshift({html: `<center><img src="/movies/${id}.png"/> ${title} <a href="/movies/${id}.zip">Download</a></center>`});
+				table.unshift({html: `<center>${title || "Untitled Video"}<br><img src="/movies/${id}.png"/><br><a href="/movies/${id}.zip">Download</a></center><br>`});
 			}
 		});
 		return table;

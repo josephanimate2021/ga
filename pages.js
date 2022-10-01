@@ -1,17 +1,21 @@
-const fs = require("fs");
-const asset = require("./asset/main");
-const fUtil = require("./fileUtil");
-const { SWF_URL: aniSwfUrl, STORE_URL: aniStoreUrl, CLIENT_URL: aniClientUrl } = process.env;
+const fs = require("fs"),
+asset = require("./asset/main"),
+fUtil = require("./fileUtil"),
+env = require("./env");
+aniSwfUrl = env.SWF_URL,
+aniStoreUrl = env.STORE_URL,
+aniClientUrl = env.CLIENT_URL;
 
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
   var html, tId;
   const tutorialReload = url.query.tutorial = 0 ? true : false;
+  const tutorialDataBase = fUtil.exists(process.env.DATABASES_FOLDER + `/tutorialStatus.txt`) ? false : true;
   switch (url.pathname) {
     case "/": {
         if (!fUtil.exists(`${process.env.MOVIE_FOLDER}/xmls`)) fs.mkdirSync(`${process.env.MOVIE_FOLDER}/xmls`);
         const files = asset.listMovies();
-        html = `<html><head><title>Your Videos</title></head><body><center><h1>This LVM Clone is currently on it's beta stage right now and is most likely to be unstable. Alot of fixes are being added constantly in order to make this lvm clone stable. <br><a href="/charcreator">Create a character</a> <a href="/studio">Make a video</a></h1><br><h2>How am i supposed to record videos on here?</h2><br><h3>You are pretty lucky that the preview window has a fullscreen option on the player. all you need to do is pull out your screen recorder, do what you would normally do, and then put the player on full screen. simple as that :)</h3><br><h2>What do i do if i accidently closed the video editor?</h2><br><h3>you are pretty lucky that this list of your movies contain a download link next to each one of your movies. they are there so that way you can download them. after your movie is downloaded, extract the zip file like how you would normally do it and you have your movie xml right there!</h3></center><br>${files.map(v => `${v.html}`).join('') || '<center><h2>You currently have no movies right now. <a href="/studio">Create one now</a></h2></center>'}</body></html>`;
+        html = `<html><head><title>Your Videos</title></head><body><center><h1>This LVM Clone is currently on it's beta stage right now and is most likely to be unstable. Alot of fixes are being added constantly in order to make this lvm clone stable. <br><a href="/charcreator">Create a character</a> <a href="/studio">Make a video</a></h1><br><h2>How am i supposed to record videos on here?</h2><br><h3>You are pretty lucky that the preview window has a fullscreen option on the player. all you need to do is pull out your screen recorder, do what you would normally do, and then put the player on full screen. simple as that :)</h3><br><h2>What do i do if i accidently closed the video editor?</h2><br><h3>you are pretty lucky that this list of your movies contain a download link next to each one of your movies. they are there so that way you can download them. after your movie is downloaded, extract the zip file like how you would normally do it and you have your movie xml right there!</h3></center><br><center><h2>Your Movies</h2></center><br>${files.map(v => `${v.html}`).join('') || '<center><h3>You currently have no movies right now. <a href="/studio">Create one now</a></h3></center>'}</body></html>`;
         break;
     } case "/charcreator": {
 	    res.setHeader("Content-Type", "text/html; charset=utf8");
@@ -170,7 +174,6 @@ module.exports = function (req, res, url) {
         </body></html>`;
 	    break;
     } case "/studio": {
-	    if (!fs.existsSync(process.env.DATABASES_FOLDER + '/tutorialStatus.txt')) fs.writeFileSync(process.env.DATABASES_FOLDER + '/tutorialStatus.txt', 'true');
 	    res.setHeader("Content-Type", "text/html; charset=utf8");
 	    html = `<html lang="en">
                 <head>
@@ -340,7 +343,7 @@ module.exports = function (req, res, url) {
                 
                 <object data="${aniSwfUrl}/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
                     <!-- The flashvars are a huge mess, have fun looking at them. :) -->
-                    <param name="flashvars" value="apiserver=/&storePath=${aniStoreUrl}/<store>&isEmbed=1&ctc=go&ut=30&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=${aniClientUrl}/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/&tray=${url.query.tray || "custom"}">            
+                    <param name="flashvars" value="apiserver=/&storePath=${aniStoreUrl}/<store>&isEmbed=1&ctc=go&ut=30&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=${aniClientUrl}/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/ajax/listRedirect&tray=${url.query.tray || "custom"}">            
                     <param name="allowScriptAccess" value="always">
                     <param name="allowFullScreen" value="true">
                 </object>
@@ -406,12 +409,11 @@ module.exports = function (req, res, url) {
 	///
 	/// Other stuff
 	///
-	// Redirect to Video Browser on Video Studio exit
 	function exitStudio() {
-		window.location = "/videos/browse.php";
+		window.location = "/";
 	}
 	// interactive tutorial
-	interactiveTutorial.isShowTutorial = ${tutorialReload || fs.readFileSync(process.env.DATABASES_FOLDER + '/tutorialStatus.txt')};
+	interactiveTutorial.isShowTutorial = ${tutorialReload || tutorialDataBase};
 
         function tutorialStarted() {
         }
