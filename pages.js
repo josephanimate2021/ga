@@ -1,10 +1,12 @@
 const fs = require("fs");
 const asset = require("./asset/main");
 const fUtil = require("./fileUtil");
+const { SWF_URL: aniSwfUrl, STORE_URL: aniStoreUrl, CLIENT_URL: aniClientUrl } = process.env;
 
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
   var html, tId;
+  const tutorialReload = url.query.tutorial = 0 ? true : false;
   switch (url.pathname) {
     case "/": {
         if (!fUtil.exists(`${process.env.MOVIE_FOLDER}/xmls`)) fs.mkdirSync(`${process.env.MOVIE_FOLDER}/xmls`);
@@ -12,15 +14,17 @@ module.exports = function (req, res, url) {
         html = `<html><head><title>Your Videos</title></head><body><center><h1>This LVM Clone is currently on it's beta stage right now and is most likely to be unstable. Alot of fixes are being added constantly in order to make this lvm clone stable. <br><a href="/charcreator">Create a character</a> <a href="/studio">Make a video</a></h1><br><h2>How am i supposed to record videos on here?</h2><br><h3>You are pretty lucky that the preview window has a fullscreen option on the player. all you need to do is pull out your screen recorder, do what you would normally do, and then put the player on full screen. simple as that :)</h3><br><h2>What do i do if i accidently closed the video editor?</h2><br><h3>you are pretty lucky that this list of your movies contain a download link next to each one of your movies. they are there so that way you can download them. after your movie is downloaded, extract the zip file like how you would normally do it and you have your movie xml right there!</h3></center><br>${files.map(v => `${v.html}`).join('') || '<center><h2>You currently have no movies right now. <a href="/studio">Create one now</a></h2></center>'}</body></html>`;
         break;
     } case "/charcreator": {
-        res.setHeader("Content-Type", "text/html; charset=utf8");
-        switch (url.query.themeId) {
-            default: {
-                // everyone loves comedy world. so why not test some things out using this theme.
-                tId = "custom";
-                break;
-            }
-        }
-        html = `<html><head>
+	    res.setHeader("Content-Type", "text/html; charset=utf8");
+	    switch (url.query.themeId) {
+		    case "family": {
+			    tId = "custom";
+			    break;
+		    } default: {
+			    tId = url.query.themeId;
+			    break;
+		    }
+	    }
+	    html = `<html><head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <link rel="dns-prefetch" href="https://josephanimate2021.github.io">
@@ -95,7 +99,7 @@ module.exports = function (req, res, url) {
         var origId = "${url.query.original_asset_id || ""}";
         $('#char_creator_client').flash({
            id: "char_creator",
-           swf: "https://josephanimate2021.github.io/animation/414827163ad4eb60/cc.swf",
+           swf: "${aniSwfUrl}/cc.swf",
            height: 600,
            width: 960,
            align: "middle",
@@ -103,7 +107,7 @@ module.exports = function (req, res, url) {
            allowFullScreen: "true",
            wmode: "transparent",
            hasVersion: "10.3",
-           flashvars: {"apiserver":"\/","m_mode":"school","bs":character,"original_asset_id":origId,"isLogin":"Y","isEmbed":"0","ctc":"go","tlang":"en_US","storePath":"https:\/\/josephanimate2021.github.io\/store\/3a981f5cb2739137\/<store>","clientThemePath":"https:\/\/josephanimate2021.github.io\/static\/ad44370a650793d9\/<client_theme>","appCode":"go","page":"","siteId":"go","userId":"00EDZP3Cu0aw","themeId":"${url.query.themeId || "family"}","ut":30}});
+           flashvars: {"apiserver":"/","m_mode":"school","bs":character,"original_asset_id":origId,"isLogin":"Y","isEmbed":"0","ctc":"go","tlang":"en_US","storePath":"${aniStoreUrl}/<store>","clientThemePath":"${aniClientUrl}/<client_theme>","appCode":"go","page":"","siteId":"go","userId":"00EDZP3Cu0aw","themeId":"${url.query.themeId || "family"}","ut":30}});
         function goSubscribe()
         {
             var url = 'https://www.vyond.com/pricing';
@@ -164,10 +168,11 @@ module.exports = function (req, res, url) {
         <script type="text/javascript">
         </script>
         </body></html>`;
-                break;
-            } case "/studio": {
-                res.setHeader("Content-Type", "text/html; charset=utf8");
-                html = `<html lang="en">
+	    break;
+    } case "/studio": {
+	    if (!fs.existsSync(process.env.DATABASES_FOLDER + '/tutorialStatus.txt')) fs.writeFileSync(process.env.DATABASES_FOLDER + '/tutorialStatus.txt', 'true');
+	    res.setHeader("Content-Type", "text/html; charset=utf8");
+	    html = `<html lang="en">
                 <head>
                     <meta charset="utf-8">
                     <link rel="icon" href="/favicon.png" type="image/png">
@@ -311,9 +316,9 @@ module.exports = function (req, res, url) {
                     <div id="preview_popup">
                         <h2 id="preview-video">Preview Video</h2>
                         <a class="close-button" href="javascript:hidePreviewer()">X</a>
-                        <object data="https://josephanimate2021.github.io/animation/930/player.swf" type="application/x-shockwave-flash" id="preview_player">
+                        <object data="${aniSwfUrl}/player.swf" type="application/x-shockwave-flash" id="preview_player">
                             <!-- The flashvars are a huge mess, have fun looking at them. :) -->
-                            <param name="flashvars" value="apiserver=/&storePath=https://josephanimate2021.github.io/store/3a981f5cb2739137/<store>&ut=30&clientThemePath=https://josephanimate2021.github.io/static/55910a7cd204c37c/<client_theme>&isInitFromExternal=1&isWide=1&startFrame=1&autostart=1">
+                            <param name="flashvars" value="apiserver=/&storePath=${aniStoreUrl}/<store>&ut=30&clientThemePath=${aniClientUrl}/<client_theme>&isInitFromExternal=1&isWide=1&startFrame=1&autostart=1">
                             <param name="allowScriptAccess" value="always">
                             <param name="allowFullScreen" value="true">
                         </object>
@@ -333,9 +338,9 @@ module.exports = function (req, res, url) {
                 <!-- Video Studio -->
                 <main id="studio_holder">
                 
-                <object data="https://josephanimate2021.github.io/animation/66453a3ba2cc5e1b/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
+                <object data="${aniSwfUrl}/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
                     <!-- The flashvars are a huge mess, have fun looking at them. :) -->
-                    <param name="flashvars" value="apiserver=/&storePath=https://josephanimate2021.github.io/store/3a981f5cb2739137/<store>&isEmbed=1&ctc=go&ut=30&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=https://josephanimate2021.github.io/static/55910a7cd204c37c/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/&tray=${url.query.tray || "custom"}">            
+                    <param name="flashvars" value="apiserver=/&storePath=${aniStoreUrl}/<store>&isEmbed=1&ctc=go&ut=30&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=${aniClientUrl}/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/&tray=${url.query.tray || "custom"}">            
                     <param name="allowScriptAccess" value="always">
                     <param name="allowFullScreen" value="true">
                 </object>
@@ -405,17 +410,24 @@ module.exports = function (req, res, url) {
 	function exitStudio() {
 		window.location = "/videos/browse.php";
 	}
-	// Hide interactive tutorial
-	interactiveTutorial = {
-		neverDisplay: function() {
-			return true
-		}
-	};
+	// interactive tutorial
+	interactiveTutorial.isShowTutorial = ${tutorialReload || fs.readFileSync(process.env.DATABASES_FOLDER + '/tutorialStatus.txt')};
+
+        function tutorialStarted() {
+        }
+        function tutorialStep(sn) {
+        }
+        function tutorialCompleted() {
+            $.ajax({
+                type: 'POST',
+                url: '/ajax/tutorialStatus/completed'
+            });
+        }
 	// Hide Video Previewer popup
 	function hidePreviewer() {
 		$("#preview_popup_container").hide();
 	}
-    function hideTutorial() {
+	function hideTutorial() {
 		$("#video-tutorial").hide();
 	}
 	// Hide Asset Importer popup
@@ -436,7 +448,7 @@ module.exports = function (req, res, url) {
                 </main>
                 
                 </body></html>`;
-        break;
+	    break;
     }
   }
   res.end(html);
