@@ -29,7 +29,7 @@ module.exports = function (req, res) {
       switch (req.url) {
         // i don't know what to expect here. but a blank asset error will give you other options.
         case "/goapi/getUserAssets/": {
-          loadPost(req, res).then(data => asset.getXmls(data).then(b => res.end(Buffer.from(b))).catch(e => console.log(e)));
+          res.end(Buffer.from('<ugc more="0"></ugc>'));
           return true;
         } case "/goapi/deleteAsset/": {
           loadPost(req, res).then(data => {

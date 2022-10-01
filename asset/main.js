@@ -211,6 +211,9 @@ module.exports = {
 						}" wearable="${v.wearable}" facing="left" width="0" height="0" asset_url="/assets/${v.id}"/>`).join('')
 					}</ugc>`;
 					break;
+				} default: {
+					xml = `<ugc more="0"></ugc>`;
+					break;
 				}
 			}
 			res(xml);
