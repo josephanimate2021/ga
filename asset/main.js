@@ -50,12 +50,9 @@ module.exports = {
 		const table = [];
 		if (!fUtil.exists(process.env.CHARS_FOLDER + `/${theme}`)) return table;
 		else fs.readdirSync(`${process.env.CHARS_FOLDER}/${theme}`).forEach(file => {
-			const dot = file.lastIndexOf(".");
-			const ext = file.substr(dot + 1);
-			if (ext == "png") return;
 			const id = file.slice(0, -4);
 			const xml = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
-			const thumb = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.png`);
+			const thumb = fUtil.exists(`${process.env.CHARS_FOLDER}/${id}.png`);
 			if (xml && thumb) {
 				const buffer = fs.readFileSync(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
 				const beg = buffer.indexOf(`theme_id="`) + 10;
