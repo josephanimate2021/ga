@@ -44,26 +44,27 @@ module.exports = {
 	},
 	getChars(theme) {
 		const table = [];
-		if (!fUtil.exists(process.env.CHARS_FOLDER + `/${theme}`)) return;
-		else {
-			fs.readdirSync(`${process.env.CHARS_FOLDER}/${theme}`).forEach(file => {
-				const id = file.slice(0, -4);
-				const xml = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
-				const thumb = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.png`);
-				if (xml && thumb) {
-					const buffer = fs.readFileSync(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
-					const beg = buffer.indexOf(`theme_id="`) + 10;
-					const end = buffer.indexOf(`"`, beg);
-					theme ||= buffer.subarray(beg, end).toString();
-					const meta = {
-						name: fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`),
-						tag: fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`),
-						state: fs.readFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`)
-					};
-					table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
-				}
-			});
-		}
+		if (!fUtil.exists(process.env.CHARS_FOLDER + `/${theme}`)) return table;
+		else fs.readdirSync(`${process.env.CHARS_FOLDER}/${theme}`).forEach(file => {
+			const dot = file.lastIndexOf(".");
+			const ext = file.substr(dot + 1);
+			if (ext == "png") return;
+			const id = file.slice(0, -4);
+			const xml = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
+			const thumb = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.png`);
+			if (xml && thumb) {
+				const buffer = fs.readFileSync(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
+				const beg = buffer.indexOf(`theme_id="`) + 10;
+				const end = buffer.indexOf(`"`, beg);
+				theme ||= buffer.subarray(beg, end).toString();
+				const meta = {
+					name: fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`),
+					tag: fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`),
+					state: fs.readFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`)
+				};
+				table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
+			}
+		});
 		return table;
 	},
 	saveMovie(data) {
