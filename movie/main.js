@@ -61,35 +61,35 @@ function name2Font(font) {
 module.exports = {
     async basicParse(zip, themes, file, type, subtype) {
         const pieces = file.split(".");
-		const themeId = pieces[0];
-		const ext = pieces.pop();
-		pieces[pieces.length - 1] += "." + ext;
-		pieces.splice(1, 0, type);
-		const filename = pieces.join(".");
-		if (themeId == "ugc") {
-			const id = pieces[2];
-			try {
-                asset.getFolders(type).then(folder => {
-                    const buffer = fs.readFileSync(`${folder}/${filename}`);
-                    fUtil.addToZip(zip, filename, buffer);
-                    if (type == "prop" && subtype == "video") {
-                        pieces[2] = pieces[2].slice(0, -3) + "png";
-                        const filename = pieces.join(".")
-                        const buff = fs.readFileSync(folder + "/" + pieces[2], true);
-                        fUtil.addToZip(zip, filename, buff);
-                    }
-                }).catch(e => console.log(e));
-            } catch (e) {
-                console.error(`WARNING: ${id}:`, e);
-                return;
-            }
-		} else {
-			const filepath = `${store}/${pieces.join("/")}`;
-			fUtil.addToZip(zip, filename, fs.readFileSync(filepath));
+	const themeId = pieces[0];
+	const ext = pieces.pop();
+	pieces[pieces.length - 1] += "." + ext;
+	pieces.splice(1, 0, type);
+	const filename = pieces.join(".");
+	if (themeId == "ugc") {
+		const id = pieces[2];
+		try {
+			asset.getFolders(type).then(folder => {
+				const buffer = fs.readFileSync(`${folder}/${filename}`);
+				fUtil.addToZip(zip, filename, buffer);
+				if (type == "prop" && subtype == "video") {
+					pieces[2] = pieces[2].slice(0, -3) + "png";
+					const filename = pieces.join(".")
+					const buff = fs.readFileSync(folder + "/" + pieces[2], true);
+					fUtil.addToZip(zip, filename, buff);
+				}
+			}).catch(e => console.log(e));
+		} catch (e) {
+			console.error(`WARNING: ${id}:`, e);
+			return;
 		}
+	} else {
+		const filepath = `${store}/${pieces.join("/")}`;
+		fUtil.addToZip(zip, filename, fs.readFileSync(filepath));
+	}
 
-		themes[themeId] = true;
-	},
+	themes[themeId] = true;
+    },
     async packMovie(xmlBuffer) {
         if (xmlBuffer.length == 0) throw null;
         const zip = nodezip.create();
@@ -204,9 +204,7 @@ module.exports = {
                                 if (text.attr.font == "Arial") continue;
     
                                 const filename = `${name2Font(text.attr.font)}.swf`;
-                                get(`${source}/go/font/${filename}`).then(buff => {
-                                    fUtil.addToZip(zip, filename, buff);
-                                }).catch(e => console.log(e));
+                                get(`${source}/go/font/${filename}`).then(buff => fUtil.addToZip(zip, filename, buff)).catch(e => console.log(e));
                                 break;
                             }
                         }
