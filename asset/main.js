@@ -24,6 +24,9 @@ function getTheme(id) {
 }
 
 module.exports = {
+	getTheme(id) {
+		return getTheme(id);
+	},
 	parse(buffer) {
 		return new Promise(async (res) => res(await functions.packMovie(buffer)));
 	},

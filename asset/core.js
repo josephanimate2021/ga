@@ -46,25 +46,46 @@ module.exports = function (req, res, url) {
           return true;
         } case "/goapi/deleteAsset/": {
           loadPost(req, res).then(data => {
+            var id;
             try {
+              id = data.assetId.slice(0, -4);
               fs.unlinkSync(process.env.PROPS_FOLDER + `/${data.assetId}`);
             } catch (e) {
               try {
+                id = data.assetId.slice(0, -4);
                 fs.unlinkSync(process.env.BG_FOLDER + `/${data.assetId}`);
               } catch (e) {
-                console.log(e);
+                try {
+                  const theme = asset.getTheme(data.assetId);
+                  id = data.assetId;
+                  fs.unlinkSync(process.env.CHARS_FOLDER + `/${theme}/${data.assetId}.xml`);
+                  fs.unlinkSync(process.env.CHARS_FOLDER + `/${data.assetId}.xml`);
+                  fs.unlinkSync(process.env.CHARS_FOLDER + `/${data.assetId}.png`);
+                } catch (e) {
+                  console.log(e);
+                }
               }
             }
             if (
               fUtil.exists(
-                process.env.DATABASES_FOLDER + `/${data.assetId.slice(0, -4)}.json`
+                process.env.DATABASES_FOLDER + `/${id}.json`
               )
-            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/${data.assetId.slice(0, -4)}.json`);
+            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/${id}.json`);
             if (
               fUtil.exists(
-                process.env.DATABASES_FOLDER + `/${data.assetId.slice(0, -4)}.json`
+                process.env.DATABASES_FOLDER + `/names/${id}.txt`
               )
-            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/names/${data.assetId.slice(0, -4)}.txt`);
+            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`);
+            if (
+              fUtil.exists(
+                process.env.DATABASES_FOLDER + `/states/${id}.txt`
+              )
+            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`);
+            if (
+              fUtil.exists(
+                process.env.DATABASES_FOLDER + `/tags/${id}.txt`
+              )
+            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`);
           });
           return true;
         } case "/goapi/deleteUserTemplate/": {
