@@ -109,16 +109,14 @@ module.exports = {
 			const begTitle = buffer.indexOf("<title>") + 16;
 			const endTitle = buffer.indexOf("]]></title>");
 			const title = buffer.slice(begTitle, endTitle).toString().trim();
-			const begTag = buffer.indexOf("<tag>") + 14;
-			const endTag = buffer.indexOf("]]></tag>");
-			const tag = buffer.slice(begTag, endTag).toString().trim();
-			const meta = {
-				id: id,
-				title: title,
-				sceneCount: 1,
-			};
-			meta.share = { type: "none" };
-			meta.published = "";
+            const meta = {
+              id: id,
+              title: title,
+              sceneCount: 1,
+			  assetId: id,
+            };
+            meta.share = { type: "none" };
+            meta.published = "";
 			fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
 		}
 		return id;
@@ -195,12 +193,11 @@ module.exports = {
 			const id = file.slice(0, -4);
 			if (
 				!fUtil.exists(
-					process.env.DATABASES_FOLDER + `/names/${id}.txt`
-				) && !fUtil.exists(process.env.DATABASES_FOLDER + `/names/${id}.txt`)
+					process.env.DATABASES_FOLDER + `/${id}.json`
+				)
 			) return;
-			const name = fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`);
-			const tag = fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`);
-			table.unshift({id: id, title: name, tags: `${tag || ""}`});
+			const meta = require("." + process.env.DATABASES_FOLDER + `/${id}.json`);
+			table.unshift({id: id, title: meta.title, tags: `${meta.tag || ""}`});
 		});
 		return table;
 	},

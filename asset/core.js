@@ -46,6 +46,8 @@ module.exports = function (req, res, url) {
           return true;
         } case "/api_v2/asset/get": {
           loadPost(req, res).then(data => {
+            console.log(data);
+            if (!fUtil.exists(process.env.DATABASES_FOLDER + `/${data.data.starter_id}.json`)) return;
             const meta = require('.' + process.env.DATABASES_FOLDER + `/${data.data.starter_id}.json`);
             res.end(JSON.stringify({status: "ok", data: meta}));
           });
@@ -123,20 +125,24 @@ module.exports = function (req, res, url) {
             ) fs.unlinkSync(process.env.STARTER_FOLDER + `/${data.templateId}.png`);
             if (
               fUtil.exists(
-                process.env.DATABASES_FOLDER + `/tags/${data.templateId}.txt`
+                process.env.DATABASES_FOLDER + `/${data.templateId}.json`
               )
-            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/tags/${data.templateId}.txt`);
-            if (
-              fUtil.exists(
-                process.env.DATABASES_FOLDER + `/names/${data.templateId}.txt`
-              )
-            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/names/${data.templateId}.txt`);
+            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/${data.templateId}.json`);
           });
           return true;
         } case "/goapi/updateSysTemplateAttributes/": {
           loadPost(req, res).then(data => {
-            fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${data.movieId}.txt`, data.title);
-            fs.writeFileSync(process.env.DATABASES_FOLDER + `/tags/${data.movieId}.txt`, data.tags);
+            const id = data.id || data.movieId;
+            const meta = {
+              id: id,
+              title: data.title,
+              sceneCount: 1,
+              assetId: id,
+            };
+            meta.share = { type: "none" };
+            meta.published = "";
+            if (data.tags) meta.tags = data.tags;
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
           });
           return true;
         } case "/goapi/updateAsset/": {
