@@ -112,8 +112,14 @@ module.exports = {
 			const begTag = buffer.indexOf("<tag>") + 14;
 			const endTag = buffer.indexOf("]]></tag>");
 			const tag = buffer.slice(begTag, endTag).toString().trim();
-			fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, title);
-			fs.writeFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`, tag);
+			const meta = {
+				id: id,
+				title: title,
+				sceneCount: 1,
+			};
+			meta.share = { type: "none" };
+			meta.published = "";
+			fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
 		}
 		return id;
 	},

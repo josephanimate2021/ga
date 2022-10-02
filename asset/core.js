@@ -44,6 +44,12 @@ module.exports = function (req, res, url) {
             res.end(JSON.stringify({status: "ok"}));
           });
           return true;
+        } case "/api_v2/asset/get": {
+          loadPost(req, res).then(data => {
+            const meta = require('.' + process.env.DATABASES_FOLDER + `/${data.data.starter_id}.json`);
+            res.end(JSON.stringify({status: "ok", data: meta}));
+          });
+          return true;
         } case "/api_v2/text_component/get_list": {
           asset.getTextCompartments().then(t => res.end(JSON.stringify({status: "ok", data: t}))).catch(e => console.log(e));
           return true;
