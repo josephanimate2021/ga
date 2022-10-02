@@ -16,6 +16,12 @@ module.exports = {
   exists(filepath) {
     return fs.existsSync(filepath);
   },
+  redirect(url, res) {
+    res.statusCode = 302;
+    res.setHeader("Location", url);
+    res.end();
+    return true;
+  },
   zipList() {
     return new Promise((res, rej) => {
       try {
