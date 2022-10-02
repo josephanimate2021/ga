@@ -12,7 +12,11 @@ module.exports = function (req, res, url) {
   const tutorialReload = url.query.tutorial ? true : false;
   const tutorialDataBase = fUtil.exists(process.env.DATABASES_FOLDER + `/tutorialStatus.txt`) ? false : true;
   switch (url.pathname) {
-    case "/dashboard/videos": {
+    case "/goapi/getAssetTags": {
+	res.setHeader("Content-Type", "application/json");
+	html = '[]';
+	break;
+    } case "/dashboard/videos": {
         if (!fUtil.exists(`${process.env.MOVIE_FOLDER}/xmls`)) fs.mkdirSync(`${process.env.MOVIE_FOLDER}/xmls`);
         const files = asset.listMovies();
         html = `<html><head><title>Your Videos</title></head><body><center><h1>Your Movies</h1></center><br>${files.map(v => `${v.html}`).join('') || '<center><h2>You currently have no movies right now. <a href="/studio">Create one now</a></h2></center>'}</body></html>`;
