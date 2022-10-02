@@ -184,7 +184,7 @@ module.exports = {
 	},
 	getStarters() {
 		const table = [];
-		if (!fUtil.exists(process.env.STARTER_FOLDER + `/xmls`)) return;
+		if (!fUtil.exists(process.env.STARTER_FOLDER + `/xmls`)) return table;
 		fs.readdirSync(process.env.STARTER_FOLDER + '/xmls').forEach(file => {
 			const id = file.slice(0, -4);
 			if (
@@ -294,7 +294,21 @@ module.exports = {
 		return new Promise((res) => {
 			var files, xml, tId;
 			switch (data.type) {
-				case "char": {
+				case "bg": {
+					files = this.getBackgrounds();
+					xml = `<ugc more="0">${
+						files.map(v => `<background subtype="0" id="${v.id}" name="${v.title}" enable="Y"/>`).join("")
+					}</ugc>`;
+					break;
+				} case "movie": {
+					files = this.getStarters();
+					xml = `<ugc more="0">${
+						files.map(v => `<movie id="${v.id}" enc_asset_id="${v.id}" path="${process.env.STARTER_FOLDER}/${
+							v.id
+						}" numScene="1" title="${v.title}" thumbnail_url="/assets/${v.id}.png"><tags>${v.tags}</tags></movie>`).join("")
+					}</ugc>`;
+					break;
+				} case "char": {
 					switch (data.themeId) {
 						case "custom": {
 							tId = "family";

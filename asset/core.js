@@ -55,17 +55,45 @@ module.exports = function (req, res, url) {
                 console.log(e);
               }
             }
-            fs.unlinkSync(process.env.DATABASES_FOLDER + `/${data.assetId.slice(0, -4)}.json`);
-            fs.unlinkSync(process.env.DATABASES_FOLDER + `/names/${data.assetId.slice(0, -4)}.txt`);
+            if (
+              fUtil.exists(
+                process.env.DATABASES_FOLDER + `/${data.assetId.slice(0, -4)}.json`
+              )
+            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/${data.assetId.slice(0, -4)}.json`);
+            if (
+              fUtil.exists(
+                process.env.DATABASES_FOLDER + `/${data.assetId.slice(0, -4)}.json`
+              )
+            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/names/${data.assetId.slice(0, -4)}.txt`);
           });
           return true;
         } case "/goapi/deleteUserTemplate/": {
           loadPost(req, res).then(data => {
-            fs.unlinkSync(process.env.STARTER_FOLDER + `/${data.templateId}.zip`);
-            fs.unlinkSync(process.env.STARTER_FOLDER + `/xmls/${data.templateId}.xml`);
-            fs.unlinkSync(process.env.STARTER_FOLDER + `/${data.templateId}.png`);
-            fs.unlinkSync(process.env.DATABASES_FOLDER + `/tags/${data.templateId}.txt`);
-            fs.unlinkSync(process.env.DATABASES_FOLDER + `/names/${data.templateId}.txt`);
+            if (
+              fUtil.exists(
+                process.env.STARTER_FOLDER + `/${data.templateId}.zip`
+              )
+            ) fs.unlinkSync(process.env.STARTER_FOLDER + `/${data.templateId}.zip`);
+            if (
+              fUtil.exists(
+                process.env.STARTER_FOLDER + `/xmls/${data.templateId}.xml`
+              )
+            ) fs.unlinkSync(process.env.STARTER_FOLDER + `/xmls/${data.templateId}.xml`);
+            if (
+              fUtil.exists(
+                process.env.STARTER_FOLDER + `/${data.templateId}.png`
+              )
+            ) fs.unlinkSync(process.env.STARTER_FOLDER + `/${data.templateId}.png`);
+            if (
+              fUtil.exists(
+                process.env.DATABASES_FOLDER + `/tags/${data.templateId}.txt`
+              )
+            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/tags/${data.templateId}.txt`);
+            if (
+              fUtil.exists(
+                process.env.DATABASES_FOLDER + `/names/${data.templateId}.txt`
+              )
+            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/names/${data.templateId}.txt`);
           });
           return true;
         } case "/goapi/updateSysTemplateAttributes/": {
@@ -81,6 +109,14 @@ module.exports = function (req, res, url) {
           return true;
         } case "/goapi/getUserAssetsXml/": {
           loadPost(req, res).then(data => asset.getXmls(data).then(b => res.end(Buffer.from(b))).catch(e => console.log(e)));
+          return true;
+        } case "/api_v2/assets/team":
+        case "/api_v2/assets/shared": {
+          loadPost(req, res).then(data => asset.getXmls(data.data).then(b => res.end(JSON.stringify({
+            status: "ok", data: {
+              xml: b
+            }
+          }))).catch(e => console.log(e)));
           return true;
         } case "/goapi/getCCPreMadeCharacters": {
           res.end();

@@ -65,6 +65,9 @@ if (!fs.existsSync(env.MUSIC_FOLDER)) fs.mkdirSync(env.MUSIC_FOLDER);
 if (!fs.existsSync(env.VOICEOVERS_FOLDER)) fs.mkdirSync(env.VOICEOVERS_FOLDER);
 if (!fs.existsSync(env.CHARS_FOLDER)) fs.mkdirSync(env.CHARS_FOLDER);
 if (!fs.existsSync(env.DATABASES_FOLDER)) fs.mkdirSync(env.DATABASES_FOLDER);
+if (!fs.existsSync(env.DATABASES_FOLDER + `/names`)) fs.mkdirSync(env.DATABASES_FOLDER + `/names`);
+if (!fs.existsSync(env.DATABASES_FOLDER + `/states`)) fs.mkdirSync(env.DATABASES_FOLDER + `/states`);
+if (!fs.existsSync(env.DATABASES_FOLDER + `/tags`)) fs.mkdirSync(env.DATABASES_FOLDER + `/tags`);
 Object.assign(process.env, require("./env"));
 const server = http.createServer((req, res) => {
   try {
