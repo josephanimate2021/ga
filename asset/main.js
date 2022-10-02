@@ -35,34 +35,35 @@ module.exports = {
 			const endTitle = buffer.indexOf("]]></title>");
 			const title = buffer.slice(begTitle, endTitle).toString().trim();
 			if (xml && zip && png) {
-				table.unshift({html: `<center>${title || "Untitled Video"}<br><img src="/movies/${id}.png"/><br><a href="/movies/${id}.zip">Download</a></center><br>`});
+				table.unshift({html: `<center>${
+					title || "Untitled Video"
+				}<br><img src="/movies/${id}.png"/><br><a href="/movies/${id}.zip">Download</a></center><br>`});
 			}
 		});
 		return table;
 	},
 	getChars(theme) {
 		const table = [];
-		if (!fUtil.exists(process.env.CHARS_FOLDER + `/${theme}`)) return table;
-		else fs.readdirSync(`${process.env.CHARS_FOLDER}/${theme}`).forEach(file => {
-			const dot = file.lastIndexOf(".");
-			const ext = file.substr(dot + 1);
-			if (ext == "png") return;
-			const id = file.slice(0, -4);
-			const xml = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
-			const thumb = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.png`);
-			if (xml && thumb) {
-				const buffer = fs.readFileSync(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
-				const beg = buffer.indexOf(`theme_id="`) + 10;
-				const end = buffer.indexOf(`"`, beg);
-				theme ||= buffer.subarray(beg, end).toString();
-				const meta = {
-					name: fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`),
-					tag: fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`),
-					state: fs.readFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`)
-				};
-				table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
-			}
-		});
+		if (!fUtil.exists(process.env.CHARS_FOLDER + `/${theme}`)) return;
+		else {
+			fs.readdirSync(`${process.env.CHARS_FOLDER}/${theme}`).forEach(file => {
+				const id = file.slice(0, -4);
+				const xml = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
+				const thumb = fUtil.exists(`${process.env.CHARS_FOLDER}/${theme}/${id}.png`);
+				if (xml && thumb) {
+					const buffer = fs.readFileSync(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
+					const beg = buffer.indexOf(`theme_id="`) + 10;
+					const end = buffer.indexOf(`"`, beg);
+					theme ||= buffer.subarray(beg, end).toString();
+					const meta = {
+						name: fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`),
+						tag: fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`),
+						state: fs.readFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`)
+					};
+					table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
+				}
+			});
+		}
 		return table;
 	},
 	saveMovie(data) {
@@ -85,49 +86,72 @@ module.exports = {
 			});
 		});
 	},
-	saveStarter(data) {
+	async saveStarter(data) {
+		if (!fUtil.exists(process.env.STARTER_FOLDER + `/xmls`)) fs.mkdirSync(process.env.STARTER_FOLDER + `/xmls`);
 		const body = Buffer.from(data.body_zip, "base64");
 		const thmb = Buffer.from(data.thumbnail, "base64");
 		const id = !data.movieId ? fUtil.makeid(12) : data.movieId;
 		fs.writeFileSync(process.env.STARTER_FOLDER + `/${id}.zip`, body);
 		fs.writeFileSync(process.env.STARTER_FOLDER + `/${id}.png`, thmb);
+		const fileContent = fs.readFileSync(process.env.STARTER_FOLDER + `/${id}.zip`);
+		const jszipInstance = new jszip();
+		const result = await jszipInstance.loadAsync(fileContent);
+		const keys = Object.keys(result.files);
+		for (let key of keys) {
+			const item = result.files[key];
+			fs.writeFileSync(`${process.env.STARTER_FOLDER}/xmls/${id}.xml`, Buffer.from(await item.async("arraybuffer")));
+			const buffer = fs.readFileSync(process.env.STARTER_FOLDER + `/xmls/${id}.xml`);
+			const begTitle = buffer.indexOf("<title>") + 16;
+			const endTitle = buffer.indexOf("]]></title>");
+			const title = buffer.slice(begTitle, endTitle).toString().trim();
+			const begTag = buffer.indexOf("<tag>") + 14;
+			const endTag = buffer.indexOf("]]></tag>");
+			const tag = buffer.slice(begTag, endTag).toString().trim();
+			fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, title);
+			fs.writeFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`, tag);
+		}
 		return id;
 	},
-	upload(ptype, buffer, name) {
+	upload(ptype, buffer, name, type) {
 		const id = fUtil.makeid(12);
 		const dot = name.lastIndexOf('.');
 		const endExt = name.substr(dot + 1);
 		var ext;
 		if (endExt == "PNG") ext = "png";
 		else ext = endExt;
-		fs.writeFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`, buffer);
-		// database stuff
-		var meta = {
-			otherProp: "1",
-			handheld: "0",
-			hat: "0",
-			wear: "0"
-		};
-		switch (ptype) {
-			case "wearable": {
-				meta.wear = "1";
-				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
-				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
-				break;
-			} case "holdable": {
-				meta.handheld = "1";
-				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
-				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
-				break;
-			} case "headable": {
-				meta.hat = "1";
-				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
-				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
-				break;
-			} case "placeable": {
-				fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
-				fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
-				break;
+		switch(type) {
+			case "prop": {
+				fs.writeFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`, buffer);
+				// database stuff
+				var meta = {
+					otherProp: "1",
+					handheld: "0",
+					hat: "0",
+					wear: "0"
+				};
+				switch (ptype) {
+					case "wearable": {
+						meta.wear = "1";
+						fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
+						fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
+						break;
+					} case "holdable": {
+						meta.handheld = "1";
+						fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
+						fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
+						break;
+					} case "headable": {
+						meta.hat = "1";
+						fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
+						fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
+						break;
+					} case "placeable": {
+						fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
+						fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
+						break;
+					}
+				}
+				return true;
 			}
 		}
 	},
@@ -155,9 +179,14 @@ module.exports = {
 	},
 	getStarters() {
 		const table = [];
-		fs.readdirSync(process.env.STARTERS_FOLDER).forEach(file => {
+		if (!fUtil.exists(process.env.STARTER_FOLDER + `/xmls`)) return;
+		fs.readdirSync(process.env.STARTER_FOLDER + '/xmls').forEach(file => {
 			const id = file.slice(0, -4);
-			if (!fs.existsSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`)) return;
+			if (
+				!fUtil.exists(
+					process.env.DATABASES_FOLDER + `/names/${id}.txt`
+				) && !fUtil.exists(process.env.DATABASES_FOLDER + `/names/${id}.txt`)
+			) return;
 			const name = fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`);
 			const tag = fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`);
 			table.unshift({id: id, title: name, tags: `${tag || ""}`});
@@ -199,7 +228,11 @@ module.exports = {
 	},
 	saveCharacterThumb(thumbdata, id) {
 		const thumb = Buffer.from(thumbdata, "base64");
-		if (fUtil.exists(process.env.CHARS_FOLDER + `/${id}.png`)) fs.writeFileSync(process.env.CHARS_FOLDER + `/${id.slice(0, -3) + "000"}.png`, thumb);
+		if (
+			fUtil.exists(
+				process.env.CHARS_FOLDER + `/${id}.png`
+			)
+		) fs.writeFileSync(process.env.CHARS_FOLDER + `/${id.slice(0, -3) + "000"}.png`, thumb);
 		else fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
 	},
 	getFolders(type) {
@@ -209,7 +242,7 @@ module.exports = {
 					res(process.env.BG_FOLDER);
 					break;
 				} case "movie": {
-					res(process.env.STARTERS_FOLDER);
+					res(process.env.STARTER_FOLDER);
 					break;
 				}
 			}
@@ -226,6 +259,15 @@ module.exports = {
 				xml = `<ugc more="0">${
 					files.map(v => `<background subtype="0" id="${v.id}" name="${v.title}" enable="Y"/>`).join("")
 				}</ugc>`;
+				break;
+			} case "movie": {
+				files = this.getStarters();
+				xml = `<ugc more="0">${
+					files.map(v => `<movie id="${v.id}" enc_asset_id="${v.id}" path="${process.env.STARTER_FOLDER}/${
+						v.id
+					}" numScene="1" title="${v.title}" thumbnail_url="/assets/${v.id}.png"><tags>${v.tags}</tags></movie>`).join("")
+				}</ugc>`;
+				console.log(xml);
 				break;
 			} default: {
 				xml = `<ugc more="0"></ugc>`;
@@ -259,7 +301,13 @@ module.exports = {
 						}
 					}
 					files = this.getChars(tId);
-					xml = `<ugc more="0">${files.map(v => `<char id="${v.id}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/chars/${v.theme}/${v.id}.png" copyable="${v.copyable}"><tags>${v.tags || ""}</tags></char>`).join('')}</ugc>`;
+					xml = `<ugc more="0">${
+						files.map(v => `<char id="${
+							v.id
+						}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/chars/${v.theme}/${v.id}.png" copyable="${
+							v.copyable
+						}"><tags>${v.tags || ""}</tags></char>`).join('')
+					}</ugc>`;
 					break;
 				} case "prop": {
 					files = this.getProps();

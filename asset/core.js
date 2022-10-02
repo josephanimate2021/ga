@@ -17,9 +17,13 @@ module.exports = function (req, res) {
       const ext = match[2];
       try {
         try {
-          res.end(fs.readFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`));
+          try {
+            res.end(fs.readFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`));
+          } catch (e) {
+            res.end(fs.readFileSync(process.env.BG_FOLDER + `/${id}.${ext}`));
+          }
         } catch (e) {
-          res.end(fs.readFileSync(process.env.BG_FOLDER + `/${id}.${ext}`));
+          res.end(fs.readFileSync(process.env.STARTER_FOLDER + `/${id}.${ext}`));
         }
       } catch (e) {
         res.end('404 Not Found');
@@ -51,6 +55,21 @@ module.exports = function (req, res) {
             fs.unlinkSync(process.env.DATABASES_FOLDER + `/names/${data.assetId.slice(0, -4)}.txt`);
           });
           return true;
+        } case "/goapi/deleteUserTemplate/": {
+          loadPost(req, res).then(data => {
+            fs.unlinkSync(process.env.STARTER_FOLDER + `/${data.templateId}.zip`);
+            fs.unlinkSync(process.env.STARTER_FOLDER + `/xmls/${data.templateId}.xml`);
+            fs.unlinkSync(process.env.STARTER_FOLDER + `/${data.templateId}.png`);
+            fs.unlinkSync(process.env.DATABASES_FOLDER + `/tags/${data.templateId}.txt`);
+            fs.unlinkSync(process.env.DATABASES_FOLDER + `/names/${data.templateId}.txt`);
+          });
+          return true;
+        } case "/goapi/updateSysTemplateAttributes/": {
+          loadPost(req, res).then(data => {
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${data.movieId}.txt`, data.title);
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/tags/${data.movieId}.txt`, data.tags);
+          });
+          return true;
         } case "/goapi/updateAsset/": {
           loadPost(req, res).then(data => {
             fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${data.assetId.slice(0, -4)}.txt`, data.title);
@@ -77,7 +96,7 @@ module.exports = function (req, res) {
             if (!files.import) return;
             var path = files.import.path;
             var buffer = fs.readFileSync(path);
-            asset.upload("placeable", buffer, files.import.name);
+            asset.upload("placeable", buffer, files.import.name, "prop");
             fs.unlinkSync(path);
             res.end();
           });
@@ -87,7 +106,7 @@ module.exports = function (req, res) {
             if (!files.import) return;
             var path = files.import.path;
             var buffer = fs.readFileSync(path);
-            asset.upload("holdable", buffer, files.import.name);
+            asset.upload("holdable", buffer, files.import.name, "prop");
             fs.unlinkSync(path);
             res.end();
           });
@@ -97,7 +116,7 @@ module.exports = function (req, res) {
             if (!files.import) return;
             var path = files.import.path;
             var buffer = fs.readFileSync(path);
-            asset.upload("headable", buffer, files.import.name);
+            asset.upload("headable", buffer, files.import.name, "prop");
             fs.unlinkSync(path);
             res.end();
           });
@@ -107,7 +126,7 @@ module.exports = function (req, res) {
             if (!files.import) return;
             var path = files.import.path;
             var buffer = fs.readFileSync(path);
-            asset.upload("wearable", buffer, files.import.name);
+            asset.upload("wearable", buffer, files.import.name, "prop");
             fs.unlinkSync(path);
             res.end();
           });
