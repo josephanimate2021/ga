@@ -22,9 +22,6 @@ module.exports = function (req, res, url) {
         const files = asset.listMovies();
         html = `<html><head><title>Your Videos</title></head><body><center><h1>This LVM Clone is currently on it's beta stage right now and is most likely to be unstable. Alot of fixes are being added constantly in order to make this lvm clone stable. <br><a href="/charcreator">Create a character</a> <a href="/studio">Make a video</a></h1><br><h2>How am i supposed to record videos on here?</h2><br><h3>You are pretty lucky that the preview window has a fullscreen option on the player. all you need to do is pull out your screen recorder, do what you would normally do, and then put the player on full screen. simple as that :)</h3><br><h2>What do i do if i accidently closed the video editor?</h2><br><h3>you are pretty lucky that this list of your movies contain a download link next to each one of your movies. they are there so that way you can download them. after your movie is downloaded, extract the zip file like how you would normally do it and you have your movie xml right there!</h3></center><br><center><h2>Your Movies</h2></center><br>${files.map(v => `${v.html}`).join('') || '<center><h3>You currently have no movies right now. <a href="/studio">Create one now</a></h3></center>'}</body></html>`;
         break;
-    } case "/player": {
-	    res.end(`<object data="${aniSwfUrl}/player.swf" type="application/x-shockwave-flash" id="Player"><param name="flashvars" value="apiserver=/&storePath=${aniStoreUrl}/<store>&clientThemePath=${aniClientUrl}/<client_theme>&movieId=${url.query.movieId || ""}&ut=60&appCode=go&page=&siteId=go&m_mode=school&isLogin=Y&isEmbed=1&ctc=go&tlang=en_US&autostart=1"><param name="allowScriptAccess" value="always"></object>`);
-	    break;
     } case "/charcreator": {
 	    res.setHeader("Content-Type", "text/html; charset=utf8");
 	    switch (url.query.themeId) {

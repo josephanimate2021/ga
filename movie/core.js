@@ -17,6 +17,10 @@ module.exports = function (req, res, url) {
             return true;
         } case "POST": {
             switch (url.pathname) {
+                case "/goapi/getMovieInfo/": {
+                    res.end('<watermarks></watermarks>');
+                    return true;
+                }
                 case "/goapi/getMovie/": {
                     try {
                         const buffer = fs.readFileSync(`${process.env.MOVIE_FOLDER}/xmls/${url.query.movieId}.xml`);
