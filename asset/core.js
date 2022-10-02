@@ -141,11 +141,8 @@ module.exports = function (req, res) {
         case "/ajax/tutorialStatus/completed": {
           fs.writeFileSync(process.env.DATABASES_FOLDER + `/tutorialStatus.txt`, "false");
           return true;
-        } case "/ajax/listRedirect": {
-          const url = '/';
-          res.statusCode = 302;
-          res.setHeader("Location", url);
-          res.end();
+        } case "/ajax/redirect": {
+          fUtil.redirect('/', res);
           return true;
         }
       }
