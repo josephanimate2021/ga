@@ -206,7 +206,7 @@ module.exports = {
 		const tidFolder = fUtil.exists(process.env.CHARS_FOLDER + `/${tId}`);
 		if (!tidFolder) fs.mkdirSync(process.env.CHARS_FOLDER + `/${tId}`);
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${tId}/${id}.xml`, data.body);
-		fs.writeFileSync(process.env.CHARS_FOLDER + `/${tId}/${id}.png`, thumb);
+		fs.unlinkSync(process.env.CHARS_FOLDER + `/${id}.xml`);
 		return id;
 	},
 	loadCharacter(id) {
@@ -268,7 +268,6 @@ module.exports = {
 						v.id
 					}" numScene="1" title="${v.title}" thumbnail_url="/assets/${v.id}.png"><tags>${v.tags}</tags></movie>`).join("")
 				}</ugc>`;
-				console.log(xml);
 				break;
 			} default: {
 				xml = `<ugc more="0"></ugc>`;
@@ -305,7 +304,7 @@ module.exports = {
 					xml = `<ugc more="0">${
 						files.map(v => `<char id="${
 							v.id
-						}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/chars/${v.theme}/${v.id}.png" copyable="${
+						}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}.png" copyable="${
 							v.copyable
 						}"><tags>${v.tags || ""}</tags></char>`).join('')
 					}</ugc>`;

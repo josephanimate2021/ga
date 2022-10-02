@@ -8,7 +8,7 @@ const xml = require('../xml');
 const base = Buffer.alloc(1, 0);
 // functions
 // server functions
-module.exports = function (req, res) {
+module.exports = function (req, res, url) {
   switch (req.method) {
     case "GET": {
       const match = req.url.match(/\/assets\/([^.]+)(?:\.(png|jpg))?$/);
@@ -18,12 +18,16 @@ module.exports = function (req, res) {
       try {
         try {
           try {
-            res.end(fs.readFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`));
+            try {
+              res.end(fs.readFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`));
+            } catch (e) {
+              res.end(fs.readFileSync(process.env.BG_FOLDER + `/${id}.${ext}`));
+            }
           } catch (e) {
-            res.end(fs.readFileSync(process.env.BG_FOLDER + `/${id}.${ext}`));
+            res.end(fs.readFileSync(process.env.STARTER_FOLDER + `/${id}.${ext}`));
           }
         } catch (e) {
-          res.end(fs.readFileSync(process.env.STARTER_FOLDER + `/${id}.${ext}`));
+          res.end(fs.readFileSync(process.env.CHARS_FOLDER + `/${id}.${ext}`));
         }
       } catch (e) {
         res.end('404 Not Found');
