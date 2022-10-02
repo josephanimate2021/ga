@@ -13,6 +13,10 @@ const env = {
   SWF_URL: "https://josephanimate2021.github.io/Animium-Swfs",
   STORE_URL: "https://josephanimate2021.github.io/store/3a981f5cb2739137",
   CLIENT_URL: "https://josephanimate2021.github.io/static/55910a7cd204c37c",
+  // static stuff
+  STATIC_SWF_URL: "/static/animation",
+  STATIC_STORE_URL: "/static/store",
+  STATIC_CLIENT_URL: "/static",
   // env
   node_env: "dev"
 };
