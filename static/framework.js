@@ -1,7 +1,7 @@
 const get = require("../req/get");
 const env = require("../env");
 
-module.exports = function (req, res, url) {
+module.exports = function (req, res) {
   if (req.method != "GET") return;
   const match = req.url.match(/\/static\/client_theme\/go\/en_US\/([^/]+)$/);
   if (!match) return;

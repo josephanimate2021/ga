@@ -33,8 +33,11 @@ env.TEXT_COMPARTMENTS_FOLDER = `${folder}/compartments`
 // basic utilities
 const theme = require("./theme/core");
 const static = require("./static/swf");
+const font = require("./static/font");
+const text = require("./static/text_component");
 const Static = require("./static/framework");
 const mo = require("./static/mo");
+const favicon = require("./favicon");
 const store = require("./static/stockAssets");
 const movie = require("./movie/core");
 const asset = require("./asset/core");
@@ -44,6 +47,9 @@ const url = require('url');
 const fs = require('fs');
 
 const utilities = [
+  favicon,
+  text,
+  font,
   static,
   Static,
   mo,
