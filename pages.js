@@ -348,7 +348,7 @@ module.exports = function (req, res, url) {
                 
                 <object data="${aniSwfUrl}/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
                     <!-- The flashvars are a huge mess, have fun looking at them. :) -->
-                    <param name="flashvars" value="movieId=${url.query.movieId || ""}&apiserver=/&storePath=${aniStoreUrl}/<store>&isEmbed=1&ctc=go&ut=30&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=${aniClientUrl}/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/ajax/redirect&tray=${url.query.tray || "custom"}">            
+                    <param name="flashvars" value="movieId=${url.query.movieId || ""}&apiserver=/&storePath=${aniStoreUrl}/<store>&isEmbed=1&ctc=go&ut=60&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=${aniClientUrl}/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/ajax/redirect&tray=${url.query.tray || "custom"}">            
                     <param name="allowScriptAccess" value="always">
                     <param name="allowFullScreen" value="true">
                 </object>

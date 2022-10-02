@@ -3,11 +3,10 @@ const env = require("../env");
 
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
-  const match = req.url.match(/\/static\/animation\/([^.]+)(?:\.swf)?$/);
+  const match = req.url.match(/\/static\/animation\/([^/]+)$/);
   if (!match) return;
   const id = match[1];
-  const ext = match[2];
-  get(env.SWF_URL + `/${id}.${ext}`).then(b => res.end(b)).catch(e => {
+  get(env.SWF_URL + `/${id}`).then(b => res.end(b)).catch(e => {
     console.log(e); 
     res.end('404 Not Found'); 
   });
