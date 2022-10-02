@@ -207,7 +207,6 @@ module.exports = {
 		const tidFolder = fUtil.exists(process.env.CHARS_FOLDER + `/${tId}`);
 		if (!tidFolder) fs.mkdirSync(process.env.CHARS_FOLDER + `/${tId}`);
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${tId}/${id}.xml`, data.body);
-		fs.unlinkSync(process.env.CHARS_FOLDER + `/${id}.xml`);
 		return id;
 	},
 	loadCharacter(id) {
