@@ -31,6 +31,10 @@ env.DATABASES_FOLDER = `${folder}/meta`;
 
 // basic utilities
 const theme = require("./theme/core");
+const static = require("./static/swf");
+const Static = require("./static/framework");
+const mo = require("./static/mo");
+const store = require("./static/store");
 const movie = require("./movie/core");
 const asset = require("./asset/core");
 const pages = require("./pages");
@@ -39,6 +43,10 @@ const url = require('url');
 const fs = require('fs');
 
 const utilities = [
+  static,
+  Static,
+  mo,
+  store,
   movie,
   asset,
   theme,
