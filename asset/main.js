@@ -61,9 +61,11 @@ module.exports = {
 				const beg = buffer.indexOf(`theme_id="`) + 10;
 				const end = buffer.indexOf(`"`, beg);
 				theme ||= buffer.subarray(beg, end).toString();
+				if (!fUtil.exists(process.env.DATABASES_FOLDER + `/${id}.json`)) return;
+				const info = require('.' + process.env.DATABASES_FOLDER + `/${id}.json`);
 				const meta = {
-					name: fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`),
-					tag: fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`),
+					name: info.title,
+					tag: info.tags,
 					state: fs.readFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`)
 				};
 				table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
@@ -133,6 +135,12 @@ module.exports = {
 				fs.writeFileSync(process.env.PROPS_FOLDER + `/${id}.${ext}`, buffer);
 				// database stuff
 				var meta = {
+					id: `${id}.${endExt}`,
+					tags: "",
+					type: "prop",
+					subtype: "0",
+					title: name,
+					themeId: "ugc",
 					otherProp: "1",
 					handheld: "0",
 					hat: "0",
@@ -142,21 +150,17 @@ module.exports = {
 					case "wearable": {
 						meta.wear = "1";
 						fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
-						fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
 						break;
 					} case "holdable": {
 						meta.handheld = "1";
 						fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
-						fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
 						break;
 					} case "headable": {
 						meta.hat = "1";
 						fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
-						fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
 						break;
 					} case "placeable": {
 						fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
-						fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, name);
 						break;
 					}
 				}
@@ -168,10 +172,9 @@ module.exports = {
 		const table = [];
 		fs.readdirSync(process.env.PROPS_FOLDER).forEach(file => {
 			const id = file.slice(0, -4);
-			if (!fs.existsSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`)) return;
-			const name = fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`);
+			if (!fs.existsSync(process.env.DATABASES_FOLDER + `/${id}.json`)) return;
 			const meta = require('.' + process.env.DATABASES_FOLDER + `/${id}.json`);
-			const { otherProp, handheld, hat, wear } = meta;	
+			const { otherProp, handheld, hat, wear, title: name } = meta;	
 			table.unshift({id: file, title: name, holdable: handheld, wearable: wear, headable: hat, placeable: otherProp});
 		});
 		return table;
@@ -215,12 +218,24 @@ module.exports = {
 		const thumb = Buffer.from(data.thumbdata, "base64");
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.xml`, data.body);
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
-		fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, "Untitled");
-		fs.writeFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`, "Y");
-		fs.writeFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`, "");
 		const tId = getTheme(id);
 		const tidFolder = fUtil.exists(process.env.CHARS_FOLDER + `/${tId}`);
 		if (!tidFolder) fs.mkdirSync(process.env.CHARS_FOLDER + `/${tId}`);
+		const meta = {
+			type: "char",
+			subtype: 0,
+			title: "Untitled",
+			themeId: tId,
+			id: id,
+			share: {
+				type: "none"
+			},
+			assetId: id,
+			tags: "",
+			published: "0"
+		};
+		fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(meta));
+		fs.writeFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`, "Y");
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${tId}/${id}.xml`, data.body);
 		return id;
 	},

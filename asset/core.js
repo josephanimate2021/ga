@@ -46,9 +46,11 @@ module.exports = function (req, res, url) {
           return true;
         } case "/api_v2/asset/get": {
           loadPost(req, res).then(data => {
-            console.log(data);
-            if (!fUtil.exists(process.env.DATABASES_FOLDER + `/${data.data.starter_id}.json`)) return;
-            const meta = require('.' + process.env.DATABASES_FOLDER + `/${data.data.starter_id}.json`);
+            var id;
+            if (!data.data.id) id = data.data.starter_id;
+            else id = data.data.id;
+            if (!fUtil.exists(process.env.DATABASES_FOLDER + `/${id}.json`)) return;
+            const meta = require('.' + process.env.DATABASES_FOLDER + `/${id}.json`);
             res.end(JSON.stringify({status: "ok", data: meta}));
           });
           return true;
