@@ -198,6 +198,15 @@ module.exports = {
 		});
 		return table;
 	},
+	getTextCompartmentFiles() {
+		const table = [];
+		fs.readdirSync(process.env.TEXT_COMPARTMENTS_FOLDER).forEach(file => {
+			const id = file.slice(0, -5);
+			const json = require('.' + process.env.TEXT_COMPARTMENTS_FOLDER + `/${id}.json`);
+			table.unshift({data: json.data});
+		});
+		return table;
+	},
 	saveCharacter(data) {
 		const id = fUtil.makeid(12);
 		const thumb = Buffer.from(data.thumbdata, "base64");
@@ -288,6 +297,12 @@ module.exports = {
 		}).catch(e => console.log(e));
 
 		return await zip.zip();
+	},
+	getTextCompartments() {
+		return new Promise((res) => {
+			const files = this.getTextCompartmentFiles();
+			res(files.map(v => v.data));
+		});
 	},
 	getXmls(data) {
 		return new Promise((res) => {
