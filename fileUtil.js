@@ -19,8 +19,7 @@ module.exports = {
   redirect(url, res) {
     res.statusCode = 302;
     res.setHeader("Location", url);
-    res.end();
-    return true;
+    return;
   },
   zipList() {
     return new Promise((res, rej) => {
