@@ -142,7 +142,9 @@ module.exports = function (req, res) {
           fs.writeFileSync(process.env.DATABASES_FOLDER + `/tutorialStatus.txt`, "false");
           return true;
         } case "/ajax/redirect": {
-          fUtil.redirect('/', res);
+          res.statusCode = 302;
+          res.setHeader("Location", "/");
+          res.end();
           return true;
         }
       }
