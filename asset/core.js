@@ -231,7 +231,10 @@ module.exports = function (req, res, url) {
           res.setHeader("Location", "/");
           res.end();
           return true;
-        }
+        } case "/goapi/getUserFontList/": {
+          loadPost(req, res).then(data => console.log(data));
+          res.end(JSON.stringify({status: "ok"}));
+          return true;
       }
     }
   }
