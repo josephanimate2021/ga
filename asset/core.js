@@ -235,6 +235,7 @@ module.exports = function (req, res, url) {
           loadPost(req, res).then(data => console.log(data));
           res.end(JSON.stringify({status: "ok"}));
           return true;
+        }
       }
     }
   }
