@@ -1,4 +1,6 @@
+const movie = require("../asset/main");
 const fs = require("fs");
+const base = Buffer.alloc(1, 0);
 
 module.exports = function (req, res, url) {
     switch(req.method) {
@@ -17,9 +19,11 @@ module.exports = function (req, res, url) {
             switch (url.pathname) {
                 case "/goapi/getMovie/": {
                     try {
-                        res.end(fs.readFileSync(process.env.MOVIE_FOLDER + `/${url.query.movieId}.zip`));
+                        const buffer = fs.readFileSync(`${process.env.MOVIE_FOLDER}/xmls/${url.query.movieId}.xml`);
+                        movie.parse(buffer).then(b => res.end(Buffer.concat([base, b]))).catch(e => console.log(e));
                     } catch (e) {
-                        res.end(fs.readFileSync(process.env.STARTER_FOLDER + `/${url.query.movieId}.zip`));
+                        const buffer = fs.readFileSync(`${process.env.STARTER_FOLDER}/xmls/${url.query.movieId}.xml`);
+                        movie.parse(buffer).then(b => res.end(Buffer.concat([base, b]))).catch(e => console.log(e));
                     }
                     return true;
                 }

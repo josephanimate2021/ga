@@ -3,6 +3,7 @@ const fUtil = require("../fileUtil");
 const get = require("../req/get");
 const jszip = require('jszip');
 const nodezip = require("node-zip");
+const functions = require("../movie/main");
 const unzipMovieForList = async (id) => {
 	const fileContent = fs.readFileSync(process.env.MOVIE_FOLDER + `/${id}.zip`);
 	const jszipInstance = new jszip();
@@ -23,6 +24,9 @@ function getTheme(id) {
 }
 
 module.exports = {
+	parse(buffer) {
+		return new Promise(async (res) => res(await functions.packMovie(buffer)));
+	},
 	listMovies() {
 		const table = [];
 		fs.readdirSync(`${process.env.MOVIE_FOLDER}/xmls`).forEach(file => {

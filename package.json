@@ -8,6 +8,7 @@
 	"dependencies": {
 		"formidable": "^1.2.1",
 		"jszip": "^3.10.1",
-		"node-zip": "github:kyriosli/node-zip"
+		"node-zip": "github:kyriosli/node-zip",
+		"xmldoc": "^1.2.0"
 	}
 }
