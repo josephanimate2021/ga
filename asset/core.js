@@ -11,6 +11,13 @@ const base = Buffer.alloc(1, 0);
 module.exports = function (req, res, url) {
   switch (req.method) {
     case "GET": {
+      switch (req.url) {
+        case "/goapi/getAssetTags": {
+          res.setHeader("Content-Type", "application/json");
+          res.end('[]');
+          return true;
+        }
+      }
       const match = req.url.match(/\/assets\/([^.]+)(?:\.(png|jpg))?$/);
       if (!match) return;
       const id = match[1];
@@ -36,6 +43,11 @@ module.exports = function (req, res, url) {
     }
     case "POST": {
       switch (req.url) {
+        case "/api_v2/team/members":
+        case "/api_v2/studio_preference/get": {
+          res.end(JSON.stringify({status: "ok", data: []}));
+          return true;
+        }
         case "/api_v2/text_component/update":
         case "/api_v2/text_component/add": {
           loadPost(req, res).then(data => {
@@ -156,6 +168,7 @@ module.exports = function (req, res, url) {
           loadPost(req, res).then(data => asset.getXmls(data).then(b => res.end(Buffer.from(b))).catch(e => console.log(e)));
           return true;
         } case "/api_v2/assets/team":
+        case "/api_v2/assets/imported":
         case "/api_v2/assets/shared": {
           loadPost(req, res).then(data => asset.getXmls(data.data).then(b => res.end(JSON.stringify({
             status: "ok", data: {
