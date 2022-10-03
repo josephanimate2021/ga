@@ -45,22 +45,15 @@ module.exports = function (req, res, url) {
             else res.end();
           }).catch(e => console.log(e));
           return true;
+        } case "/goapi/getUserWatermarks/": {
+          fs.unlinkSync("themelist.zip");
+          fs.unlinkSync("themelist.xml");
+          return true;
         } case "/goapi/getTheme/": {
           loadPost(req, res).then(data => {
-            zipTheme(data.themeId).then(b => {
-              if (b = "theme.zip written.") fs.createReadStream("theme.zip").pipe(res);
-              else res.end();
-            }).catch(e => console.log(e));
+            fs.createReadStream(`./static/store/${data.themeId}/${data.themeId}.zip`).pipe(res);
+            return true;
           });
-          return true;
-        } case "/goapi/getMovie/": {
-          try {
-            console.log("b");
-            res.end(fs.readFileSync(process.env.MOVIE_FOLDER + `/${url.query.movieId}.zip`));
-          } catch (e) {
-            console.log("e");
-            res.end(fs.readFileSync(process.env.STARTER_FOLDER + `/${url.query.movieId}.zip`));
-          }
           return true;
         }
       }
