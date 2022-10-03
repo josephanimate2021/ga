@@ -17,6 +17,9 @@ module.exports = function (req, res, url) {
         const files = asset.listMovies();
         html = `<html><head><title>ApiAnimate - Your Videos</title></head><body><center><h1>Your Movies</h1></center><br>${files.map(v => `${v.html}`).join('') || '<center><h2>You currently have no movies right now. <a href="/studio">Create one now</a></h2></center>'}</body></html>`;
         break;
+    } case "/player": {
+	    html = `<html><head><title>Video Player</title></head><body style="margin:0px"><object data="${aniSwfUrl}/player.swf" type="application/x-shockwave-flash" id="Player" width="100%" height="100%"><param name="flashvars" value="apiserver=/&storePath=${aniStoreUrl}/<store>&clientThemePath=${aniClientUrl}/<client_theme>&movieId=${url.query.movieId || ""}&ut=60&appCode=go&page=&siteId=go&m_mode=school&isLogin=Y&isEmbed=1&ctc=go&tlang=en_US&autostart=1"><param name="allowScriptAccess" value="always"></object></body></html>`;
+	    break;
     } case "/": {
         if (!fUtil.exists(`${process.env.MOVIE_FOLDER}/xmls`)) fs.mkdirSync(`${process.env.MOVIE_FOLDER}/xmls`);
         const files = asset.listMovies();
