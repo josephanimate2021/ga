@@ -84,7 +84,23 @@ const server = http.createServer((req, res) => {
     const purl = url.parse(req.url, true);
     if (utilities.find(u => u(req, res, purl))) res.statusCode = 200;
     else res.statusCode = 404;
-    if (env.node_env == "dev") console.log(req.method, purl.path, "-", res.statusCode);
+    var status;
+    switch (res.statusCode) {
+      case 404: {
+        status = "404 (Not Found Or Recognized)";
+        break;
+      } case 200: {
+        status = "200 (ok)";
+        break;
+      } case 302: {
+        status = "302 (Found)";
+        break;
+      } case 500: {
+        status = "500 (Server Failure)";
+        break;
+      }
+    }
+    if (env.node_env == "dev") console.log(req.method, purl.path, "-", status);
   } catch (x) {
     console.error(x);
     res.statusCode = 500;
