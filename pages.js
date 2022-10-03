@@ -426,7 +426,7 @@ module.exports = function (req, res, url) {
                 <div id="import_popup_container" style="display:none">
                         <div id="import_popup">
                                  <h2 id="import-an-asset">Import an Asset</h2>
-		                        <a class="close-button" onclick="hideImporter()">X</a>
+		                        <a class="close-button" href="javascript:hideImporter()">X</a>
 		                        <!-- Import form -->
 		                        <div id="import_image">
                                         <button onclick="document.getElementById('import_as').style.display = 'block'">Upload An Asset As...</button>
