@@ -12,6 +12,7 @@ module.exports = function (req, res, url) {
   const modal = {
     normal: `<div id="myModal" class="modal"><!-- Modal content --><div class="modal-content"><span class="close">&times;</span>
     <h1>Select An LVM Version</h1><br><br>
+    <h3><a href="/studio?apiVer=normalLvm">Version 2 (Normal)</a></h3><br><br>
     <h3><a href="/studio?apiVer=wrapper">Version 2</a></h3><br><br>
     <h3><a href="/studio?apiVer=school">Version 2 & 1 (School Edition)</a></h3><br><br>
     <h3><a href="/studio?apiVer=normal">Version 2 & 1</a></h3>
@@ -90,6 +91,7 @@ modal.style.display = "none";
   const dbScript = `<script>function studioModal(mId) {
     document.getElementById('myModal').innerHTML = \`<div class="modal-content"><span id="close" onclick='document.getElementById("myModal").style.display = "none"'>&times;</span>
     <h1>Select An LVM Version</h1><br><br>
+    <h3><a href="/studio?apiVer=normalLvm&movieId=\${mId}">Version 2 (Normal)</a></h3><br><br>
     <h3><a href="/studio?apiVer=wrapper&movieId=\${mId}">Version 2</a></h3><br><br>
     <h3><a href="/studio?apiVer=school&movieId=\${mId}">Version 2 & 1 (School Edition)</a></h3><br><br>
     <h3><a href="/studio?apiVer=normal&movieId=\${mId}">Version 2 & 1</a></h3>
@@ -100,6 +102,7 @@ modal.style.display = "none";
   const dbscript = `<script>function studioModal(mId) {
     document.getElementById('dbModal').innerHTML = \`<div class="modal-content"><span id="close" onclick='document.getElementById("dbModal").style.display = "none"'>&times;</span>
     <h1>Select An LVM Version</h1><br><br>
+    <h3><a href="/studio?apiVer=normalLvm&movieId=\${mId}">Version 2 (Normal)</a></h3><br><br>
     <h3><a href="/studio?apiVer=wrapper&movieId=\${mId}">Version 2</a></h3><br><br>
     <h3><a href="/studio?apiVer=school&movieId=\${mId}">Version 2 & 1 (School Edition)</a></h3><br><br>
     <h3><a href="/studio?apiVer=normal&movieId=\${mId}">Version 2 & 1</a></h3>
@@ -113,7 +116,7 @@ modal.style.display = "none";
     case "/dashboard/videos": {
         if (!fUtil.exists(`${process.env.MOVIE_FOLDER}/xmls`)) fs.mkdirSync(`${process.env.MOVIE_FOLDER}/xmls`);
         const files = asset.listMovies();
-        html = `<html><head><title>ApiAnimate - Your Videos</title>${css}</head><body><center><h1>Your Movies</h1><br>${files.map(v => `${v.dbHtml}`).join('') || '<h2>You currently have no movies right now. <a href="/studio">Create one now</a></h2>'}${modal.script}${dbScript}${script}</center></body></html>`;
+        html = `<html><head><title>ApiAnimate - Your Videos</title>${css}</head><body><center><h1>Your Movies</h1><br>${files.map(v => `${v.html}`).join('') || '<h2>You currently have no movies right now. <a href="/studio">Create one now</a></h2>'}${modal.script}${dbScript}${script}</center></body></html>`;
         break;
     } case "/player": {
 	    html = `<html><head><title>Video Player</title></head><body style="margin:0px"><object data="${aniSwfUrl}/player.swf" type="application/x-shockwave-flash" id="Player" width="100%" height="100%"><param name="flashvars" value="apiserver=/&storePath=${aniStoreUrl}/<store>&clientThemePath=${aniClientUrl}/<client_theme>&movieId=${url.query.movieId || ""}&ut=60&appCode=go&page=&siteId=go&m_mode=school&isLogin=Y&isEmbed=1&ctc=go&tlang=en_US&autostart=1"><param name="allowScriptAccess" value="always"></object></body></html>`;
@@ -137,7 +140,7 @@ modal.style.display = "none";
         <!-- The Modal -->
         ${modal.normal}
         ${modal.dbScript}
-        <br><h1>Your Movies</h1><br>${files.map(v => `${v.dbHtml}`).join('') || '<h2>You currently have no movies right now. <button id="createBtn">Create one now</button></h2></center>'}
+        <br><h1>Your Movies</h1><br>${files.map(v => `${v.html}`).join('') || '<h2>You currently have no movies right now. <button id="createBtn">Create one now</button></h2></center>'}
         ${dbscript}
         ${script}
         </body>
@@ -302,6 +305,7 @@ modal.style.display = "none";
     } case "/studio": {
         var lid = 13;
         var siteId = "go";
+        var ut = "60";
         switch (url.query.apiVer) {
             case "wrapper": {
                 lid = 0;
@@ -314,6 +318,11 @@ modal.style.display = "none";
             } case "normal": {
                 lid = 13;
                 siteId = "go";
+                break;
+            } case "normalLvm": {
+                lid = 0;
+                siteId = "go";
+                ut = "50";
                 break;
             }
         }
@@ -486,7 +495,7 @@ modal.style.display = "none";
                 
                 <object data="${aniSwfUrl}/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
                     <!-- The flashvars are a huge mess, have fun looking at them. :) -->
-                    <param name="flashvars" value="movieId=${url.query.movieId || ""}&apiserver=/&storePath=${aniStoreUrl}/<store>&isEmbed=1&ctc=go&ut=60&bs=default&appCode=go&page=&siteId=${siteId}&lid=${lid}&isLogin=Y&retut=1&clientThemePath=${aniClientUrl}/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/ajax/redirect&tray=${url.query.tray || "custom"}">            
+                    <param name="flashvars" value="movieId=${url.query.movieId || ""}&apiserver=/&storePath=${aniStoreUrl}/<store>&isEmbed=1&ctc=go&ut=${ut}&bs=default&appCode=go&page=&siteId=${siteId}&lid=${lid}&isLogin=Y&retut=1&clientThemePath=${aniClientUrl}/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/ajax/redirect&tray=${url.query.tray || "custom"}">            
                     <param name="allowScriptAccess" value="always">
                     <param name="allowFullScreen" value="true">
                 </object>

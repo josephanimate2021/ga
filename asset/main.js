@@ -28,7 +28,7 @@ module.exports = {
 		return getTheme(id);
 	},
 	parse(buffer) {
-		return new Promise(async (res) => res(await functions.packMovie(buffer)));
+		return new Promise(async res => res(await functions.packMovie(buffer)));
 	},
 	listMovies() {
 		const table = [];
@@ -43,10 +43,6 @@ module.exports = {
 			const title = buffer.slice(begTitle, endTitle).toString().trim();
 			if (xml && zip && png) {
 				table.unshift({html: `<center>${
-					title || "Untitled Video"
-				}<br><img src="/movies/${id}.png"/><br><a href="/player?movieId=${id}">Play</a> <a href="/studio?movieId=${
-					id
-				}">Edit</a> <a href="/movies/${id}.zip">Download</a></center><br>`, dbHtml: `<center>${
 					title || "Untitled Video"
 				}<br><img src="/movies/${id}.png"/><br><a href="/player?movieId=${id}">Play</a> <button onclick="studioModal('${
 					id
