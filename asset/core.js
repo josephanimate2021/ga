@@ -8,7 +8,7 @@ const xml = require('../xml');
 const base = Buffer.alloc(1, 0);
 // functions
 // server functions
-module.exports = function (req, res, url) {
+module.exports = function (req, res) {
   switch (req.method) {
     case "GET": {
       switch (req.url) {
@@ -75,6 +75,47 @@ module.exports = function (req, res, url) {
             res.write(base);
             res.end(buff);
           }).catch(e => console.log(e));
+          return true;
+        } case "/api_v2/asset/delete/": {
+          loadPost(req, res).then(data => {
+            var id;
+            try {
+              id = data.data.id.slice(0, -4);
+              fs.unlinkSync(process.env.PROPS_FOLDER + `/${data.data.id}`);
+            } catch (e) {
+              try {
+                id = data.data.id.slice(0, -4);
+                fs.unlinkSync(process.env.BG_FOLDER + `/${data.data.id}`);
+              } catch (e) {
+                try {
+                  const theme = asset.getTheme(data.data.id);
+                  id = data.data.id;
+                  fs.unlinkSync(process.env.CHARS_FOLDER + `/${theme}/${data.data.id}.xml`);
+                  fs.unlinkSync(process.env.CHARS_FOLDER + `/${data.data.id}.xml`);
+                  fs.unlinkSync(process.env.CHARS_FOLDER + `/${data.data.id}.png`);
+                } catch (e) {
+                  try {
+                    id = data.data.id;
+                    fs.unlinkSync(process.env.STARTER_FOLDER + `/xmls/${data.data.id}.xml`);
+                    fs.unlinkSync(process.env.STARTER_FOLDER + `/${data.data.id}.png`);
+                    fs.unlinkSync(process.env.STARTER_FOLDER + `/${data.data.id}.zip`);
+                  } catch (e) {
+                    console.log(e);
+                  }
+                }
+              }
+            }
+            if (
+              fUtil.exists(
+                process.env.DATABASES_FOLDER + `/${id}.json`
+              )
+            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/${id}.json`);
+            if (
+              fUtil.exists(
+                process.env.DATABASES_FOLDER + `/states/${id}.txt`
+              )
+            ) fs.unlinkSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`);
+          });
           return true;
         } case "/goapi/deleteAsset/": {
           loadPost(req, res).then(data => {
@@ -162,6 +203,15 @@ module.exports = function (req, res, url) {
         } case "/goapi/updateAsset/": {
           loadPost(req, res).then(data => {
             fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${data.assetId.slice(0, -4)}.txt`, data.title);
+          });
+          return true;
+        } case "/api_v2/asset/update/": {
+          loadPost(req, res).then(data => {
+            var id;
+            if (!data.data.id) id = data.data.assetId;
+            else id = data.data.id;
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}.json`, JSON.stringify(data.data));
+            res.end(JSON.stringify({status: "ok"}));
           });
           return true;
         } case "/goapi/getUserAssetsXml/": {

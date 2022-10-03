@@ -74,7 +74,6 @@ module.exports = function (req, res, url) {
         
         <!-- Trigger/Open The Modal -->
         <button id="char">Create A Character</button> <button id="myBtn">Make A Video</button>
-        
         <!-- The Modal -->
         <div id="myModal" class="modal">
         
@@ -88,13 +87,14 @@ module.exports = function (req, res, url) {
           </div>
         
         </div>
-        
+        <br><h1>Your Movies</h1><br>${files.map(v => `${v.html}`).join('') || '<h2>You currently have no movies right now. <button id="createBtn">Create one now</button></h2></center>'}
         <script>
         // Get the modal
         var modal = document.getElementById("myModal");
         
         // Get the button that opens the modal
         var btn = document.getElementById("myBtn");
+        var createBtn = document.getElementById("createBtn");
         var charBtn = document.getElementById("char");
         
         // Get the <span> element that closes the modal
@@ -102,6 +102,9 @@ module.exports = function (req, res, url) {
         
         // When the user clicks the button, open the modal 
         btn.onclick = function() {
+          modal.style.display = "block";
+        }
+        createBtn.onclick = function() {
           modal.style.display = "block";
         }
         charBtn.onclick = function() {
@@ -112,15 +115,7 @@ module.exports = function (req, res, url) {
         span.onclick = function() {
           modal.style.display = "none";
         }
-        
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        }
         </script>
-        <br><h1>Your Movies</h1><br>${files.map(v => `${v.html}`).join('') || '<h2>You currently have no movies right now. <a href="/studio">Create one now</a></h2></center>'}
         </body>
         </html>`;
         break;
