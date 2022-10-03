@@ -44,7 +44,13 @@ module.exports = {
 			if (xml && zip && png) {
 				table.unshift({html: `<center>${
 					title || "Untitled Video"
-				}<br><img src="/movies/${id}.png"/><br><a href="/player?movieId=${id}">Play</a> <a href="/studio?movieId=${id}">Edit</a> <a href="/movies/${id}.zip">Download</a></center><br>`});
+				}<br><img src="/movies/${id}.png"/><br><a href="/player?movieId=${id}">Play</a> <a href="/studio?movieId=${
+					id
+				}">Edit</a> <a href="/movies/${id}.zip">Download</a></center><br>`, dbHtml: `<center>${
+					title || "Untitled Video"
+				}<br><img src="/movies/${id}.png"/><br><a href="/player?movieId=${id}">Play</a> <button onclick="studioModal('${
+					id
+				}')">Edit</button> <a href="/movies/${id}.zip">Download</a></center><br>`});
 			}
 		});
 		return table;

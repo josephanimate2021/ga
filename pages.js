@@ -9,13 +9,107 @@ aniClientUrl = env.STATIC_CLIENT_URL;
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
   var html, tId;
+  const modal = {
+    normal: `<div id="myModal" class="modal"><!-- Modal content --><div class="modal-content"><span class="close">&times;</span>
+    <h1>Select An LVM Version</h1><br><br>
+    <h3><a href="/studio?apiVer=wrapper">Version 2</a></h3><br><br>
+    <h3><a href="/studio?apiVer=school">Version 2 & 1 (School Edition)</a></h3><br><br>
+    <h3><a href="/studio?apiVer=normal">Version 2 & 1</a></h3>
+    </div>
+    </div>`,
+    script: `<div id="myModal" class="modal"></div>`
+  };
+
+  const css = `<style>
+  body {font-family: Arial, Helvetica, sans-serif;}
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  /* The Close Button */
+  #close,
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  #close:hover,
+  .close:focus,
+  #close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  </style>`;
+  const script = `<script>
+  // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+var spanId = document.getElementById("close");
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+if (event.target == modal) {
+modal.style.display = "none";
+}
+}
+  </script>`;
+  const dbScript = `<script>function studioModal(mId) {
+    document.getElementById('myModal').innerHTML = \`<div class="modal-content"><span id="close" onclick='document.getElementById("myModal").style.display = "none"'>&times;</span>
+    <h1>Select An LVM Version</h1><br><br>
+    <h3><a href="/studio?apiVer=wrapper&movieId=\${mId}">Version 2</a></h3><br><br>
+    <h3><a href="/studio?apiVer=school&movieId=\${mId}">Version 2 & 1 (School Edition)</a></h3><br><br>
+    <h3><a href="/studio?apiVer=normal&movieId=\${mId}">Version 2 & 1</a></h3>
+    </div>
+    </div>\`;
+    document.getElementById("myModal").style.display = "block";
+  }</script>`
   const tutorialReload = url.query.tutorial ? true : false;
   const tutorialDataBase = fUtil.exists(process.env.DATABASES_FOLDER + `/tutorialStatus.txt`) ? false : true;
   switch (url.pathname) {
     case "/dashboard/videos": {
         if (!fUtil.exists(`${process.env.MOVIE_FOLDER}/xmls`)) fs.mkdirSync(`${process.env.MOVIE_FOLDER}/xmls`);
         const files = asset.listMovies();
-        html = `<html><head><title>ApiAnimate - Your Videos</title></head><body><center><h1>Your Movies</h1></center><br>${files.map(v => `${v.html}`).join('') || '<center><h2>You currently have no movies right now. <a href="/studio">Create one now</a></h2></center>'}</body></html>`;
+        html = `<html><head><title>ApiAnimate - Your Videos</title>${css}</head><body><center><h1>Your Movies</h1><br>${files.map(v => `${v.dbHtml}`).join('') || '<h2>You currently have no movies right now. <a href="/studio">Create one now</a></h2>'}${modal.script}${dbScript}${script}</center></body></html>`;
         break;
     } case "/player": {
 	    html = `<html><head><title>Video Player</title></head><body style="margin:0px"><object data="${aniSwfUrl}/player.swf" type="application/x-shockwave-flash" id="Player" width="100%" height="100%"><param name="flashvars" value="apiserver=/&storePath=${aniStoreUrl}/<store>&clientThemePath=${aniClientUrl}/<client_theme>&movieId=${url.query.movieId || ""}&ut=60&appCode=go&page=&siteId=go&m_mode=school&isLogin=Y&isEmbed=1&ctc=go&tlang=en_US&autostart=1"><param name="allowScriptAccess" value="always"></object></body></html>`;
@@ -28,48 +122,7 @@ module.exports = function (req, res, url) {
         <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>ApiAnimate - Home</title>
-        <style>
-        body {font-family: Arial, Helvetica, sans-serif;}
-        
-        /* The Modal (background) */
-        .modal {
-          display: none; /* Hidden by default */
-          position: fixed; /* Stay in place */
-          z-index: 1; /* Sit on top */
-          padding-top: 100px; /* Location of the box */
-          left: 0;
-          top: 0;
-          width: 100%; /* Full width */
-          height: 100%; /* Full height */
-          overflow: auto; /* Enable scroll if needed */
-          background-color: rgb(0,0,0); /* Fallback color */
-          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-        
-        /* Modal Content */
-        .modal-content {
-          background-color: #fefefe;
-          margin: auto;
-          padding: 20px;
-          border: 1px solid #888;
-          width: 80%;
-        }
-        
-        /* The Close Button */
-        .close {
-          color: #aaaaaa;
-          float: right;
-          font-size: 28px;
-          font-weight: bold;
-        }
-        
-        .close:hover,
-        .close:focus {
-          color: #000;
-          text-decoration: none;
-          cursor: pointer;
-        }
-        </style>
+        ${css}
         </head>
         <body><center>
         
@@ -78,46 +131,9 @@ module.exports = function (req, res, url) {
         <!-- Trigger/Open The Modal -->
         <button id="char">Create A Character</button> <button id="myBtn">Make A Video</button>
         <!-- The Modal -->
-        <div id="myModal" class="modal">
-        
-          <!-- Modal content -->
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <h1>Select An LVM Version</h1><br><br>
-            <h3><a href="/studio?apiVer=wrapper">Version 2</a></h3><br><br>
-            <h3><a href="/studio?apiVer=school">Version 2 & 1 (School Edition)</a></h3><br><br>
-            <h3><a href="/studio?apiVer=normal">Version 2 & 1</a></h3>
-          </div>
-        
-        </div>
+        ${modal.normal}
         <br><h1>Your Movies</h1><br>${files.map(v => `${v.html}`).join('') || '<h2>You currently have no movies right now. <button id="createBtn">Create one now</button></h2></center>'}
-        <script>
-        // Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-        </script>
+        ${script}
         </body>
         </html>`;
         break;
