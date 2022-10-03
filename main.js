@@ -1,5 +1,6 @@
 // vars
 const http = require('http');
+const fs = require('fs');
 
 const env = {
   hostname: '127.0.0.1',
@@ -21,6 +22,7 @@ const env = {
   node_env: "dev"
 };
 const folder = env.ASSETS_FOLDER, sFolder = `${folder}/sounds`;
+if (!fs.existsSync(sFolder)) fs.mkdirSync(sFolder);
 env.BG_FOLDER = `${folder}/backgrounds`;
 env.PROPS_FOLDER = `${folder}/props`;
 env.MUSIC_FOLDER = `${sFolder}/music`;
@@ -29,37 +31,6 @@ env.VOICEOVERS_FOLDER = `${sFolder}/voiceovers`;
 env.CHARS_FOLDER = `${folder}/chars`;
 env.DATABASES_FOLDER = `${folder}/meta`;
 env.TEXT_COMPARTMENTS_FOLDER = `${folder}/compartments`
-
-// basic utilities
-const theme = require("./theme/core");
-const static = require("./static/swf");
-const font = require("./static/font");
-const text = require("./static/text_component");
-const Static = require("./static/framework");
-const mo = require("./static/mo");
-const favicon = require("./favicon");
-const store = require("./static/stockAssets");
-const movie = require("./movie/core");
-const asset = require("./asset/core");
-const pages = require("./pages");
-const crossdomain = require("./crossdomain");
-const url = require('url');
-const fs = require('fs');
-
-const utilities = [
-  favicon,
-  text,
-  font,
-  static,
-  Static,
-  mo,
-  store,
-  movie,
-  asset,
-  theme,
-  crossdomain,
-  pages
-];
 
 fs.writeFileSync(`./env.json`, JSON.stringify(env));
 if (!fs.existsSync(folder)) fs.mkdirSync(folder);
@@ -76,6 +47,37 @@ if (!fs.existsSync(env.DATABASES_FOLDER)) fs.mkdirSync(env.DATABASES_FOLDER);
 if (!fs.existsSync(env.DATABASES_FOLDER + `/names`)) fs.mkdirSync(env.DATABASES_FOLDER + `/names`);
 if (!fs.existsSync(env.DATABASES_FOLDER + `/states`)) fs.mkdirSync(env.DATABASES_FOLDER + `/states`);
 if (!fs.existsSync(env.DATABASES_FOLDER + `/tags`)) fs.mkdirSync(env.DATABASES_FOLDER + `/tags`);
+
+// basic utilities
+const theme = require("./theme/core");
+const static = require("./static/swf");
+const font = require("./static/font");
+const text = require("./static/text_component");
+const Static = require("./static/framework");
+const mo = require("./static/mo");
+const favicon = require("./favicon");
+const store = require("./static/stockAssets");
+const movie = require("./movie/core");
+const asset = require("./asset/core");
+const pages = require("./pages");
+const crossdomain = require("./crossdomain");
+const url = require('url');
+
+const utilities = [
+  favicon,
+  text,
+  font,
+  static,
+  Static,
+  mo,
+  store,
+  movie,
+  asset,
+  theme,
+  crossdomain,
+  pages
+];
+
 Object.assign(process.env, require("./env"));
 const server = http.createServer((req, res) => {
   try {
