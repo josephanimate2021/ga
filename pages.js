@@ -17,7 +17,8 @@ module.exports = function (req, res, url) {
     <h3><a href="/studio?apiVer=normal">Version 2 & 1</a></h3>
     </div>
     </div>`,
-    script: `<div id="myModal" class="modal"></div>`
+    script: `<div id="myModal" class="modal"></div>`,
+    dbScript: `<div id="dbModal" class="modal"></div>`
   };
 
   const css = `<style>
@@ -102,7 +103,17 @@ modal.style.display = "none";
     </div>
     </div>\`;
     document.getElementById("myModal").style.display = "block";
-  }</script>`
+  }</script>`;
+  const dbscript = `<script>function studioModal(mId) {
+    document.getElementById('dbModal').innerHTML = \`<div class="modal-content"><span id="close" onclick='document.getElementById("dbModal").style.display = "none"'>&times;</span>
+    <h1>Select An LVM Version</h1><br><br>
+    <h3><a href="/studio?apiVer=wrapper&movieId=\${mId}">Version 2</a></h3><br><br>
+    <h3><a href="/studio?apiVer=school&movieId=\${mId}">Version 2 & 1 (School Edition)</a></h3><br><br>
+    <h3><a href="/studio?apiVer=normal&movieId=\${mId}">Version 2 & 1</a></h3>
+    </div>
+    </div>\`;
+    document.getElementById("dbModal").style.display = "block";
+  }</script>`;
   const tutorialReload = url.query.tutorial ? true : false;
   const tutorialDataBase = fUtil.exists(process.env.DATABASES_FOLDER + `/tutorialStatus.txt`) ? false : true;
   switch (url.pathname) {
@@ -132,7 +143,9 @@ modal.style.display = "none";
         <button id="char">Create A Character</button> <button id="myBtn">Make A Video</button>
         <!-- The Modal -->
         ${modal.normal}
-        <br><h1>Your Movies</h1><br>${files.map(v => `${v.html}`).join('') || '<h2>You currently have no movies right now. <button id="createBtn">Create one now</button></h2></center>'}
+        ${modal.dbScript}
+        <br><h1>Your Movies</h1><br>${files.map(v => `${v.dbHtml}`).join('') || '<h2>You currently have no movies right now. <button id="createBtn">Create one now</button></h2></center>'}
+        ${dbscript}
         ${script}
         </body>
         </html>`;
