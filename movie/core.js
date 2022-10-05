@@ -23,11 +23,15 @@ module.exports = function (req, res, url) {
                 }
                 case "/goapi/getMovie/": {
                     try {
-                        const buffer = fs.readFileSync(`${process.env.MOVIE_FOLDER}/xmls/${url.query.movieId}.xml`);
-                        movie.parse(buffer).then(b => res.end(Buffer.concat([base, b]))).catch(e => console.log(e));
+                        try {
+                            const buffer = fs.readFileSync(`${process.env.MOVIE_FOLDER}/xmls/${url.query.movieId}.xml`);
+                            movie.parse(buffer).then(b => res.end(Buffer.concat([base, b]))).catch(e => console.log(e));
+                        } catch (e) {
+                            const buffer = fs.readFileSync(`${process.env.STARTER_FOLDER}/xmls/${url.query.movieId}.xml`);
+                            movie.parse(buffer).then(b => res.end(Buffer.concat([base, b]))).catch(e => console.log(e));
+                        }
                     } catch (e) {
-                        const buffer = fs.readFileSync(`${process.env.STARTER_FOLDER}/xmls/${url.query.movieId}.xml`);
-                        movie.parse(buffer).then(b => res.end(Buffer.concat([base, b]))).catch(e => console.log(e));
+                        console.log(e);
                     }
                     return true;
                 }
