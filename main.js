@@ -28,9 +28,7 @@ env.CHARS_FOLDER = `${folder}/chars`;
 env.DATABASES_FOLDER = `${folder}/meta`;
 
 // basic utilities
-const theme = require("./theme/core");
-const movie = require("./movie/core");
-const asset = require("./asset/core");
+const movie = require("./movie/asset");
 const pages = require("./pages");
 const crossdomain = require("./crossdomain");
 const url = require('url');
@@ -38,8 +36,6 @@ const fs = require('fs');
 
 const utilities = [
   movie,
-  asset,
-  theme,
   crossdomain,
   pages
 ];
