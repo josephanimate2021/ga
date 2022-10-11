@@ -9,14 +9,16 @@ const env = {
   ASSETS_FOLDER: "./files/assets",
   CHAR_BASE_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Character-Dump/master/characters",
   THUMBNAILS_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Thumbnails/master/thumbnails",
-  // anistick swfs beta
-  SWF_URL: "https://josephanimate2021.github.io/Animium-Swfs",
+  SWF_URL: "https://josephanimate2021.github.io/lvm-static/api/zimmertwins",
   STORE_URL: "https://josephanimate2021.github.io/store/3a981f5cb2739137",
   CLIENT_URL: "https://josephanimate2021.github.io/static/55910a7cd204c37c",
   // env
   node_env: "dev"
 };
 const folder = env.ASSETS_FOLDER, sFolder = `${folder}/sounds`;
+fs.writeFileSync(`./env.json`, JSON.stringify(env));
+if (!fs.existsSync(folder)) fs.mkdirSync(folder);
+if (!fs.existsSync(sFolder)) fs.mkdirSync(sFolder);
 env.BG_FOLDER = `${folder}/backgrounds`;
 env.PROPS_FOLDER = `${folder}/props`;
 env.MUSIC_FOLDER = `${sFolder}/music`;
@@ -42,8 +44,6 @@ const utilities = [
   pages
 ];
 
-fs.writeFileSync(`./env.json`, JSON.stringify(env));
-if (!fs.existsSync(folder)) fs.mkdirSync(folder);
 if (!fs.existsSync(env.MOVIE_FOLDER)) fs.mkdirSync(env.MOVIE_FOLDER);
 if (!fs.existsSync(env.STARTER_FOLDER)) fs.mkdirSync(env.STARTER_FOLDER);
 if (!fs.existsSync(env.BG_FOLDER)) fs.mkdirSync(env.BG_FOLDER);
