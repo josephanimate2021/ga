@@ -50,10 +50,7 @@ module.exports = function (req, res, url) {
           fs.unlinkSync("themelist.xml");
           return true;
         } case "/goapi/getTheme/": {
-          loadPost(req, res).then(data => {
-            fs.createReadStream(`./static/store/${data.themeId}/${data.themeId}.zip`).pipe(res);
-            return true;
-          });
+          loadPost(req, res).then(data => fs.createReadStream(`./static/store/${data.themeId}/${data.themeId}.zip`).pipe(res));
           return true;
         }
       }
