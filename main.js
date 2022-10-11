@@ -22,6 +22,7 @@ const env = {
   node_env: "dev"
 };
 const folder = env.ASSETS_FOLDER, sFolder = `${folder}/sounds`;
+if (!fs.existsSync(folder)) fs.mkdirSync(folder);
 if (!fs.existsSync(sFolder)) fs.mkdirSync(sFolder);
 env.BG_FOLDER = `${folder}/backgrounds`;
 env.PROPS_FOLDER = `${folder}/props`;

@@ -4,14 +4,21 @@ const get = require("../req/get");
 const jszip = require('jszip');
 const nodezip = require("node-zip");
 const functions = require("../movie/main");
-const unzipMovieForList = async (id) => {
+const unzipMovieForList = async (id, autosaved = false) => {
 	const fileContent = fs.readFileSync(process.env.MOVIE_FOLDER + `/${id}.zip`);
 	const jszipInstance = new jszip();
 	const result = await jszipInstance.loadAsync(fileContent);
 	const keys = Object.keys(result.files);
 	for (let key of keys) {
 		const item = result.files[key];
-		fs.writeFileSync(`${process.env.MOVIE_FOLDER}/xmls/${id}.xml`, Buffer.from(await item.async("arraybuffer")));
+		if (!fUtil.exists(process.env.MOVIE_FOLDER + `/xmls`)) fs.mkdirSync(process.env.MOVIE_FOLDER + `/xmls`);
+		if (autosaved) {
+			if (!fUtil.exists(process.env.MOVIE_FOLDER + `/autosaves`)) fs.mkdirSync(process.env.MOVIE_FOLDER + `/autosaves`);
+			if (!fUtil.exists(process.env.MOVIE_FOLDER + `/xmls/${id}.xml`)) fs.writeFileSync(`${
+				process.env.MOVIE_FOLDER
+			}/xmls/${id}.xml`, Buffer.from(await item.async("arraybuffer")));
+			fs.writeFileSync(`${process.env.MOVIE_FOLDER}/autosaves/${id}.xml`, Buffer.from(await item.async("arraybuffer")));
+		} else fs.writeFileSync(`${process.env.MOVIE_FOLDER}/xmls/${id}.xml`, Buffer.from(await item.async("arraybuffer")));
 	}
 };
 
@@ -41,12 +48,13 @@ module.exports = {
 			const begTitle = buffer.indexOf("<title>") + 16;
 			const endTitle = buffer.indexOf("]]></title>");
 			const title = buffer.slice(begTitle, endTitle).toString().trim();
+			const autosaved = fUtil.exists(process.env.MOVIE_FOLDER + `/autosaves/${id}.xml`) ? 'movieIsAutosaved' : 'redirect';
 			if (xml && zip && png) {
 				table.unshift({html: `<center>${
 					title || "Untitled Video"
 				}<br><img src="/movies/${id}.png"/><br><a href="/player?movieId=${id}">Play</a> <button onclick="studioModal('${
 					id
-				}')">Edit</button> <a href="/movies/${id}.zip">Download</a></center><br>`});
+				}', '${autosaved}')">Edit</button> <a href="/movies/${id}.zip">Download</a></center><br>`});
 			}
 		});
 		return table;
@@ -78,22 +86,26 @@ module.exports = {
 	saveMovie(data) {
 		var thumb;
 		const body = Buffer.from(data.body_zip, "base64");
-		if (data.save_thumbnail) thumb = Buffer.from(data.thumbnail, "base64");
-		else thumb = this.generateThumbFromUrl();
 		const id = !data.movieId ? fUtil.makeid(12) : data.movieId;
-		fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.zip`, body);
-		fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.png`, thumb);
-		unzipMovieForList(id);
+		switch (data.save_thumbnail) {
+			case '1': {
+				thumb = Buffer.from(data.thumbnail, "base64");
+				fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.zip`, body);
+				fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.png`, thumb);
+				break;
+			} case '0': {
+				get('https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Thumbnails/master/thumbnails/257666432.jpg').then(thumb => {
+					fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.zip`, body);
+					fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.png`, thumb);
+				}).catch(e => console.log(e));
+				break;
+			}
+		}
+		if (!data.is_triggered_by_autosave) {
+			unzipMovieForList(id);
+			if (fUtil.exists(process.env.MOVIE_FOLDER + `/autosaves/${id}.xml`)) fs.unlinkSync(process.env.MOVIE_FOLDER + `/autosaves/${id}.xml`);
+		} else unzipMovieForList(id, true);
 		return id;
-	},
-	generateThumbFromUrl() {
-		return new Promise((res, rej) => {
-			get('https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Thumbnails/master/thumbnails/257666432.jpg').then(v => {
-				res(v);
-			}).catch(e => {
-				rej(e);
-			});
-		});
 	},
 	async saveStarter(data) {
 		if (!fUtil.exists(process.env.STARTER_FOLDER + `/xmls`)) fs.mkdirSync(process.env.STARTER_FOLDER + `/xmls`);

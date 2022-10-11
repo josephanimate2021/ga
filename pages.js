@@ -12,10 +12,10 @@ module.exports = function (req, res, url) {
   const modal = {
     normal: `<div id="myModal" class="modal"><!-- Modal content --><div class="modal-content"><span class="close">&times;</span>
     <h1>Select An LVM Version</h1><br><br>
-    <h3><a href="/studio?apiVer=normalLvm">Version 2 (Normal)</a></h3><br><br>
-    <h3><a href="/studio?apiVer=wrapper">Version 2</a></h3><br><br>
-    <h3><a href="/studio?apiVer=school">Version 2 & 1 (School Edition)</a></h3><br><br>
-    <h3><a href="/studio?apiVer=normal">Version 2 & 1</a></h3>
+    <button onclick="redirect('/studio?apiVer=normalLvm')">Version 2 (Normal)</button><br><br>
+    <button onclick="redirect('/studio?apiVer=wrapper')">Version 2</button><br><br>
+    <button onclick="redirect('/studio?apiVer=school')">Version 2 & 1 (School Edition)</button><br><br>
+    <button onclick="redirect('/studio?apiVer=normal')">Version 2 & 1</button>
     </div>
     </div>`,
     script: `<div id="myModal" class="modal"></div>`,
@@ -88,28 +88,36 @@ span.onclick = function() {
 modal.style.display = "none";
 }
   </script>`;
-  const dbScript = `<script>function studioModal(mId) {
+  const dbScript = `<script>function studioModal(mId, f) {
     document.getElementById('myModal').innerHTML = \`<div class="modal-content"><span id="close" onclick='document.getElementById("myModal").style.display = "none"'>&times;</span>
     <h1>Select An LVM Version</h1><br><br>
-    <h3><a href="/studio?apiVer=normalLvm&movieId=\${mId}">Version 2 (Normal)</a></h3><br><br>
-    <h3><a href="/studio?apiVer=wrapper&movieId=\${mId}">Version 2</a></h3><br><br>
-    <h3><a href="/studio?apiVer=school&movieId=\${mId}">Version 2 & 1 (School Edition)</a></h3><br><br>
-    <h3><a href="/studio?apiVer=normal&movieId=\${mId}">Version 2 & 1</a></h3>
+    <button onclick="\${f}('/studio?apiVer=normalLvm&movieId=\${mId}')">Version 2 (Normal)</button><br><br>
+    <button onclick="\${f}('/studio?apiVer=wrapper&movieId=\${mId}')">Version 2</button><br><br>
+    <button onclick="\${f}('/studio?apiVer=school&movieId=\${mId}')">Version 2 & 1 (School Edition)</button><br><br>
+    <button onclick="\${f}('/studio?apiVer=normal&movieId=\${mId}')">Version 2 & 1</button>
     </div>
     </div>\`;
     document.getElementById("myModal").style.display = "block";
-  }</script>`;
-  const dbscript = `<script>function studioModal(mId) {
+  } function movieIsAutosaved(url) { 
+    const editAutosaved = confirm("Your video has been autosaved. do you want to edit the autosaved version instead of the original one?"); 
+    if (editAutosaved) location.href = \`\${url}&autosaved=true\`;
+    else location.href = url;
+  } function redirect(url) { location.href = url; }</script>`;
+  const dbscript = `<script>function studioModal(mId, f) {
     document.getElementById('dbModal').innerHTML = \`<div class="modal-content"><span id="close" onclick='document.getElementById("dbModal").style.display = "none"'>&times;</span>
     <h1>Select An LVM Version</h1><br><br>
-    <h3><a href="/studio?apiVer=normalLvm&movieId=\${mId}">Version 2 (Normal)</a></h3><br><br>
-    <h3><a href="/studio?apiVer=wrapper&movieId=\${mId}">Version 2</a></h3><br><br>
-    <h3><a href="/studio?apiVer=school&movieId=\${mId}">Version 2 & 1 (School Edition)</a></h3><br><br>
-    <h3><a href="/studio?apiVer=normal&movieId=\${mId}">Version 2 & 1</a></h3>
+    <button onclick="\${f}('/studio?apiVer=normalLvm&movieId=\${mId}')">Version 2 (Normal)</button><br><br>
+    <button onclick="\${f}('/studio?apiVer=wrapper&movieId=\${mId}')">Version 2</button><br><br>
+    <button onclick="\${f}('/studio?apiVer=school&movieId=\${mId}')">Version 2 & 1 (School Edition)</button><br><br>
+    <button onclick="\${f}('/studio?apiVer=normal&movieId=\${mId}')">Version 2 & 1</button>
     </div>
     </div>\`;
     document.getElementById("dbModal").style.display = "block";
-  }</script>`;
+  } function movieIsAutosaved(url) { 
+    const editAutosaved = confirm("Your video has been autosaved. do you want to edit the autosaved version instead of the original one?"); 
+    if (editAutosaved) location.href = \`\${url}&autosaved=true\`;
+    else location.href = url;
+  } function redirect(url) { location.href = url; }</script>`;
   const tutorialReload = url.query.tutorial ? true : false;
   const tutorialDataBase = fUtil.exists(process.env.DATABASES_FOLDER + `/tutorialStatus.txt`) ? false : true;
   switch (url.pathname) {
@@ -136,11 +144,11 @@ modal.style.display = "none";
         <h2>Welcome To ApiAnimate! <br><h3>Feel Free To Make Anything You Want! You won't be stopped.</h3></h2>
         
         <!-- Trigger/Open The Modal -->
-        <button id="char">Create A Character</button> <button id="myBtn">Make A Video</button>
+        <button onclick="redirect('/charcreator?themeId=family&bs=adam')">Create A Character</button> <button id="myBtn">Make A Video</button>
         <!-- The Modal -->
         ${modal.normal}
         ${modal.dbScript}
-        <br><h1>Your Movies</h1><br>${files.map(v => `${v.html}`).join('') || '<h2>You currently have no movies right now. <button id="createBtn">Create one now</button></h2></center>'}
+        <br><h1>Your Movies</h1><br>${files.map(v => `${v.html}`).join('') || '<h2>You currently have no movies right now. <button onclick="modal.style.display = \'block\'">Create one now</button></h2></center>'}
         ${dbscript}
         ${script}
         </body>
@@ -306,6 +314,7 @@ modal.style.display = "none";
         var lid = 13;
         var siteId = "go";
         var ut = "60";
+        var autosavedHtml;
         switch (url.query.apiVer) {
             case "wrapper": {
                 lid = 0;
@@ -326,6 +335,8 @@ modal.style.display = "none";
                 break;
             }
         }
+        if (url.query.autosaved) autosavedHtml = "autosaved=true";
+        else autosavedHtml = "autosaved=";
 	    res.setHeader("Content-Type", "text/html; charset=utf8");
 	    html = `<html lang="en">
                 <head>
@@ -495,7 +506,7 @@ modal.style.display = "none";
                 
                 <object data="${aniSwfUrl}/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
                     <!-- The flashvars are a huge mess, have fun looking at them. :) -->
-                    <param name="flashvars" value="movieId=${url.query.movieId || ""}&apiserver=/&storePath=${aniStoreUrl}/<store>&isEmbed=1&ctc=go&ut=${ut}&bs=default&appCode=go&page=&siteId=${siteId}&lid=${lid}&isLogin=Y&retut=1&clientThemePath=${aniClientUrl}/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/ajax/redirect&tray=${url.query.tray || "custom"}">            
+                    <param name="flashvars" value="movieId=${url.query.movieId || ""}&apiserver=/&storePath=${aniStoreUrl}/<store>&isEmbed=1&ctc=go&ut=${ut}&bs=default&appCode=go&page=&siteId=${siteId}&lid=${lid}&isLogin=Y&retut=1&clientThemePath=${aniClientUrl}/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/ajax/redirect&${autosavedHtml}&tray=${url.query.tray || "custom"}">            
                     <param name="allowScriptAccess" value="always">
                     <param name="allowFullScreen" value="true">
                 </object>

@@ -1,6 +1,7 @@
 const movie = require("../asset/main");
 const fs = require("fs");
 const base = Buffer.alloc(1, 0);
+const loadPost = require("../req/body");
 
 module.exports = function (req, res, url) {
     switch(req.method) {
@@ -22,13 +23,17 @@ module.exports = function (req, res, url) {
                     return true;
                 }
                 case "/goapi/getMovie/": {
-                    try {
-                        const buffer = fs.readFileSync(`${process.env.MOVIE_FOLDER}/xmls/${url.query.movieId}.xml`);
-                        movie.parse(buffer).then(b => res.end(Buffer.concat([base, b]))).catch(e => console.log(e));
-                    } catch (e) {
-                        const buffer = fs.readFileSync(`${process.env.STARTER_FOLDER}/xmls/${url.query.movieId}.xml`);
-                        movie.parse(buffer).then(b => res.end(Buffer.concat([base, b]))).catch(e => console.log(e));
-                    }
+                    loadPost(req, res).then(data => {
+                        try {
+                            var buffer;
+                            if (data.autosaved) buffer = fs.readFileSync(`${process.env.MOVIE_FOLDER}/autosaves/${url.query.movieId}.xml`);
+                            else buffer = fs.readFileSync(`${process.env.MOVIE_FOLDER}/xmls/${url.query.movieId}.xml`)
+                            movie.parse(buffer).then(b => res.end(Buffer.concat([base, b]))).catch(e => console.log(e));
+                        } catch (e) {
+                            const buffer = fs.readFileSync(`${process.env.STARTER_FOLDER}/xmls/${url.query.movieId}.xml`);
+                            movie.parse(buffer).then(b => res.end(Buffer.concat([base, b]))).catch(e => console.log(e));
+                        }
+                    });
                     return true;
                 }
             }
