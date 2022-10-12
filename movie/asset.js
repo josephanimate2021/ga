@@ -1,6 +1,7 @@
 const get = require("../req/get");
 const loadPost = require("../req/body");
 const env = require("../env");
+const path = require("path");
 const fUtil = require("../fileUtil");
 const fs = require("fs");
 
@@ -32,9 +33,12 @@ module.exports = function (req, res) {
             fs.writeFileSync(env.MOVIE_FOLDER + `/${id}.xml`, data.moviexml);
             res.end(id + data.moviexml);
           });
+          return true;
+        } case "/movie/fetch": {
+          loadPost(req, res).then(data => res.end(fs.readFileSync(process.env.MOVIE_FOLDER + `/${data.movieid}.xml`)));
+          return true;
         }
       }
-      return true;
     }
   }
 }

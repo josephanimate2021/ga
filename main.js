@@ -9,6 +9,7 @@ const env = {
   MOVIE_FOLDER: "./files/movies",
   STARTER_FOLDER: "./files/starters",
   ASSETS_FOLDER: "./files/assets",
+  FILES_FOLDER: "./files",
   CHAR_BASE_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Character-Dump/master/characters",
   THUMBNAILS_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Thumbnails/master/thumbnails",
   SWF_URL: "https://josephanimate2021.github.io/lvm-static/api/zimmertwins",
