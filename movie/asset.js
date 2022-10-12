@@ -30,14 +30,15 @@ module.exports = function (req, res) {
         case "/movie/save": {
           loadPost(req, res).then(data => {
             const id = fUtil.makeid(6);
-            fs.writeFileSync(env.MOVIE_FOLDER + `/${id}.xml`, data.moviexml);
+            fs.writeFileSync(env.MOVIE_FOLDER + `/${id}.txt`, data.moviexml);
             res.end(id + data.moviexml);
           });
           return true;
         } case "/movie/fetch": {
-          loadPost(req, res).then(data => res.end(fs.readFileSync(process.env.MOVIE_FOLDER + `/${data.movieid}.xml`))).catch(e => {
-            console.log(e);
-          });
+          loadPost(req, res).then(data => {
+            res.setHeader("Content-Type", "text/xml");
+            res.end(fs.readFileSync(env.MOVIE_FOLDER + `/${data.movieid}.txt`));
+          }).catch(e => console.log(e));
           return true;
         }
       }
