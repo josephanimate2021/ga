@@ -1,5 +1,7 @@
 // vars
 const http = require('http');
+const url = require('url');
+const fs = require('fs');
 
 const env = {
   hostname: '127.0.0.1',
@@ -31,8 +33,6 @@ env.DATABASES_FOLDER = `${folder}/meta`;
 const movie = require("./movie/asset");
 const pages = require("./pages");
 const crossdomain = require("./crossdomain");
-const url = require('url');
-const fs = require('fs');
 
 const utilities = [
   movie,

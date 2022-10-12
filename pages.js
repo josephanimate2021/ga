@@ -1,5 +1,4 @@
 const fs = require("fs"),
-asset = require("./asset/main"),
 fUtil = require("./fileUtil"),
 env = require("./env");
 aniSwfUrl = env.SWF_URL,
