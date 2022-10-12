@@ -1,14 +1,40 @@
 const get = require("../req/get");
+const loadPost = require("../req/body");
 const env = require("../env");
+const fUtil = require("../fileUtil");
+const fs = require("fs");
 
 module.exports = function (req, res) {
-  if (req.method != "GET") return;
-  const match = req.url.match(/\/movie\/assets\/([^/]+)$/);
-  if (!match) return;
-  const file = match[1];
-  get(env.SWF_URL + `/${file}`).then(b => res.end(b)).catch(e => {
-    console.log(e); 
-    res.end('404 Not Found'); 
-  });
-  return true;
+  switch (req.method) {
+    case "GET": {
+      const match = req.url.match(/\/movie\/assets\/([^/]+)$/);
+      if (!match) return;
+      const file = match[1];
+      const dot = file.lastIndexOf(".");
+      const ext = file.substr(dot + 1);
+      var url;
+      switch (ext) {
+        case "xml": {
+          url = `https://web.archive.org/web/20130621220649if_/http://www.zimmertwins.com/sites/zimmertwins.com/movie/assets`;
+          break;
+        } default: {
+          url = env.SWF_URL;
+          break;
+        }
+      }
+      get(`${url}/${file}`).then(b => res.end(b)).catch(e => { console.log(e), res.end('404 Not Found') });
+      return true;
+    } case "POST": {
+      switch (req.url) {
+        case "/movie/save": {
+          loadPost(req, res).then(data => {
+            const id = fUtil.makeid(6);
+            fs.writeFileSync(env.MOVIE_FOLDER + `/${id}.xml`, data.moviexml);
+            res.end(id + data.moviexml);
+          });
+        }
+      }
+      return true;
+    }
+  }
 }
