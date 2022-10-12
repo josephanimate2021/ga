@@ -35,7 +35,9 @@ module.exports = function (req, res) {
           });
           return true;
         } case "/movie/fetch": {
-          loadPost(req, res).then(data => res.end(fs.readFileSync(process.env.MOVIE_FOLDER + `/${data.movieid}.xml`)));
+          loadPost(req, res).then(data => res.end(Buffer.from(fs.readFileSync(process.env.MOVIE_FOLDER + `/${data.movieid}.xml`)))).catch(e => {
+            console.log(e);
+          });
           return true;
         }
       }
