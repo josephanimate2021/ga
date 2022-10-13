@@ -52,7 +52,10 @@ module.exports = function (req, res, url) {
       switch (req.url) {
         case "/movie/save": {
           new formidable.IncomingForm().parse(req, (e, f) => {
-            if (e) { console.log(e), return }
+            if (e) { 
+              console.log(e); 
+              return;
+            }
             if (fs.existsSync(env.DATABASES_FOLDER + `/movieIdSection.json`)) {
               const idMeta = require('.' + env.DATABASES_FOLDER + `/movieIdSection.json`);
               const params = {
