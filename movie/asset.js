@@ -22,9 +22,15 @@ function toObjectString(data) {
 	return `${toParamString(data)}`;
 }
 
-module.exports = function (req, res) {
+module.exports = function (req, res, url) {
   switch (req.method) {
     case "GET": {
+      switch (url.pathname) {
+        case "/movie/fetch": {
+          res.end(fs.readFileSync(env.MOVIE_FOLDER + `/${url.query.movieid}.txt`));
+          return true;
+        }
+      }
       const match = req.url.match(/\/movie\/assets\/([^/]+)$/);
       if (!match) return;
       const file = match[1];
