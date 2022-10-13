@@ -1,7 +1,7 @@
 const fs = require("fs"),
 fUtil = require("./fileUtil"),
 env = require("./env");
-const asset = require("./movie/main")
+const movie = require("./movie/main")
 aniSwfUrl = env.SWF_URL,
 aniStoreUrl = env.STORE_URL,
 aniClientUrl = env.CLIENT_URL;
@@ -12,7 +12,7 @@ module.exports = function (req, res, url) {
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
   switch (url.pathname) {
    case "/": {
-        const files = asset.listMovies();
+        const files = movie.list();
         html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-local" lang="en-local" id="page-movie-clip-search-results">
           <head>
