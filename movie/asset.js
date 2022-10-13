@@ -46,7 +46,7 @@ module.exports = function (req, res, url) {
           break;
         }
       }
-      get(`${url}/${file}`).then(b => res.end(b)).catch(e => { console.log(e), res.end('404 Not Found') });
+      get(`${url}/${file}`).then(b => res.end(b)).catch(e => console.log(e));
       return true;
     } case "POST": {
       switch (req.url) {

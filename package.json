@@ -6,6 +6,6 @@
 		"error": "pause"
 	},
 	"dependencies": {
-		"formidable": "^1.2.1",
+		"formidable": "^1.2.1"
 	}
 }
