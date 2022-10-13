@@ -75,7 +75,7 @@ module.exports = function (req, res, url) {
                 <a id="site-logo" href="/">
                           </a>
                 
-                        <ul id="nav"><li class="menu-343 first"><a href="/" id="nav-home">Home</a></li>
+                        <ul id="nav"><li class="menu-343 first"><a href="javascript:;" onclick="alert('You're already at the videos list you idiot!')" id="nav-home">Home</a></li>
         <li class="menu-345"><a href="/movie/watch" id="nav-watch">Watch A Movie</a></li>
         <li class="menu-344"><a href="/studio" onclick="alert('Because of the way this server was designed, the old legacy movie starters wont be added. All movies will be created on a blank stage.')" id="nav-make">Make A Movie</a></li>
         <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
