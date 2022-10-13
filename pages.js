@@ -59,7 +59,7 @@ module.exports = function (req, res, url) {
             
           
         
-        <ol class="movie-clip-search-results">${files.map(v => `${v.html || "<h3>There are currently no movies at the moment. <a href='/studio'>Create one now</a></h3>"}`).join('')}</ol>
+        <ol class="movie-clip-search-results">${files.map(v => `${v.html}`).join('') || "<h3>There are currently no movies at the moment. <a href='/studio'>Create one now</a></h3>"}</ol>
         
         
                   
