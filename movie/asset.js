@@ -29,15 +29,19 @@ module.exports = function (req, res) {
       switch (req.url) {
         case "/movie/save": {
           loadPost(req, res).then(data => {
-            const id = fUtil.makeid(6);
-            fs.writeFileSync(env.MOVIE_FOLDER + `/${id}.txt`, data.moviexml);
+            const meta = !fUtil.exists(env.MOVIE_FOLDER + `/${data.movieid}.json`) ? "" : require('.' + env.MOVIE_FOLDER + `/${
+              data.movieid
+            }.json`);
+            const id = meta.id || fUtil.makeid(6);
+            fs.writeFileSync(env.MOVIE_FOLDER + `/${id}.json`, JSON.stringify({id: id, xml: data.moviexml}));
             res.end(id + data.moviexml);
           });
           return true;
         } case "/movie/fetch": {
           loadPost(req, res).then(data => {
             res.setHeader("Content-Type", "text/xml");
-            res.end(fs.readFileSync(env.MOVIE_FOLDER + `/${data.movieid}.txt`));
+            const meta = require('.' + env.MOVIE_FOLDER + `/${data.movieid}.json`)
+            res.end(meta.xml);
           }).catch(e => console.log(e));
           return true;
         }
