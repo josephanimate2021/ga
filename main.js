@@ -17,7 +17,6 @@ const env = {
   node_env: "dev"
 };
 const folder = env.ASSETS_FOLDER, sFolder = `${folder}/sounds`;
-fs.writeFileSync(`./env.json`, JSON.stringify(env));
 if (!fs.existsSync(folder)) fs.mkdirSync(folder);
 if (!fs.existsSync(sFolder)) fs.mkdirSync(sFolder);
 env.BG_FOLDER = `${folder}/backgrounds`;
@@ -27,6 +26,7 @@ env.SOUNDS_FOLDER = `${sFolder}/effects`;
 env.VOICEOVERS_FOLDER = `${sFolder}/voiceovers`;
 env.CHARS_FOLDER = `${folder}/chars`;
 env.DATABASES_FOLDER = `${folder}/meta`;
+fs.writeFileSync(`./env.json`, JSON.stringify(env));
 
 // basic utilities
 const movie = require("./movie/asset");

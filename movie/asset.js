@@ -1,7 +1,6 @@
 const get = require("../req/get");
 const loadPost = require("../req/body");
 const env = require("../env");
-const path = require("path");
 const fUtil = require("../fileUtil");
 const fs = require("fs");
 const formidable = require("formidable");
@@ -47,35 +46,47 @@ module.exports = function (req, res) {
       switch (req.url) {
         case "/movie/save": {
           new formidable.IncomingForm().parse(req, (e, f) => {
-            const params = {
-              meta: {
-                action: f.action,
-                thumbid: f.thumbid,
-                starterid: '',
-                description: f.description,
-                title: f.title,
-                moviexml: f.moviexml,
-                lang: f.lang,
-                movieid: f.movieid || fUtil.makeid(6),
-                userid: f.userid
-              }
-            };
             if (e) return;
-            const meta = !fUtil.exists(env.MOVIE_FOLDER + `/${f.movieid}.json`) ? "" : require('.' + env.MOVIE_FOLDER + `/${
-              f.movieid
-            }.json`);
-            const id = meta.id || fUtil.makeid(6);
-            f.movieid = id;
-            fs.writeFileSync(env.MOVIE_FOLDER + `/${id}.json`, JSON.stringify({id: id, movieObject: toObjectString(params)}));
-            res.end(toObjectString(params));
+            if (fs.existsSync(env.DATABASES_FOLDER + `/movieIdSection.json`)) {
+              const idMeta = require('.' + env.DATABASES_FOLDER + `/movieIdSection.json`);
+              const params = {
+                meta: {
+                  action: f.action,
+                  thumbid: f.thumbid,
+                  starterid: f.starterid || '',
+                  description: f.description,
+                  title: f.title,
+                  moviexml: f.moviexml,
+                  lang: f.lang,
+                  movieid: idMeta.id,
+                  userid: f.userid
+                }
+              };
+              console.log(params.meta.movieid);
+              fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
+              res.end(toObjectString(params));
+            } else {
+              const params = {
+                meta: {
+                  action: f.action,
+                  thumbid: f.thumbid,
+                  starterid: f.starterid || '',
+                  description: f.description,
+                  title: f.title,
+                  moviexml: f.moviexml,
+                  lang: f.lang,
+                  movieid: fUtil.makeid(6),
+                  userid: f.userid
+                }
+              };
+              console.log(params.meta.movieid);
+              fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
+              res.end(toObjectString(params));
+            }
           });
           return true;
         } case "/movie/fetch": {
-          loadPost(req, res).then(data => {
-            res.setHeader("Content-Type", "text/xml");
-            const meta = require('.' + env.MOVIE_FOLDER + `/${data.movieid}.json`)
-            res.end(meta.movieObject);
-          }).catch(e => console.log(e));
+          loadPost(req, res).then(data => res.end(fs.readFileSync(env.MOVIE_FOLDER + `/${data.movieid}.txt`))).catch(e => console.log(e));
           return true;
         }
       }
