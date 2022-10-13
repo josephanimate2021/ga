@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 module.exports = {
-    listMovies() {
+    list() {
         const table = [];
         fs.readdirSync(process.env.MOVIE_FOLDER).forEach(file => {
             const id = file.slice(0, -4);
