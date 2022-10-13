@@ -7,14 +7,9 @@ module.exports = {
             const id = file.slice(0, -4);
             if (fs.existsSync(process.env.MOVIE_FOLDER + `/${file}`)) table.unshift({html: `    <li class="movie-clip clear-block">
     
-            <a href="/player?movieId=${id}" class="thumbnail"><img src="https://web.archive.org/web/20200604033451im_/http://www.zimmertwins.com/sites/zimmertwins.com/movie/thumbnails/small/xeva_laughs_stage.png.pagespeed.ic._EXN4d1ID5.png" alt="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
+            <a href="/player?movieId=${id}" class="thumbnail"><img src="https://web.archive.org/web/20200604033451im_/http://www.zimmertwins.com/sites/zimmertwins.com/movie/thumbnails/small/xdefault.png.pagespeed.ic.NRbioFMVrg.png" alt="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
       
       " title="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}"/></a>      <!-- Movie Clip Types -->
-        <ul class="movie-clip-types clear-block">
-                <li class="now-showing">
-              <span>Now Showing</span>
-            </li>
-            </ul>  
           
             <h2><a href="/player?movieId=${id}">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
       

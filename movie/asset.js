@@ -148,6 +148,8 @@ module.exports = function (req, res, url) {
               };
               console.log(params.meta.movieid);
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
+              fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
+              fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
               res.end(toObjectString(params));
             }
           });
