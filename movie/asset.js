@@ -28,12 +28,19 @@ module.exports = function (req, res, url) {
       switch (url.pathname) {
         case "/movie/fetch": {
           if (!url.query.movieid) {
-            get('https://web.archive.org/web/20200807182213if_/http://www.zimmertwins.com/movie/fetch?movieid=1734613').then(buff => {
-              if (!fUtil.exists(process.env.MOVIE_FOLDER + `/1734613.txt`)) fs.writeFileSync(process.env.MOVIE_FOLDER + `/1734613.txt`, buff);
+            const id = "1734613";
+            get(`https://web.archive.org/web/20200807182213if_/http://www.zimmertwins.com/movie/fetch?movieid=${id}`).then(buff => {
+              if (!fUtil.exists(process.env.MOVIE_FOLDER + `/${id}.txt`)) fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.txt`, buff);
+              if (!fUtil.exists(process.env.DATABASES_FOLDER + `/${id}-title.txt`)) fs.writeFileSync(process.env.DATABASES_FOLDER + `/${
+                id
+              }-title.txt`, 'How2 Eat Tuna');
+              else if (!fUtil.exists(process.env.DATABASES_FOLDER + `/${id}-desc.txt`)) fs.writeFileSync(process.env.DATABASES_FOLDER + `/${
+                id
+              }-desc.txt`, '');
               if (!url.query.redirect) res.end(buff);
               else {
                 res.statusCode = 302;
-                res.setHeader("Location", `/studio?movieId=1734613`);
+                res.setHeader("Location", `/studio?movieId=${id}`);
                 res.end();
               }
             }).catch(e => {
@@ -52,7 +59,9 @@ module.exports = function (req, res, url) {
           var html;
           switch (url.query.type) {
             case "movie": {
-              html = `<form enctype='multipart/form-data' action='/movie${url.path.slice(0, -11)}' method='post'><input id='file' type="file" onchange="this.form.submit()" name='import' accept=".txt" /></form>`;
+              html = `<form enctype='multipart/form-data' action='/movie${
+                url.path.slice(0, -11)
+              }' method='post'><input id='file' type="file" onchange="this.form.submit()" name='import' accept=".txt" /></form>`;
               break;
             } default: {
               html = 'Type Not Found';
@@ -120,6 +129,8 @@ module.exports = function (req, res, url) {
               };
               console.log(params.meta.movieid);
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
+              fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
+              fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
               res.end(toObjectString(params));
             } else {
               const params = {
