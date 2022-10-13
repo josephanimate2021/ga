@@ -83,7 +83,7 @@ module.exports = function (req, res, url) {
       
         <code class="flashvars">
           
-          <input type="hidden" name="apiurl" value="https://josephanimate2021.github.io/lvm-static/api/zimmertwins/api_paid.xml"/>
+          <input type="hidden" name="apiurl" value="/movie/assets/api.xml"/>
           <input type="hidden" name="asseturl" value="/movie/assets"/>
           <input type="hidden" name="baseurl" value="${urlPrefix}://${req.headers.host}"/>
           <input type="hidden" name="lang" value="en-local"/>

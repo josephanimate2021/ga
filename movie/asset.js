@@ -4,6 +4,24 @@ const env = require("../env");
 const path = require("path");
 const fUtil = require("../fileUtil");
 const fs = require("fs");
+const formidable = require("formidable");
+
+function toAttrString(data) {
+	return typeof data == "object"
+		? Object.keys(data)
+				.filter((key) => data[key] !== null)
+				.map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+				.join("&")
+		: data.replace(/"/g, '\\"');
+}
+function toParamString(data) {
+	return Object.keys(data)
+		.map((key) => `${toAttrString(data[key])}`)
+		.join(" ");
+}
+function toObjectString(data) {
+	return `${toParamString(data)}`;
+}
 
 module.exports = function (req, res) {
   switch (req.method) {
@@ -28,20 +46,36 @@ module.exports = function (req, res) {
     } case "POST": {
       switch (req.url) {
         case "/movie/save": {
-          loadPost(req, res).then(data => {
-            const meta = !fUtil.exists(env.MOVIE_FOLDER + `/${data.movieid}.json`) ? "" : require('.' + env.MOVIE_FOLDER + `/${
-              data.movieid
+          new formidable.IncomingForm().parse(req, (e, f) => {
+            const params = {
+              meta: {
+                action: f.action,
+                thumbid: f.thumbid,
+                starterid: '',
+                description: f.description,
+                title: f.title,
+                moviexml: f.moviexml,
+                lang: f.lang,
+                movieid: f.movieid || fUtil.makeid(6),
+                userid: f.userid
+              }
+            };
+            console.log(params);
+            if (e) return;
+            const meta = !fUtil.exists(env.MOVIE_FOLDER + `/${f.movieid}.json`) ? "" : require('.' + env.MOVIE_FOLDER + `/${
+              f.movieid
             }.json`);
             const id = meta.id || fUtil.makeid(6);
-            fs.writeFileSync(env.MOVIE_FOLDER + `/${id}.json`, JSON.stringify({id: id, xml: data.moviexml}));
-            res.end(id + data.moviexml);
+            f.movieid = id;
+            fs.writeFileSync(env.MOVIE_FOLDER + `/${id}.json`, JSON.stringify({id: id, movieObject: toObjectString(params)}));
+            res.end(toObjectString(params));
           });
           return true;
         } case "/movie/fetch": {
           loadPost(req, res).then(data => {
             res.setHeader("Content-Type", "text/xml");
             const meta = require('.' + env.MOVIE_FOLDER + `/${data.movieid}.json`)
-            res.end(meta.xml);
+            res.end(meta.movieObject);
           }).catch(e => console.log(e));
           return true;
         }
