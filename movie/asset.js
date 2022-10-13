@@ -60,7 +60,6 @@ module.exports = function (req, res) {
                 userid: f.userid
               }
             };
-            console.log(params);
             if (e) return;
             const meta = !fUtil.exists(env.MOVIE_FOLDER + `/${f.movieid}.json`) ? "" : require('.' + env.MOVIE_FOLDER + `/${
               f.movieid
