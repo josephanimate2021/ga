@@ -4,7 +4,7 @@ files/assets/*
 node_modules/*
 env.json
 package-lock.json
-themelist.xml
-themelist.zip
-theme.xml
-theme.zip
+wrapper/themelist.xml
+wrapper/themelist.zip
+wrapper/theme.xml
+wrapper/theme.zip
