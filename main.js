@@ -2,7 +2,7 @@
 const { app, BrowserWindow, Menu } = require("electron");
 const fs = require("fs");
 const path = require("path");
-const dev = fs.existsSync(".git");
+const dev = fs.existsSync(".git") ? true : false;
 
 /**
  * load flash player
