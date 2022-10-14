@@ -45,7 +45,7 @@ module.exports = function (req, res, url) {
             <title>Your Movies | Zimmer Twins</title>
             <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Movies, Movie-Maker, Learning, Literacy, Educational, Free, Activities, Elementary, Primary, Eva, Edgar, Psychic, Creative, Parents, Family, zinc Roe"/>
             <meta name="description" content="The Zimmer Twins website invites kids to create and share their own animated stories."/>
-            <meta name="copyright" content="©2012 Lost The Plot Productions"/>
+            <meta name="copyright" content="©2020 Lost The Plot Productions"/>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <link rel="shortcut icon" href="https://web.archive.org/web/20120915212352im_/http://www.zimmertwins.com/sites/zimmertwins.com/themes/zimmertwins/images/favicon.ico" type="image/x-icon"/>
             <link type="text/css" rel="stylesheet" media="all" href="https://web.archive.org/web/20120915212352cs_/http://www.zimmertwins.com/sites/zimmertwins.com/files/css/css_3e27a0283c32f6923ebf4d3d6946a037.css"/>
@@ -120,7 +120,7 @@ module.exports = function (req, res, url) {
               <div id="sidebar-bg"></div>
               
               <div id="footer">
-                <span class="copyright">©2012 Lost The Plot Productions</span>
+                <span class="copyright">©2020 Lost The Plot Productions</span>
                           <ul class="links"><li class="menu-924 first"><a href="/membership" title="Get A Membership">Membership</a></li>
         <li class="menu-82"><a href="/about/terms" title="">Terms Of Use</a></li>
         <li class="menu-81"><a href="/about/privacy" title="">Privacy Policy</a></li>
@@ -152,7 +152,7 @@ module.exports = function (req, res, url) {
           <title>Video Player | Zimmer Twins</title>
           <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Movies, Movie-Maker, Learning, Literacy, Educational, Free, Activities, Elementary, Primary, Eva, Edgar, Psychic, Creative, Parents, Family, zinc Roe"/>
           <meta name="description" content="The Zimmer Twins website invites kids to create and share their own animated stories."/>
-          <meta name="copyright" content="©2016 Lost The Plot Productions"/>
+          <meta name="copyright" content="©2020 Lost The Plot Productions"/>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
       <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
           <link type="text/css" rel="stylesheet" media="all" href="https://web.archive.org/web/20160905043221cs_/http://zimmertwins.com/A.sites,,_all,,_modules,,_contrib,,_cck,,_theme,,_content-module.css,,qn+sites,,_all,,_modules,,_contrib,,_date,,_date.css,,qn+sites,,_all,,_modules,,_contrib,,_og,,_theme,,_og.css,,qn+sites,,_all,,_modules,,_contrib,,_pollfield,,_pollfield.css,,qn+sites,,_all,,_modules,,_contrib,,_ubercart,,_uc_order,,_uc_order.css,,qn+sites,,_all,,_modules,,_contrib,,_ubercart,,_uc_product,,_uc_product.css,,qn+sites,,_all,,_modules,,_contrib,,_ubercart,,_uc_roles,,_uc_roles.css,,qn+sites,,_all,,_modules,,_contrib,,_ubercart,,_uc_store,,_uc_store.css,,qn+sites,,_all,,_modules,,_contrib,,_cck,,_modules,,_fieldgroup,,_fieldgroup.css,,qn+sites,,_all,,_modules,,_contrib,,_views,,_css,,_views.css,,qn+modules,,_comment,,_comment.css,,qn+sites,,_zimmertwins.com,,_themes,,_zimmertwins,,_style.css,,qn,Mcc.C1TVrviQtF.css.pagespeed.cf.rC5ElewgIx.css"/>
@@ -255,7 +255,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar-bg"></div>
             
             <div id="footer">
-              <span class="copyright">©2016 Lost The Plot Productions</span>
+              <span class="copyright">©2020 Lost The Plot Productions</span>
                         <ul class="links"><li class="menu-924 first"><a href="/membership" title="Get A Membership">Membership</a></li>
       <li class="menu-82"><a href="/about/terms" title="">Terms Of Use</a></li>
       <li class="menu-81"><a href="/about/privacy" title="">Privacy Policy</a></li>
