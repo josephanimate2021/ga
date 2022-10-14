@@ -2,6 +2,7 @@
 const { app, BrowserWindow, Menu } = require("electron");
 const fs = require("fs");
 const path = require("path");
+const dev = true;
 
 /**
  * load flash player
@@ -46,7 +47,7 @@ const createWindow = () => {
 	mainWindow.on("closed", () => mainWindow = null);
 
 	// debug stuff
-	if (env.node_env == "dev") mainWindow.webContents.openDevTools();
+	if (dev) mainWindow.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
