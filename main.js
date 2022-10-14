@@ -2,6 +2,7 @@
 const http = require('http');
 const url = require('url');
 const fs = require('fs');
+if (!fs.existsSync("./files")) fs.mkdirSync("./files");
 
 const env = {
   hostname: '127.0.0.1',
