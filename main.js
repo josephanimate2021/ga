@@ -1,7 +1,3 @@
-/**
- * Wrapper: Offline
- * License: MIT
- */
 // modules
 const { app, BrowserWindow, Menu } = require("electron");
 const fs = require("fs");
@@ -24,25 +20,25 @@ const env = {
 	SWF_URL: "https://josephanimate2021.github.io/lvm-static/api/zimmertwins",
 	// env
 	node_env: "dev"
-  };
-  const folder = env.ASSETS_FOLDER, sFolder = `${folder}/sounds`;
-  if (!fs.existsSync(sFolder)) fs.mkdirSync(sFolder);
-  env.BG_FOLDER = `${folder}/backgrounds`;
-  env.PROPS_FOLDER = `${folder}/props`;
-  env.MUSIC_FOLDER = `${sFolder}/music`;
-  env.SOUNDS_FOLDER = `${sFolder}/effects`;
-  env.VOICEOVERS_FOLDER = `${sFolder}/voiceovers`;
-  env.CHARS_FOLDER = `${folder}/chars`;
-  env.DATABASES_FOLDER = `${folder}/meta`;
-  fs.writeFileSync(`./wrapper/env.json`, JSON.stringify(env));
-  if (!fs.existsSync(env.MOVIE_FOLDER)) fs.mkdirSync(env.MOVIE_FOLDER);
-  if (!fs.existsSync(env.BG_FOLDER)) fs.mkdirSync(env.BG_FOLDER);
-  if (!fs.existsSync(env.PROPS_FOLDER)) fs.mkdirSync(env.PROPS_FOLDER);
-  if (!fs.existsSync(env.SOUNDS_FOLDER)) fs.mkdirSync(env.SOUNDS_FOLDER);
-  if (!fs.existsSync(env.MUSIC_FOLDER)) fs.mkdirSync(env.MUSIC_FOLDER);
-  if (!fs.existsSync(env.VOICEOVERS_FOLDER)) fs.mkdirSync(env.VOICEOVERS_FOLDER);
-  if (!fs.existsSync(env.CHARS_FOLDER)) fs.mkdirSync(env.CHARS_FOLDER);
-  Object.assign(process.env, require("./wrapper/env"));
+};
+const folder = env.ASSETS_FOLDER, sFolder = `${folder}/sounds`;
+if (!fs.existsSync(sFolder)) fs.mkdirSync(sFolder);
+env.BG_FOLDER = `${folder}/backgrounds`;
+env.PROPS_FOLDER = `${folder}/props`;
+env.MUSIC_FOLDER = `${sFolder}/music`;
+env.SOUNDS_FOLDER = `${sFolder}/effects`;
+env.VOICEOVERS_FOLDER = `${sFolder}/voiceovers`;
+env.CHARS_FOLDER = `${folder}/chars`;
+env.DATABASES_FOLDER = `${folder}/meta`;
+fs.writeFileSync(`./wrapper/env.json`, JSON.stringify(env));
+if (!fs.existsSync(env.MOVIE_FOLDER)) fs.mkdirSync(env.MOVIE_FOLDER);
+if (!fs.existsSync(env.BG_FOLDER)) fs.mkdirSync(env.BG_FOLDER);
+if (!fs.existsSync(env.PROPS_FOLDER)) fs.mkdirSync(env.PROPS_FOLDER);
+if (!fs.existsSync(env.SOUNDS_FOLDER)) fs.mkdirSync(env.SOUNDS_FOLDER);
+if (!fs.existsSync(env.MUSIC_FOLDER)) fs.mkdirSync(env.MUSIC_FOLDER);
+if (!fs.existsSync(env.VOICEOVERS_FOLDER)) fs.mkdirSync(env.VOICEOVERS_FOLDER);
+if (!fs.existsSync(env.CHARS_FOLDER)) fs.mkdirSync(env.CHARS_FOLDER);
+Object.assign(process.env, require("./wrapper/env"));
 // start the server
 require("./wrapper/server");
 
