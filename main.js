@@ -29,8 +29,7 @@ const createWindow = () => {
 	mainWindow = new BrowserWindow({
 		width: 1200,
 		height: 700,
-		title: "Zimmer Twins",
-		icon: path.join(__dirname, "./favicon.ico"),
+		title: "FlashThemes",
 		webPreferences: {
 			plugins: true,
 			contextIsolation: true
