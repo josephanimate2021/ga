@@ -26,17 +26,26 @@ module.exports = function (req, res, url) {
   switch (req.method) {
     case "GET": {
       switch (url.pathname) {
+        case "/movie/delete": {
+          const id = url.query.movieId;
+          if (fUtil.exists(env.MOVIE_FOLDER + `/${id}.txt`)) fs.unlinkSync(env.MOVIE_FOLDER + `/${id}.txt`);
+          if (fUtil.exists(env.DATABASES_FOLDER + `/${id}-title.txt`)) fs.unlinkSync(env.DATABASES_FOLDER + `/${id}-title.txt`);
+          if (fUtil.exists(env.DATABASES_FOLDER + `/${id}-desc.txt`)) fs.unlinkSync(env.DATABASES_FOLDER + `/${id}-desc.txt`);
+          res.statusCode = 302;
+          res.setHeader("Location", "/");
+          res.end();
+          return true;
+        }
         case "/movie/fetch": {
+          // if there is no id, fetch a random movie id and use it as the only starter.
           if (!url.query.movieid) {
             const id = "1734613";
             get(`https://web.archive.org/web/20200807182213if_/http://www.zimmertwins.com/movie/fetch?movieid=${id}`).then(buff => {
               if (!fUtil.exists(process.env.MOVIE_FOLDER + `/${id}.txt`)) fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.txt`, buff);
-              if (!fUtil.exists(process.env.DATABASES_FOLDER + `/${id}-title.txt`)) fs.writeFileSync(process.env.DATABASES_FOLDER + `/${
+              if (!fUtil.exists(env.DATABASES_FOLDER + `/${
                 id
-              }-title.txt`, 'How2 Eat Tuna');
-              else if (!fUtil.exists(process.env.DATABASES_FOLDER + `/${id}-desc.txt`)) fs.writeFileSync(process.env.DATABASES_FOLDER + `/${
-                id
-              }-desc.txt`, '');
+              }-title.txt`)) fs.writeFileSync(env.DATABASES_FOLDER + `/${id}-title.txt`, 'How2 Eat Tuna');
+              if (!fUtil.exists(env.DATABASES_FOLDER + `/${id}-desc.txt`)) fs.writeFileSync(env.DATABASES_FOLDER + `/${id}-desc.txt`, '');
               if (!url.query.redirect) res.end(buff);
               else {
                 res.statusCode = 302;
