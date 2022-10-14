@@ -4,6 +4,7 @@ const env = require("../env");
 const fUtil = require("../fileUtil");
 const fs = require("fs");
 const formidable = require("formidable");
+const home = process.env.HOME_HTML;
 
 function toAttrString(data) {
 	return typeof data == "object"
@@ -53,7 +54,7 @@ module.exports = function (req, res, url) {
               if (!fUtil.exists(env.DATABASES_FOLDER + `/${id}-user-link.txt`)) fs.writeFileSync(env.DATABASES_FOLDER + `/${
                 id
               }-user-link.txt`, 'https://www.google.com/search?q=3426');
-              if (!url.query.redirect) res.end(buff);
+              if (!url.query.redirect) res.end(home + buff);
               else {
                 res.statusCode = 302;
                 res.setHeader("Location", `/templates`);
@@ -75,11 +76,11 @@ module.exports = function (req, res, url) {
           var html;
           switch (url.query.type) {
             case "starter": {
-              html = `<center><h1>Starter Uploading Procedure</h1><br><p>To upload your starter, you first need to make your movie on this project and then save your movie. once the movie is saved, download it in the your movies page and keep the text file you downloaded as you need that. you are also going to have to provide some information about you like your username on some sites like youtube and eta. you also need to provide a date the movie was made, video title witch will already be on the file you downloaded from this project, and the link to your profile. Once you have all of that in, you are going to need to fork the source of the project and upload all of that to seperate folders. the movie itself goes into the files/starters folder and the info about you goes inside the files/assets/meta folder. Once all of that is in, submit a pull request on github. All of your stuff will be viewed by the way to make sure that it's appropriate for everyone to watch.</p></center>`;
+              html = `${home}<center><h1>Starter Uploading Procedure</h1><br><p>To upload your starter, you first need to make your movie on this project and then save your movie. once the movie is saved, download it in the your movies page and keep the text file you downloaded as you need that. you are also going to have to provide some information about you like your username on some sites like youtube and eta. you also need to provide a date the movie was made, video title witch will already be on the file you downloaded from this project, and the link to your profile. Once you have all of that in, you are going to need to fork the source of the project and upload all of that to seperate folders. the movie itself goes into the files/starters folder and the info about you goes inside the files/assets/meta folder. Once all of that is in, submit a pull request on github. All of your stuff will be viewed by the way to make sure that it's appropriate for everyone to watch.</p></center>`;
               break;
             }
             case "movie": {
-              html = `<form enctype='multipart/form-data' action='/movie${
+              html = `${home}<form enctype='multipart/form-data' action='/movie${
                 url.path.slice(0, -11)
               }' method='post'><input id='file' type="file" onchange="this.form.submit()" name='import' accept=".txt" /></form>`;
               break;
@@ -91,7 +92,7 @@ module.exports = function (req, res, url) {
           res.end(html);
           return true;
         } case "/err": {
-          res.end(`Error: ${url.query.mesg || "No Message Was Found."}`);
+          res.end(`${home}Error: ${url.query.mesg || "No Message Was Found."}`);
           return true;
         }
       }

@@ -19,6 +19,7 @@ const env = {
 	STARTER_FOLDER: "./files/starters",
 	ASSETS_FOLDER: "./files/assets",
 	FILES_FOLDER: "./files",
+	HOME_HTML: '<a href="/">Home</a><br><br>',
 	CHAR_BASE_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Character-Dump/master/characters",
 	THUMBNAILS_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Thumbnails/master/thumbnails",
 	SWF_URL: "https://josephanimate2021.github.io/lvm-static/api/zimmertwins",
@@ -90,7 +91,7 @@ const createWindow = () => {
 	mainWindow.on("closed", () => mainWindow = null);
 
 	// debug stuff
-	if (env.NODE_ENV == "development") {
+	if (env.node_env == "dev") {
 		mainWindow.webContents.openDevTools();
 	}
 };
