@@ -35,6 +35,19 @@ module.exports = {
         });
         return table;
     },
+    home() {
+      const table = [];
+      fs.readdirSync(process.env.MOVIE_FOLDER).forEach(file => {
+          const id = file.slice(0, -4);
+          if (fs.existsSync(process.env.MOVIE_FOLDER + `/${file}`)) table.unshift({html: `<li class="small corners">
+          <a href="javascript:apiVerSelectForPlayer('${id}')" class="thumbnail"><img src="https://web.archive.org/web/20190516080207im_/http://www.zimmertwins.com/sites/zimmertwins.com/movie/thumbnails/small/xedgar_lectures_living_room.png.pagespeed.ic.v6COT2IHS1.png" alt="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
+    
+    " title="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}"/></a>      <a href="javascript:apiVerSelectForPlayer('${id}')" class="title">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
+    
+    </a>    </li>`});
+      });
+      return table;
+    },
     listTemplates() {
       fs.writeFileSync(process.env.STARTER_FOLDER + `/65536.txt`, 'Rage is a fucking retard!');
       fs.writeFileSync(process.env.DATABASES_FOLDER + `/546769.txt`, 'sparkz is a dumbass. You cannot get Wrapper: Offline on gaming consoles.');

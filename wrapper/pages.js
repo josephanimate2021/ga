@@ -31,7 +31,145 @@ module.exports = function (req, res, url) {
     }
   }</script>`;
   switch (url.pathname) {
-   case "/": {
+   case "/home": {
+    const files = movie.home();
+    html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-local" lang="en-local" id="page-zt-frontpage">
+      <head>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Home | Zimmer Twins</title>
+        <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Movies, Movie-Maker, Learning, Literacy, Educational, Free, Activities, Elementary, Primary, Eva, Edgar, Psychic, Creative, Parents, Family, zinc Roe"/>
+        <meta name="description" content="The Zimmer Twins website invites kids to create and share their own animated stories."/>
+        <meta name="copyright" content="©2020 Lost The Plot Productions"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="http://web.archive.org/web/20190516080207im_/http://www.zimmertwins.com/sites/zimmertwins.com/themes/zimmertwins/images/favicon.ico" type="image/x-icon"/>
+        <link type="text/css" rel="stylesheet" media="all" href="http://web.archive.org/web/20190516080207cs_/http://www.zimmertwins.com/sites/A.all,,_modules,,_contrib,,_cck,,_theme,,_content-module.css,,qo+all,,_modules,,_contrib,,_date,,_date.css,,qo+all,,_modules,,_contrib,,_og,,_theme,,_og.css,,qo+all,,_modules,,_contrib,,_pollfield,,_pollfield.css,,qo+all,,_modules,,_contrib,,_ubercart,,_uc_order,,_uc_order.css,,qo+all,,_modules,,_contrib,,_ubercart,,_uc_product,,_uc_product.css,,qo+all,,_modules,,_contrib,,_ubercart,,_uc_roles,,_uc_roles.css,,qo+all,,_modules,,_contrib,,_ubercart,,_uc_store,,_uc_store.css,,qo+all,,_modules,,_contrib,,_cck,,_modules,,_fieldgroup,,_fieldgroup.css,,qo+all,,_modules,,_contrib,,_views,,_css,,_views.css,,qo+zimmertwins.com,,_themes,,_zimmertwins,,_style.css,,qo,Mcc.ZqA5kNg5Py.css.pagespeed.cf.NDzs0fZpXb.css"/>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <!--[if IE]>
+          <link type="text/css" rel="stylesheet" media="all" href="/sites/zimmertwins.com/themes/zimmertwins/ie.css" />
+        <![endif]-->
+        <script src="http://web.archive.org/web/20190516080207js_/http://www.zimmertwins.com/misc,_jquery.js,qo+misc,_drupal.js,qo+sites,_all,_modules,_contrib,_fivestar,_js,_fivestar.js,qo+sites,_all,_modules,_contrib,_google_analytics,_googleanalytics.js,qo+sites,_all,_modules,_contrib,_og,_og.js,qo+sites,_all,_modules,_contrib,_ubercart,_uc_roles,_uc_roles.js,qo+sites,_zimmertwins.com,_themes,_zimmertwins,_jquery.flash.js,qo+sites,_zimmertwins.com,_themes,_zimmertwins,_jquery.livequery.js,qo+sites,_zimmertwins.com,_themes,_zimmertwins,_scripts.js,qo.pagespeed.jc.dKbUp59vmP.js"></script><script>eval(mod_pagespeed_bgZrOPqkZY);</script>
+    <script>eval(mod_pagespeed_VLM$MYZ711);</script>
+    <script>eval(mod_pagespeed_nnMR8dxSX7);</script>
+    <script>eval(mod_pagespeed_GdQ3ddNIqE);</script>
+    <script>eval(mod_pagespeed_gyHVRD6vOc);</script>
+    <script>eval(mod_pagespeed_NZ8d5V8DGO);</script>
+    <script>eval(mod_pagespeed_fQUrv_GhEc);</script>
+    <script>eval(mod_pagespeed_UVWLs_Qj4i);</script>
+    <script>eval(mod_pagespeed_PFELyjrgjL);</script>
+    <script type="text/javascript">//<![CDATA[
+    jQuery.extend(Drupal.settings,{"basePath":"/","fivestar":{"titleUser":"Your rating: ","titleAverage":"Average: ","feedbackSavingVote":"Saving vote...\r\n","feedbackVoteSaved":"Rating saved.","feedbackDeletingVote":"Removing vote...","feedbackVoteDeleted":"Rating removed."},"googleanalytics":{"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"}});
+    //]]></script>${script}
+      </head>
+      <body>
+          
+        <div id="wrapper" class="clear-block">
+          
+          <div id="main">
+            
+            <div id="content-header">
+                      </div>
+            
+            <div id="content" class="clear-block">
+            
+              <h1 class="page-title">
+                <span class="page-icon"></span>
+                Home          </h1>
+            
+                      
+                      
+              <div id="animation" class="flash" style="background-color:#a1b0ab;background-image:url(http://web.archive.org/web/20190516080207im_/http://www.zimmertwins.com/sites/all/movie/frontpage/kitchen/xbg.gif.pagespeed.ic.2zRH9tVTzy.png)">
+      <img src="http://web.archive.org/web/20190516080207im_/http://www.zimmertwins.com/sites/all/movie/frontpage/kitchen/xanimation.gif.pagespeed.ic.bp0NR-K-Ov.png" alt=""/>
+      <input type="hidden" name="height" value="335"/>
+      <input type="hidden" name="src" value="/swfs/animation.swf"/>
+      <input type="hidden" name="width" value="760"/>
+      <input type="hidden" name="wmode" value="transparent"/>
+    </div>
+    
+    <ul id="movie-links" class="clear-block">
+      <li id="movie-links-make">
+        <a href="/templates">Make A Movie</a>  </li>
+      <li id="movie-links-watch">
+        <a href="/">Watch A Movie</a>  </li>
+      <li id="movie-links-user">
+              <a href="https://youtube.com/@josephanimate">JosephAnimate YouTube Channel</a>      </li>
+    </ul>
+    
+    <div id="movies">
+      <h3>
+        Your Movies    <a href="/" class="more">Link To The Video List</a>  </h3>
+      
+    <ul class="movie-clip-list must-see-list clear-block">
+    
+        
+                
+        ${files.map(v => `${v.html}`)}
+    
+      
+    </ul>
+    </div>
+    
+    <div id="coppa">
+      <h3>Privacy Notice</h3>
+      <p>Zimmertwins localhost respects the privacy of its members. Please see our <a href="/about/privacy">privacy policy</a> for details.</p>
+    </div>
+              
+            </div>
+            
+            <div id="content-footer">
+                      </div>
+            
+          </div>
+          
+          <div id="sidebar">
+            
+            <a id="site-logo" href="/home">
+                      </a>
+            
+                    <ul id="nav"><li class="menu-343 active-trail first active"><a href="/home" id="nav-home" class="active">Home</a></li>
+    <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
+    <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
+    <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
+    <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
+    <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
+    </ul>    
+                    
+          </div>
+          
+          <div id="sidebar-bg"></div>
+          
+          <div id="footer">
+            <span class="copyright">©2020 Lost The Plot Productions</span>
+                      <ul class="links"><li class="menu-924 first"><a href="/membership" title="Get A Membership">Membership</a></li>
+    <li class="menu-82"><a href="/about/terms" title="">Terms Of Use</a></li>
+    <li class="menu-81"><a href="/about/privacy" title="">Privacy Policy</a></li>
+    <li class="menu-83"><a href="/about/conduct" title="">Code Of Conduct</a></li>
+    <li class="menu-87"><a href="/about/credits" title="">Credits</a></li>
+    <li class="menu-84"><a href="/about/parents" title="">Parents</a></li>
+    <li class="menu-348"><a href="/contact" title="">Contact</a></li>
+    <li class="menu-1343 last"><a href="/about" title="About The Zimmer Twins">About</a></li>
+    </ul>              </div>
+          
+        </div>
+        
+        <script type="text/javascript">//<![CDATA[
+    var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-295035-15"]);_gaq.push(['_setCustomVar',1,"User roles","anonymous user",1]);_gaq.push(["_trackPageview"]);(function(){var ga=document.createElement("script");ga.type="text/javascript";ga.async=true;ga.src=("https:"==document.location.protocol?"http://web.archive.org/web/20190516080207/https://ssl":"http://web.archive.org/web/20190516080207/http://www")+".google-analytics.com/ga.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga,s);})();
+    //]]></script>
+        
+      </body>
+    </html>`;
+    break;
+   } case "/": {
         const files = movie.list();
         html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-local" lang="en-local" id="page-movie-clip-search-results">
@@ -100,10 +238,10 @@ module.exports = function (req, res, url) {
               
               <div id="sidebar">
                 
-                <a id="site-logo" href="/">
+                <a id="site-logo" href="/home">
                           </a>
                 
-                        <ul id="nav"><li class="menu-343 first"><a href="/" id="nav-home">Home</a></li>
+                        <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
         <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
         <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
         <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
@@ -207,10 +345,10 @@ module.exports = function (req, res, url) {
             
             <div id="sidebar">
               
-              <a id="site-logo" href="/">
+              <a id="site-logo" href="/home">
                         </a>
               
-                      <ul id="nav"><li class="menu-343 first"><a href="/" id="nav-home">Home</a></li>
+                      <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
       <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
       <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
       <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
@@ -342,10 +480,10 @@ module.exports = function (req, res, url) {
             
             <div id="sidebar">
               
-              <a id="site-logo" href="/">
+              <a id="site-logo" href="/home">
                         </a>
               
-                      <ul id="nav"><li class="menu-343 first"><a href="/" id="nav-home">Home</a></li>
+                      <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
       <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
       <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
       <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
@@ -468,10 +606,10 @@ module.exports = function (req, res, url) {
             
             <div id="sidebar">
               
-              <a id="site-logo" href="/">
+              <a id="site-logo" href="/home">
                         </a>
               
-                      <ul id="nav"><li class="menu-343 first"><a href="/" id="nav-home">Home</a></li>
+                      <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
       <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
       <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
       <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>

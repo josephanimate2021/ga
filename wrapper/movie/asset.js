@@ -2,6 +2,8 @@ const get = require("../req/get");
 const loadPost = require("../req/body");
 const env = require("../env");
 const fUtil = require("../fileUtil");
+const path = require("path");
+const dbFolder = path.join(__dirname, "../", '.' + env.DATABASES_FOLDER);
 const fs = require("fs");
 const formidable = require("formidable");
 const home = process.env.HOME_HTML;
@@ -30,8 +32,10 @@ module.exports = function (req, res, url) {
         case "/movie/delete": {
           const id = url.query.movieId;
           if (fUtil.exists(env.MOVIE_FOLDER + `/${id}.txt`)) fs.unlinkSync(env.MOVIE_FOLDER + `/${id}.txt`);
-          if (fUtil.exists(env.DATABASES_FOLDER + `/${id}-title.txt`)) fs.unlinkSync(env.DATABASES_FOLDER + `/${id}-title.txt`);
-          if (fUtil.exists(env.DATABASES_FOLDER + `/${id}-desc.txt`)) fs.unlinkSync(env.DATABASES_FOLDER + `/${id}-desc.txt`);
+          if (!fUtil.exists(env.STARTER_FOLDER + `/${id}.txt`)) {
+            if (fUtil.exists(env.DATABASES_FOLDER + `/${id}-title.txt`)) fs.unlinkSync(env.DATABASES_FOLDER + `/${id}-title.txt`);
+            if (fUtil.exists(env.DATABASES_FOLDER + `/${id}-desc.txt`)) fs.unlinkSync(env.DATABASES_FOLDER + `/${id}-desc.txt`);
+          }
           res.statusCode = 302;
           res.setHeader("Location", "/");
           res.end();
@@ -122,7 +126,7 @@ module.exports = function (req, res, url) {
               return;
             }
             if (fs.existsSync(env.DATABASES_FOLDER + `/movieIdSection.json`)) {
-              const idMeta = require('.' + env.DATABASES_FOLDER + `/movieIdSection.json`);
+              const idMeta = require(dbFolder + `/movieIdSection.json`);
               const params = {
                 meta: {
                   action: f.action,
