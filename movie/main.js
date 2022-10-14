@@ -7,18 +7,18 @@ module.exports = {
             const id = file.slice(0, -4);
             if (fs.existsSync(process.env.MOVIE_FOLDER + `/${file}`)) table.unshift({html: `    <li class="movie-clip clear-block">
     
-            <a href="/player?movieId=${id}" class="thumbnail"><img src="https://web.archive.org/web/20200604033451im_/http://www.zimmertwins.com/sites/zimmertwins.com/movie/thumbnails/small/xdefault.png.pagespeed.ic.NRbioFMVrg.png" alt="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
+            <a href="javascript:apiVerSelectForPlayer('${id}')" class="thumbnail"><img src="https://web.archive.org/web/20200604033451im_/http://www.zimmertwins.com/sites/zimmertwins.com/movie/thumbnails/small/xdefault.png.pagespeed.ic.NRbioFMVrg.png" alt="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
       
       " title="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}"/></a>      <!-- Movie Clip Types -->
           
-            <h2><a href="/player?movieId=${id}">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
+            <h2><a href=javascript:apiVerSelectForPlayer('${id}')">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
       
       </a></h2>
               
             <p class="submitted">
               
               <span class="date">
-                <a href="/studio?movieId=${id}">Edit</a>        </span>
+                <a href="javascript:apiVerSelectForStudio('${id}')">Edit</a>        </span>
               
               <span class="user">
                 <a href="/movie/fetch?movieid=${id}" download="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}.txt">Download</a> 

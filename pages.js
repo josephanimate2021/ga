@@ -9,7 +9,31 @@ aniClientUrl = env.CLIENT_URL;
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
   var html;
+
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
+  const script = `<script>function apiVerSelectForStudio(mId = false) {
+    const yesorno = confirm('Do you want to use version 2 of the studio? if not, then you will be redirected to version 1 of the studio.');
+    if (yesorno) {
+      if (mId) location.href = \`/studio?movieId=\${mId}&version=2\`;
+      else location.href = '/studio?version=2';
+    } else {
+      if (mId) location.href = \`/studio?movieId=\${mId}\`;
+      else location.href = '/studio';
+    }
+  } function apiVerSelectForPlayer(mId = false) {
+    const yesorno = confirm('Do you want to use version 2 of the player? if not, then you will be redirected to version 1 of the player.');
+    if (yesorno) {
+      if (mId) location.href = \`/player?movieId=\${mId}&version=2\`;
+      else location.href = '/player?version=2';
+    } else {
+      if (mId) location.href = \`/player?movieId=\${mId}\`;
+      else location.href = '/player';
+    }
+  } function apiVerSelectForRandomMovieGenerator() {
+    const yesorno = confirm('Do you want to use version 2 of the studio? if not, then you will be redirected to version 1 of the studio.');
+    if (yesorno) location.href = '/movie/fetch?redirect=true&apiVer=2';
+    else location.href = '/movie/fetch?redirect=true';
+  }</script>`;
   switch (url.pathname) {
    case "/": {
         const files = movie.list();
@@ -34,6 +58,7 @@ module.exports = function (req, res, url) {
         jQuery.extend(Drupal.settings, { "basePath": "/", "fivestar": { "titleUser": "Your rating: ", "titleAverage": "Average: ", "feedbackSavingVote": "Saving vote...\r\n", "feedbackVoteSaved": "Rating saved.", "feedbackDeletingVote": "Removing vote...", "feedbackVoteDeleted": "Rating removed." }, "googleanalytics": { "trackMailto": 1, "trackDownload": 1, "trackDownloadExtensions": "7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip" } });
         //--><!]]>
         </script>
+        ${script}
           </head>
           <body>
               
@@ -65,7 +90,7 @@ module.exports = function (req, res, url) {
               v.html
             }`
           ).join('') || `<h3>There are currently no movies at the moment. 
-          <a href='/studio'>Create one now</a> | <a href='/upload?type=movie'>Upload</a> | <a href="/movie/fetch?redirect=true">Fetch A Random Movie</a></h3>`
+          <a href='javascript:apiVerSelectForStudio()'>Create one now</a> | <a href='/upload?type=movie'>Upload</a> | <a href="javascript:apiVerSelectForRandomMovieGenerator()">Fetch A Random Movie</a></h3>`
         }</ol>
         
         
@@ -84,7 +109,7 @@ module.exports = function (req, res, url) {
                 
                         <ul id="nav"><li class="menu-343 first"><a href="/" id="nav-home">Home</a></li>
         <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
-        <li class="menu-344"><a href="javascript:alert('Because of the way this server was designed, the old legacy movie starters wont be added. All movies will be created on a blank stage.'); location.href = '/studio'" id="nav-make">Make A Movie</a></li>
+        <li class="menu-344"><a href="javascript:alert('Because of the way this server was designed, the old legacy movie starters wont be added. All movies will be created on a blank stage.'); apiVerSelectForStudio()" id="nav-make">Make A Movie</a></li>
         <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
         <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
         <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
@@ -156,7 +181,7 @@ module.exports = function (req, res, url) {
       <script>eval(mod_pagespeed_CP36ZbYGwj);</script>
       <script type="text/javascript">//<![CDATA[
       jQuery.extend(Drupal.settings,{"basePath":"/","fivestar":{"titleUser":"Your rating: ","titleAverage":"Average: ","feedbackSavingVote":"Saving vote...\r\n","feedbackVoteSaved":"Rating saved.","feedbackDeletingVote":"Removing vote...","feedbackVoteDeleted":"Rating removed."},"googleanalytics":{"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"}});
-      //]]></script>
+      //]]></script>${script}
         </head>
         <body>
             
@@ -187,7 +212,7 @@ module.exports = function (req, res, url) {
       
         <code class="flashvars">
           
-          <input type="hidden" name="apiurl" value="/movie/assets/api.xml"/>
+          <input type="hidden" name="apiurl" value="/movie/assets/${url.query.version == "2" ? "full" : "trial"}.xml"/>
           <input type="hidden" name="asseturl" value="/movie/assets"/>
           <input type="hidden" name="baseurl" value="${urlPrefix}://${req.headers.host}"/>
           <input type="hidden" name="lang" value="en-local"/>
@@ -219,7 +244,7 @@ module.exports = function (req, res, url) {
               
                       <ul id="nav"><li class="menu-343 first"><a href="/" id="nav-home">Home</a></li>
       <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
-      <li class="menu-344"><a href="javascript:alert('Because of the way this server was designed, the old legacy movie starters wont be added. All movies will be created on a blank stage.'); location.href = '/studio'" id="nav-make">Make A Movie</a></li>
+      <li class="menu-344"><a href="javascript:alert('Because of the way this server was designed, the old legacy movie starters wont be added. All movies will be created on a blank stage.'); apiVerSelectForStudio()" id="nav-make">Make A Movie</a></li>
       <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
       <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
       <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
@@ -290,7 +315,7 @@ module.exports = function (req, res, url) {
       <script>eval(mod_pagespeed_1EKkpeHo72);</script>
       <script type="text/javascript">//<![CDATA[
       jQuery.extend(Drupal.settings,{"basePath":"/","fivestar":{"titleUser":"Your rating: ","titleAverage":"Average: ","feedbackSavingVote":"Saving vote...\r\n","feedbackVoteSaved":"Rating saved.","feedbackDeletingVote":"Removing vote...","feedbackVoteDeleted":"Rating removed."},"googleanalytics":{"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"}});
-      //]]></script>
+      //]]></script>${script}
         </head>
         <body>
             
@@ -317,7 +342,7 @@ module.exports = function (req, res, url) {
         
         <code class="flashvars">
         
-          <input type="hidden" name="apiurl" value="/movie/assets/api.xml"/>
+          <input type="hidden" name="apiurl" value="/movie/assets/${url.query.version == "2" ? "full" : "trial"}.xml"/>
           <input type="hidden" name="asseturl" value="/movie/assets"/>
           <input type="hidden" name="baseurl" value="${urlPrefix}://${req.headers.host}"/>
           <input type="hidden" name="lang" value="en-local"/>
@@ -345,7 +370,7 @@ module.exports = function (req, res, url) {
               
                       <ul id="nav"><li class="menu-343 first"><a href="/" id="nav-home">Home</a></li>
       <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
-      <li class="menu-344"><a href="javascript:alert('Because of the way this server was designed, the old legacy movie starters wont be added. All movies will be created on a blank stage.'); location.href = '/studio'" id="nav-make">Make A Movie</a></li>
+      <li class="menu-344"><a href="javascript:alert('Because of the way this server was designed, the old legacy movie starters wont be added. All movies will be created on a blank stage.'); apiVerSelectForStudio()" id="nav-make">Make A Movie</a></li>
       <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
       <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
       <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>

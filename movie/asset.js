@@ -49,7 +49,7 @@ module.exports = function (req, res, url) {
               if (!url.query.redirect) res.end(buff);
               else {
                 res.statusCode = 302;
-                res.setHeader("Location", `/studio?movieId=${id}`);
+                res.setHeader("Location", `/studio?movieId=${id}${url.query.apiVer == "2" ? "&version=2" : ""}`);
                 res.end();
               }
             }).catch(e => {
@@ -87,19 +87,7 @@ module.exports = function (req, res, url) {
       const match = req.url.match(/\/movie\/assets\/([^/]+)$/);
       if (!match) return;
       const file = match[1];
-      const dot = file.lastIndexOf(".");
-      const ext = file.substr(dot + 1);
-      var url;
-      switch (ext) {
-        case "xml": {
-          url = `https://web.archive.org/web/20130621220649if_/http://www.zimmertwins.com/sites/zimmertwins.com/movie/assets`;
-          break;
-        } default: {
-          url = env.SWF_URL;
-          break;
-        }
-      }
-      get(`${url}/${file}`).then(b => res.end(b)).catch(e => console.log(e));
+      get(`${env.SWF_URL}/${file}`).then(b => res.end(b)).catch(e => console.log(e));
       return true;
     } case "POST": {
       switch (req.url) {
