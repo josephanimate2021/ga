@@ -111,34 +111,16 @@ module.exports = function (req, res, url) {
         <p><strong>Psychic Stunt Wagon</strong> You'll need speed, bravery and a bit of luck to be the fastest on the hill.</p>
       </li>
       <li class="extra">
-        <a class="thumbnail corners" href="extras/recipes">
-          <img src="https://web.archive.org/web/20200809021120im_/http://www.zimmertwins.com/sites/zimmertwins.com/files/xextra-index-recipes.png.pagespeed.ic.PExU12qEd4.webp" alt="Zimmer Recipes"/>
+        <a class="thumbnail corners" href="extras/desktops">
+          <img src="https://web.archive.org/web/20200809021120im_/http://www.zimmertwins.com/sites/zimmertwins.com/files/extra-index-desktops.gif.pagespeed.ce.hlJr9F0zMQ.gif" alt="Zimmerize Your Desktop"/>
         </a>
-        <p><strong>Zimmer Recipes</strong> Fortune teller cookies and 13's tuna-melt suprise! Mmmmmm!</p>
+        <p><strong>Zimmerize Your Desktop</strong> You can have Eva, Edgar, 13 or the whole gang right on your desktop.</p>
       </li>
       <li class="extra">
         <a class="thumbnail corners" href="extras/13">
           <img src="https://web.archive.org/web/20200809021120im_/http://www.zimmertwins.com/sites/zimmertwins.com/files/xextra-index-13.gif.pagespeed.ic.mbuWxDs5dT.webp" alt="All About 13"/>
         </a>
         <p><strong>All About 13</strong> Find out everything you ever wanted to know about 13 ... and probably some things you didn't.</p>
-      </li>
-      <li class="extra wrap">
-        <a class="thumbnail corners" href="extras/eva">
-          <img src="https://web.archive.org/web/20200809021120im_/http://www.zimmertwins.com/sites/zimmertwins.com/files/xextra-index-eva.gif.pagespeed.ic.ctqSWc7Q2I.webp" alt="All About Eva"/>
-        </a>
-        <p><strong>All About Eva</strong> What’s the best thing about being psychic? Enter Eva’s world to find out!</p>
-      </li>
-      <li class="extra">
-        <a class="thumbnail corners" href="extras/edgar">
-          <img src="https://web.archive.org/web/20200809021120im_/http://www.zimmertwins.com/sites/zimmertwins.com/files/xextra-index-edgar.gif.pagespeed.ic.cv5maPl_WY.webp" alt="All About Edgar"/>
-        </a>
-        <p><strong>All About Edgar</strong> Discover the secret life of Edgar Zimmer – the boy, the psychic, the legend!</p>
-      </li>
-      <li class="extra">
-        <a class="thumbnail corners" href="extras/desktops">
-          <img src="https://web.archive.org/web/20200809021120im_/http://www.zimmertwins.com/sites/zimmertwins.com/files/extra-index-desktops.gif.pagespeed.ce.hlJr9F0zMQ.gif" alt="Zimmerize Your Desktop"/>
-        </a>
-        <p><strong>Zimmerize Your Desktop</strong> You can have Eva, Edgar, 13 or the whole gang right on your desktop.</p>
       </li>
     </ul>  </div>
     
