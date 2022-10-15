@@ -68,6 +68,12 @@ module.exports = function (req, res, url) {
       <div class="node-content clear-block">
     
     <ul class="extra-list clear-block">
+      <li class="extra wrap">
+        <a class="thumbnail corners" target="_blank" href="https://github.com/josephanimate2021/ga/tree/zimmertwins-desktop-api">
+          <img src="https://i.ytimg.com/vi/t6RcCufh1QQ/maxresdefault.jpg" alt="Zimmertwins Source Code"/>
+        </a>
+        <p><strong>Zimmertwins Source Code</strong> Ever wondered how zimmertwins was made as a desktop application? view the anwser there!</p>
+      </li>
       <li class="extra">
         <a class="thumbnail corners" href="extras/psychic-stack">
           <img src="https://web.archive.org/web/20200809021120im_/http://www.zimmertwins.com/sites/zimmertwins.com/files/xextra-index-psychic-stack.png.pagespeed.ic.sWazidWBP1.webp" alt="Psychic Stack"/>

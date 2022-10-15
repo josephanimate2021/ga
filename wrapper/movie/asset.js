@@ -127,12 +127,12 @@ module.exports = function (req, res, url) {
             }
             if (fs.existsSync(env.DATABASES_FOLDER + `/movieIdSection.json`)) {
               const idMeta = require(env.DATABASES_FOLDER + `/movieIdSection.json`);
-              const user = fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-user.txt`) ? fs.readFileSync(env.DATABASES_FOLDER + `/${
-                idMeta.id
-              }-user.txt`) : fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-owner.txt`) ? fs.readFileSync(env.DATABASES_FOLDER + `/${
-                idMeta.id
-              }-owner.txt`) : "";
-              console.log(user);
+              var user;
+              if (fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-user.txt`)) {
+                user = fs.readFileSync(env.DATABASES_FOLDER + `/${idMeta.id}-user.txt`) 
+              } else if (fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-owner.txt`)) {
+                user = fs.readFileSync(env.DATABASES_FOLDER + `/${idMeta.id}-owner.txt`) 
+              } else user = "";
               const params = {
                 meta: {
                   action: f.action,
