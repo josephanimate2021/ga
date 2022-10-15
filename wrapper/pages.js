@@ -102,7 +102,7 @@ module.exports = function (req, res, url) {
       <li id="movie-links-watch">
         <a href="/">Watch A Movie</a>  </li>
       <li id="movie-links-user">
-              <a href="https://youtube.com/@josephanimate">JosephAnimate YouTube Channel</a>      </li>
+              <a target="_blank" href="https://youtube.com/@josephanimate">JosephAnimate YouTube Channel</a>      </li>
     </ul>
     
     <div id="movies">
