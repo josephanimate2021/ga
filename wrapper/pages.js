@@ -2,9 +2,6 @@ const fs = require("fs"),
 fUtil = require("./fileUtil"),
 env = require("./env");
 const movie = require("./movie/main")
-aniSwfUrl = env.SWF_URL,
-aniStoreUrl = env.STORE_URL,
-aniClientUrl = env.CLIENT_URL;
 
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;

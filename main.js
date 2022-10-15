@@ -2,6 +2,7 @@
 const { app, BrowserWindow, Menu } = require("electron");
 const fs = require("fs");
 const path = require("path");
+const envFile = path.join(__dirname, "./wrapper/env.json");
 // vars
 
 /**
@@ -11,10 +12,10 @@ const path = require("path");
 const env = {
 	hostname: '127.0.0.1',
 	port: 80,
-	MOVIE_FOLDER: "./files/movies",
-	STARTER_FOLDER: "./files/starters",
-	ASSETS_FOLDER: "./files/assets",
-	FILES_FOLDER: "./files",
+	MOVIE_FOLDER: path.join(__dirname, "./files/movies"),
+	STARTER_FOLDER: path.join(__dirname, "./files/starters"),
+	DATABASES_FOLDER: path.join(__dirname, "./files/assets/meta"),
+	FILES_FOLDER: path.join(__dirname, "./files"),
 	HOME_HTML: '<a href="/">Home</a><br><br>',
 	CHAR_BASE_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Character-Dump/master/characters",
 	THUMBNAILS_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Thumbnails/master/thumbnails",
@@ -22,26 +23,11 @@ const env = {
 	// env
 	node_env: "dev"
 };
-const folder = env.ASSETS_FOLDER, sFolder = `${folder}/sounds`;
-if (!fs.existsSync(sFolder)) fs.mkdirSync(sFolder);
-env.BG_FOLDER = `${folder}/backgrounds`;
-env.PROPS_FOLDER = `${folder}/props`;
-env.MUSIC_FOLDER = `${sFolder}/music`;
-env.SOUNDS_FOLDER = `${sFolder}/effects`;
-env.VOICEOVERS_FOLDER = `${sFolder}/voiceovers`;
-env.CHARS_FOLDER = `${folder}/chars`;
-env.DATABASES_FOLDER = `${folder}/meta`;
-fs.writeFileSync(`./wrapper/env.json`, JSON.stringify(env));
+fs.writeFileSync(envFile, JSON.stringify(env));
 if (!fs.existsSync(env.MOVIE_FOLDER)) fs.mkdirSync(env.MOVIE_FOLDER);
-if (!fs.existsSync(env.BG_FOLDER)) fs.mkdirSync(env.BG_FOLDER);
-if (!fs.existsSync(env.PROPS_FOLDER)) fs.mkdirSync(env.PROPS_FOLDER);
-if (!fs.existsSync(env.SOUNDS_FOLDER)) fs.mkdirSync(env.SOUNDS_FOLDER);
-if (!fs.existsSync(env.MUSIC_FOLDER)) fs.mkdirSync(env.MUSIC_FOLDER);
-if (!fs.existsSync(env.VOICEOVERS_FOLDER)) fs.mkdirSync(env.VOICEOVERS_FOLDER);
-if (!fs.existsSync(env.CHARS_FOLDER)) fs.mkdirSync(env.CHARS_FOLDER);
-Object.assign(process.env, require("./wrapper/env"));
+Object.assign(process.env, require(envFile.slice(0, -5)));
 // start the server
-require("./wrapper/server");
+require(envFile.slice(0, -8) + "server");
 
 /**
  * load flash player

@@ -2,8 +2,7 @@ const get = require("../req/get");
 const loadPost = require("../req/body");
 const env = require("../env");
 const fUtil = require("../fileUtil");
-const path = require("path");
-const dbFolder = path.join(__dirname, "../", '.' + env.DATABASES_FOLDER);
+const dbFolder = env.DATABASES_FOLDER;
 const fs = require("fs");
 const formidable = require("formidable");
 const home = process.env.HOME_HTML;
@@ -127,7 +126,7 @@ module.exports = function (req, res, url) {
               return;
             }
             if (fs.existsSync(env.DATABASES_FOLDER + `/movieIdSection.json`)) {
-              const idMeta = require(dbFolder + `/movieIdSection.json`);
+              const idMeta = require(env.DATABASES_FOLDER + `/movieIdSection.json`);
               const user = fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-user.txt`) ? fs.readFileSync(env.DATABASES_FOLDER + `/${
                 idMeta.id
               }-user.txt`) : fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-owner.txt`) ? fs.readFileSync(env.DATABASES_FOLDER + `/${
