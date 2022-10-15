@@ -128,12 +128,19 @@ module.exports = function (req, res, url) {
             }
             if (fs.existsSync(env.DATABASES_FOLDER + `/movieIdSection.json`)) {
               const idMeta = require(dbFolder + `/movieIdSection.json`);
+              const user = fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-user.txt`) ? fs.readFileSync(env.DATABASES_FOLDER + `/${
+                idMeta.id
+              }-user.txt`) : fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-owner.txt`) ? fs.readFileSync(env.DATABASES_FOLDER + `/${
+                idMeta.id
+              }-owner.txt`) : "";
+              console.log(user);
               const params = {
                 meta: {
                   action: f.action,
                   thumbid: f.thumbid,
                   starterid: f.starterid || '',
                   description: f.description,
+                  username: user,
                   title: f.title,
                   moviexml: f.moviexml,
                   lang: f.lang,
@@ -156,7 +163,7 @@ module.exports = function (req, res, url) {
                   title: f.title,
                   moviexml: f.moviexml,
                   lang: f.lang,
-                  movieid: fUtil.makeid(6),
+                  movieid: fUtil.makeid(7),
                   userid: f.userid
                 }
               };
