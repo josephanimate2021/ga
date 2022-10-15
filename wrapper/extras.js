@@ -3,9 +3,9 @@ const path = require("path");
 
 module.exports = function (req, res, url) {
 	if (req.method != "GET" || !url.pathname.startsWith("/extras")) return;
-    res.setHeader("Content-Type", "text/html; charset=utf8");
-    const pathName = path.join(__dirname, '.' + url.pathname + '.txt')
-    const html = fs.existsSync(pathName) ? fs.readFileSync(pathName) : `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	res.setHeader("Content-Type", "text/html; charset=utf8");
+	const pathName = path.join(__dirname, '.' + url.pathname + '.txt')
+	const html = fs.existsSync(pathName) ? fs.readFileSync(pathName) : `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-local" lang="en-local" id="page-extra-index">
       <head>
     
