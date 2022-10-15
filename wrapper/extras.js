@@ -87,10 +87,10 @@ module.exports = function (req, res, url) {
         <p><strong>Flying Furball</strong> Jump! Duck! Keep thirteen in fishbones and out of trouble!</p>
       </li>
       <li class="extra wrap">
-        <a class="thumbnail corners" href="extras/tarot-cards">
-          <img src="https://web.archive.org/web/20200809021120im_/http://www.zimmertwins.com/sites/zimmertwins.com/files/xextra-index-tarot-cards.png.pagespeed.ic.t2Y2-5gXeN.webp" alt="Tarot Cards"/>
+        <a class="thumbnail corners" target="_blank" href="https://flashthemes.net">
+          <img src="https://flashthemes.net/maintenance/ft.png" alt="FlashThemes"/>
         </a>
-        <p><strong>Tarot Cards</strong> Practice and observation are key to becoming a good Tarot reader. A little psychic intuition doesn't hurt either!</p>
+        <p><strong>FlashThemes</strong> Make videos using lvms from 2010 to 2016 in seconds! create an account to get started.</p>
       </li>
       <li class="extra">
         <a class="thumbnail corners" href="extras/escape-from-skull-cave">
