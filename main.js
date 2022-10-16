@@ -11,7 +11,7 @@ const envFile = path.join(__dirname, "./wrapper/env.json");
 // env stuff
 const env = {
 	hostname: '127.0.0.1',
-	port: 80,
+	port: 4343,
 	MOVIE_FOLDER: path.join(__dirname, "./files/movies"),
 	STARTER_FOLDER: path.join(__dirname, "./files/starters"),
 	DATABASES_FOLDER: path.join(__dirname, "./files/assets/meta"),
@@ -69,7 +69,7 @@ const createWindow = () => {
 	// clear the menu bar
 	Menu.setApplicationMenu(Menu.buildFromTemplate([]));
 	// load the video list
-	mainWindow.loadURL("http://localhost");
+	mainWindow.loadURL("http://localhost:4343");
 	mainWindow.on("closed", () => mainWindow = null);
 
 	// debug stuff

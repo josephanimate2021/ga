@@ -1,0 +1,3 @@
+echo Updating...
+git pull
+echo Update Complete!
