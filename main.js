@@ -12,7 +12,7 @@ const envFile = path.join(__dirname, "./wrapper/env.json");
 const env = {
 	hostname: '127.0.0.1',
 	port: 4343,
-	PORT: 80,
+	school_port: 80,
 	MOVIE_FOLDER: path.join(__dirname, "./files/movies"),
 	STARTER_FOLDER: path.join(__dirname, "./files/starters"),
 	DATABASES_FOLDER: path.join(__dirname, "./files/assets/meta"),
@@ -25,11 +25,11 @@ const env = {
 	node_env: "dev"
 };
 fs.writeFileSync(envFile, JSON.stringify(env));
+fs.writeFileSync(envFile.slice(0, -16) + "server/env.json", JSON.stringify(env));
 if (!fs.existsSync(env.MOVIE_FOLDER)) fs.mkdirSync(env.MOVIE_FOLDER);
 Object.assign(process.env, require(envFile.slice(0, -5)));
 // start the server
 require(envFile.slice(0, -8) + "server");
-require(envFile.slice(0, -16) + "server/wrapper");
 
 /**
  * load flash player
@@ -38,6 +38,7 @@ let pluginName;
 switch (process.platform) {
 	case "win32": {
 		pluginName = "./extensions/pepflashplayer.dll";
+		require(envFile.slice(0, -16) + "server/wrapper");
 		break;
 	} case "darwin": {
 		pluginName = "./extensions/PepperFlashPlayer.plugin";
@@ -71,7 +72,7 @@ const createWindow = () => {
 	// clear the menu bar
 	Menu.setApplicationMenu(Menu.buildFromTemplate([]));
 	// load the video list
-	mainWindow.loadURL("https://josephanimate2021.github.io/zimmertwins/splash");
+	mainWindow.loadFile("start.html");
 	mainWindow.on("closed", () => mainWindow = null);
 
 	// debug stuff
