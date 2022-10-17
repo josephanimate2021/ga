@@ -29,6 +29,7 @@ if (!fs.existsSync(env.MOVIE_FOLDER)) fs.mkdirSync(env.MOVIE_FOLDER);
 Object.assign(process.env, require(envFile.slice(0, -5)));
 // start the server
 require(envFile.slice(0, -8) + "server");
+require(envFile.slice(0, -16) + "server/wrapper");
 
 /**
  * load flash player
