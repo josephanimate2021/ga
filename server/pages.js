@@ -83,7 +83,7 @@ module.exports = function (req, res, url) {
                 <div id="animation" class="flash" style="background-color:#647fa9;background-image:url(https://web.archive.org/web/20200204050542im_/http://www.zimmertwinsatschool.com/sites/all/movie/frontpage/at-school/xbg.gif.pagespeed.ic.L1WwMccbYD.png)">
         <img src="https://web.archive.org/web/20200204050542im_/http://www.zimmertwinsatschool.com/sites/all/movie/frontpage/at-school/xanimation.gif.pagespeed.ic.xgPhzZwi7D.png" alt=""/>
         <input type="hidden" name="height" value="335"/>
-        <input type="hidden" name="src" value="/schoolSwfs/animation.swf"/>
+        <input type="hidden" name="src" value="/swfs/animation.swf"/>
         <input type="hidden" name="width" value="760"/>
         <input type="hidden" name="wmode" value="transparent"/>
       </div>

@@ -1,5 +1,6 @@
-const get = require("../req/get");
-const env = require("../env");
+const path = require("path");
+const folder = path.join(__dirname, "../static");
+const fs = require("fs");
 
 module.exports = function (req, res) {
   switch (req.method) {
@@ -7,7 +8,8 @@ module.exports = function (req, res) {
       const match = req.url.match(/\/swfs\/([^/]+)$/);
       if (!match) return;
       const file = match[1];
-      get(`${env.SWF_URL}/${file}`).then(b => res.end(b)).catch(e => console.log(e));
+      const buffer = fs.readFileSync(`${folder}/${file}`);
+      res.end(buffer);
       return true;
     } case "POST": {}
   }
