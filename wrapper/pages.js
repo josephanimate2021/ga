@@ -8,14 +8,22 @@ module.exports = function (req, res, url) {
   var html;
 
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
+  var tutorial, studioTitle;
+  if (url.query.tutorial == "0") {
+    tutorial = "1";
+    studioTitle = "How To Make A Movie";
+  } else {
+    tutorial = "";
+    studioTitle = "Create Movie";
+  }
   const script = `<script>function apiVerSelectForStudio(mId = false) {
     const yesorno = confirm('Do you want to use version 2 of the studio? if not, then you will be redirected to version 1 of the studio.');
     if (yesorno) {
       if (mId) location.href = \`/studio?movieId=\${mId}&version=2\`;
-      else location.href = '/studio?version=2';
+      else location.href = '/ajax/firstTimeCheck?ver=2';
     } else {
       if (mId) location.href = \`/studio?movieId=\${mId}\`;
-      else location.href = '/studio';
+      else location.href = '/ajax/firstTimeCheck';
     }
   } function apiVerSelectForPlayer(mId = false) {
     const yesorno = confirm('Do you want to use version 2 of the player? if not, then you will be redirected to version 1 of the player.');
@@ -28,13 +36,16 @@ module.exports = function (req, res, url) {
     }
   }</script>`;
   switch (url.pathname) {
-   case "/videos/html5": {
-    res.setHeader("Content-Type", "video/mp4");
-    res.end(fs.readFileSync(`./files/${url.query.file}`));
-    break;
-   } case "/home": {
-    const files = movie.home();
-    html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    case "/images": {
+      res.end(fs.readFileSync(`./files/${url.query.file}`));
+      break;
+    } case "/videos/html5": {
+      res.setHeader("Content-Type", "video/mp4");
+      res.end(fs.readFileSync(`./files/${url.query.file}`));
+      break;
+    } case "/home": {
+      const files = movie.home();
+      html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-local" lang="en-local" id="page-zt-frontpage">
       <head>
     
@@ -518,6 +529,13 @@ module.exports = function (req, res, url) {
       </html>`;
 	    break;
     } case "/studio": {
+      if (
+        !fUtil.exists(
+          env.DATABASES_FOLDER + `/tutorialCompleted.txt`
+        )
+      ) fs.writeFileSync(`${
+        env.DATABASES_FOLDER
+      }/tutorialCompleted.txt`, 'The tutorial has went through the first time. if you want to go through it again, please delete this file.');
       if (url.query.movieId) fs.writeFileSync(env.DATABASES_FOLDER + `/movieIdSection.json`, JSON.stringify({id: url.query.movieId}));
       else if (fs.existsSync(env.DATABASES_FOLDER + `/movieIdSection.json`)) fs.unlinkSync(env.DATABASES_FOLDER + `/movieIdSection.json`);
 	    res.setHeader("Content-Type", "text/html; charset=utf8");
@@ -526,7 +544,7 @@ module.exports = function (req, res, url) {
         <head>
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-          <title>Create Movie | Zimmer Twins</title>
+          <title>${studioTitle} | Zimmer Twins</title>
           <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Movies, Movie-Maker, Learning, Literacy, Educational, Free, Activities, Elementary, Primary, Eva, Edgar, Psychic, Creative, Parents, Family, zinc Roe"/>
           <meta name="description" content="The Zimmer Twins website invites kids to create and share their own animated stories."/>
           <meta name="copyright" content="©2020 Lost The Plot Productions"/>
@@ -572,7 +590,7 @@ module.exports = function (req, res, url) {
               
                 <h1 class="page-title">
                   <span class="page-icon"></span>
-                  Create Movie          </h1>
+                  ${studioTitle}          </h1>
               
                         
                         
@@ -593,7 +611,7 @@ module.exports = function (req, res, url) {
           <input type="hidden" name="movieid" value="${url.query.movieId || ""}"/>
           
               
-          <input type="hidden" name="playhelpmovie" value=""/>
+          <input type="hidden" name="playhelpmovie" value="${tutorial}"/>
           
         </code>
       

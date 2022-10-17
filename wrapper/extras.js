@@ -117,10 +117,10 @@ module.exports = function (req, res, url) {
         <p><strong>Zimmerize Your Desktop</strong> You can have Eva, Edgar, 13 or the whole gang right on your desktop.</p>
       </li>
       <li class="extra">
-        <a class="thumbnail corners" href="extras/13">
-          <img src="https://web.archive.org/web/20200809021120im_/http://www.zimmertwins.com/sites/zimmertwins.com/files/xextra-index-13.gif.pagespeed.ic.mbuWxDs5dT.webp" alt="All About 13"/>
+        <a class="thumbnail corners" target="_blank" href="https://web.archive.org/web/20200806063748/http://www.zimmertwins.com/">
+          <img src="/images?file=wayback_zimmertwins.jpg" alt="ZimmerTwins Wayback"/>
         </a>
-        <p><strong>All About 13</strong> Find out everything you ever wanted to know about 13 ... and probably some things you didn't.</p>
+        <p><strong>ZimmerTwins Wayback</strong> Look at the zimmertwins website before it got shut down. it is a very sad scene. you can stil do anything there. well, unresigered of course.</p>
       </li>
     </ul>  </div>
     

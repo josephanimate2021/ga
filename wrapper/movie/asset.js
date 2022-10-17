@@ -5,6 +5,7 @@ const fUtil = require("../fileUtil");
 const dbFolder = env.DATABASES_FOLDER;
 const fs = require("fs");
 const formidable = require("formidable");
+const { url } = require("inspector");
 const home = process.env.HOME_HTML;
 
 function toAttrString(data) {
@@ -28,7 +29,18 @@ module.exports = function (req, res, url) {
   switch (req.method) {
     case "GET": {
       switch (url.pathname) {
-        case "/movie/delete": {
+        case "/ajax/firstTimeCheck": {
+          const begVer = "?version=";
+          const ver = url.query.ver ? begVer + url.query.ver : "";
+          const questionOrAnd = url.query.ver ? "&" : "?";
+          const redir = fUtil.exists(env.DATABASES_FOLDER + `/tutorialCompleted.txt`) ? `/studio${ver}` : `/studio${ver}${
+            questionOrAnd
+          }tutorial=0`;
+          res.statusCode = 302;
+          res.setHeader("Location", redir);
+          res.end();
+          return true;
+        } case "/movie/delete": {
           const id = url.query.movieId;
           if (fUtil.exists(env.MOVIE_FOLDER + `/${id}.txt`)) fs.unlinkSync(env.MOVIE_FOLDER + `/${id}.txt`);
           if (!fUtil.exists(env.STARTER_FOLDER + `/${id}.txt`)) {
