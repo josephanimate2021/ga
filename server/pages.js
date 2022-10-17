@@ -131,7 +131,7 @@ module.exports = function (req, res, url) {
       </div>
       
                 
-              </div>
+              </div></div>
               
             
             <div id="sidebar">
