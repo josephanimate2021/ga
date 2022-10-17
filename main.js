@@ -12,6 +12,7 @@ const envFile = path.join(__dirname, "./wrapper/env.json");
 const env = {
 	hostname: '127.0.0.1',
 	port: 4343,
+	PORT: 80,
 	MOVIE_FOLDER: path.join(__dirname, "./files/movies"),
 	STARTER_FOLDER: path.join(__dirname, "./files/starters"),
 	DATABASES_FOLDER: path.join(__dirname, "./files/assets/meta"),
@@ -69,7 +70,7 @@ const createWindow = () => {
 	// clear the menu bar
 	Menu.setApplicationMenu(Menu.buildFromTemplate([]));
 	// load the video list
-	mainWindow.loadURL("http://localhost:4343");
+	mainWindow.loadURL("https://josephanimate2021.github.io/zimmertwins/splash");
 	mainWindow.on("closed", () => mainWindow = null);
 
 	// debug stuff
