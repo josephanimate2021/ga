@@ -2,9 +2,6 @@ files/movies/*
 files/starters/*
 files/assets/*
 node_modules/*
-env.json
+wrapper/env.json
+server/env.json
 package-lock.json
-wrapper/themelist.xml
-wrapper/themelist.zip
-wrapper/theme.xml
-wrapper/theme.zip

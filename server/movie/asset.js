@@ -2,10 +2,10 @@ const get = require("../req/get");
 const loadPost = require("../req/body");
 const env = require("../env");
 const fUtil = require("../fileUtil");
-const dbFolder = env.DATABASES_FOLDER;
 const fs = require("fs");
+const path = require("path");
+const fileFolder = path.join(__dirname, "../../files");
 const formidable = require("formidable");
-const { url } = require("inspector");
 const home = process.env.HOME_HTML;
 
 function toAttrString(data) {
@@ -115,7 +115,14 @@ module.exports = function (req, res, url) {
       const match = req.url.match(/\/movie\/assets\/([^/]+)$/);
       if (!match) return;
       const file = match[1];
-      get(`${env.SWF_URL}/${file}`).then(b => res.end(b)).catch(e => console.log(e));
+      try {
+        const b = fs.readFileSync(path.join(fileFolder, file));
+        res.end(b);
+      } catch (e) {
+        get(`https://web.archive.org/web/20191020010125if_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/movie/assets/${
+          file
+        }`).then(b => res.end(b)).catch(e => console.log(e));
+      }
       return true;
     } case "POST": {
       switch (req.url) {
