@@ -52,25 +52,14 @@ module.exports = {
       const table = [];
       fs.readdirSync(process.env.STARTER_FOLDER).forEach(file => {
           const id = file.slice(0, -4);
-          if (fs.existsSync(process.env.STARTER_FOLDER + `/${file}`)) table.unshift({html: `    <li class="movie-clip clear-block">
-  
-          <a href="javascript:apiVerSelectForStudio('${id}')" class="thumbnail"><img src="https://web.archive.org/web/20200604033451im_/http://www.zimmertwins.com/sites/zimmertwins.com/movie/thumbnails/small/xdefault.png.pagespeed.ic.NRbioFMVrg.png" alt="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
+          // the id 677649 is already featured as the current starter movie player.
+          if (id == "677649") return;
+          if (fs.existsSync(process.env.STARTER_FOLDER + `/${file}`)) table.unshift({html: `<li class="small corners">
+          <a href="javascript:apiVerSelectForStudio('${id}')" class="thumbnail"><img src="https://web.archive.org/web/20190602194049im_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/movie/thumbnails/small/xgemjest.png.pagespeed.ic.dADE5wPEjW.png" alt="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
     
-    " title="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}"/></a>      <!-- Movie Clip Types -->
-        
-          <h2><a href="javascript:apiVerSelectForStudio('${id}')">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
+    " title=""></a>      <a href="javascript:apiVerSelectForStudio('${id}')" class="title">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
     
-    </a></h2>
-            
-    <p class="submitted">
-    <span class="date">
-      Posted <em>${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-date.txt`)}</em>        </span>
-    <span class="user">
-      By <a href="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-user-link.txt`)}" class="active">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-user.txt`)}</a> 
-                      </span>
-  </p>
-                        
-        </li>`});
+    </a>    </li>`});
       });
       return table;
   }
