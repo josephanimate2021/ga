@@ -97,38 +97,7 @@ module.exports = function (req, res, url) {
                 <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfgdlx75wCvKbK8osqdpztxBI_I8zrNbwNUzmhSMQF6Dg4nUg/viewform">Request A New Video (YouTube Channel Required)</a>      </li>
       </ul>
       
-      <div id="middle">
-         <h1>The Zimmer Twins at School</h1>
-       <p><strong>Zimmer Twins at School bundles the fun moviemaker children love with new class management tools teachers will adore.</strong></p> 
-      <!-- <h2>Join today it's free!</h2>-->
-       <div id="ads">
-        <div class="block block-block block-block-3">
-           <!--<div class="award clear-block">
-            <img src="/sites/zimmertwinsatschool.com/files/page-membership-parents-choice-award.png" width="70" height="70" alt="" />
-            <span>Winner of the</span>
-            <strong>Parent's Choice</strong> 
-            <em>Silver Honor Award</em>
-          </div>
-      <div class="review">
-            <blockquote>
-              <p>Truly, the Zimmer Twins movie maker is one of the best web applications I’ve seen in a while. </p>
-            </blockquote>
-            <cite><strong>Dan Saffer</strong>,  <em>HOW Design Annual</em></cite>
-          </div>
-       <div class="review">
-            <blockquote>
-              <p>I LOVE THE ZIMMER TWINS HOW DID YOU THINK OF IT? IT'S MAGNIFASINT!!!!!!!!</p>
-            </blockquote>
-            <cite><strong>Charles</strong>,  <em>Zimmer Twins member</em></cite>
-          </div>-->
-      <div class="review">
-            <blockquote>
-              <p>On the Zimmer Twin site, students can create really impressive cartoon animations (seriously this is saturday morning cartoon quality). </p>
-            </blockquote>
-            <cite><strong>Kelly Tenkely</strong><em><a href="https://web.archive.org/web/20200204050542/http://ilearntechnology.com/?p=4339">iLearn Technology</a></em></cite>
-          </div></div>
-      </div>
-      </div>
+   
       
                 
               </div></div>
@@ -159,7 +128,7 @@ module.exports = function (req, res, url) {
       <li class="menu-864"><a href="/about/conduct" title="Code Of Conduct">Code Of Conduct</a></li>
       <li class="menu-866"><a href="/about/credits" title="Credits">Credits</a></li>
       <li class="menu-874"><a href="/contact" title="Contact">Contact</a></li>
-      <li class="menu-867"><a href="http://localhost:4343/extras" title="Extras">Extras</a></li>
+      <li class="menu-867"><a target="_blank" href="http://localhost:4343/extras" title="Extras">Extras</a></li>
       <li class="menu-839 last"><a href="/about" title="About The Zimmer Twins">About</a></li>
       </ul>              </div>
             
@@ -299,7 +268,7 @@ module.exports = function (req, res, url) {
           <script type="text/javascript" src="https://web.archive.org/web/20200217033736js_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/js/js_b4b8414e9f53fe14bc2267bfc30775ab.js.pagespeed.jm.vM1isTyUh8.js"></script>
       <script type="text/javascript">//<![CDATA[
       jQuery.extend(Drupal.settings,{"basePath":"/","fivestar":{"titleUser":"Your rating: ","titleAverage":"Average: ","feedbackSavingVote":"Saving vote...\r\n","feedbackVoteSaved":"Rating saved.","feedbackDeletingVote":"Removing vote...","feedbackVoteDeleted":"Rating removed."},"googleanalytics":{"trackOutbound":1,"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"}});
-      //]]></script>
+      //]]></script>${script}
         </head>
         <body>
           <div id="wrapper" class="clear-block">
@@ -402,7 +371,7 @@ module.exports = function (req, res, url) {
       <li class="menu-864"><a href="/about/conduct" title="Code Of Conduct">Code Of Conduct</a></li>
       <li class="menu-866"><a href="/about/credits" title="Credits">Credits</a></li>
       <li class="menu-874"><a href="/contact" title="Contact">Contact</a></li>
-      <li class="menu-867"><a href="http://localhost:4343/extras" title="Extras">Extras</a></li>
+      <li class="menu-867"><a target="_blank" href="http://localhost:4343/extras" title="Extras">Extras</a></li>
       <li class="menu-839 last"><a href="/about" title="About The Zimmer Twins">About</a></li>
       </ul>              </div>
             
@@ -416,50 +385,31 @@ module.exports = function (req, res, url) {
       </html>`;
       break;
   } case "/player": {
+      files = movie.listInSmall();
 	    res.setHeader("Content-Type", "text/html; charset=utf8");
 	    html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-local" lang="en-local" id="page-movie-clip-view">
         <head>
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-          <title>Video Player | Zimmer Twins</title>
-          <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Movies, Movie-Maker, Learning, Literacy, Educational, Free, Activities, Elementary, Primary, Eva, Edgar, Psychic, Creative, Parents, Family, zinc Roe"/>
-          <meta name="description" content="The Zimmer Twins website invites kids to create and share their own animated stories."/>
+          <title>${fs.readFileSync(env.DATABASES_FOLDER + `/${url.query.movieId}-title.txt`)} | Zimmer Twins at School</title>
+          <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Movies, Movie-Maker, Learning, Literacy, Educational, School, Free, Activities, Elementary, Primary, Eva, Edgar, Psychic, Creative, Parents, Family, zinc Roe"/>
+          <meta name="description" content="The Zimmer Twins at School website invites teachers and students to create and share their own animated stories."/>
           <meta name="copyright" content="©2020 Lost The Plot Productions"/>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-          <link type="text/css" rel="stylesheet" media="all" href="https://web.archive.org/web/20160905043221cs_/http://zimmertwins.com/A.sites,,_all,,_modules,,_contrib,,_cck,,_theme,,_content-module.css,,qn+sites,,_all,,_modules,,_contrib,,_date,,_date.css,,qn+sites,,_all,,_modules,,_contrib,,_og,,_theme,,_og.css,,qn+sites,,_all,,_modules,,_contrib,,_pollfield,,_pollfield.css,,qn+sites,,_all,,_modules,,_contrib,,_ubercart,,_uc_order,,_uc_order.css,,qn+sites,,_all,,_modules,,_contrib,,_ubercart,,_uc_product,,_uc_product.css,,qn+sites,,_all,,_modules,,_contrib,,_ubercart,,_uc_roles,,_uc_roles.css,,qn+sites,,_all,,_modules,,_contrib,,_ubercart,,_uc_store,,_uc_store.css,,qn+sites,,_all,,_modules,,_contrib,,_cck,,_modules,,_fieldgroup,,_fieldgroup.css,,qn+sites,,_all,,_modules,,_contrib,,_views,,_css,,_views.css,,qn+modules,,_comment,,_comment.css,,qn+sites,,_zimmertwins.com,,_themes,,_zimmertwins,,_style.css,,qn,Mcc.C1TVrviQtF.css.pagespeed.cf.rC5ElewgIx.css"/>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      <link rel="shortcut icon" href="https://web.archive.org/web/20200203204514im_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/themes/zimmertwins_education/images/favicon.ico" type="image/x-icon"/>
+          <link type="text/css" rel="stylesheet" media="all" href="https://web.archive.org/web/20200203204514cs_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/css/A.css_97c345e5473bbf14caff4d84125f1008.css.pagespeed.cf.GmVhnvQXT8.css"/>
           <!--[if IE]>
-            <link type="text/css" rel="stylesheet" media="all" href="/sites/zimmertwins.com/themes/zimmertwins/ie.css" />
+            <link type="text/css" rel="stylesheet" media="all" href="/sites/zimmertwinsatschool.com/themes/zimmertwins_education/ie.css" />
           <![endif]-->
-          <script src="https://web.archive.org/web/20160909183717js_/http://zimmertwins.com/misc,_jquery.js,qn+misc,_drupal.js,qn+sites,_all,_modules,_contrib,_fivestar,_js,_fivestar.js,qn+sites,_all,_modules,_contrib,_google_analytics,_googleanalytics.js,qn+sites,_all,_modules,_contrib,_og,_og.js,qn+sites,_all,_modules,_contrib,_ubercart,_uc_roles,_uc_roles.js,qn+sites,_zimmertwins.com,_themes,_zimmertwins,_jquery.flash.js,qn+sites,_zimmertwins.com,_themes,_zimmertwins,_jquery.livequery.js,qn+sites,_zimmertwins.com,_themes,_zimmertwins,_scripts.js,qn.pagespeed.jc.OMW7dtu1QK.js"></script><script>eval(mod_pagespeed_nY1Z0rRqrr);</script>
-      <script>eval(mod_pagespeed_frUSgF27iq);</script>
-      <script>eval(mod_pagespeed_VEL7yD4xun);</script>
-      <script>eval(mod_pagespeed_vC2LpTDHkl);</script>
-      <script>eval(mod_pagespeed_XZ12xHADsD);</script>
-      <script>eval(mod_pagespeed_by2NQOABdO);</script>
-      <script>eval(mod_pagespeed_WeFY4JIK8o);</script>
-      <script>eval(mod_pagespeed_Cz89F7N0s6);</script>
-      <script>eval(mod_pagespeed_CP36ZbYGwj);</script>
+          <script type="text/javascript" src="https://web.archive.org/web/20200203204514js_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/js/js_b4b8414e9f53fe14bc2267bfc30775ab.js.pagespeed.jm.vM1isTyUh8.js"></script>
       <script type="text/javascript">//<![CDATA[
-      jQuery.extend(Drupal.settings,{"basePath":"/","fivestar":{"titleUser":"Your rating: ","titleAverage":"Average: ","feedbackSavingVote":"Saving vote...\r\n","feedbackVoteSaved":"Rating saved.","feedbackDeletingVote":"Removing vote...","feedbackVoteDeleted":"Rating removed."},"googleanalytics":{"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"}});
-      //]]></script>${script}
+      jQuery.extend(Drupal.settings,{"basePath":"/","fivestar":{"titleUser":"Your rating: ","titleAverage":"Average: ","feedbackSavingVote":"Saving vote...\r\n","feedbackVoteSaved":"Rating saved.","feedbackDeletingVote":"Removing vote...","feedbackVoteDeleted":"Rating removed."},"googleanalytics":{"trackOutbound":1,"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"}});
+      //]]></script>
         </head>
-        <body>
-            
+        <body onload="loadRows()">
           <div id="wrapper" class="clear-block">
-            
+      
             <div id="main">
               
               <div id="content-header">
@@ -469,9 +419,9 @@ module.exports = function (req, res, url) {
               
                 <h1 class="page-title">
                   <span class="page-icon"></span>
-                  Video Player          </h1>
+                  ${fs.readFileSync(env.DATABASES_FOLDER + `/${url.query.movieId}-title.txt`)}          </h1>
               
-                        
+                      
                         
                 <div class="node node-movie-clip clear-block corners">
         
@@ -485,7 +435,7 @@ module.exports = function (req, res, url) {
       
         <code class="flashvars">
           
-          <input type="hidden" name="apiurl" value="/movie/assets/${url.query.version == "2" ? "full" : "trial"}.xml"/>
+          <input type="hidden" name="apiurl" value="/movie/assets/api.paid.xml"/>
           <input type="hidden" name="asseturl" value="/movie/assets"/>
           <input type="hidden" name="baseurl" value="${urlPrefix}://${req.headers.host}"/>
           <input type="hidden" name="lang" value="en-local"/>
@@ -499,14 +449,33 @@ module.exports = function (req, res, url) {
         </code>
       
       </div>  
-        <div class="summary"></div>
-            
-      </div>
-                
-              </div>
+        <div class="summary">
+          
+          <!-- Movie Clip Info -->
+          <h2 class="title">
+            ${fs.readFileSync(env.DATABASES_FOLDER + `/${url.query.movieId}-title.txt`)}
+      
+          </h2>
+        </div></div>
+      
+      
+      
+        <div id="movie-clip-gallery-container" class="clear-block group">
+        <h3>Your Movies</h3>
+        
+      <ul class="movie-clip-list movies-list clear-block">
+      
+          
+      ${files.map(v => `${v.html}`)}        
+      
+        
+      </ul>
+      </div></div>
               
-              <div id="content-footer">
-                        </div>
+              <div id="content-footer" class="clear-block">
+                <div class="block block-block block-block-2">
+          <a href="http://localhost"4343/home" target="_blank"><br/><br/><img src="https://web.archive.org/web/20200203204514im_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/xRegularZTeaderboard728x90.png.pagespeed.ic.YduuUokUCR.png" alt="advertisement" height="90" width="728"/></a></div>
+              </div>
               
             </div>
             
@@ -515,12 +484,10 @@ module.exports = function (req, res, url) {
               <a id="site-logo" href="/home">
                         </a>
               
-                      <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
-      <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
-      <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
-      <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
-      <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
-      <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
+                      <ul id="nav"><li class="menu-835 first"><a href="/home" id="nav-home">Home</a></li>
+      <li class="menu-837"><a href="/" id="nav-gallery">Your Movies</a></li>
+      <li class="menu-836"><a href="/templates" id="nav-make">Make A Movie</a></li>
+      <li class="menu-876 last"><a href="/help" id="nav-help">Help</a></li>
       </ul>                
                       
             </div>
@@ -529,20 +496,21 @@ module.exports = function (req, res, url) {
             
             <div id="footer">
               <span class="copyright">©2020 Lost The Plot Productions</span>
-                        <ul class="links"><li class="menu-924 first"><a href="/membership" title="Get A Membership">Membership</a></li>
-      <li class="menu-82"><a href="/about/terms" title="">Terms Of Use</a></li>
-      <li class="menu-81"><a href="/about/privacy" title="">Privacy Policy</a></li>
-      <li class="menu-83"><a href="/about/conduct" title="">Code Of Conduct</a></li>
-      <li class="menu-87"><a href="/about/credits" title="">Credits</a></li>
-      <li class="menu-84"><a href="/about/parents" title="">Parents</a></li>
-      <li class="menu-348"><a href="/about/contact" title="">Contact</a></li>
-      <li class="menu-1343 last"><a href="/about" title="About The Zimmer Twins">About</a></li>
+                        <ul class="links"><li class="menu-873 first"><a href="http://localhost:4343/home" title="The Zimmer Twins">The Zimmer Twins</a></li>
+      <li class="menu-863"><a href="/membership" title="Get A Membership">Membership</a></li>
+      <li class="menu-870"><a href="/about/terms" title="Terms Of Use">Terms Of Use</a></li>
+      <li class="menu-871"><a href="/about/privacy" title="Privacy Policy">Privacy Policy</a></li>
+      <li class="menu-864"><a href="/about/conduct" title="Code Of Conduct">Code Of Conduct</a></li>
+      <li class="menu-866"><a href="/about/credits" title="Credits">Credits</a></li>
+      <li class="menu-874"><a href="/contact" title="Contact">Contact</a></li>
+      <li class="menu-867"><a target="_blank" href="http://localhost:4343/extras" title="Extras">Extras</a></li>
+      <li class="menu-839 last"><a href="/about" title="About The Zimmer Twins">About</a></li>
       </ul>              </div>
             
           </div>
           
           <script type="text/javascript">//<![CDATA[
-      var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-295035-15"]);_gaq.push(['_setCustomVar',1,"User roles","anonymous user",1]);_gaq.push(["_trackPageview"]);(function(){var ga=document.createElement("script");ga.type="text/javascript";ga.async=true;ga.src=("https:"==document.location.protocol?"https://web.archive.org/web/20160915024310/https://ssl":"https://web.archive.org/web/20160915024310/http://www")+".google-analytics.com/ga.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga,s);})();
+      var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-295035-21"]);_gaq.push(["_trackPageview"]);(function(){var ga=document.createElement("script");ga.type="text/javascript";ga.async=true;ga.src=("https:"==document.location.protocol?"https://web.archive.org/web/20200203204514/https://ssl":"https://web.archive.org/web/20200203204514/http://www")+".google-analytics.com/ga.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga,s);})();
       //]]></script>
           
         </body>
@@ -631,7 +599,7 @@ module.exports = function (req, res, url) {
                         </a>
               
                       <ul id="nav"><li class="menu-835 first"><a href="/home" id="nav-home">Home</a></li>
-      <li class="menu-837"><a href="/" id="nav-gallery">Gallery</a></li>
+      <li class="menu-837"><a href="/" id="nav-gallery">Your Movies</a></li>
       <li class="menu-836"><a href="/templates" id="nav-make">Make A Movie</a></li>
       <li class="menu-876 last"><a href="/help" id="nav-help">Help</a></li>
       </ul>                
@@ -649,7 +617,7 @@ module.exports = function (req, res, url) {
       <li class="menu-864"><a href="/about/conduct" title="Code Of Conduct">Code Of Conduct</a></li>
       <li class="menu-866"><a href="/about/credits" title="Credits">Credits</a></li>
       <li class="menu-874"><a href="/contact" title="Contact">Contact</a></li>
-      <li class="menu-867"><a href="http://localhost:4343/extras" title="Extras">Extras</a></li>
+      <li class="menu-867"><a target="_blank" href="http://localhost:4343/extras" title="Extras">Extras</a></li>
       <li class="menu-839 last"><a href="/about" title="About The Zimmer Twins">About</a></li>
       </ul>              </div>
             

@@ -116,7 +116,13 @@ module.exports = function (req, res, url) {
       <li id="movie-links-user">
               <a target="_blank" href="https://youtube.com/@josephanimate">JosephAnimate YouTube Channel</a>      </li>
     </ul>
-    
+    <div id="ads">
+      <div class="block block-block block-block-14">
+		    <a target="_blank" href="http://localhost/home">
+          <img src="https://web.archive.org/web/20200806063748im_/http://www.zimmertwins.com/sites/zimmertwins.com/files/xad-square-education.png.pagespeed.ic.TjtrKXdlWy.png" alt="Zimmer Twins At School advert"/>
+        </a>
+      </div>
+    </div>
     <div id="movies">
       <h3>
         Your Movies    <a href="/" class="more">Link To The Video List</a>  </h3>

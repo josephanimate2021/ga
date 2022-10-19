@@ -2,6 +2,7 @@ const get = require("../req/get");
 const loadPost = require("../req/body");
 const env = require("../env");
 const fUtil = require("../fileUtil");
+const movie = require("./main");
 const fs = require("fs");
 const path = require("path");
 const fileFolder = path.join(__dirname, "../../files");
@@ -158,18 +159,17 @@ module.exports = function (req, res, url) {
                   thumbid: f.thumbid,
                   starterid: f.starterid || '',
                   description: f.description,
-                  username: user,
                   title: f.title,
                   moviexml: f.moviexml,
                   lang: f.lang,
-                  movieid: idMeta.id,
+                  movieid: fUtil.makeid(7),
                   userid: f.userid
                 }
               };
-              console.log(params.meta.movieid);
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
+              fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-meta.json`, JSON.stringify(params.meta));
               res.end(toObjectString(params));
             } else {
               const params = {
@@ -185,10 +185,10 @@ module.exports = function (req, res, url) {
                   userid: f.userid
                 }
               };
-              console.log(params.meta.movieid);
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
+              fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-meta.json`, JSON.stringify(params.meta));
               res.end(toObjectString(params));
             }
           });
