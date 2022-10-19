@@ -163,7 +163,10 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
-              res.end(toObjectString(params));
+              // reload cuz i don't know the real ending lol
+	      res.statusCode = 302;
+	      res.setHeader("Location", `/studio?movieId=${params.meta.movieid}`);
+              res.end();
             } else {
               const params = {
                 meta: {
@@ -182,7 +185,10 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
-              res.end(toObjectString(params));
+              // reload cuz i don't know the real ending lol
+	      res.statusCode = 302;
+	      res.setHeader("Location", `/studio?movieId=${params.meta.movieid}`);
+              res.end();
             }
           });
           return true;
