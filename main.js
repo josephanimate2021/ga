@@ -21,9 +21,9 @@ const env = {
 	CHAR_BASE_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Character-Dump/master/characters",
 	THUMBNAILS_URL: "https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Thumbnails/master/thumbnails",
 	SWF_URL: "https://josephanimate2021.github.io/lvm-static/api/zimmertwins",
-	// env
-	node_env: "dev"
 };
+if (fs.existsSync(".git")) env.node_env = "dev";
+else env.node_env = "production";
 fs.writeFileSync(envFile, JSON.stringify(env));
 fs.writeFileSync(envFile.slice(0, -16) + "server/env.json", JSON.stringify(env));
 if (!fs.existsSync(env.MOVIE_FOLDER)) fs.mkdirSync(env.MOVIE_FOLDER);

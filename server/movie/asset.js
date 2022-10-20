@@ -170,10 +170,8 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-meta.json`, JSON.stringify(params.meta));
-	      // reload cuz i don't know the real ending lol
-	      res.statusCode = 302;
-	      res.setHeader("Location", `/studio?movieId=${params.meta.movieid}`);
-              res.end();
+              // reload cuz i don't know the real ending lol
+              res.end(`<html><head><script>function reload() { window.location.reload(); }</script><body onload="reload()"></body></html>`);
             } else {
               const params = {
                 meta: {
@@ -192,10 +190,7 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-meta.json`, JSON.stringify(params.meta));
-              // reload cuz i don't know the real ending lol
-	      res.statusCode = 302;
-	      res.setHeader("Location", `/studio?movieId=${params.meta.movieid}`);
-              res.end();
+              res.end(`<html><head><script>function reload() { window.location.reload(); }</script><body onload="reload()"></body></html>`);
             }
           });
           return true;

@@ -142,7 +142,7 @@ module.exports = function (req, res, url) {
       </html>`;
     break;
    } case "/": {
-        const files = movie.listInSmall();
+        const files = movie.list("noFunctions");
         html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-local" lang="en-local" id="">
           <head>
@@ -188,7 +188,7 @@ module.exports = function (req, res, url) {
         
             
                     
-            ${files.map(v => `${v.html}`) || "<h3>You currently have no movies right now. <a href='/studio'>Create one now</a> | <a href='/upload?type=movie'>Upload</a></h3>"}
+            ${files.map(v => `${v.html}`)}
         
           
         </ul>
@@ -199,7 +199,7 @@ module.exports = function (req, res, url) {
                 
                 <div id="content-footer" class="clear-block">
                   <div class="block block-block block-block-2">
-            <a href="http://localhost:4343/home" target="_blank"><br/><br/><img src="https://web.archive.org/web/20190914005828im_/http://www.zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/xRegularZTeaderboard728x90.png.pagespeed.ic.YduuUokUCR.png" alt="advertisement" height="90" width="728"/></a></div>
+            <a href="http://localhost:4343/home"><br/><br/><img src="https://web.archive.org/web/20190914005828im_/http://www.zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/xRegularZTeaderboard728x90.png.pagespeed.ic.YduuUokUCR.png" alt="advertisement" height="90" width="728"/></a></div>
                 </div>
                 
               </div>
@@ -221,7 +221,7 @@ module.exports = function (req, res, url) {
               
               <div id="footer">
                 <span class="copyright">©2020 Lost The Plot Productions</span>
-                          <ul class="links"><li class="menu-873 first"><a href="http://localhost:4343/" title="The Zimmer Twins">The Zimmer Twins</a></li>
+                          <ul class="links"><li class="menu-873 first"><a href="http://localhost:4343/home" title="The Zimmer Twins">The Zimmer Twins</a></li>
         <li class="menu-863"><a href="/membership" title="Get A Membership">Membership</a></li>
         <li class="menu-870"><a href="/about/terms" title="Terms Of Use">Terms Of Use</a></li>
         <li class="menu-871"><a href="/about/privacy" title="Privacy Policy">Privacy Policy</a></li>
@@ -270,7 +270,7 @@ module.exports = function (req, res, url) {
               
               <div id="content-header">
                 <div class="block block-block block-block-4">
-          <a href="http://localhost:4343" target="_blank"><img src="https://web.archive.org/web/20200217033736im_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/xRegularZTeaderboard728x90.png.pagespeed.ic.YduuUokUCR.png" alt="advertisement" height="90" width="728"/></a></div>
+          <a href="http://localhost:4343"/home><img src="https://web.archive.org/web/20200217033736im_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/xRegularZTeaderboard728x90.png.pagespeed.ic.YduuUokUCR.png" alt="advertisement" height="90" width="728"/></a></div>
               </div>
               
               <div id="content" class="clear-block">
@@ -326,7 +326,7 @@ module.exports = function (req, res, url) {
                 ${
                   files.map(v => `${
                     v.html
-                  }`) || "<h3>There are no other starters at the moment. <a href='/upload?type=starter'>Upload</a></h3>"
+                  }`) || "<h2>There are no other starters at the moment. <a href='/upload?type=starter'>Upload</a></h2>"
                 }
           
             
@@ -467,7 +467,7 @@ module.exports = function (req, res, url) {
               
               <div id="content-footer" class="clear-block">
                 <div class="block block-block block-block-2">
-          <a href="http://localhost"4343/home" target="_blank"><br/><br/><img src="https://web.archive.org/web/20200203204514im_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/xRegularZTeaderboard728x90.png.pagespeed.ic.YduuUokUCR.png" alt="advertisement" height="90" width="728"/></a></div>
+          <a href="http://localhost"4343/home"><br/><br/><img src="https://web.archive.org/web/20200203204514im_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/xRegularZTeaderboard728x90.png.pagespeed.ic.YduuUokUCR.png" alt="advertisement" height="90" width="728"/></a></div>
               </div>
               
             </div>
@@ -581,7 +581,7 @@ module.exports = function (req, res, url) {
               
               <div id="content-footer" class="clear-block">
                 <div class="block block-block block-block-2">
-          <a href="http://localhost:4343" target="_blank"><img src="https://web.archive.org/web/20190517163136im_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/xRegularZTeaderboard728x90.png.pagespeed.ic.YduuUokUCR.png" alt="advertisement" height="90" width="728"/></a></div>
+          <a href="http://localhost:4343/home"><img src="https://web.archive.org/web/20190517163136im_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/xRegularZTeaderboard728x90.png.pagespeed.ic.YduuUokUCR.png" alt="advertisement" height="90" width="728"/></a></div>
               </div>
               
             </div>
