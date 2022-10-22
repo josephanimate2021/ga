@@ -6,7 +6,6 @@ const dbFolder = env.DATABASES_FOLDER;
 const fs = require("fs");
 const formidable = require("formidable");
 const path = require("path");
-const { fileString } = require("../fileUtil");
 const home = process.env.HOME_HTML;
 
 function toAttrString(data) {
