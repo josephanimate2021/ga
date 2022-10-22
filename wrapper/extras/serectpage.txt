@@ -82,11 +82,11 @@ jQuery.extend(Drupal.settings,{"basePath":"/","fivestar":{"titleUser":"Your rati
         <div class="block block-user block-user-1">
 		  <h2>
 	    JOSHGUNNER	    	  </h2>
-		<ul class="menu"><li class="leaf first"><a href="/profile/view" title="The current user&#39;s profile page.">My profile</a></li>
-<li class="leaf"><a href="/movie/user">My movies</a></li>
-<li class="leaf"><a href="/favourites" title="">My favourites</a></li>
+		<ul class="menu"><li class="leaf first"><a href="/account/416896/view" title="The current user&#39;s profile page.">My profile</a></li>
+<li class="leaf"><a href="/">My movies</a></li>
+<li class="leaf"><a href="/account/416896/favourites" title="">My favourites</a></li>
 <li class="leaf"><a href="/account/416896/edit" title="">Edit account</a></li>
-<li class="leaf last"><a href="/logout">Log out</a></li>
+<li class="leaf last"><a href="/account/416896/logout">Log out</a></li>
 </ul></div>
 <div class="block block-movie-search block-movie-search-0">
 		  <h2>search</h2>
