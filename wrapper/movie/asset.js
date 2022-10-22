@@ -122,7 +122,7 @@ module.exports = function (req, res, url) {
     } case "POST": {
       switch (req.url) {
         case "/ajax/searchMovies/": {
-          new formidable.IncomingForm().parse(req, (e, f, files) => {
+          new formidable.IncomingForm().parse(req, (e, f) => {
             if (e) return;
             res.statusCode = 302;
             res.setHeader("Location", `/movie/search?q=${f.keywords}`);
@@ -131,11 +131,16 @@ module.exports = function (req, res, url) {
           return true;
         } case "/movie/upload": {
           new formidable.IncomingForm().parse(req, (e, f, files) => {
-            if (e || !files.import) return;
-            const path = files.import.path;
+            if (e) return;
+            if (!files.import) return;
+            const name = files.import.originalFilename;
+            const path = files.import.filepath;
             const buffer = fs.readFileSync(path);
             const id = fUtil.makeid(6);
             fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.txt`, buffer);
+            fs.writeFileSync(env.DATABASES_FOLDER + `/${id}-title.txt`, name);
+            fs.writeFileSync(env.DATABASES_FOLDER + `/${id}-desc.txt`, '');
+            fs.writeFileSync(env.TITLES_FOLDER + `/${name}.json`, JSON.stringify({movieid: id}));
             res.statusCode = 302;
             res.setHeader("Location", `/studio?movieId=${id}`);
             res.end();
@@ -188,7 +193,6 @@ module.exports = function (req, res, url) {
                   userid: f.userid
                 }
               };
-              console.log(params.meta.movieid);
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);

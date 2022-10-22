@@ -113,7 +113,7 @@ module.exports = function (req, res, url) {
                         <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
         <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
         <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
-        <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
+        <li class="menu-920"><a href="/extras/serectpage" id="nav-spotlight">Sercetpage</a></li>
         <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
         <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
         </ul>                
@@ -251,7 +251,7 @@ module.exports = function (req, res, url) {
                       <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
       <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
       <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
-      <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
+      <li class="menu-920"><a href="/extras/serectpage" id="nav-spotlight">Sercetpage</a></li>
       <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
       <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
       </ul>                
@@ -654,7 +654,7 @@ module.exports = function (req, res, url) {
                       <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
       <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
       <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
-      <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
+      <li class="menu-920"><a href="/extras/serectpage" id="nav-spotlight">Sercetpage</a></li>
       <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
       <li class="menu-79 active-trail last active"><a href="/help" id="nav-help" class="active">Help</a></li>
       </ul>                
@@ -816,7 +816,7 @@ module.exports = function (req, res, url) {
                     <ul id="nav"><li class="menu-343 active-trail first active"><a href="/home" id="nav-home" class="active">Home</a></li>
     <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
     <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
-    <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
+    <li class="menu-920"><a href="/extras/serectpage" id="nav-spotlight">Sercetpage</a></li>
     <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
     <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
     </ul>    
@@ -932,7 +932,7 @@ module.exports = function (req, res, url) {
                         <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
         <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
         <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
-        <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
+        <li class="menu-920"><a href="/extras/serectpage" id="nav-spotlight">Sercetpage</a></li>
         <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
         <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
         </ul>                
@@ -1050,7 +1050,7 @@ module.exports = function (req, res, url) {
                       <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
       <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
       <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
-      <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
+      <li class="menu-920"><a href="/extras/serectpage" id="nav-spotlight">Sercetpage</a></li>
       <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
       <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
       </ul>                
@@ -1196,7 +1196,7 @@ module.exports = function (req, res, url) {
                       <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
       <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
       <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
-      <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
+      <li class="menu-920"><a href="/extras/serectpage" id="nav-spotlight">Sercetpage</a></li>
       <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
       <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
       </ul>                
@@ -1340,7 +1340,7 @@ module.exports = function (req, res, url) {
                       <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
       <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
       <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
-      <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
+      <li class="menu-920"><a href="/extras/serectpage" id="nav-spotlight">Sercetpage</a></li>
       <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
       <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
       </ul>                
