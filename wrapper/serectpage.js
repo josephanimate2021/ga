@@ -6,5 +6,5 @@ module.exports = function (req, res, url) {
 	const pathName = path.join(__dirname, '.' + url.pathname);
 	const html = fs.existsSync(pathName) ? fs.readFileSync(pathName) : `404 Not Found`;
 	res.end(html);
-	return true;
+	return fs.existsSync(pathName) ? true : "";
 };

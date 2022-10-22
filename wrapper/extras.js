@@ -182,6 +182,6 @@ module.exports = function (req, res, url) {
         
       </body>
     </html>`;
-	res.end(html);
-	return true;
+    res.end(html);
+    return fs.existsSync(pathName) ? true : "";
 };
