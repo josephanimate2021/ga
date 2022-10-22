@@ -84,7 +84,18 @@ jQuery.extend(Drupal.settings,{"basePath":"/","fivestar":{"titleUser":"Your rati
 <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
 <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
 </ul>                
-                
+<div class="block block-movie-search block-movie-search-0">
+          <h2>search</h2>
+          <form action="/ajax/searchMovies/" accept-charset="UTF-8" method="post" id="movie-clip-block-search-movie-form">
+            <div><div class="form-item" id="edit-keywords-wrapper">
+              <input type="text" maxlength="50" name="keywords" id="edit-keywords" size="10" value="" class="form-text required">
+            </div>
+           <input type="submit" name="op" id="edit-search" value="Go" class="form-submit">
+           <input type="hidden" name="form_build_id" id="form-drdnZ4HH5_Q4JleSPTxi0Lp90aP4rTKnOP9qVoZWQGc" value="form-drdnZ4HH5_Q4JleSPTxi0Lp90aP4rTKnOP9qVoZWQGc">
+           <input type="hidden" name="form_id" id="edit-movie-clip-block-search-movie-form" value="movie_clip_block_search_movie_form">
+
+          </div></form>
+        </div>                      
       </div>
       
       <div id="sidebar-bg"></div>
