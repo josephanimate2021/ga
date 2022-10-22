@@ -21,58 +21,47 @@ module.exports = function (req, res, url) {
   switch (url.query.currentId) {
     // current starters
     case "42": {
-      id = "42";
       name = "mystery-box";
       title = "Mystery Box";
       break;
     } case "44": {
-      id = "44";
       name = "foiled";
       title = "Foiled!";
       break;
     } case "46": {
-      id = "46";
       name = "kitty-dreams";
       title = "Kitty Dreams";
       break;
     // past starters
     } case "43": {
-      id = "43";
       name = "gemjest";
       title = "Gem Jest";
       break;
     } case "45": {
-      id = "45";
       name = "run";
       title = "Run!";
       break;
     } case "47": {
-      id = "47";
       name = "fortune";
       title = "Fortune Misfortune";
       break;
     } case "48": {
-      id = "48";
       name = "surprise";
       title = "Surprise";
       break;
     } case "50": {
-      id = "50";
       name = "rock-contest";
       title = "Rock Out!";
       break;
     } case "51": {
-      id = "51";
       name = "13talks";
       title = "13 Talks";
       break;
     } case "59": {
-      id = "59";
       name = "charming13";
       title = "Charming 13";
       break;
     } default: {
-      id = "53";
       name = "idolhands";
       title = "Idol Hands";
       break;
@@ -303,112 +292,6 @@ module.exports = function (req, res, url) {
           </body>
         </html>`;
         break;
-    } case "/templateEdit": {
-      html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-      <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-local" lang="en-local" id="">
-        <head>
-      
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-          <title>Create Movie | Zimmer Twins at School</title>
-          <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Movies, Movie-Maker, Learning, Literacy, Educational, School, Free, Activities, Elementary, Primary, Eva, Edgar, Psychic, Creative, Parents, Family, zinc Roe"/>
-          <meta name="description" content="The Zimmer Twins at School website invites teachers and students to create and share their own animated stories."/>
-          <meta name="copyright" content="©2020 Lost The Plot Productions"/>
-          <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-      <link rel="shortcut icon" href="https://web.archive.org/web/20190913213951im_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/themes/zimmertwins_education/images/favicon.ico" type="image/x-icon"/>
-          <link type="text/css" rel="stylesheet" media="all" href="https://web.archive.org/web/20190913213951cs_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/css/A.css_97c345e5473bbf14caff4d84125f1008.css.pagespeed.cf.GmVhnvQXT8.css"/>
-          <!--[if IE]>
-            <link type="text/css" rel="stylesheet" media="all" href="/sites/zimmertwinsatschool.com/themes/zimmertwins_education/ie.css" />
-          <![endif]-->
-          <script type="text/javascript" src="https://web.archive.org/web/20190913213951js_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/js/js_b4b8414e9f53fe14bc2267bfc30775ab.js.pagespeed.jm.vM1isTyUh8.js"></script>
-      <script type="text/javascript">//<![CDATA[
-      jQuery.extend(Drupal.settings,{"basePath":"/","fivestar":{"titleUser":"Your rating: ","titleAverage":"Average: ","feedbackSavingVote":"Saving vote...\r\n","feedbackVoteSaved":"Rating saved.","feedbackDeletingVote":"Removing vote...","feedbackVoteDeleted":"Rating removed."},"googleanalytics":{"trackOutbound":1,"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"}});
-      //]]></script>
-        </head>
-        <body>
-          <div id="wrapper" class="clear-block">
-      
-            <div id="main">
-              
-              <div id="content-header">
-                        </div>
-              
-              <div id="content" class="clear-block">
-              
-                <h1 class="page-title">
-                  <span class="page-icon"></span>
-                  Create Movie          </h1>
-              
-                      
-                        
-                <div id="movie-clip-editor-0" class="movie-clip-editor flash">
-        
-        <input type="hidden" name="height" value="565"/>
-        <input type="hidden" name="src" value="/swfs/editor.swf"/>
-        <input type="hidden" name="width" value="760"/>
-        
-        <code class="flashvars">
-        
-          <input type="hidden" name="apiurl" value="/movie/assets/api.paid.xml"/>
-          <input type="hidden" name="asseturl" value="/movie/assets"/>
-          <input type="hidden" name="baseurl" value="${urlPrefix}://${req.headers.host}"/>
-          <input type="hidden" name="lang" value="en-local"/>
-          <input type="hidden" name="userid" value="9"/>
-          <input type="hidden" name="movieid" value=""/>
-          
-                <input type="hidden" name="starterid" value="${id}"/>
-            <input type="hidden" name="startername" value="${name}"/>
-              
-          <input type="hidden" name="playhelpmovie" value=""/>
-          
-        </code>
-      
-      </div>          
-              </div>
-              
-              <div id="content-footer" class="clear-block">
-                <div class="block block-block block-block-2">
-          <a href="http://localhost:4343/home" target="_blank"><br/><br/><img src="https://web.archive.org/web/20190913213951im_/http://zimmertwinsatschool.com/sites/zimmertwinsatschool.com/files/xRegularZTeaderboard728x90.png.pagespeed.ic.YduuUokUCR.png" alt="advertisement" height="90" width="728"/></a></div>
-              </div>
-              
-            </div>
-            
-            <div id="sidebar">
-              
-              <a id="site-logo" href="/home">
-                        </a>
-              
-                      <ul id="nav"><li class="menu-835 first"><a href="/home" id="nav-home">Home</a></li>
-      <li class="menu-837"><a href="/" id="nav-gallery">Your Movies</a></li>
-      <li class="menu-836"><a href="/templates" id="nav-make">Make A Movie</a></li>
-      <li class="menu-876 last"><a href="/help" id="nav-help">Help</a></li>
-      </ul>                
-                      
-            </div>
-            
-            <div id="sidebar-bg"></div>
-            
-            <div id="footer">
-              <span class="copyright">©2020 Lost The Plot Productions</span>
-                        <ul class="links"><li class="menu-873 first"><a href="http://localhost:4343/home" title="The Zimmer Twins">The Zimmer Twins</a></li>
-      <li class="menu-863"><a href="/membership" title="Get A Membership">Membership</a></li>
-      <li class="menu-870"><a href="/about/terms" title="Terms Of Use">Terms Of Use</a></li>
-      <li class="menu-871"><a href="/about/privacy" title="Privacy Policy">Privacy Policy</a></li>
-      <li class="menu-864"><a href="/about/conduct" title="Code Of Conduct">Code Of Conduct</a></li>
-      <li class="menu-866"><a href="/about/credits" title="Credits">Credits</a></li>
-      <li class="menu-874"><a href="/contact" title="Contact">Contact</a></li>
-      <li class="menu-867"><a href="http://localhost:4343/extras" title="Extras">Extras</a></li>
-      <li class="menu-839 last"><a href="/about" title="About The Zimmer Twins">About</a></li>
-      </ul>              </div>
-            
-          </div>
-          
-          <script type="text/javascript">//<![CDATA[
-      var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-295035-21"]);_gaq.push(["_trackPageview"]);(function(){var ga=document.createElement("script");ga.type="text/javascript";ga.async=true;ga.src=("https:"==document.location.protocol?"https://web.archive.org/web/20190913213951/https://ssl":"https://web.archive.org/web/20190913213951/http://www")+".google-analytics.com/ga.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga,s);})();
-      //]]></script>
-          
-        </body>
-      </html>`;
-      break;
     } case "/templates": {
       /* in the school edition of zimmertwins, 
       everything here is stock for school appropriate purpaces and to prevent more firewalls from being added in all schools. 
@@ -478,12 +361,12 @@ module.exports = function (req, res, url) {
           <input type="hidden" name="baseurl" value="${urlPrefix}://${req.headers.host}"/>
           <input type="hidden" name="lang" value="en-local"/>
           <input type="hidden" name="userid" value=""/>
-          <input type="hidden" name="starterid" value="${id}"/>
+          <input type="hidden" name="starterid" value="${url.query.currentId || "53"}"/>
           <input type="hidden" name="startername" value="${name}"/>
         </code>
       
       </div>	
-        <a href="/templateEdit?currentId=${id}" id="current-starter-link">Make Movie From <strong>${title}
+        <a href="/studio?templateId=${url.query.currentId || "53"}" id="current-starter-link">Make Movie From <strong>${title}
       
       </strong></a>
       </div>

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-local" lang="en-local" id="" class="js">
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>How To Make A Movie | Zimmer Twins</title>
+    <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Movies, Movie-Maker, Learning, Literacy, Educational, Free, Activities, Elementary, Primary, Eva, Edgar, Psychic, Creative, Parents, Family, zinc Roe">
+    <meta name="description" content="The Zimmer Twins website invites kids to create and share their own animated stories.">
+    <meta name="copyright" content="©2020 Lost The Plot Productions">
+    
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link type="text/css" rel="stylesheet" media="all" href="http://web.archive.org/web/20190516080120cs_/http://www.zimmertwins.com/sites/A.all,,_modules,,_contrib,,_cck,,_theme,,_content-module.css,,qo+all,,_modules,,_contrib,,_date,,_date.css,,qo+all,,_modules,,_contrib,,_og,,_theme,,_og.css,,qo+all,,_modules,,_contrib,,_pollfield,,_pollfield.css,,qo+all,,_modules,,_contrib,,_ubercart,,_uc_order,,_uc_order.css,,qo+all,,_modules,,_contrib,,_ubercart,,_uc_product,,_uc_product.css,,qo+all,,_modules,,_contrib,,_ubercart,,_uc_roles,,_uc_roles.css,,qo+all,,_modules,,_contrib,,_ubercart,,_uc_store,,_uc_store.css,,qo+all,,_modules,,_contrib,,_cck,,_modules,,_fieldgroup,,_fieldgroup.css,,qo+all,,_modules,,_contrib,,_views,,_css,,_views.css,,qo+zimmertwins.com,,_themes,,_zimmertwins,,_style.css,,qo,Mcc.ZqA5kNg5Py.css.pagespeed.cf.NDzs0fZpXb.css">
+
+
+
+
+
+
+
+
+
+
+    <!--[if IE]>
+      <link type="text/css" rel="stylesheet" media="all" href="/sites/zimmertwins.com/themes/zimmertwins/ie.css" />
+    <![endif]-->
+    <script src="http://web.archive.org/web/20190516080145js_/http://www.zimmertwins.com/misc,_jquery.js,qo+misc,_drupal.js,qo+sites,_all,_modules,_contrib,_fivestar,_js,_fivestar.js,qo+sites,_all,_modules,_contrib,_google_analytics,_googleanalytics.js,qo+sites,_all,_modules,_contrib,_og,_og.js,qo+sites,_all,_modules,_contrib,_ubercart,_uc_roles,_uc_roles.js,qo+sites,_zimmertwins.com,_themes,_zimmertwins,_jquery.flash.js,qo+sites,_zimmertwins.com,_themes,_zimmertwins,_jquery.livequery.js,qo+sites,_zimmertwins.com,_themes,_zimmertwins,_scripts.js,qo.pagespeed.jc.dKbUp59vmP.js"></script><script>eval(mod_pagespeed_pvLUIrROzy);</script>
+<script>eval(mod_pagespeed_nMe05TFCjV);</script>
+<script>eval(mod_pagespeed_FV7$Z$2NYz);</script>
+<script>eval(mod_pagespeed_rpLsmZMkp$);</script>
+<script>eval(mod_pagespeed_Ku_4HW9_SG);</script>
+<script>eval(mod_pagespeed_p9axFxECUi);</script>
+<script>eval(mod_pagespeed_t4terhz9CH);</script>
+<script>eval(mod_pagespeed_Z0T_uRoeFL);</script>
+<script type="text/javascript">//<![CDATA[
+jQuery.extend(Drupal.settings,{"basePath":"/","fivestar":{"titleUser":"Your rating: ","titleAverage":"Average: ","feedbackSavingVote":"Saving vote...\r\n","feedbackVoteSaved":"Rating saved.","feedbackDeletingVote":"Removing vote...","feedbackVoteDeleted":"Rating removed."}});
+//]]></script>
+  <body>
+      
+    <div id="wrapper" class="clear-block">
+      
+      <div id="main">
+        
+        <div id="content-header">
+                  </div>
+        
+        <div id="content" class="clear-block">
+        
+          <h1 class="page-title">
+            <span class="page-icon"></span>
+            How To Make A Movie          </h1>
+        
+                  
+                  
+          <div id="movie-clip-editor-0" class="movie-clip-editor flash flash-replaced"><embed height="565" flashvars="apiurl=%2Fmovie%2Fassets%2Ftrial.xml&amp;asseturl=%2Fmovie%2Fassets&amp;baseurl=http%3A%2F%2Flocalhost%3A4343&amp;lang=en-local&amp;userid=416896&amp;playhelpmovie=1" pluginspage="http://www.adobe.com/go/getflashplayer" src="/swfs/editor.swf" type="application/x-shockwave-flash" width="760"><div class="alt">
+  
+  
+  
+  
+  
+  
+
+</div></div>          
+        </div>
+        
+        <div id="content-footer">
+                  </div>
+        
+      </div>
+      
+      <div id="sidebar">
+        
+        <a id="site-logo" target="_blank" href="http://flashthemes.net/">
+                  </a>
+        
+                <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
+<li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
+<li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
+<li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
+<li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
+<li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
+</ul>                
+        <div class="block block-user block-user-1">
+		  <h2>
+	    JOSHGUNNER	    	  </h2>
+		<ul class="menu"><li class="leaf first"><a href="/profile/view" title="The current user&#39;s profile page.">My profile</a></li>
+<li class="leaf"><a href="/movie/user">My movies</a></li>
+<li class="leaf"><a href="/favourites" title="">My favourites</a></li>
+<li class="leaf"><a href="/account/416896/edit" title="">Edit account</a></li>
+<li class="leaf last"><a href="/logout">Log out</a></li>
+</ul></div>
+<div class="block block-movie-search block-movie-search-0">
+		  <h2>search</h2>
+		<form action="/ajax/searchMovies/" accept-charset="UTF-8" method="post" id="movie-clip-block-search-movie-form">
+<div><div class="form-item" id="edit-keywords-wrapper">
+ <input type="text" maxlength="50" name="keywords" id="edit-keywords" size="10" value="" class="form-text required">
+</div>
+<input type="submit" name="op" id="edit-search" value="Go" class="form-submit">
+<input type="hidden" name="form_build_id" id="form-drdnZ4HH5_Q4JleSPTxi0Lp90aP4rTKnOP9qVoZWQGc" value="form-drdnZ4HH5_Q4JleSPTxi0Lp90aP4rTKnOP9qVoZWQGc">
+<input type="hidden" name="form_id" id="edit-movie-clip-block-search-movie-form" value="movie_clip_block_search_movie_form">
+
+</div></form>
+</div>
+                
+      </div>
+      
+      <div id="sidebar-bg"></div>
+      
+      <div id="footer">
+        <span class="copyright">©2020 Lost The Plot Productions</span>
+                  <ul class="links"><li class="menu-924 first"><a href="/membership" title="Get A Membership">Membership</a></li>
+<li class="menu-82"><a href="/about/terms" title="">Terms Of Use</a></li>
+<li class="menu-81"><a href="/about/privacy" title="">Privacy Policy</a></li>
+<li class="menu-83"><a href="/about/conduct" title="">Code Of Conduct</a></li>
+<li class="menu-87"><a href="/about/credits" title="">Credits</a></li>
+<li class="menu-84"><a href="/about/parents" title="">Parents</a></li>
+<li class="menu-348"><a href="/contact" title="">Contact</a></li>
+<li class="menu-1343 last"><a href="/about" title="About The Zimmer Twins">About</a></li>
+</ul>              </div>
+      
+    </div>
+    
+        
+  
+
+</body></html>

@@ -15,6 +15,7 @@ const env = {
 	school_port: 80,
 	MOVIE_FOLDER: path.join(__dirname, "./files/movies"),
 	STARTER_FOLDER: path.join(__dirname, "./files/starters"),
+	TITLES_FOLDER: path.join(__dirname, "./files/titles"),
 	DATABASES_FOLDER: path.join(__dirname, "./files/assets/meta"),
 	FILES_FOLDER: path.join(__dirname, "./files"),
 	HOME_HTML: '<a href="/">Home</a><br><br>',
@@ -27,6 +28,7 @@ else env.node_env = "production";
 fs.writeFileSync(envFile, JSON.stringify(env));
 fs.writeFileSync(envFile.slice(0, -16) + "server/env.json", JSON.stringify(env));
 if (!fs.existsSync(env.MOVIE_FOLDER)) fs.mkdirSync(env.MOVIE_FOLDER);
+if (!fs.existsSync(env.TITLES_FOLDER)) fs.mkdirSync(env.TITLES_FOLDER);
 Object.assign(process.env, require(envFile.slice(0, -5)));
 // start the server
 require(envFile.slice(0, -8) + "server");

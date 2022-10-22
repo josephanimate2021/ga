@@ -5,7 +5,7 @@ const fUtil = require("../fileUtil");
 const dbFolder = env.DATABASES_FOLDER;
 const fs = require("fs");
 const formidable = require("formidable");
-const { url } = require("inspector");
+const path = require("path");
 const home = process.env.HOME_HTML;
 
 function toAttrString(data) {
@@ -119,7 +119,15 @@ module.exports = function (req, res, url) {
       return true;
     } case "POST": {
       switch (req.url) {
-        case "/movie/upload": {
+        case "/ajax/searchMovies/": {
+          new formidable.IncomingForm().parse(req, (e, f, files) => {
+            if (e) return;
+            res.statusCode = 302;
+            res.setHeader("Location", `/movie/search?q=${f.keywords}`);
+            res.end();
+          });
+          return true;
+        } case "/movie/upload": {
           new formidable.IncomingForm().parse(req, (e, f, files) => {
             if (e || !files.import) return;
             const path = files.import.path;
@@ -163,10 +171,7 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
-              // reload cuz i don't know the real ending lol
-	      res.statusCode = 302;
-	      res.setHeader("Location", `/studio?movieId=${params.meta.movieid}`);
-              res.end();
+              res.end(params.meta.movieid);
             } else {
               const params = {
                 meta: {
@@ -185,10 +190,8 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
-              // reload cuz i don't know the real ending lol
-	      res.statusCode = 302;
-	      res.setHeader("Location", `/studio?movieId=${params.meta.movieid}`);
-              res.end();
+              fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.json`, JSON.stringify(params.meta));
+              res.end(params.meta.movieid);
             }
           });
           return true;

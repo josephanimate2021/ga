@@ -36,7 +36,121 @@ module.exports = function (req, res, url) {
     }
   }</script>`;
   switch (url.pathname) {
-    case "/movie/welcome": {
+    case "/movie/search": {
+      movie.search(url.query.q).then(files => {
+        res.setHeader("Content-Type", "text/html; charset=utf8");
+        res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-local" lang="en-local" id="page-movie-clip-search-results">
+          <head>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <title>Search For Movies | Zimmer Twins</title>
+            <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Movies, Movie-Maker, Learning, Literacy, Educational, Free, Activities, Elementary, Primary, Eva, Edgar, Psychic, Creative, Parents, Family, zinc Roe"/>
+            <meta name="description" content="The Zimmer Twins website invites kids to create and share their own animated stories."/>
+            <meta name="copyright" content="©2020 Lost The Plot Productions"/>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="shortcut icon" href="https://web.archive.org/web/20120915212352im_/http://www.zimmertwins.com/sites/zimmertwins.com/themes/zimmertwins/images/favicon.ico" type="image/x-icon"/>
+            <link type="text/css" rel="stylesheet" media="all" href="https://web.archive.org/web/20120915212352cs_/http://www.zimmertwins.com/sites/zimmertwins.com/files/css/css_3e27a0283c32f6923ebf4d3d6946a037.css"/>
+            <!--[if IE]>
+              <link type="text/css" rel="stylesheet" media="all" href="/sites/zimmertwins.com/themes/zimmertwins/ie.css" />
+            <![endif]-->
+            <script type="text/javascript" src="https://web.archive.org/web/20120915212352js_/http://www.zimmertwins.com/sites/zimmertwins.com/files/js/js_3167cd6c9b1cd1a9799552e87027261b.js"></script>
+        <script type="text/javascript">
+        <!--//--><![CDATA[//><!--
+        jQuery.extend(Drupal.settings, { "basePath": "/", "fivestar": { "titleUser": "Your rating: ", "titleAverage": "Average: ", "feedbackSavingVote": "Saving vote...\r\n", "feedbackVoteSaved": "Rating saved.", "feedbackDeletingVote": "Removing vote...", "feedbackVoteDeleted": "Rating removed." }, "googleanalytics": { "trackMailto": 1, "trackDownload": 1, "trackDownloadExtensions": "7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip" } });
+        //--><!]]>
+        </script>
+        ${script}
+          </head>
+          <body>
+              
+            <div id="wrapper" class="clear-block">
+              
+              <div id="main">
+                
+                <div id="content-header">
+                          </div>
+                
+                <div id="content" class="clear-block">
+                
+                  <h1 class="page-title">
+                    <span class="page-icon"></span>
+                    Search For Movies          </h1>
+                
+                          
+                          
+            
+        
+          
+                  
+            
+          
+        
+        <ol class="movie-clip-search-results">${
+          files.map(
+            v => `${
+              v
+            }`
+          ).join(
+            ''
+          ) || "<h3>No movies are found. <a href='javascript:apiVerSelectForStudio()'>Create</a> | <a href='/upload?type=movie'>Upload</a></h3>"
+        }</ol>
+        
+        
+                  
+                </div>
+                
+                <div id="content-footer">
+                          </div>
+                
+              </div>
+              
+              <div id="sidebar">
+                
+                <a id="site-logo" href="/home">
+                          </a>
+                
+                        <ul id="nav"><li class="menu-343 first"><a href="/home" id="nav-home">Home</a></li>
+        <li class="menu-345"><a href="/" id="nav-watch">Watch A Movie</a></li>
+        <li class="menu-344"><a href="/templates" id="nav-make">Make A Movie</a></li>
+        <li class="menu-920"><a href="/spotlight" id="nav-spotlight">Spotlight</a></li>
+        <li class="menu-347"><a href="/extras" id="nav-extras">Extras</a></li>
+        <li class="menu-79 last"><a href="/help" id="nav-help">Help</a></li>
+        </ul>                
+                        
+              </div>
+              
+              <div id="sidebar-bg"></div>
+              
+              <div id="footer">
+                <span class="copyright">©2020 Lost The Plot Productions</span>
+                          <ul class="links"><li class="menu-924 first"><a href="/membership" title="Get A Membership">Membership</a></li>
+        <li class="menu-82"><a href="/about/terms" title="">Terms Of Use</a></li>
+        <li class="menu-81"><a href="/about/privacy" title="">Privacy Policy</a></li>
+        <li class="menu-83"><a href="/about/conduct" title="">Code Of Conduct</a></li>
+        <li class="menu-87"><a href="/about/credits" title="">Credits</a></li>
+        <li class="menu-84"><a href="/about/parents" title="">Parents</a></li>
+        <li class="menu-348"><a href="/contact" title="">Contact</a></li>
+        <li class="menu-1343 last"><a href="/about" title="About The Zimmer Twins">About</a></li>
+        </ul>              </div>
+              
+            </div>
+            
+            <script type="text/javascript">
+        <!--//--><![CDATA[//><!--
+        var _gaq = _gaq || [];_gaq.push(["_setAccount", "UA-295035-15"]);_gaq.push(["_setVar", "anonymous user"]);_gaq.push(['_setCustomVar', 1, "User roles", "anonymous user", 1]);_gaq.push(["_trackPageview"]);(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = ("https:" == document.location.protocol ? "https://web.archive.org/web/20120915212352/https://ssl" : "https://web.archive.org/web/20120915212352/http://www") + ".google-analytics.com/ga.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();
+        //--><!]]>
+        </script>
+            
+          </body>
+        </html>`);
+      }).catch(e => { res.statusCode = 500, console.log(e), res.end(`<html><head><script>function redir() {
+        window.open('/err?mesg=${
+          e
+        }', 'MsgWindow', 'width=1280,height=723,left=' + (screen.width / 2 - 640) + ',top=' + (screen.height / 2 - 360));
+      }</script></head><body onload="redir()"></body></html>`) });
+      return true;
+    } case "/movie/welcome": {
       html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-local" lang="en-local" id="page-welcome">
         <head>
