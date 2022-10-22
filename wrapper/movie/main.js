@@ -37,7 +37,6 @@ module.exports = {
                         
         </li>`);
         });
-        console.log(table);
         res(table);
       });
     },

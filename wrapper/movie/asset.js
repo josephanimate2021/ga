@@ -6,6 +6,7 @@ const dbFolder = env.DATABASES_FOLDER;
 const fs = require("fs");
 const formidable = require("formidable");
 const path = require("path");
+const { fileString } = require("../fileUtil");
 const home = process.env.HOME_HTML;
 
 function toAttrString(data) {
@@ -42,6 +43,8 @@ module.exports = function (req, res, url) {
           return true;
         } case "/movie/delete": {
           const id = url.query.movieId;
+          const title = fs.readFileSync(env.DATABASES_FOLDER + `/${id}-title.txt`);
+          fs.unlinkSync(process.env.TITLES_FOLDER + `/${title}.json`);
           if (fUtil.exists(env.MOVIE_FOLDER + `/${id}.txt`)) fs.unlinkSync(env.MOVIE_FOLDER + `/${id}.txt`);
           if (!fUtil.exists(env.STARTER_FOLDER + `/${id}.txt`)) {
             if (fUtil.exists(env.DATABASES_FOLDER + `/${id}-title.txt`)) fs.unlinkSync(env.DATABASES_FOLDER + `/${id}-title.txt`);
