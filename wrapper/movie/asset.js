@@ -71,6 +71,15 @@ module.exports = function (req, res, url) {
               } case "281144": {
                 name = "gemjest";
                 break;
+              } case "344704": {
+                name = "surprise";
+                break;
+              } case "344709": {
+                name = "idolhands";
+                break;
+              } case "344711": {
+                name = "wheres13";
+                break;
               }
             }
             res.statusCode = 302;

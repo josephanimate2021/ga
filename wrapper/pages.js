@@ -308,6 +308,7 @@ module.exports = function (req, res, url) {
       </li>
       </ul>
       
+      <a id="make-from-scratch" href="/templates${!url.query.id ? "" : `?id=${url.query.id}`}">Load More Starters</a>
       <a id="make-from-scratch" href="/studio">Make From Scratch</a>
       <a id="how-to-make" href="/studio?howto=1">How To Make A Movie</a>
       
@@ -574,6 +575,249 @@ module.exports = function (req, res, url) {
         </div>
       </div>
  			</div>
+      
+            <div id="sidebar">
+              <a id="logo" href="/">Zimmer Twins</a>
+              <ul id="nav">
+                <li id="nav-home"><a href="">home</a></li>
+      <li id="nav-watch"><a href="movie">watch</a></li>
+      <li id="nav-make"><a href="starters">make</a></li>
+      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-extras"><a href="extras">extras</a></li>
+      <li id="nav-help"><a href="help">help</a></li>
+              </ul>
+      <div id="quick-search">
+        <h3>search</h3>
+        <form action="movie/search" method="post"><input type="text" class="form-text" name="edit[keys]" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
+      </form>
+      </div>
+                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+      
+            </div>
+            <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
+             
+          </div>
+          <div id="footer">
+            <ul>
+              <li><a>&copy;2006 Lost The Plot</a></li>
+              <li><a href="about/terms">terms of use</a></li>
+      <li><a href="about/privacy">privacy policy</a></li>
+      <li><a href="about/conduct">code of conduct</a></li>
+      <li><a href="about/parents">parents</a></li>
+      <li><a href="about/contact">contact</a></li>
+      <li><a href="about/credits">credits</a></li>
+            </ul>
+          </div>
+        </body>
+      
+      </html>`);
+      return true;
+    } case "/templates": {
+      var name, title;
+      var id = url.query.id;
+      switch (url.query.id) {
+        case "344704": {
+          name = "surprise";
+          title = "Suprise";
+          break;
+        } case "344709": {
+          name = "idolhands";
+          title = "Idol Hands";
+          break;
+        } case "199947": {
+          name = "charming13";
+          title = "Charming 13";
+          break;
+        } case "199946": {
+          name = "rock-contest";
+          title = "Rock Out!";
+          break;
+        } case "199944": {
+          name = "13talks";
+          title = "13 Talks";
+          break;
+        } case "16684": {
+          name = "kitty-dreams";
+          title = "Kitty Dreams";
+          break;
+        } case "16683": {
+          name = "foiled";
+          title = "Foiled!";
+          break;
+        } case "16682": {
+          name = "mystery-box";
+          title = "Mystery Box";
+          break;
+        } case "8": {
+          name = "zapped";
+          title = "Zapped";
+          break;
+        } case "7": {
+          name = "misfortune";
+          title = "Misfortune";
+          break;
+        } case "281145": {
+          name = "fortune";
+          title = "Fortune Misfortune";
+          break;
+        } case "3": {
+          name = "joyride";
+          title = "Joyride";
+          break;
+        } case "281136": {
+          name = "run";
+          title = "Run!";
+          break;
+        } default: {
+          id = "344711"
+          name = "wheres13";
+          title = "Where's 13?";
+          break;
+        }
+      }
+      if (url.query.name == "joyride") title = "Joyride";
+      res.setHeader("Content-Type", "text/html; charset=utf8");
+      res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local" id="make">
+        <head>
+      
+          <title>Make a Movie | Zimmer Twins</title>
+          <base href="${urlPrefix}://${req.headers.host}/"/>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+          <meta http-equiv="content-language" content="en-local"/>
+          <meta name="description" content=""/>
+          <meta name="keywords" content=""/>
+          <meta name="copyright" content="(c)2006 Lost The Plot Productions"/>
+      
+          <meta name="robots" content="all"/>
+          <meta http-equiv="imagetoolbar" content="no"/>
+          <link rel="shortcut icon" href="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/favicon.ico" type="image/x-icon"/>
+          <script type="text/javascript" src="https://web.archive.org/web/20070317063626js_/http://www.zimmertwins.ca/themes/zimmertwins/js/shared.js"></script>
+                      <script src="https://web.archive.org/web/20070317063626js_/http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+            <script type="text/javascript">
+              _uacct = "UA-295035-5";
+              urchinTracker();
+            </script>		
+                    <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070317063626cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
+          <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
+        </head>
+        <body class="en-local">
+          <div id="wrapper">
+            <div id="content">
+                      <h1><span>Make a Movie</span></h1>
+                                              <!-- begin content -->
+      <div id="player">
+        
+      <div id="player-container">
+      <script type="text/javascript">
+      var so = new SWFObject(
+      "/files/player.swf",
+      "player-container-flash",
+      "436",
+      "330",
+      "8",
+      "#734c11",
+      true
+      );
+      so.addVariable("baseurl","${urlPrefix}://${req.headers.host}");
+      so.addVariable("asseturl","/files");
+      so.addVariable("startername","${url.query.name || name}");
+      so.addVariable("lang","en-local");
+      so.write("player-container");
+      </script>
+      </div>
+        <h2><a href="/studio?templateId=${id}">Make Movie From <span>${title}</span></a></h2>
+      </div>
+      
+      <p id="teaser">
+      Pick a starter and<br/>make a movie!</p>
+      <ul id="new-starters" class="movie-list new-starter">
+        <li>  
+        <a href="/templates?id=344704"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/surprise.png" alt="Suprise"/></a>  <dl>
+          <dt><a href="/templates?id=344704">Suprise</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=344709"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/idolhands.png" alt="Idol Hands"/></a>  <dl>
+          <dt><a href="/templates?id=344709">Idol Hands</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=344711"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/wheres13.png" alt="Where's 13?"/></a>  <dl>
+          <dt><a href="/templates?id=344711">Where&#039;s 13?</a></dt>
+        </dl>
+      </li>
+      </ul>
+      
+      <a id="make-from-scratch" href="/starters${!url.query.id ? "" : `?id=${url.query.id}`}">Load Less Starters</a>
+      <a id="make-from-scratch" href="/studio">Make From Scratch</a>
+      <a id="how-to-make" href="/studio?howto=true">How To Make A Movie</a>
+      
+      <h3>Past Starters</h3>
+      <ul id="past-starters" class="movie-list past-starter">
+        <li>  
+        <a href="/templates?id=3"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/joyride.png" alt="Joyride"/></a>  <dl>
+          <dt><a href="/templates?name=joyride">Joyride</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=7"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/misfortune.png" alt="Misfortune"/></a>  <dl>
+          <dt><a href="/templates?id=7">Misfortune</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=8" class="active"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/zapped.png" alt="Zapped"/></a>  <dl>
+          <dt><a href="/templates?id=8">Zapped</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=16682"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/mystery-box.png" alt="Mystery Box"/></a>  <dl>
+          <dt><a href="/templates?id=16682">Mystery Box</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=16683"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/foiled.png" alt="Foiled!"/></a>  <dl>
+          <dt><a href="/templates?id=16683">Foiled!</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=16684"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/kitty-dreams.png" alt="Kitty Dreams"/></a>  <dl>
+          <dt><a href="/templates?id=16684">Kitty Dreams</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=199944"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/13talks.png" alt="13 Talks"/></a>  <dl>
+          <dt><a href="/templates?id=199944">13 Talks</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=199946"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/rock-contest.png" alt="Rock Out!"/></a>  <dl>
+          <dt><a href="/templates?id=199946">Rock Out!</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=199947"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/charming13.png" alt="Charming 13"/></a>  <dl>
+          <dt><a href="/templates?id=199947">Charming 13</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=281136"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/running-scared.png" alt="Run!"/></a>  <dl>
+          <dt><a href="/templates?id=281136">Run!</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=281144"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/gemjest.png" alt="Gem Jest"/></a>  <dl>
+          <dt><a href="/templates?id=281144">Gem Jest</a></dt>
+        </dl>
+      </li>
+        <li>  
+        <a href="/templates?id=281145"><img src="https://web.archive.org/web/20070317063626im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/fortune.png" alt="Fortune Misfortune"/></a>  <dl>
+          <dt><a href="/templates?id=281145">Fortune Misfortune</a></dt>
+        </dl>
+      </li>
+      </ul>
+      <!-- end content -->			</div>
       
             <div id="sidebar">
               <a id="logo" href="/">Zimmer Twins</a>
