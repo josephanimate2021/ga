@@ -6,11 +6,11 @@ const env = process.env;
 
 // basic utilities
 const movie = require("./movie/asset");
-const serectpage = require("./serectpage");
-const extras = require("./extras");
+const serectpage = require("./themes");
+const extras = require("./files");
 const swf = require("./movie/swf");
 const pages = require("./pages");
-const crossdomain = require("./crossdomain");
+const crossdomain = require("./favicon");
 
 const utilities = [
   serectpage,
