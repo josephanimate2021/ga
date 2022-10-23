@@ -33,7 +33,6 @@ module.exports = function (req, res, url) {
           const mId = url.query.movieId;
           if (fUtil.exists(env.DATABASES_FOLDER + `/${mId}-starter.txt`)) {
             const id = fs.readFileSync(env.DATABASES_FOLDER + `/${mId}-starter.txt`, 'utf8');
-            console.log(id);
             var name;
             switch (id) {
               case "199947": {
@@ -207,13 +206,13 @@ module.exports = function (req, res, url) {
               console.log(e); 
               return;
             }
-            if (fs.existsSync(env.DATABASES_FOLDER + `/movieIdSection.json`)) {
-              const idMeta = require(env.DATABASES_FOLDER + `/movieIdSection.json`);
+            if (fs.existsSync(env.DATABASES_FOLDER + `/movieIdSection.txt`)) {
+              const id = fs.readFileSync(env.DATABASES_FOLDER + `/movieIdSection.txt`, 'utf8');
               var user;
-              if (fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-user.txt`)) {
-                user = fs.readFileSync(env.DATABASES_FOLDER + `/${idMeta.id}-user.txt`) 
-              } else if (fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-owner.txt`)) {
-                user = fs.readFileSync(env.DATABASES_FOLDER + `/${idMeta.id}-owner.txt`) 
+              if (fs.existsSync(env.DATABASES_FOLDER + `/${id}-user.txt`)) {
+                user = fs.readFileSync(env.DATABASES_FOLDER + `/${id}-user.txt`) 
+              } else if (fs.existsSync(env.DATABASES_FOLDER + `/${id}-owner.txt`)) {
+                user = fs.readFileSync(env.DATABASES_FOLDER + `/${id}-owner.txt`) 
               } else user = "";
               const params = {
                 meta: {
@@ -224,7 +223,7 @@ module.exports = function (req, res, url) {
                   title: f.title,
                   moviexml: f.moviexml,
                   lang: f.lang,
-                  movieid: idMeta.id,
+                  movieid: id,
                   userid: f.userid
                 }
               };

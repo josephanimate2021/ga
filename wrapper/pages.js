@@ -405,12 +405,10 @@ module.exports = function (req, res, url) {
           fs.unlinkSync(process.env.DATABASES_FOLDER + `/starterIdSection.txt`);
         }
       }
-      if (url.query.movieId) fs.writeFileSync(process.env.DATABASES_FOLDER + `/movieIdSection.json`, JSON.stringify({
-        id: url.query.movieId
-      }));
+      if (url.query.movieId) fs.writeFileSync(process.env.DATABASES_FOLDER + `/movieIdSection.txt`, url.query.movieId);
       else {
-        if (fs.existsSync(process.env.DATABASES_FOLDER + `/movieIdSection.json`)) {
-          fs.unlinkSync(process.env.DATABASES_FOLDER + `/movieIdSection.json`);
+        if (fs.existsSync(process.env.DATABASES_FOLDER + `/movieIdSection.txt`)) {
+          fs.unlinkSync(process.env.DATABASES_FOLDER + `/movieIdSection.txt`);
         }
       }
       res.setHeader("Content-Type", "text/html; charset=utf8");
@@ -570,7 +568,7 @@ module.exports = function (req, res, url) {
         <div id="actions">
           <ul class="movie-actions">
                     <li class="flag"><a href="/movie/delete?movieId=${url.query.id}">Delete</a></li>
-                        <li class="share"><a href="/files/movies/${url.query.id}.txt" download="${title}.txt">Download</a></li>
+                        <li class="share"><a onclick="alert('While downloading this movie, everything will not be in it. Please be aware of that. if you are going to unpack this movie here, you will have to save it inside the studio while it loads after the movie has been unpacked here while you upload it using the movie upload feature that is here.')" href="/files/movies/${url.query.id}.txt" download="${title}.txt">Download</a></li>
                     <li class="collabowrite"><a href="/studio?movieId=${url.query.id}">Edit</a></li>
                       </ul>
         </div>
