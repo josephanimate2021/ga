@@ -29,6 +29,60 @@ module.exports = function (req, res, url) {
   switch (req.method) {
     case "GET": {
       switch (url.pathname) {
+        case "/ajax/movieStarterCheck": {
+          const mId = url.query.movieId;
+          if (fUtil.exists(process.env.DATABASES_FOLDER + `/${mId}-starter.json`)) {
+            const meta = require(process.env.DATABASES_FOLDER + `/${mId}-starter.json`);
+            var name;
+            switch (meta.starterid) {
+              case "199947": {
+                name = "charming13";
+                break;
+              } case "199946": {
+                name = "rock-contest";
+                break;
+              } case "199944": {
+                name = "13talks";
+                break;
+              } case "16684": {
+                name = "kitty-dreams";
+                break;
+              } case "16683": {
+                name = "foiled";
+                break;
+              } case "16682": {
+                name = "mystery-box";
+                break;
+              } case "8": {
+                name = "zapped";
+                break;
+              } case "7": {
+                name = "misfortune";
+                break;
+              } case "281145": {
+                name = "fortune";
+                break;
+              } case "3": {
+                name = "joyride";
+                break;
+              } case "281136": {
+                name = "run";
+                break;
+              } case "281144": {
+                name = "gemjest";
+                break;
+              }
+            }
+            res.statusCode = 302;
+            res.setHeader("Location", `/node?id=${mId}&name=${name}`);
+            res.end();
+          } else {
+            res.statusCode = 302;
+            res.setHeader("Location", `/node?id=${mId}`);
+            res.end();
+          }
+          return true;
+        }
         case "/ajax/firstTimeCheck": {
           const begVer = "?version=";
           const ver = url.query.ver ? begVer + url.query.ver : "";
@@ -49,12 +103,12 @@ module.exports = function (req, res, url) {
             if (fUtil.exists(env.DATABASES_FOLDER + `/${id}-title.txt`)) fs.unlinkSync(env.DATABASES_FOLDER + `/${id}-title.txt`);
             if (fUtil.exists(env.DATABASES_FOLDER + `/${id}-desc.txt`)) fs.unlinkSync(env.DATABASES_FOLDER + `/${id}-desc.txt`);
           }
+          if (fUtil.exists(env.DATABASES_FOLDER + `/${id}-starter.txt`)) fs.unlinkSync(env.DATABASES_FOLDER + `/${id}-starter.txt`);
           res.statusCode = 302;
-          res.setHeader("Location", "/");
+          res.setHeader("Location", "/movie");
           res.end();
           return true;
-        }
-        case "/movie/fetch": {
+        } case "/movie/fetch": {
           // if there is no id, fetch a random movie id and use it as the only starter.
           if (!url.query.movieid) {
             const id = "1734613";
@@ -164,7 +218,6 @@ module.exports = function (req, res, url) {
                 meta: {
                   action: f.action,
                   thumbid: f.thumbid,
-                  starterid: f.starterid || '',
                   description: f.description,
                   username: user,
                   title: f.title,
@@ -178,13 +231,42 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
+              fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.json`, JSON.stringify(params.meta));
+              res.end(params.meta.movieid);
+            } else if (fs.existsSync(env.DATABASES_FOLDER + `/starterIdSection.json`)) {
+              const idMeta = require(env.DATABASES_FOLDER + `/starterIdSection.json`);
+              var user;
+              if (fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-user.txt`)) {
+                user = fs.readFileSync(env.DATABASES_FOLDER + `/${idMeta.id}-user.txt`) 
+              } else if (fs.existsSync(env.DATABASES_FOLDER + `/${idMeta.id}-owner.txt`)) {
+                user = fs.readFileSync(env.DATABASES_FOLDER + `/${idMeta.id}-owner.txt`) 
+              } else user = "";
+              const params = {
+                meta: {
+                  action: f.action,
+                  thumbid: f.thumbid,
+                  starterid: idMeta.id,
+                  description: f.description,
+                  username: user,
+                  title: f.title,
+                  moviexml: f.moviexml,
+                  lang: f.lang,
+                  movieid: fUtil.makeid(7),
+                  userid: f.userid
+                }
+              };
+              console.log(params.meta.movieid);
+              fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
+              fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
+              fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
+              fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-starter.json`, JSON.stringify(params.meta));
+              fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.json`, JSON.stringify(params.meta));
               res.end(params.meta.movieid);
             } else {
               const params = {
                 meta: {
                   action: f.action,
                   thumbid: f.thumbid,
-                  starterid: f.starterid || '',
                   description: f.description,
                   title: f.title,
                   moviexml: f.moviexml,

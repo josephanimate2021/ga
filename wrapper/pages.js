@@ -320,42 +320,42 @@ module.exports = function (req, res, url) {
       </li>
         <li>  
         <a href="/starters?id=7"><img src="https://web.archive.org/web/20061023094045im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/misfortune.png" alt="Misfortune"/></a>  <dl>
-          <dt><a href="/node?id=7">Misfortune</a></dt>
+          <dt><a href="/starters?id=7">Misfortune</a></dt>
         </dl>
       </li>
         <li>  
         <a href="/starters?id=8"><img src="https://web.archive.org/web/20061023094045im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/zapped.png" alt="Zapped"/></a>  <dl>
-          <dt><a href="/node?id=8">Zapped</a></dt>
+          <dt><a href="/starters?id=8">Zapped</a></dt>
         </dl>
       </li>
         <li>  
         <a href="/starters?id=16682"><img src="https://web.archive.org/web/20061023094045im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/mystery-box.png" alt="Mystery Box"/></a>  <dl>
-          <dt><a href="/node?id=16682">Mystery Box</a></dt>
+          <dt><a href="/starters?id=16682">Mystery Box</a></dt>
         </dl>
       </li>
         <li>  
         <a href="/starters?id=16683"><img src="https://web.archive.org/web/20061023094045im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/foiled.png" alt="Foiled!"/></a>  <dl>
-          <dt><a href="/node?id=16683">Foiled!</a></dt>
+          <dt><a href="/starters?id=16683">Foiled!</a></dt>
         </dl>
       </li>
         <li>  
         <a href="/starters?id=16684"><img src="https://web.archive.org/web/20061023094045im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/kitty-dreams.png" alt="Kitty Dreams"/></a>  <dl>
-          <dt><a href="/node?id=16684">Kitty Dreams</a></dt>
+          <dt><a href="/starters?id=16684">Kitty Dreams</a></dt>
         </dl>
       </li>
         <li>  
         <a href="/starters?id=199944"><img src="https://web.archive.org/web/20061023094045im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/13talks.png" alt="13 Talks"/></a>  <dl>
-          <dt><a href="/node?id=199944">13 Talks</a></dt>
+          <dt><a href="/starters?id=199944">13 Talks</a></dt>
         </dl>
       </li>
         <li>  
         <a href="/starters?id=199946"><img src="https://web.archive.org/web/20061023094045im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/rock-contest.png" alt="Rock Out!"/></a>  <dl>
-          <dt><a href="/node?id=199946">Rock Out!</a></dt>
+          <dt><a href="/starters?id=199946">Rock Out!</a></dt>
         </dl>
       </li>
         <li>  
         <a href="/starters?id=199947"><img src="https://web.archive.org/web/20061023094045im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/charming13.png" alt="Charming 13"/></a>  <dl>
-          <dt><a href="/node?id=199947">Charming 13</a></dt>
+          <dt><a href="/starters?id=199947">Charming 13</a></dt>
         </dl>
       </li>
       </ul>
@@ -399,6 +399,22 @@ module.exports = function (req, res, url) {
       </html>`);
       return true;
     } case "/studio": {
+      if (url.query.templateId) fs.writeFileSync(process.env.DATABASES_FOLDER + `/starterIdSection.json`, JSON.stringify({
+        id: url.query.templateId
+      }));
+      else {
+        if (fs.existsSync(process.env.DATABASES_FOLDER + `/starterIdSection.json`)) {
+          fs.unlinkSync(process.env.DATABASES_FOLDER + `/starterIdSection.json`);
+        }
+      }
+      if (url.query.movieId) fs.writeFileSync(process.env.DATABASES_FOLDER + `/movieIdSection.json`, JSON.stringify({
+        id: url.query.movieId
+      }));
+      else {
+        if (fs.existsSync(process.env.DATABASES_FOLDER + `/movieIdSection.json`)) {
+          fs.unlinkSync(process.env.DATABASES_FOLDER + `/movieIdSection.json`);
+        }
+      }
       res.setHeader("Content-Type", "text/html; charset=utf8");
       res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local" id="movie-create">
@@ -490,11 +506,10 @@ module.exports = function (req, res, url) {
       </html>`);
       return true;
     } case "/node": {
-      if (!fs.existsSync(process.env.DATABASES_FOLDER + `/${url.query.id}-title.txt`)) {
-        res.end('Content Not Found');
-        return;
-      }
-      const title = fs.readFileSync(process.env.DATABASES_FOLDER + `/${url.query.id}-title.txt`);
+      var title;
+      if (!fs.existsSync(process.env.DATABASES_FOLDER + `/${url.query.id}-title.txt`)) title = "Video Player";
+      else title = fs.readFileSync(process.env.DATABASES_FOLDER + `/${url.query.id}-title.txt`);
+      const f = !url.query.id ? ` onload="hideActions()"` : "";
       res.setHeader("Content-Type", "text/html; charset=utf8");
       res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local" id="movie-watch">
@@ -516,11 +531,14 @@ module.exports = function (req, res, url) {
           <script type="text/javascript">
             _uacct = "UA-295035-5";
             urchinTracker();
-          </script>		
+          </script><script>function hideActions() { 
+            document.getElementById("actions").style.display = "none";
+            document.getElementById("info").style.display = "none"; 
+          }</script>	
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061023093418cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
-        <body class="en-local">
+        <body${f} class="en-local">
           <div id="wrapper">
             <div id="content">
                       <h1><span>${title}</span></h1>

@@ -1,6 +1,7 @@
 files/movies/*
 files/starters/*
 files/assets/*
+files/titles/*
 node_modules/*
 wrapper/env.json
 server/env.json

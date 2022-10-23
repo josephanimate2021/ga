@@ -44,8 +44,8 @@ module.exports = {
         fs.readdirSync(process.env.MOVIE_FOLDER).forEach(file => {
             const id = file.slice(0, -4);
             if (fs.existsSync(process.env.MOVIE_FOLDER + `/${file}`)) table.unshift({html: `<li>
-            <a href="/node?id=${id}"><img src="https://web.archive.org/web/20061023094121im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/edgar_finds_backyard.png"/></a>		<dl>
-              <dt><a href="/node?id=${id}">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}</a></dt>
+            <a href="/ajax/movieStarterCheck?movieId=${id}"><img src="https://web.archive.org/web/20061023094121im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/edgar_finds_backyard.png"/></a>		<dl>
+              <dt><a href="/ajax/movieStarterCheck?movieId=${id}">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}</a></dt>
             </dl>
           </li>`});
         });
@@ -56,8 +56,8 @@ module.exports = {
       fs.readdirSync(process.env.MOVIE_FOLDER).forEach(file => {
           const id = file.slice(0, -4);
           if (fs.existsSync(process.env.MOVIE_FOLDER + `/${file}`)) table.unshift({html: `<li>
-          <a href="/node?id=${id}"><img src="https://web.archive.org/web/20070111205335im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/eva_teleports_jungle.png"/></a>		<dl>
-            <dt><a href="/node?id=${id}">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}</a></dt>
+          <a href="/ajax/movieStarterCheck?movieId=${id}"><img src="https://web.archive.org/web/20070111205335im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/eva_teleports_jungle.png"/></a>		<dl>
+            <dt><a href="/ajax/movieStarterCheck?movieId=${id}">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}</a></dt>
           </dl>
         </li>`});
       });
