@@ -177,11 +177,6 @@ module.exports = function (req, res, url) {
           return true;
         }
       }
-      const match = req.url.match(/\/movie\/assets\/([^/]+)$/);
-      if (!match) return;
-      const file = match[1];
-      get(`${env.SWF_URL}/${file}`).then(b => res.end(b)).catch(e => console.log(e));
-      return true;
     } case "POST": {
       switch (req.url) {
         case "/ajax/searchMovies/": {
