@@ -182,9 +182,23 @@ module.exports = function (req, res, url) {
         case "/ajax/searchMovies/": {
           new formidable.IncomingForm().parse(req, (e, f) => {
             if (e) return;
-            res.statusCode = 302;
-            res.setHeader("Location", `/movie/search?q=${f.keywords}`);
-            res.end();
+            f.type ||= "all";
+            console.log(f);
+            const result = f.q;
+            const type = f.type;
+            switch (type) {
+              case "contains-starters": {
+                res.statusCode = 302;
+                res.setHeader("Location", `/search?q=${result}&filters=${type}`);
+                res.end();
+                break;
+              } case "all": {
+                res.statusCode = 302;
+                res.setHeader("Location", `/search?q=${result}`);
+                res.end();
+                break;
+              }
+            }
           });
           return true;
         } case "/movie/upload": {

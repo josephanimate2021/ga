@@ -5,8 +5,6 @@ movie = require("./movie/main")
 
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
-  var html;
-
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
   switch (url.pathname) {
     case "/movie/frontpage":
@@ -65,7 +63,7 @@ module.exports = function (req, res, url) {
       
       <div id="movies">
       <h3>Your Movies</h3>
-      <ul class="movie-list mustsee">${files.map(v => v.html) || "<li><p>Nothing to see here.</p></li>"}</ul>
+      <ul class="movie-list mustsee">${files.map(v => v.html) || "<h3>Nothing to see here.</h3>"}</ul>
       </div>
       <!-- end content -->			</div>
       
@@ -81,7 +79,7 @@ module.exports = function (req, res, url) {
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="movie/search" method="post"><input type="text" class="form-text" name="edit[keys]" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
@@ -139,7 +137,7 @@ module.exports = function (req, res, url) {
                       <h1><span>Watch a Movie</span></h1>
                                               <!-- begin content -->
       
-      <ul class="movie-list now-showing">${files.map(v => v.html) || "<li><p>Nothing to see here.</p></li>"}</ul>
+      <ul class="movie-list now-showing">${files.map(v => v.html) || "<h3>Nothing to see here.</h3>"}</ul>
       <!-- end content -->			</div>
       
             <div id="sidebar">
@@ -154,7 +152,7 @@ module.exports = function (req, res, url) {
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="movie/search" method="post"><input type="text" class="form-text" name="edit[keys]" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
@@ -374,7 +372,7 @@ module.exports = function (req, res, url) {
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="movie/search" method="post"><input type="text" class="form-text" name="edit[keys]" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
@@ -417,7 +415,7 @@ module.exports = function (req, res, url) {
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local" id="movie-create">
         <head>
       
-          <title>${!url.query.movieId ? "create movie" : "edit movie"} | Zimmer Twins</title>
+          <title>${url.query.howto ? "How To Make A Movie" : !url.query.movieId ? "create movie" : "edit movie"} | Zimmer Twins</title>
           <base href="${urlPrefix}://${req.headers.host}/"/>
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
           <meta http-equiv="content-language" content="en-local"/>
@@ -440,7 +438,7 @@ module.exports = function (req, res, url) {
         <body class="en-local">
           <div id="wrapper">
             <div id="content">
-                      <h1><span>${!url.query.movieId ? "Create movie" : "Edit movie"}</span></h1>
+                      <h1><span>${url.query.howto ? "How To Make A Movie" : !url.query.movieId ? "Create movie" : "Edit movie"}</span></h1>
                                               <!-- begin content -->
       <div id="editor">
       <script type="text/javascript">
@@ -477,7 +475,7 @@ module.exports = function (req, res, url) {
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="movie/search" method="post"><input type="text" class="form-text" name="edit[keys]" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
@@ -588,7 +586,7 @@ module.exports = function (req, res, url) {
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="movie/search" method="post"><input type="text" class="form-text" name="edit[keys]" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+        <form action="movie/search" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
@@ -752,7 +750,7 @@ module.exports = function (req, res, url) {
       
       <a id="make-from-scratch" href="/starters${!url.query.id ? "" : `?id=${url.query.id}`}">Load Less Starters</a>
       <a id="make-from-scratch" href="/studio">Make From Scratch</a>
-      <a id="how-to-make" href="/studio?howto=true">How To Make A Movie</a>
+      <a id="how-to-make" href="/studio?howto=1">How To Make A Movie</a>
       
       <h3>Past Starters</h3>
       <ul id="past-starters" class="movie-list past-starter">
@@ -831,8 +829,371 @@ module.exports = function (req, res, url) {
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="movie/search" method="post"><input type="text" class="form-text" name="edit[keys]" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
+      </form>
+      </div>
+                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+      
+            </div>
+            <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
+             
+          </div>
+          <div id="footer">
+            <ul>
+              <li><a>&copy;2006 Lost The Plot</a></li>
+              <li><a href="about/terms">terms of use</a></li>
+      <li><a href="about/privacy">privacy policy</a></li>
+      <li><a href="about/conduct">code of conduct</a></li>
+      <li><a href="about/parents">parents</a></li>
+      <li><a href="about/contact">contact</a></li>
+      <li><a href="about/credits">credits</a></li>
+            </ul>
+          </div>
+        </body>
+      
+      </html>`);
+      return true;
+    } case "/allowFlash": {
+      res.setHeader("Content-Type", "text/html; charset=utf8");
+      res.end('<a href="/">Home</a><br><br><br><br><br><br><br><center><object data="/files/flash_tree.swf" height="400" width="280" type="application/x-shockwave-flash"><param name="quality" value="high"><param name="bgcolor" value="#FAF6ED"><param name="play" value="true"><param name="loop" value="true"><param name="wmode" value="window"><param name="scale" value="showall"><param name="menu" value="true"><param name="devicefont" value="false"><param name="salign" value=""><param name="allowscriptaccess" value="sameDomain"></object></center>');
+      return true;
+    } case "/help": {
+      res.setHeader("Content-Type", "text/html; charset=utf8");
+      res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local" id="help">
+        <head>
+      
+          <title>Help | Zimmer Twins</title>
+          <base href="${urlPrefix}://${req.headers.host}/"/>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+          <meta http-equiv="content-language" content="en-local"/>
+          <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Wallpapers, Movies, Movie-Maker, Animated Stories, Learning, Literacy, Educational, Free, Activities, Art, Elementary, Primary, Eva, Edgar, Psychic, Creative, Characters, Scenes, Dialog, Parents, Family, TV, Canada, Teletoon, Aaron Leighton, zinc Roe."/>
+          <meta name="description" content="The Zimmer Twins website invites kids to create and share their own animated stories."/>
+          <meta name="copyright" content="(c)2006 Lost The Plot Productions"/>
+      
+          <meta name="robots" content="all"/>
+          <meta http-equiv="imagetoolbar" content="no"/>
+          <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+          <script type="text/javascript" src="https://web.archive.org/web/20070326043612js_/http://www.zimmertwins.ca/themes/zimmertwins/js/shared.js"></script>
+                      <script src="https://web.archive.org/web/20070326043612js_/http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+            <script type="text/javascript">
+              _uacct = "UA-295035-5";
+              urchinTracker();
+            </script>		
+                    <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070326043612cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
+          <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
+        </head>
+        <body class="en-local">
+          <div id="wrapper">
+            <div id="content">
+                      <h1><span>Help</span></h1>
+                                              <!-- begin content --><div class="node-content"><ol id="topics">
+      <li id="quick">
+      <a class="button" href="/studio?howto=1">How To Make A Movie</a>
+      <a class="button" href="welcome">Zimmer Twins Tour</a>
+      </li>
+        <li id="toc">
+          <h3>Table Of Contents</h3>
+          <ol>
+            <li><a href="/help#gettingStarted">Getting Started</a></li>
+            <li><a href="/help#movies">Movies</a></li>
+            <li><a href="/help#flash">Adobe Flash Questions For Chromium</a></li>
+            <li><a href="/help#videoList">Questions Relating To The Video List</a></li>
+            <li><a href="/help#siteRequirements">Site Requirements</a></li>
+            <li><a href="/help#feedback">Feedback</a></li>
+          </ol>
+        </li>
+        
+        <li id="gettingStarted">
+          <h3>Getting Started <a href="/help#wrapper">Top</a></h3>
+          <ol>
+            <li>
+              <h2>What's this all about?</h2>
+      
+              
+              <p>On zimmertwins, you create your own endings to one of our story starters. You may also create your stories from scratch. The very best endings will be broadcast coast-to-coast on <a href="http://www.teletoon.com/">TELETOON</a>! So put on your director's hat because we're going to make some TV!</p>
+            </li>
+            <li>
+              <h2>Who are the Zimmer Twins?</h2>
+              <p>Edgar and Eva Zimmer are an ordinary pair of 12 year-olds except for one thing - they have psychic powers. They weren't always psychic though. The weirdness began when they adopted a black cat named 13. From that point on, they strange things began to happen. How strange? Well, watch some of the <a href="/web/20070326043612/http://www.zimmertwins.ca/starters">starters</a> and you'll get the idea.</p>
+            </li>
+            <li>
+              <h2>Do i need to be 13+ to use zimmertwins?</h2>
+              <p>If you are under the age of 13, then you can't use zimmertwins to create movies. sorry, but it is the law inside the goanimate community if you are in it or not. In other words, yes, you do need to be 13+ in order to use zimmertwins.</p>
+            </li>
+          </ol>
+        </li>
+        <li id="movies">
+          <h3>Movies <a href="/help#wrapper">Top</a></h3>
+          <ol>
+            <li>
+              <h2>How do I create a movie?</h2>
+              <p>
+              First, you need to head to the <a href="/starters">make a movie</a> page then pick a starter that you would like to make an ending for. Click on 'Make Movie' and away you go. If you don't want to use a starter you can also <a href="/studio">make a movie from stratch</a>.
+                  </p>
+            </li>
+            <li>
+              <h2>How do I edit a movie that I've already made?</h2>
+               <p>
+              First, you need to head to the <a href="/movie">watch a movie</a> page then find a movie that you want to edit. Once you found the movie, click on it and below it, there will be 3 choices. One is download, second is delete, and third is edit. What you want to click on is the edit button and then your movie will load inside the studio for you to edit.
+                  </p>
+            </li>
+            <li>
+              <h2>How do I delete a movie I don't want to keep anymore?</h2>
+              <p>
+              First, you need to head to the <a href="/movie">watch a movie</a> page then find a movie that you want to delete. Once you found the movie, click on it and below it, there will be 3 choices. One is download, second is delete, and third is edit. What you want to click on is the delete button and then your movie will go away from the list for good. Note: there is no turning back if you do this unless you downloaded a backup copy of your movie.
+                  </p>
+            </li>
+            <li>
+              <h2>How do I download a backup copy of my movie?</h2>
+              <p>
+              First, you need to head to the <a href="/movie">watch a movie</a> page then find a movie that you want to download. Once you found the movie, click on it and below it, there will be 3 choices. One is download, second is delete, and third is edit. What you want to click on is the download button and then your movie will be saved to your files. the filename of your movie is going to be the title of your movie so that you can keep things in place. please keep that in mind.
+                  </p>
+            </li>
+          </ol>
+        </li>
+        <li id="videoList">
+          <h3>Questions relating to the videolist <a href="/help#wrapper">Top</a></h3>
+          <ol>
+            <li>
+              <h2>Why is the your movies section including the watch a movie page always blank?</h2>
+              <p>That will be because you haven't made any movies yet. to do so, go to the <a href="/starters">make a movie</a> page.</p>
+            </li>
+            <li>
+              <h2>How do I find my friends' movies?</h2>
+              <p>Type their nickname in the search box and press 'go'. Remember that you can see a list of their movies by clicking on their nickname anywhere it appears on the site.</p>
+            </li>
+          </ol>
+        </li>
+        <li id="flash">
+          <h3>Adobe Flash Questions For Chromium <a href="/help#wrapper">Top</a></h3>
+          <ol>
+            <li>
+              <h2>Flash isn't working! what do i do?</h2>
+              <p>You can try using the Allow Flash button below to fix the issue. if that dosen't work, then that means that flash isn't installed for chromium. to install flash, <a href="/files/flash_windows_chromium.msi">Click here</a>.<br><a href="/allowFlash">Allow Flash</a></p>
+            </li>
+            <li>
+              <h2>Does Zimmertwins Use Flash?</h2>
+              <p>yes it does. it is advised if you do the steps above.</p>
+            </li>
+          </ol>
+        </li>
+        <li id="siteRequirements">
+          <h3>Site Requirements <a href="/help#wrapper">Top</a></h3>
+          <ol>
+            <li>
+              <h2>What kind of computer do I need?</h2>
+              <ul>
+                <li>Computer running Windows with a 1.5Ghz processor or faster.</li>
+                <li>Computer running OSX with a 1Ghz processor or faster.</li>
+                <li>A screen resolution of 1024x768 or greater.</li>
+              </ul>
+            </li>
+            <li>
+              <h2>Do I need a broadband internet connection?</h2>
+              <p>Yes. We recommend a 1Mbps or faster connection such as would be found with a DSL or cable connection. While a slower connection may work, you will have to be extraordinarily patient.</p>
+            </li>
+          </ol>
+        </li>
+        <li id="feedback">
+          <h3>Feedback <a href="/help#wrapper">Top</a></h3>
+          <ol>
+            <li>
+              <h2>Something on the site is broken. Can you fix it?</h2>
+              <p>We certainly can try! Before you report a problem, please check our <a href="#siteRequirements">site requirements</a>. If your computer meets these requirements and something still isn't working properly, then let us know about it by using the <a href="/about/contact">contact form</a>. Please be as specific as possible when you explain what the problem is and we'll make every effort to fix it.</p>
+            </li>
+            <li>
+              <h2>How can I make suggestions for the website?</h2>
+              <p>We'd love to hear from you and, unlike the Zimmer Twins, we're not psychic! To make a suggestion, use our <a href="/about/contact">contact form</a>.</p>
+            </li>
+            <li>
+              <h2>I think the Zimmer Twins are super cool. Do you like fan mail?</h2>
+              <p>In our books, fan mail is right up there with free samples of chocolate and snow days. We LOVE fan mail! Our team put a lot of work into creating the Zimmer Twins and it's always nice to here from you. Drop us a line with the <a href="/about/contact">contact form</a>.</p>
+            </li>
+          </ol>
+        </li>
+      </ol></div><!-- end content -->			</div>
+      
+            <div id="sidebar">
+              <a id="logo" href="/">Zimmer Twins</a>
+              <ul id="nav">
+                <li id="nav-home"><a href="">home</a></li>
+      <li id="nav-watch"><a href="movie">watch</a></li>
+      <li id="nav-make"><a href="starters">make</a></li>
+      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-extras"><a href="extras">extras</a></li>
+      <li id="nav-help"><a href="help" class="active">help</a></li>
+              </ul>
+      <div id="quick-search">
+        <h3>search</h3>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
+      </form>
+      </div>
+                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+      
+            </div>
+            <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
+             
+          </div>
+          <div id="footer">
+            <ul>
+              <li><span>&copy;2006 Lost The Plot</span></li>
+              <li><a href="about/terms">terms of use</a></li>
+      <li><a href="about/privacy">privacy policy</a></li>
+      <li><a href="about/conduct">code of conduct</a></li>
+      <li><a href="about/parents">parents</a></li>
+      <li><a href="about/contact">contact</a></li>
+      <li><a href="about/credits">credits</a></li>
+            </ul>
+          </div>
+        </body>
+      
+      </html>`);
+      return true;
+    } case "/welcome": {
+      res.setHeader("Content-Type", "text/html; charset=utf8");
+      res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
+        <head>
+      
+          <title>Zimmer Twins Tour | Zimmer Twins</title>
+          <base href="${urlPrefix}://${req.headers.host}/"/>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+          <meta http-equiv="content-language" content="en-local"/>
+          <meta name="description" content=""/>
+          <meta name="keywords" content=""/>
+          <meta name="copyright" content="(c)2006 Lost The Plot Productions"/>
+      
+          <meta name="robots" content="all"/>
+          <meta http-equiv="imagetoolbar" content="no"/>
+          <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+          <script type="text/javascript" src="https://web.archive.org/web/20070219211300js_/http://www.zimmertwins.ca/themes/zimmertwins/js/shared.js"></script>
+                      <script src="https://web.archive.org/web/20070219211300js_/http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+            <script type="text/javascript">
+              _uacct = "UA-295035-5";
+              urchinTracker();
+            </script>		
+                    <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070219211300cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
+          <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
+        </head>
+        <body class="en-local">
+          <div id="wrapper">
+            <div id="content">
+                      <h1><span>Zimmer Twins Tour</span></h1>
+                                              <!-- begin content --><div class="node-content"><div id="flv-player">
+      <script type="text/javascript">
+      var so = new SWFObject(
+      "/files/flvplayer.swf", 
+      "flv-player-flash", 
+      "760", 
+      "565", 
+      "8", 
+      "#39260B"
+      );
+      so.addVariable('flvurl','/files/welcome.flv');
+      so.write("flv-player");
+      </script>
+      </div></div><!-- end content -->			</div>
+      
+            <div id="sidebar">
+              <a id="logo" href="/">Zimmer Twins</a>
+              <ul id="nav">
+                <li id="nav-home"><a href="">home</a></li>
+      <li id="nav-watch"><a href="movie">watch</a></li>
+      <li id="nav-make"><a href="starters">make</a></li>
+      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-extras"><a href="extras">extras</a></li>
+      <li id="nav-help"><a href="help">help</a></li>
+              </ul>
+      <div id="quick-search">
+        <h3>search</h3>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="edit[keys]" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
+      </form>
+      </div>
+                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+      
+            </div>
+            <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
+             
+          </div>
+          <div id="footer">
+            <ul>
+              <li><a>&copy;2006 Lost The Plot</a></li>
+              <li><a href="about/terms">terms of use</a></li>
+      <li><a href="about/privacy">privacy policy</a></li>
+      <li><a href="about/conduct">code of conduct</a></li>
+      <li><a href="about/parents">parents</a></li>
+      <li><a href="about/contact">contact</a></li>
+      <li><a href="about/credits">credits</a></li>
+            </ul>
+          </div>
+        </body>
+      
+      </html>`);
+      return true;
+    } case "/movie/search": {
+      res.setHeader("Content-Type", "text/html; charset=utf8");
+      res.end(`
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
+        <head>
+      
+          <title>Search | Zimmer Twins</title>
+          <base href="${urlPrefix}://${req.headers.host}/"/>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+          <meta http-equiv="content-language" content="en-local"/>
+          <meta name="description" content=""/>
+          <meta name="keywords" content=""/>
+          <meta name="copyright" content="(c)2006 Lost The Plot Productions"/>
+      
+          <meta name="robots" content="all"/>
+          <meta http-equiv="imagetoolbar" content="no"/>
+          <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+          <script type="text/javascript" src="https://web.archive.org/web/20070219082617js_/http://www.zimmertwins.ca/themes/zimmertwins/js/shared.js"></script>
+                      <script src="https://web.archive.org/web/20070219082617js_/http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+            <script type="text/javascript">
+              _uacct = "UA-295035-5";
+              urchinTracker();
+            </script>		
+                    <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070219082617cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
+          <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
+        </head>
+        <body class="en-local">
+          <div id="wrapper">
+            <div id="content">
+                      <h1><span>Search</span></h1>
+                                              <!-- begin content --><form action="/ajax/searchMovies/" method="post" id="search-form">
+      <fieldset><div class="form-item">
+       <label for="edit-keys">Keyword:</label>
+       <input type="text" maxlength="64" class="form-text" name="q" id="edit-keys" size="64" value=""/>
+      </div>
+      <div class="form-item">
+       <label for="edit-type">Movie Type:</label>
+       <select name="type" id="edit-type"><option value="all" selected="selected">All</option><option value="contains-starters">Contains Starters</option></select>
+      </div>
+      </fieldset>
+      <input type="submit" class="form-submit" name="op" value="Search"/>
+      
+      </form>
+      <!-- end content -->			</div>
+      
+            <div id="sidebar">
+              <a id="logo" href="/">Zimmer Twins</a>
+              <ul id="nav">
+                <li id="nav-home"><a href="">home</a></li>
+      <li id="nav-watch"><a href="movie">watch</a></li>
+      <li id="nav-make"><a href="starters">make</a></li>
+      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-extras"><a href="extras">extras</a></li>
+      <li id="nav-help"><a href="help">help</a></li>
+              </ul>
+      <div id="quick-search">
+        <h3>search</h3>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search" class="active">advanced search</a>
       </form>
       </div>
                               <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
