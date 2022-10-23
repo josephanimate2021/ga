@@ -399,12 +399,10 @@ module.exports = function (req, res, url) {
       </html>`);
       return true;
     } case "/studio": {
-      if (url.query.templateId) fs.writeFileSync(process.env.DATABASES_FOLDER + `/starterIdSection.json`, JSON.stringify({
-        id: url.query.templateId
-      }));
+      if (url.query.templateId) fs.writeFileSync(process.env.DATABASES_FOLDER + `/starterIdSection.txt`, url.query.templateId);
       else {
-        if (fs.existsSync(process.env.DATABASES_FOLDER + `/starterIdSection.json`)) {
-          fs.unlinkSync(process.env.DATABASES_FOLDER + `/starterIdSection.json`);
+        if (fs.existsSync(process.env.DATABASES_FOLDER + `/starterIdSection.txt`)) {
+          fs.unlinkSync(process.env.DATABASES_FOLDER + `/starterIdSection.txt`);
         }
       }
       if (url.query.movieId) fs.writeFileSync(process.env.DATABASES_FOLDER + `/movieIdSection.json`, JSON.stringify({
