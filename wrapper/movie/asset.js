@@ -106,7 +106,7 @@ module.exports = function (req, res, url) {
         } case "/movie/delete": {
           const id = url.query.movieId;
           const title = fs.readFileSync(env.DATABASES_FOLDER + `/${id}-title.txt`);
-          fs.unlinkSync(process.env.TITLES_FOLDER + `/${title}.json`);
+          fs.unlinkSync(process.env.TITLES_FOLDER + `/${title}.txt`);
           if (fUtil.exists(env.MOVIE_FOLDER + `/${id}.txt`)) fs.unlinkSync(env.MOVIE_FOLDER + `/${id}.txt`);
           if (!fUtil.exists(env.STARTER_FOLDER + `/${id}.txt`)) {
             if (fUtil.exists(env.DATABASES_FOLDER + `/${id}-title.txt`)) fs.unlinkSync(env.DATABASES_FOLDER + `/${id}-title.txt`);
@@ -183,7 +183,6 @@ module.exports = function (req, res, url) {
           new formidable.IncomingForm().parse(req, (e, f) => {
             if (e) return;
             f.type ||= "all";
-            console.log(f);
             const result = f.q;
             const type = f.type;
             switch (type) {
@@ -249,7 +248,7 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
-              fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.json`, JSON.stringify(params.meta));
+              fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.txt`, params.meta.movieid);
               res.end(params.meta.movieid);
             } else if (fs.existsSync(env.DATABASES_FOLDER + `/starterIdSection.txt`)) {
               const id = fs.readFileSync(env.DATABASES_FOLDER + `/starterIdSection.txt`);
@@ -278,7 +277,7 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-starter.txt`, params.meta.starterid);
-              fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.json`, JSON.stringify(params.meta));
+              fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.txt`, params.meta.movieid);
               res.end(params.meta.movieid);
             } else {
               const params = {
@@ -296,7 +295,7 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
-              fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.json`, JSON.stringify(params.meta));
+              fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.txt`, params.meta.movieid);
               res.end(params.meta.movieid);
             }
           });

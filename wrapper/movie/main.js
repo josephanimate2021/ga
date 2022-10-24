@@ -1,43 +1,31 @@
 const fs = require("fs");
 
 module.exports = {
-    search(title) {
-      return new Promise((res, rej) => {
-        const table = [];
-        fs.readdirSync(process.env.TITLES_FOLDER).forEach(file => {
-          if (file != title + `.json`) return;
-          const meta = require(process.env.TITLES_FOLDER + `/${title}.json`);
-          const id = meta.movieid;
-          table.unshift(`<li class="movie-clip clear-block">
-    
-          <a href="javascript:apiVerSelectForPlayer('${id}')" class="thumbnail"><img src="https://web.archive.org/web/20200604033451im_/http://www.zimmertwins.com/sites/zimmertwins.com/movie/thumbnails/small/xdefault.png.pagespeed.ic.NRbioFMVrg.png" alt="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
-    
-    " title="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}"/></a>      <!-- Movie Clip Types -->
-        
-          <h2><a href="javascript:apiVerSelectForPlayer('${id}')">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}
-    
-    </a></h2>
-            
-          <p class="submitted">
-            
-            <span class="date">
-              <a href="javascript:apiVerSelectForStudio('${id}')">Edit</a>        </span>
-            
-            <span class="user">
-              <a href="/movie/fetch?movieid=${id}" download="${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}.txt">Download</a> 
-                                </span>
-            
-          </p>
-          
-          <dl class="movie-clip-statistics">
-          <dt>More Options:</dt>
-        <dd><a href="/movie/delete?movieId=${id}">Delete</a></dd>
-      </dl>		
-                        
-        </li>`);
-        });
-        res(table);
-      });
+  search(name, type)  {
+    const dir = process.env.TITLES_FOLDER;
+    const table = [];
+
+    fs.readdirSync(dir).forEach(file => {
+      const id = fs.readFileSync(`${dir}/${file}`, 'utf8');
+      if (file.includes(name)) {
+        if (type == "contains-starters") {
+          if (fs.existsSync(process.env.DATABASES_FOLDER + `/${id}-starter.txt`)) {
+            table.unshift({html: `<li><a href="/ajax/movieStarterCheck?movieId=${
+              id
+            }"><img src="https://web.archive.org/web/20061023094121im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/edgar_finds_backyard.png"/></a><dl><dt><a href="/ajax/movieStarterCheck?movieId=${
+              id
+            }">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}</a></dt></dl></li>`});
+          }
+        } else {
+          table.unshift({html: `<li><a href="/ajax/movieStarterCheck?movieId=${
+            id
+          }"><img src="https://web.archive.org/web/20061023094121im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/edgar_finds_backyard.png"/></a><dl><dt><a href="/ajax/movieStarterCheck?movieId=${
+            id
+          }">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}</a></dt></dl></li>`});
+        }
+      }
+    });
+    return table;
     },
     list() {
         const table = [];

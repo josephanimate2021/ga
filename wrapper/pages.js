@@ -63,7 +63,7 @@ module.exports = function (req, res, url) {
       
       <div id="movies">
       <h3>Your Movies</h3>
-      <ul class="movie-list mustsee">${files.map(v => v.html) || "<h3>Nothing to see here.</h3>"}</ul>
+      <ul class="movie-list mustsee">${files.map(v => v.html).join('') || "<p>Nothing to see here</p>"}</ul>
       </div>
       <!-- end content -->			</div>
       
@@ -137,7 +137,7 @@ module.exports = function (req, res, url) {
                       <h1><span>Watch a Movie</span></h1>
                                               <!-- begin content -->
       
-      <ul class="movie-list now-showing">${files.map(v => v.html) || "<h3>Nothing to see here.</h3>"}</ul>
+      <ul class="movie-list now-showing">${files.map(v => v.html).join('') || "<h3>Nothing to see here</h3>"}</ul>
       <!-- end content -->			</div>
       
             <div id="sidebar">
@@ -586,7 +586,7 @@ module.exports = function (req, res, url) {
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="movie/search" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
@@ -1217,6 +1217,90 @@ module.exports = function (req, res, url) {
       
       </html>`);
       return true;
+    } case "/search": {
+      const type = !url.query.filters ? "" : url.query.filters;
+      const files = movie.search(url.query.q, type);
+      if (!url.query.q) {
+        res.statusCode = 302;
+        res.setHeader("Location", "/movie/search");
+        res.end();
+      } else {
+        res.setHeader("Content-Type", "text/html; charset=utf8");
+        res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local" id="watch">
+          <head>
+        
+            <title>Search For Movies | Zimmer Twins</title>
+            <base href="${urlPrefix}://${req.headers.host}/"/>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <meta http-equiv="content-language" content="en-local"/>
+            <meta name="description" content=""/>
+            <meta name="keywords" content=""/>
+            <meta name="copyright" content="(c)2006 Lost The Plot Productions"/>
+        
+            <meta name="robots" content="all"/>
+            <meta http-equiv="imagetoolbar" content="no"/>
+            <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+            <script type="text/javascript" src="https://web.archive.org/web/20061023094121js_/http://www.zimmertwins.ca/themes/zimmertwins/js/shared.js"></script>
+                <script src="https://web.archive.org/web/20061023094121js_/http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+            <script type="text/javascript">
+              _uacct = "UA-295035-5";
+              urchinTracker();
+            </script>		
+                <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061023094121cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
+            <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
+          </head>
+          <body class="en-local">
+            <div id="wrapper">
+              <div id="content">
+                        <h1><span>Search For Movies</span></h1>
+                                                <!-- begin content -->
+        
+        <ul class="movie-list now-showing">${files.map(v => v.html).join('') || '<h3>No movies were found</h3>'}</ul>
+        <!-- end content -->			</div>
+        
+              <div id="sidebar">
+                <a id="logo" href="/">Zimmer Twins</a>
+                <ul id="nav">
+                  <li id="nav-home"><a href="">home</a></li>
+        <li id="nav-watch"><a href="movie" class="active">watch</a></li>
+        <li id="nav-make"><a href="starters">make</a></li>
+        <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+        <li id="nav-extras"><a href="extras">extras</a></li>
+        <li id="nav-help"><a href="help">help</a></li>
+                </ul>
+        <div id="quick-search">
+          <h3>search</h3>
+          <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+        <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
+        </form>
+        </div>
+                                <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+        
+              </div>
+              <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
+               
+            </div>
+            <div id="footer">
+              <ul>
+                <li><a>&copy;2006 Lost The Plot</a></li>
+                <li><a href="about/terms">terms of use</a></li>
+        <li><a href="about/privacy">privacy policy</a></li>
+        <li><a href="about/conduct">code of conduct</a></li>
+        <li><a href="about/parents">parents</a></li>
+        <li><a href="about/contact">contact</a></li>
+        <li><a href="about/credits">credits</a></li>
+              </ul>
+            </div>
+          </body>
+        
+        </html>`);
+      }
+      return true;
+    } default: {
+      res.setHeader("Content-Type", "text/html; charset=utf8");
+      res.end('<a href="/">Home</a><br><center><p>404 Not Found</p></center>');
+      return;
     }
   }
 };
