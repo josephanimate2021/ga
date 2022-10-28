@@ -80,6 +80,9 @@ module.exports = function (req, res, url) {
               } case "344711": {
                 name = "wheres13";
                 break;
+              } default: {
+                name = fs.readFileSync(env.DATABASES_FOLDER + `/${id}-title.txt`);
+                break;
               }
             }
             res.statusCode = 302;
@@ -156,8 +159,9 @@ module.exports = function (req, res, url) {
           var html;
           switch (url.query.type) {
             case "starter": {
-              const videoEmbed = `<div id="videoplayer" style="display:none"><video controls="" autoplay="" height="360" width="640" name="media"><source src="/videos/html5?file=help_starter.mp4" type="video/mp4"></video></div><br><br><button id="hideBtn" style="display:none" onclick="document.getElementById('videoplayer').style.display = 'none'; document.getElementById('hideBtn').style.display = 'none';document.getElementById('btn').style.display = 'block'">Hide Tutorial</button>`
-              html = `${home}<center><h1>Starter Uploading Procedure</h1><br><p>To upload your starter, you first need to make your movie on this project and then save your movie. once the movie is saved, download it in the your movies page and keep the text file you downloaded as you need that. you are also going to have to provide some information about you like your username on some sites like youtube and eta. you also need to provide a date the movie was made, video title witch will already be on the file you downloaded from this project, and the link to your profile. Once you have all of that in, you are going to need to fork the source of the project and upload all of that to seperate folders. the movie itself goes into the files/starters folder and the info about you goes inside the files/assets/meta folder. Once all of that is in, submit a pull request on github. All of your stuff will be viewed by the way to make sure that it's appropriate for everyone to watch.</p><br><br>${videoEmbed}<button id="btn" onclick="document.getElementById('videoplayer').style.display = 'block'; document.getElementById('hideBtn').style.display = 'block'; document.getElementById('btn').style.display = 'none'">Tutorial Of Now It's Done</button></center>`;
+              html = `${home}<form enctype='multipart/form-data' action='/starter${
+                url.path.slice(0, -13)
+              }${url.query.loadMore ? `?loadMore=${url.query.loadMore}` : ""}' method='post'><input id='file' type="file" onchange="this.form.submit()" name='import' accept=".swf" /></form>`;
               break;
             }
             case "movie": {
@@ -207,14 +211,40 @@ module.exports = function (req, res, url) {
             const name = files.import.originalFilename;
             const path = files.import.filepath;
             const buffer = fs.readFileSync(path);
-            const id = fUtil.makeid(6);
+            const id = fUtil.makeid(7);
             fs.writeFileSync(process.env.MOVIE_FOLDER + `/${id}.txt`, buffer);
             fs.writeFileSync(env.DATABASES_FOLDER + `/${id}-title.txt`, name);
             fs.writeFileSync(env.DATABASES_FOLDER + `/${id}-desc.txt`, '');
+            fs.writeFileSync(env.DATABASES_FOLDER + `/${id}-upload.txt`, '');
             fs.writeFileSync(env.TITLES_FOLDER + `/${name}.json`, JSON.stringify({movieid: id}));
             res.statusCode = 302;
             res.setHeader("Location", `/studio?movieId=${id}`);
             res.end();
+          });
+          return true;
+        } case "/starter/upload": {
+          new formidable.IncomingForm().parse(req, (e, f, files) => {
+            if (e) return;
+            if (!files.import) return;
+            const file = files.import.originalFilename;
+            const name = file.slice(0, -4);
+            const path = files.import.filepath;
+            const buffer = fs.readFileSync(path);
+            const id = fUtil.makeid(7);
+            fs.writeFileSync(process.env.FILES_FOLDER + `/${file}`, buffer);
+            fs.writeFileSync(process.env.STARTER_FOLDER + `/${id + '.txt'}`, `This starter has been uploaded so that it can be listed on the make a movie page. if you don't want your starter to be listed, then please delete this file.`);
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/${name}-title.txt`, name);
+            // why
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`, name);
+            if (url.query.loadMore) {
+              res.statusCode = 302;
+              res.setHeader("Location", `/templates?uploaded=true&id=${id}`);
+              res.end();
+            } else {
+              res.statusCode = 302;
+              res.setHeader("Location", `/starters?uploaded=true&id=${id}`);
+              res.end();
+            }
           });
           return true;
         } case "/movie/save": {

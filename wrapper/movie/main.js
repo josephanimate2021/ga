@@ -27,16 +27,26 @@ module.exports = {
     });
     return table;
     },
-    list() {
+    list(type, mode) {
         const table = [];
-        fs.readdirSync(process.env.MOVIE_FOLDER).forEach(file => {
-            const id = file.slice(0, -4);
-            if (fs.existsSync(process.env.MOVIE_FOLDER + `/${file}`)) table.unshift({html: `<li>
-            <a href="/ajax/movieStarterCheck?movieId=${id}"><img src="https://web.archive.org/web/20061023094121im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/edgar_finds_backyard.png"/></a>		<dl>
-              <dt><a href="/ajax/movieStarterCheck?movieId=${id}">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}</a></dt>
-            </dl>
-          </li>`});
-        });
+        switch (type) {
+          case "starter": {
+            fs.readdirSync(process.env.STARTER_FOLDER).forEach(file => {
+              const id = file.slice(0, -4);
+              if (fs.existsSync(process.env.STARTER_FOLDER + `/${file}`)) {
+                if (mode == "loadMore") table.unshift({html: `<li><a href="/templates?uploaded=true&id=${id}"><img src="https://web.archive.org/web/20061023094121im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/edgar_finds_backyard.png"/></a><dl><dt><a href="/templates?uploaded=true&id=${id}">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}</a></dt></dl></li>`});
+                else table.unshift({html: `<li><a href="/starters?uploaded=true&id=${id}"><img src="https://web.archive.org/web/20061023094121im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/edgar_finds_backyard.png"/></a><dl><dt><a href="/starters?uploaded=true&id=${id}">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}</a></dt></dl></li>`});
+              }
+            });
+            break;
+          } default: {
+            fs.readdirSync(process.env.MOVIE_FOLDER).forEach(file => {
+              const id = file.slice(0, -4);
+              if (fs.existsSync(process.env.MOVIE_FOLDER + `/${file}`)) table.unshift({html: `<li><a href="/ajax/movieStarterCheck?movieId=${id}"><img src="https://web.archive.org/web/20061023094121im_/http://www.zimmertwins.ca/media/shared/thumbnails/small/edgar_finds_backyard.png"/></a><dl><dt><a href="/ajax/movieStarterCheck?movieId=${id}">${fs.readFileSync(process.env.DATABASES_FOLDER + `/${id}-title.txt`)}</a></dt></dl></li>`});
+            });
+            break;
+          }
+        }
         return table;
     },
     home() {

@@ -5,6 +5,7 @@ movie = require("./movie/main")
 
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
+  const questionorand = url.query.uploaded ? `&` : `?`;
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
   switch (url.pathname) {
     case "/movie/frontpage":
@@ -180,7 +181,11 @@ module.exports = function (req, res, url) {
     } case "/starters": {
       var name, title;
       var id = url.query.id;
-      switch (url.query.id) {
+      const files = movie.list("starter");
+      if (url.query.uploaded) {
+        name = fs.readFileSync(env.DATABASES_FOLDER + `/${id}-title.txt`);
+        title = "";
+      } else switch (url.query.id) {
         case "199947": {
           name = "charming13";
           title = "Charming 13";
@@ -283,7 +288,7 @@ module.exports = function (req, res, url) {
       so.write("player-container");
       </script>
       </div>
-        <h2><a href="/studio?templateId=${id}">Make Movie From <span>${title}</span></a></h2>
+        <h2><a href="/studio?templateId=${id}">Make Movie From <span>${title || name}</span></a></h2>
       </div>
       
       <p id="teaser">
@@ -306,7 +311,17 @@ module.exports = function (req, res, url) {
       </li>
       </ul>
       
-      <a id="make-from-scratch" href="/templates${!url.query.id ? "" : `?id=${url.query.id}`}">Load More Starters</a>
+      <a id="make-from-scratch" href="/templates${
+        !url.query.uploaded ? "" : `?uploaded=${
+          url.query.uploaded
+        }`
+      }${
+        !url.query.id ? "" : `${
+          questionorand
+        }id=${
+          url.query.id
+        }`
+      }">Load More Starters</a>
       <a id="make-from-scratch" href="/studio">Make From Scratch</a>
       <a id="how-to-make" href="/studio?howto=1">How To Make A Movie</a>
       
@@ -358,6 +373,8 @@ module.exports = function (req, res, url) {
         </dl>
       </li>
       </ul>
+      <h3>Uploaded Starters</h3>
+      <ul id="past-starters" class="movie-list past-starter">${files.map(v => v.html).join('') || "<p>There are currently no uploaded starters at the monent. <a href='/upload?type=starter'>Upload</a> a starter to get started.</p>"}</ul>
       <!-- end content -->			</div>
       
             <div id="sidebar">
@@ -612,9 +629,13 @@ module.exports = function (req, res, url) {
       </html>`);
       return true;
     } case "/templates": {
+      const files = movie.list("starter", "loadMore");
       var name, title;
       var id = url.query.id;
-      switch (url.query.id) {
+      if (url.query.uploaded) {
+        name = fs.readFileSync(env.DATABASES_FOLDER + `/${id}-title.txt`);
+        title = "";
+      } else switch (url.query.id) {
         case "344704": {
           name = "surprise";
           title = "Suprise";
@@ -725,7 +746,7 @@ module.exports = function (req, res, url) {
       so.write("player-container");
       </script>
       </div>
-        <h2><a href="/studio?templateId=${id}">Make Movie From <span>${title}</span></a></h2>
+        <h2><a href="/studio?templateId=${id}">Make Movie From <span>${title || name}</span></a></h2>
       </div>
       
       <p id="teaser">
@@ -748,7 +769,17 @@ module.exports = function (req, res, url) {
       </li>
       </ul>
       
-      <a id="make-from-scratch" href="/starters${!url.query.id ? "" : `?id=${url.query.id}`}">Load Less Starters</a>
+      <a id="make-from-scratch" href="/starters${
+        !url.query.uploaded ? "" : `?uploaded=${
+          url.query.uploaded
+        }`
+      }${
+        !url.query.id ? "" : `${
+          questionorand
+        }id=${
+          url.query.id
+        }`
+      }">Load Less Starters</a>
       <a id="make-from-scratch" href="/studio">Make From Scratch</a>
       <a id="how-to-make" href="/studio?howto=1">How To Make A Movie</a>
       
@@ -815,6 +846,8 @@ module.exports = function (req, res, url) {
         </dl>
       </li>
       </ul>
+      <h3>Uploaded Starters</h3>
+      <ul id="past-starters" class="movie-list past-starter">${files.map(v => v.html).join('') || "<p>There are currently no uploaded starters at the monent. <a href='/upload?type=starter&loadMore=true'>Upload</a> a starter to get started.</p>"}</ul>
       <!-- end content -->			</div>
       
             <div id="sidebar">
@@ -1172,7 +1205,7 @@ module.exports = function (req, res, url) {
       </div>
       <div class="form-item">
        <label for="edit-type">Movie Type:</label>
-       <select name="type" id="edit-type"><option value="all" selected="selected">All</option><option value="contains-starters">Contains Starters</option></select>
+       <select name="type" id="edit-type"><option value="all" selected="selected">All</option><option value="contains-starters">Contains Starters</option><option value="uploaded">Uploaded</option></select>
       </div>
       </fieldset>
       <input type="submit" class="form-submit" name="op" value="Search"/>
