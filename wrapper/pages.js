@@ -74,7 +74,7 @@ module.exports = function (req, res, url) {
                 <li id="nav-home"><a href="">home</a></li>
       <li id="nav-watch"><a href="movie">watch</a></li>
       <li id="nav-make"><a href="starters">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
       <li id="nav-extras"><a href="extras">extras</a></li>
       <li id="nav-help"><a href="help">help</a></li>
               </ul>
@@ -147,7 +147,7 @@ module.exports = function (req, res, url) {
                 <li id="nav-home"><a href="">home</a></li>
       <li id="nav-watch"><a href="movie" class="active">watch</a></li>
       <li id="nav-make"><a href="starters">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
       <li id="nav-extras"><a href="extras">extras</a></li>
       <li id="nav-help"><a href="help">help</a></li>
               </ul>
@@ -383,7 +383,7 @@ module.exports = function (req, res, url) {
                 <li id="nav-home"><a href="">home</a></li>
       <li id="nav-watch"><a href="movie">watch</a></li>
       <li id="nav-make"><a href="starters" class="active">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
       <li id="nav-extras"><a href="extras">extras</a></li>
       <li id="nav-help"><a href="help">help</a></li>
               </ul>
@@ -486,7 +486,7 @@ module.exports = function (req, res, url) {
                 <li id="nav-home"><a href="">home</a></li>
       <li id="nav-watch"><a href="movie">watch</a></li>
       <li id="nav-make"><a href="starters">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
       <li id="nav-extras"><a href="extras">extras</a></li>
       <li id="nav-help"><a href="help">help</a></li>
               </ul>
@@ -597,7 +597,7 @@ module.exports = function (req, res, url) {
                 <li id="nav-home"><a href="">home</a></li>
       <li id="nav-watch"><a href="movie">watch</a></li>
       <li id="nav-make"><a href="starters">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
       <li id="nav-extras"><a href="extras">extras</a></li>
       <li id="nav-help"><a href="help">help</a></li>
               </ul>
@@ -856,7 +856,7 @@ module.exports = function (req, res, url) {
                 <li id="nav-home"><a href="">home</a></li>
       <li id="nav-watch"><a href="movie">watch</a></li>
       <li id="nav-make"><a href="starters">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
       <li id="nav-extras"><a href="extras">extras</a></li>
       <li id="nav-help"><a href="help">help</a></li>
               </ul>
@@ -1054,7 +1054,7 @@ module.exports = function (req, res, url) {
                 <li id="nav-home"><a href="">home</a></li>
       <li id="nav-watch"><a href="movie">watch</a></li>
       <li id="nav-make"><a href="starters">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
       <li id="nav-extras"><a href="extras">extras</a></li>
       <li id="nav-help"><a href="help" class="active">help</a></li>
               </ul>
@@ -1136,7 +1136,7 @@ module.exports = function (req, res, url) {
                 <li id="nav-home"><a href="">home</a></li>
       <li id="nav-watch"><a href="movie">watch</a></li>
       <li id="nav-make"><a href="starters">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
       <li id="nav-extras"><a href="extras">extras</a></li>
       <li id="nav-help"><a href="help">help</a></li>
               </ul>
@@ -1219,7 +1219,7 @@ module.exports = function (req, res, url) {
                 <li id="nav-home"><a href="">home</a></li>
       <li id="nav-watch"><a href="movie">watch</a></li>
       <li id="nav-make"><a href="starters">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
       <li id="nav-extras"><a href="extras">extras</a></li>
       <li id="nav-help"><a href="help">help</a></li>
               </ul>
@@ -1298,7 +1298,7 @@ module.exports = function (req, res, url) {
                   <li id="nav-home"><a href="">home</a></li>
         <li id="nav-watch"><a href="movie" class="active">watch</a></li>
         <li id="nav-make"><a href="starters">make</a></li>
-        <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+        <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
         <li id="nav-extras"><a href="extras">extras</a></li>
         <li id="nav-help"><a href="help">help</a></li>
                 </ul>
