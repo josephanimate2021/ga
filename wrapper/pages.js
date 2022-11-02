@@ -84,7 +84,7 @@ module.exports = function (req, res, url) {
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
-                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
       
             </div>
             <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
@@ -157,7 +157,7 @@ module.exports = function (req, res, url) {
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
-                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
       
             </div>
             <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
@@ -230,8 +230,12 @@ module.exports = function (req, res, url) {
           name = "run";
           title = "Run!";
           break;
+        } case "281144": {
+          name = "gemjest";
+          title = "Gem Jest";
+          break;
         } default: {
-          id = "281144"
+          id = "281144";
           name = "gemjest";
           title = "Gem Jest";
           break;
@@ -393,7 +397,7 @@ module.exports = function (req, res, url) {
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
-                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
       
             </div>
             <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
@@ -496,7 +500,7 @@ module.exports = function (req, res, url) {
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
-                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
       
             </div>
             <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
@@ -607,7 +611,7 @@ module.exports = function (req, res, url) {
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
-                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
       
             </div>
             <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
@@ -687,6 +691,14 @@ module.exports = function (req, res, url) {
         } case "281136": {
           name = "run";
           title = "Run!";
+          break;
+        } case "344711": {
+          name = "wheres13";
+          title = "Where's 13?";
+          break;
+        } case "281144": {
+          name = "gemjest";
+          title = "Gem Jest";
           break;
         } default: {
           id = "344711"
@@ -866,7 +878,7 @@ module.exports = function (req, res, url) {
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
-                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
       
             </div>
             <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
@@ -1064,7 +1076,7 @@ module.exports = function (req, res, url) {
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
-                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
       
             </div>
             <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
@@ -1146,7 +1158,7 @@ module.exports = function (req, res, url) {
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
       </form>
       </div>
-                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
       
             </div>
             <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
@@ -1229,7 +1241,7 @@ module.exports = function (req, res, url) {
       <input type="submit" class="form-submit" value="Go"/><a href="movie/search" class="active">advanced search</a>
       </form>
       </div>
-                              <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
       
             </div>
             <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
@@ -1308,7 +1320,7 @@ module.exports = function (req, res, url) {
         <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
         </form>
         </div>
-                                <a href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+                                <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
         
               </div>
               <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
