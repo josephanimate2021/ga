@@ -27,8 +27,10 @@ const server = http.createServer((req, res) => {
     else res.statusCode = 404;
     if (env.node_env == "dev") console.log(req.method, purl.path, "-", res.statusCode, `(${req.headers.host})`);
   } catch (x) {
+    const purl = url.parse(req.url, true);
     console.error(x);
     res.statusCode = 500;
+    if (env.node_env == "dev") console.log(req.method, purl.path, "-", res.statusCode, `(${req.headers.host})`);
   }
 });
 

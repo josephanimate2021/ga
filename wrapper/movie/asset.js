@@ -159,15 +159,15 @@ module.exports = function (req, res, url) {
           var html;
           switch (url.query.type) {
             case "starter": {
-              html = `${home}<form enctype='multipart/form-data' action='/starter${
+              html = `<html><head><title>Import A Starter | Zimmer Twins</title></head><body>${home}<form enctype='multipart/form-data' action='/starter${
                 url.path.slice(0, -13)
-              }${url.query.loadMore ? `?loadMore=${url.query.loadMore}` : ""}' method='post'><input id='file' type="file" onchange="this.form.submit()" name='import' accept=".swf" /></form>`;
+              }${url.query.loadMore ? `?loadMore=${url.query.loadMore}` : ""}' method='post'><input id='file' type="file" onchange="this.form.submit()" name='import' accept=".swf" /></form></body></html>`;
               break;
             }
             case "movie": {
-              html = `${home}<form enctype='multipart/form-data' action='/movie${
+              html = `<html><head><title>Upload A Movie | Zimmer Twins</title></head><body>${home}<form enctype='multipart/form-data' action='/movie${
                 url.path.slice(0, -11)
-              }' method='post'><input id='file' type="file" onchange="this.form.submit()" name='import' accept=".txt" /></form>`;
+              }' method='post'><input id='file' type="file" onchange="this.form.submit()" name='import' accept=".txt" /></form></body></html>`;
               break;
             } default: {
               html = 'Type Not Found';
@@ -182,8 +182,35 @@ module.exports = function (req, res, url) {
         }
       }
     } case "POST": {
-      switch (req.url) {
-        case "/ajax/searchMovies/": {
+      switch (url.pathname) {
+        case "/ajax/createAccont": {
+          const name = url.query.name;
+          if (!name) return;
+          fs.writeFileSync(process.env.DATABASES_FOLDER + `/name.txt`, name);
+          res.end();
+          return true;
+        } case "/ajax/logout": {
+          const name = url.query.accountName;
+          if (!name && !fs.existsSync(process.env.DATABASES_FOLDER + `/name.txt`)) return;
+          fs.writeFileSync(process.env.DATABASES_FOLDER + `/temp-name.txt`, name);
+          fs.unlinkSync(process.env.DATABASES_FOLDER + `/name.txt`);
+          res.end();
+          return true;
+        } case "/ajax/login": {
+          const name = url.query.name;
+          if (!name) return;
+          const tempname = fs.existsSync(process.env.DATABASES_FOLDER + `/temp-name.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/temp-name.txt`, 'utf8') : "";
+          if (name == tempname) {
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/name.txt`, name);
+            fs.unlinkSync(process.env.DATABASES_FOLDER + `/temp-name.txt`);
+            console.log("Login Sucessful");
+          } else {
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/name.txt`, "Login Incorrect");
+            console.log("Login Failed. Error: Incorrect username");
+          }
+          res.end();
+          return true;
+        } case "/ajax/searchMovies/": {
           new formidable.IncomingForm().parse(req, (e, f) => {
             if (e) return;
             f.type ||= "all";
