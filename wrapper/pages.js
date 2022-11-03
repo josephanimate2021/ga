@@ -2,13 +2,24 @@ const fs = require("fs"),
 fUtil = require("./fileUtil"),
 env = require("./env"),
 movie = require("./movie/main")
+function getId(host) {
+  switch (host) {
+    case "localhost": return "";
+    case `localhost:${env.port}`: return "";
+    default: {
+      const [ id, prefix, suffix ] = host.split(".");
+      return id + '-';
+    }
+  }
+}
 
 module.exports = function (req, res, url) {
   if (req.method != "GET") return;
+  req.id = getId(req.headers.host);
   const questionorand = url.query.uploaded ? `&` : `?`;
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
-  const accName = fs.existsSync(process.env.DATABASES_FOLDER + `/name.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/name.txt`, 'utf8') : "";
-  const join = fs.existsSync(process.env.DATABASES_FOLDER + `/name.txt`) ? `<li id="links-join"><a href="javascript:logout('${accName}')">Logout</a></li>` : `<li id="links-join"><a href="user/register">Join !</a></li>`;
+  const accName = fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}name.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/${req.id}name.txt`, 'utf8') : "";
+  const join = fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}name.txt`) ? `<li id="links-join"><a href="javascript:logout('${accName}')">Logout</a></li>` : `<li id="links-join"><a href="user/register">Join !</a></li>`;
   const script = `<script>function logout(name) {
     const xhttp = new XMLHttpRequest();
     xhttp.open('POST', \`/ajax/logout?accountName=\${name}\`);
@@ -1368,9 +1379,9 @@ module.exports = function (req, res, url) {
       }
       return true;
     } case "/agecheck": {
-      const age = fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/age.txt`) : "";
+      const age = fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`) : "";
       if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end(process.env.HOME_HTML + "<center>Access Denied</center>");
-      else if (!fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      else if (!fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
         <head>
       
@@ -1451,9 +1462,9 @@ module.exports = function (req, res, url) {
       }</script></head><body onload="redir()"></body></html>`);
       return true;
     } case "/user/register": {
-      const age = fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/age.txt`) : "";
+      const age = fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`) : "";
       if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end(process.env.HOME_HTML + "<center>Access Denied</center>");
-      else if (fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      else if (fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
         <head>
       
@@ -1533,10 +1544,10 @@ module.exports = function (req, res, url) {
       }</script></head><body onload="redir()"></body></html>`);
       return true;
     } case "/user/login": {
-      const age = fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/age.txt`) : "";
+      const age = fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`) : "";
       if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end(process.env.HOME_HTML + "<center>Access Denied</center>");
-      else if (fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`)) {
-        if (!fs.existsSync(process.env.DATABASES_FOLDER + `/name.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      else if (fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`)) {
+        if (!fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}name.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
         <head>
       

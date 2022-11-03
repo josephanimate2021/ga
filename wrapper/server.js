@@ -20,6 +20,8 @@ const utilities = [
   crossdomain,
   pages
 ];
+
+// start the server itself
 const server = http.createServer((req, res) => {
   try {
     const purl = url.parse(req.url, true);
