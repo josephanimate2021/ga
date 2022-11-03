@@ -955,6 +955,7 @@ module.exports = function (req, res, url) {
             <li><a href="/help#videoList">Questions Relating To The Video List</a></li>
             <li><a href="/help#siteRequirements">Site Requirements</a></li>
             <li><a href="/help#feedback">Feedback</a></li>
+            <li><a href="/help#faq">FAQ</a></li>
           </ol>
         </li>
         
@@ -1063,6 +1064,23 @@ module.exports = function (req, res, url) {
             <li>
               <h2>I think the Zimmer Twins are super cool. Do you like fan mail?</h2>
               <p>In our books, fan mail is right up there with free samples of chocolate and snow days. We LOVE fan mail! Our team put a lot of work into creating the Zimmer Twins and it's always nice to here from you. Drop us a line with the <a href="/about/contact">contact form</a>.</p>
+            </li>
+          </ol>
+        </li>
+        <li id="faq">
+          <h3>FAQ <a href="/help#wrapper">Top</a></h3>
+          <ol>
+            <li>
+              <h2>Why have an account system if all zimmertwins uses is a desktop app or web app in localhost?</h2>
+              <p>There is a cool feature in the zimmertwins swf player where your username/nickname goes to the bottom of the screen and i thought that i'd try that with custom usernames you all make to see how it works and after some testing on both the normal and starter ends, it works great. if you are not logged in, all you get to see is just the title in your video witch i think is better for kids ages 12 and under.</p>
+            </li>
+            <li>
+              <h2>When is flashthemes coming out?</h2>
+              <p>The deadline for flashthemes is November 6th. i am not sure if it's coming out on that day or not, however, the most part is that flashthemes is coming out on november 30th. for updates, please join my <a target="_blank" href="https://discord.gg/gMbtYGfkKz">discord server</a>.</p>
+            </li>
+            <li>
+              <h2>Is flashthemes going to contain some of the same stuff as the beta wrapper 2?</h2>
+              <p>Yea, it had some options where you can pick a videomaker to use and eta. flashthemes will contain the same things but in different formats and account required.</p>
             </li>
           </ol>
         </li>
