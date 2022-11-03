@@ -7,6 +7,14 @@ module.exports = function (req, res, url) {
   if (req.method != "GET") return;
   const questionorand = url.query.uploaded ? `&` : `?`;
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
+  const accName = fs.existsSync(process.env.DATABASES_FOLDER + `/name.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/name.txt`, 'utf8') : "";
+  const join = fs.existsSync(process.env.DATABASES_FOLDER + `/name.txt`) ? `<li id="links-join"><a href="javascript:logout('${accName}')">Logout</a></li>` : `<li id="links-join"><a href="user/register">Join !</a></li>`;
+  const script = `<script>function logout(name) {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST', \`/ajax/logout?accountName=\${name}\`);
+    xhttp.send();
+    location.href = '/';
+  }</script>`;
   switch (url.pathname) {
     case "/movie/frontpage":
     case "/": {
@@ -32,7 +40,7 @@ module.exports = function (req, res, url) {
           <script type="text/javascript">
             _uacct = "UA-295035-5";
             urchinTracker();
-          </script>		
+          </script>${script}	
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070111205335cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -59,7 +67,7 @@ module.exports = function (req, res, url) {
       <ul id="links">
         <li id="links-make"><a href="starters">Make A Movie</a></li>
         <li id="links-watch"><a href="movie">Watch A Movie</a></li>
-            <li id="links-join"><a href="user/register">Join !</a></li>
+            ${join}
         </ul>
       
       <div id="movies">
@@ -1181,8 +1189,7 @@ module.exports = function (req, res, url) {
       return true;
     } case "/movie/search": {
       res.setHeader("Content-Type", "text/html; charset=utf8");
-      res.end(`
-      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
         <head>
       
@@ -1342,8 +1349,258 @@ module.exports = function (req, res, url) {
         </html>`);
       }
       return true;
+    } case "/agecheck": {
+      const age = fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/age.txt`) : "";
+      if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end("Access Denied");
+      else if (!fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
+        <head>
+      
+          <title>Let&#039;s get started! | Zimmer Twins</title>
+          <base href="${urlPrefix}://${req.headers.host}/"/>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+          <meta http-equiv="content-language" content="en-local"/>
+          <meta name="description" content=""/>
+          <meta name="keywords" content=""/>
+          <meta name="copyright" content="(c)2006 Lost The Plot Productions"/>
+      
+          <meta name="robots" content="all"/>
+          <meta http-equiv="imagetoolbar" content="no"/>
+          <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+          <script type="text/javascript" src="https://web.archive.org/web/20061023094621js_/http://www.zimmertwins.ca/themes/zimmertwins/js/shared.js"></script>
+              <script src="https://web.archive.org/web/20061023094621js_/http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+          <script type="text/javascript">
+            _uacct = "UA-295035-5";
+            urchinTracker();
+          </script>		
+              <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061023094621cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
+          <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
+        </head>
+        <body class="en-local">
+          <div id="wrapper">
+            <div id="content">
+                      <h1><span>Let&#039;s get started!</span></h1>
+                                              <!-- begin content --><form action="/ajax/checkAge${url.query.path ? `?redirect_to=/${url.query.path}` : ""}" method="post">
+      <fieldset><legend>How Old Are You? <a target="_blank" href="https://www.google.com/search?q=why+is+your+age+required+in+order+to+use+websites">Why is this required?</a></legend>
+      <div class="form-item">
+       <label for="edit-birthday][year">Age:</label>
+       <input type="text" maxlength="4" class="form-text" name="age" id="edit-birthday][year" size="4" value=""/>
+      </div>
+      </fieldset>
+      <input type="submit" class="form-submit" name="op" value="Procced To Signup"/>
+      
+      </form>
+      <!-- end content -->			</div>
+      
+            <div id="sidebar">
+              <a id="logo" href="/">Zimmer Twins</a>
+              <ul id="nav">
+                <li id="nav-home"><a href="">home</a></li>
+      <li id="nav-watch"><a href="movie">watch</a></li>
+      <li id="nav-make"><a href="starters">make</a></li>
+      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-extras"><a href="extras">extras</a></li>
+      <li id="nav-help"><a href="help">help</a></li>
+              </ul>
+      <div id="quick-search">
+        <h3>search</h3>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
+      </form>
+      </div>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+      
+            </div>
+            <a id="teletoon" href="http://www.teletoon.com/">Teletoon</a>
+             
+          </div>
+          <div id="footer">
+            <ul>
+              <li><a>&copy;2006 Lost The Plot</a></li>
+              <li><a href="about/terms">terms of use</a></li>
+      <li><a href="about/privacy">privacy policy</a></li>
+      <li><a href="about/conduct">code of conduct</a></li>
+      <li><a href="about/parents">parents</a></li>
+      <li><a href="about/contact">contact</a></li>
+      <li><a href="about/credits">credits</a></li>
+            </ul>
+          </div>
+        </body>
+      
+      </html>`);
+      else res.end(`<html><head><script>function redir() { 
+        location.href = '/user/register'; 
+      }</script></head><body onload="redir()"></body></html>`);
+      return true;
+    } case "/user/register": {
+      const age = fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/age.txt`) : "";
+      if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end("Access Denied");
+      else if (fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
+        <head>
+      
+          <title>Let's get you signed up! | Zimmer Twins</title>
+          <base href="${urlPrefix}://${req.headers.host}/"/>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+          <meta http-equiv="content-language" content="en-local"/>
+          <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Wallpapers, Movies, Movie-Maker, Animated Stories, Learning, Literacy, Educational, Free, Activities, Art, Elementary, Primary, Eva, Edgar, Psychic, Creative, Characters, Scenes, Dialog, Parents, Family, TV, Canada, Teletoon, Aaron Leighton, zinc Roe."/>
+          <meta name="description" content="The Zimmer Twins website invites kids to create and share their own animated stories."/>
+          <meta name="copyright" content="(c)2006 Lost The Plot Productions"/>
+      
+          <meta name="robots" content="all"/>
+          <meta http-equiv="imagetoolbar" content="no"/>
+          <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+          <script type="text/javascript" src="https://web.archive.org/web/20070813045227js_/http://www.zimmertwins.ca/themes/zimmertwins/js/shared.js"></script>
+                      <script src="https://web.archive.org/web/20070813045227js_/http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+            <script type="text/javascript">
+              _uacct = "UA-295035-5";
+              urchinTracker();
+            </script>		
+                    <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070813045227cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
+          <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
+        </head>
+        <body class="en-local">
+          <div id="wrapper">
+            <div id="content">
+                      <h1><span>Let's get you signed up!</span></h1>
+                                              <!-- begin content --><form action="/ajax/createAccont/" method="post">
+      <div class="form-item">
+       <label for="edit-name">Username:</label>
+       <input type="text" maxlength="64" class="form-text" name="username" id="edit-name" size="30" value=""/>
+       <div class="description">Enter the username that you want to use in zimmer twins.</div>
+      </div>
+      <input type="submit" class="form-submit" name="op" value="Create Account"/>
+      
+      </form>
+      <!-- end content -->			</div>
+      
+            <div id="sidebar">
+              <a id="logo" href="/">Zimmer Twins</a>
+              <ul id="nav">
+                <li id="nav-home"><a href="">home</a></li>
+      <li id="nav-watch"><a href="movie">watch</a></li>
+      <li id="nav-make"><a href="starters">make</a></li>
+      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-extras"><a href="extras">extras</a></li>
+      <li id="nav-help"><a href="help">help</a></li>
+              </ul>
+              <div id="quick-search">
+        <h3>search</h3>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
+      </form>
+      </div>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+      
+            </div>
+            <p>Already Have An Account? <a href="/user/login">Login</a></p>
+             
+          </div>
+          <div id="footer">
+            <ul>
+              <li><span>&copy;2007 Lost The Plot</span></li>
+              <li><a href="about/terms">terms of use</a></li>
+      <li><a href="about/privacy">privacy policy</a></li>
+      <li><a href="about/conduct">code of conduct</a></li>
+      <li><a href="about/parents">parents</a></li>
+      <li><a href="about/contact">contact</a></li>
+      <li><a href="about/credits">credits</a></li>
+            </ul>
+          </div>
+        </body>
+      
+      </html>`);
+      else res.end(`<html><head><script>function redir() { 
+        location.href = '/agecheck?path=user/register'; 
+      }</script></head><body onload="redir()"></body></html>`);
+      return true;
+    } case "/user/login": {
+      const age = fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/age.txt`) : "";
+      if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end("Access Denied");
+      else if (fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`)) {
+        if (!fs.existsSync(process.env.DATABASES_FOLDER + `/name.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
+        <head>
+      
+          <title>Login | Zimmer Twins</title>
+          <base href="${urlPrefix}://${req.headers.host}/"/>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+          <meta http-equiv="content-language" content="en-local"/>
+          <meta name="keywords" content="Animation, Games, Kids, Children, Storytelling, Stories, Wallpapers, Movies, Movie-Maker, Animated Stories, Learning, Literacy, Educational, Free, Activities, Art, Elementary, Primary, Eva, Edgar, Psychic, Creative, Characters, Scenes, Dialog, Parents, Family, TV, Canada, Teletoon, Aaron Leighton, zinc Roe."/>
+          <meta name="description" content="The Zimmer Twins website invites kids to create and share their own animated stories."/>
+          <meta name="copyright" content="(c)2006 Lost The Plot Productions"/>
+      
+          <meta name="robots" content="all"/>
+          <meta http-equiv="imagetoolbar" content="no"/>
+          <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+          <script type="text/javascript" src="https://web.archive.org/web/20070813045227js_/http://www.zimmertwins.ca/themes/zimmertwins/js/shared.js"></script>
+                      <script src="https://web.archive.org/web/20070813045227js_/http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+            <script type="text/javascript">
+              _uacct = "UA-295035-5";
+              urchinTracker();
+            </script>		
+                    <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070813045227cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
+          <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
+        </head>
+        <body class="en-local">
+          <div id="wrapper">
+            <div id="content">
+                      <h1><span>Login</span></h1>
+                                              <!-- begin content --><form action="/ajax/login" method="post">
+      <div class="form-item">
+       <label for="edit-name">Username:</label>
+       <input type="text" maxlength="64" class="form-text" name="username" id="edit-name" size="30" value=""/>
+       <div class="description">Enter the username that you used while you were signing up to use zimmer twins.</div>
+      </div>
+      <input type="submit" class="form-submit" name="op" value="Login"/>
+      
+      </form>
+      <!-- end content -->			</div>
+      
+            <div id="sidebar">
+              <a id="logo" href="/">Zimmer Twins</a>
+              <ul id="nav">
+                <li id="nav-home"><a href="">home</a></li>
+      <li id="nav-watch"><a href="movie">watch</a></li>
+      <li id="nav-make"><a href="starters">make</a></li>
+      <li id="nav-telepicks"><a href="telepicks">telepicks</a></li>
+      <li id="nav-extras"><a href="extras">extras</a></li>
+      <li id="nav-help"><a href="help">help</a></li>
+              </ul>
+              <div id="quick-search">
+        <h3>search</h3>
+        <form action="/ajax/searchMovies/" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search">advanced search</a>
+      </form>
+      </div>
+                              <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
+      
+            </div>
+            <p>Don't Have An Account? <a href="/user/register">Register</a></p>
+             
+          </div>
+          <div id="footer">
+            <ul>
+              <li><span>&copy;2007 Lost The Plot</span></li>
+              <li><a href="about/terms">terms of use</a></li>
+      <li><a href="about/privacy">privacy policy</a></li>
+      <li><a href="about/conduct">code of conduct</a></li>
+      <li><a href="about/parents">parents</a></li>
+      <li><a href="about/contact">contact</a></li>
+      <li><a href="about/credits">credits</a></li>
+            </ul>
+          </div>
+        </body>
+      
+      </html>`);
+      else res.end(`<html><head><script>function redir() { 
+        location.href = '/'; 
+      }</script></head><body onload="redir()"></body></html>`);
+    } else res.end(`<html><head><script>function redir() { 
+        location.href = '/agecheck?path=user/register'; 
+      }</script></head><body onload="redir()"></body></html>`);
+      return true;
     } default: {
-      res.setHeader("Content-Type", "text/html; charset=utf8");
       res.end('<a href="/">Home</a><br><center><p>404 Not Found</p></center>');
       return;
     }

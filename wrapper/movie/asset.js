@@ -95,6 +95,21 @@ module.exports = function (req, res, url) {
           }
           return true;
         }
+        case "/accountCreated": {
+          const name = url.query.username;
+          if (!name) {
+            res.end();
+            return;
+          }
+          const script = `<script>function logout(name) {
+            const xhttp = new XMLHttpRequest();
+            xhttp.open('POST', \`/ajax/logout?accountName=\${name}\`);
+            xhttp.send();
+            location.href = '/';
+          }</script>`;
+          res.end(process.env.HOME_HTML + `<html><head><title>Hello ${name}!</title>${script}</head><body><center><p>Your Account Has Successfully Been Created. Username: ${name} | <a href="javascript:logout('${name}')">Log Out</a></p></center></body></html>`);
+          return true;
+        }
         case "/ajax/firstTimeCheck": {
           const begVer = "?version=";
           const ver = url.query.ver ? begVer + url.query.ver : "";
@@ -183,32 +198,63 @@ module.exports = function (req, res, url) {
       }
     } case "POST": {
       switch (url.pathname) {
-        case "/ajax/createAccont": {
-          const name = url.query.name;
-          if (!name) return;
-          fs.writeFileSync(process.env.DATABASES_FOLDER + `/name.txt`, name);
-          res.end();
+        case "/ajax/checkAge": {
+          new formidable.IncomingForm().parse(req, (e, f) => {
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/age.txt`, f.age);
+            switch (f.age) {
+              case "1":
+              case "2":
+              case "3":
+              case "4":
+              case "5":
+              case "6":
+              case "7":
+              case "8":
+              case "9":
+              case "10":
+              case "11":
+              case "12": {
+                const [ _blank, beg, end ] = url.query.redirect_to.split("/");
+                res.statusCode = 302;
+                res.setHeader("Location", `/agecheck${url.query.redirect_to ? `?path=${beg}/${end}` : ""}`);
+                res.end();
+                break;
+              } default: {
+                const [ _blank, beg, end ] = url.query.redirect_to.split("/");
+                res.statusCode = 302;
+                if (f.age) res.setHeader("Location", url.query.redirect_to);
+                else {
+                  res.setHeader("Location", `/agecheck${url.query.redirect_to ? `?path=${beg}/${end}` : ""}`);
+                  fs.unlinkSync(process.env.DATABASES_FOLDER + `/age.txt`);
+                }
+                res.end();
+                break;
+              }
+            }
+          });
           return true;
-        } case "/ajax/logout": {
-          const name = url.query.accountName;
-          if (!name && !fs.existsSync(process.env.DATABASES_FOLDER + `/name.txt`)) return;
-          fs.writeFileSync(process.env.DATABASES_FOLDER + `/temp-name.txt`, name);
-          fs.unlinkSync(process.env.DATABASES_FOLDER + `/name.txt`);
-          res.end();
+        } case "/ajax/createAccont/": {
+          new formidable.IncomingForm().parse(req, (e, f) => {
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/name.txt`, f.username);
+            res.statusCode = 302;
+            if (f.username) res.setHeader("Location", `/accountCreated?username=${f.username}`);
+            else {
+              res.setHeader("Location", `/user/register`);
+              fs.unlinkSync(process.env.DATABASES_FOLDER + `/name.txt`);
+            }
+            res.end();
+          });
           return true;
         } case "/ajax/login": {
-          const name = url.query.name;
-          if (!name) return;
-          const tempname = fs.existsSync(process.env.DATABASES_FOLDER + `/temp-name.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/temp-name.txt`, 'utf8') : "";
-          if (name == tempname) {
-            fs.writeFileSync(process.env.DATABASES_FOLDER + `/name.txt`, name);
-            fs.unlinkSync(process.env.DATABASES_FOLDER + `/temp-name.txt`);
-            console.log("Login Sucessful");
-          } else {
-            fs.writeFileSync(process.env.DATABASES_FOLDER + `/name.txt`, "Login Incorrect");
-            console.log("Login Failed. Error: Incorrect username");
-          }
-          res.end();
+          new formidable.IncomingForm().parse(req, (e, f) => {
+            const name = fs.readFileSync(process.env.DATABASES_FOLDER + `/temp-name.txt`);
+            res.statusCode = 302;
+            if (f.username == name) {
+              fs.writeFileSync(process.env.DATABASES_FOLDER + `/name.txt`, f.username);
+              res.setHeader("Location", `/`);
+            } else res.setHeader("Location", `/user/login`);
+            res.end();
+          });
           return true;
         } case "/ajax/searchMovies/": {
           new formidable.IncomingForm().parse(req, (e, f) => {
@@ -365,6 +411,11 @@ module.exports = function (req, res, url) {
             res.end(buffer);
           }).catch(e => console.log(e));
           return true;
+        } case "/ajax/logout": {
+          const name = url.query.accountName;
+          fs.unlinkSync(process.env.DATABASES_FOLDER + `/name.txt`);
+          fs.writeFileSync(process.env.DATABASES_FOLDER + `/temp-name.txt`, name);
+          res.end();
         }
       }
     }
