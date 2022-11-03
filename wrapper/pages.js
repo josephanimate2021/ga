@@ -1061,10 +1061,6 @@ module.exports = function (req, res, url) {
               <h2>How can I make suggestions for the website?</h2>
               <p>We'd love to hear from you and, unlike the Zimmer Twins, we're not psychic! To make a suggestion, use our <a href="/about/contact">contact form</a>.</p>
             </li>
-            <li>
-              <h2>I think the Zimmer Twins are super cool. Do you like fan mail?</h2>
-              <p>In our books, fan mail is right up there with free samples of chocolate and snow days. We LOVE fan mail! Our team put a lot of work into creating the Zimmer Twins and it's always nice to here from you. Drop us a line with the <a href="/about/contact">contact form</a>.</p>
-            </li>
           </ol>
         </li>
         <li id="faq">
@@ -1076,11 +1072,15 @@ module.exports = function (req, res, url) {
             </li>
             <li>
               <h2>When is flashthemes coming out?</h2>
-              <p>The deadline for flashthemes is November 6th. i am not sure if it's coming out on that day or not, however, the most part is that flashthemes is coming out on november 30th. for updates, please join my <a target="_blank" href="https://discord.gg/gMbtYGfkKz">discord server</a>.</p>
+              <p>Flashthemes will coming out on november 30th. For updates, please join my <a target="_blank" href="https://discord.gg/gMbtYGfkKz">discord server</a>.</p>
             </li>
             <li>
               <h2>Is flashthemes going to contain some of the same stuff as the beta wrapper 2?</h2>
               <p>Yea, it had some options where you can pick a videomaker to use and eta. flashthemes will contain the same things but in different formats and account required.</p>
+            </li>
+            <li>
+              <h2>Holly Crap! Someone is using your project underage!</h2>
+              <p>it's not a big worry because age verfication has been added in the signup process. if the user is not 13+, a message will pop up saying Access Denied.</p>
             </li>
           </ol>
         </li>
@@ -1369,7 +1369,7 @@ module.exports = function (req, res, url) {
       return true;
     } case "/agecheck": {
       const age = fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/age.txt`) : "";
-      if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end("Access Denied");
+      if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end(process.env.HOME_HTML + "<center>Access Denied</center>");
       else if (!fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
         <head>
@@ -1452,7 +1452,7 @@ module.exports = function (req, res, url) {
       return true;
     } case "/user/register": {
       const age = fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/age.txt`) : "";
-      if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end("Access Denied");
+      if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end(process.env.HOME_HTML + "<center>Access Denied</center>");
       else if (fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
         <head>
@@ -1534,7 +1534,7 @@ module.exports = function (req, res, url) {
       return true;
     } case "/user/login": {
       const age = fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/age.txt`) : "";
-      if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end("Access Denied");
+      if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end(process.env.HOME_HTML + "<center>Access Denied</center>");
       else if (fs.existsSync(process.env.DATABASES_FOLDER + `/age.txt`)) {
         if (!fs.existsSync(process.env.DATABASES_FOLDER + `/name.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
