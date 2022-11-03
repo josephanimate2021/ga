@@ -347,7 +347,6 @@ module.exports = function (req, res, url) {
                   userid: f.userid
                 }
               };
-              console.log(params.meta.movieid);
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
@@ -360,6 +359,8 @@ module.exports = function (req, res, url) {
                 user = fs.readFileSync(env.DATABASES_FOLDER + `/${id}-user.txt`) 
               } else if (fs.existsSync(env.DATABASES_FOLDER + `/${id}-owner.txt`)) {
                 user = fs.readFileSync(env.DATABASES_FOLDER + `/${id}-owner.txt`) 
+              } else if (fs.existsSync(env.DATABASES_FOLDER + `/name.txt`)) {
+                user = fs.readFileSync(env.DATABASES_FOLDER + `/name.txt`, 'utf8');
               } else user = "";
               const params = {
                 meta: {
@@ -375,7 +376,9 @@ module.exports = function (req, res, url) {
                   userid: f.userid
                 }
               };
-              console.log(params.meta.movieid);
+              if (fs.existsSync(env.DATABASES_FOLDER + `/name.txt`)) {
+                fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-owner.txt`, params.username);
+              }
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
@@ -383,11 +386,14 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.txt`, params.meta.movieid);
               res.end(params.meta.movieid);
             } else {
+              var user;
+              if (fs.existsSync(env.DATABASES_FOLDER + `/name.txt`)) user = fs.readFileSync(env.DATABASES_FOLDER + `/name.txt`, 'utf8');
               const params = {
                 meta: {
                   action: f.action,
                   thumbid: f.thumbid,
                   description: f.description,
+                  username: user,
                   title: f.title,
                   moviexml: f.moviexml,
                   lang: f.lang,
@@ -395,6 +401,9 @@ module.exports = function (req, res, url) {
                   userid: f.userid
                 }
               };
+              if (fs.existsSync(env.DATABASES_FOLDER + `/name.txt`)) {
+                fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-owner.txt`, params.username);
+              }
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
