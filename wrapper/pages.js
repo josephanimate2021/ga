@@ -51,7 +51,7 @@ module.exports = function (req, res, url) {
           <script type="text/javascript">
             _uacct = "UA-295035-5";
             urchinTracker();
-          </script>${script}<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>	
+          </script>${script}
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070111205335cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -282,7 +282,7 @@ module.exports = function (req, res, url) {
           <script type="text/javascript">
             _uacct = "UA-295035-5";
             urchinTracker();
-          </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
+          </script>
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061023094045cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -471,7 +471,7 @@ module.exports = function (req, res, url) {
           <script type="text/javascript">
             _uacct = "UA-295035-5";
             urchinTracker();
-          </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
+          </script>			
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061022092730cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -569,7 +569,7 @@ module.exports = function (req, res, url) {
           </script><script>function hideActions() { 
             document.getElementById("actions").style.display = "none";
             document.getElementById("info").style.display = "none"; 
-          }</script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>		
+          }</script>		
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061023093418cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -748,7 +748,7 @@ module.exports = function (req, res, url) {
             <script type="text/javascript">
               _uacct = "UA-295035-5";
               urchinTracker();
-            </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
+            </script>		
                     <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070317063626cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -959,6 +959,7 @@ module.exports = function (req, res, url) {
             <li><a href="/help#gettingStarted">Getting Started</a></li>
             <li><a href="/help#movies">Movies</a></li>
             <li><a href="/help#videoList">Questions Relating To The Video List</a></li>
+            <li><a href="/help#flash">Adobe Flash Questions For Chromium</a></li>
             <li><a href="/help#siteRequirements">Site Requirements</a></li>
             <li><a href="/help#feedback">Feedback</a></li>
             <li><a href="/help#faq">FAQ</a></li>
@@ -1023,6 +1024,19 @@ module.exports = function (req, res, url) {
             <li>
               <h2>How do I find my friends' movies?</h2>
               <p>Type their nickname in the search box and press 'go'. Remember that you can see a list of their movies by clicking on their nickname anywhere it appears on the site.</p>
+            </li>
+          </ol>
+        </li>
+        <li id="flash">
+          <h3>Adobe Flash Questions For Chromium <a href="/help#wrapper">Top</a></h3>
+          <ol>
+            <li>
+              <h2>Flash isn't working! what do i do?</h2>
+              <p>You can try using the Allow Flash button below to fix the issue. if that dosen't work, then that means that flash isn't installed for chromium. to install flash, <a href="/files/flash_windows_chromium.msi">Click here</a>.<br><a href="/allowFlash">Allow Flash</a></p>
+            </li>
+            <li>
+              <h2>Does Zimmertwins Use Flash?</h2>
+              <p>yes it does. it is advised if you do the steps above.</p>
             </li>
           </ol>
         </li>
@@ -1138,7 +1152,7 @@ module.exports = function (req, res, url) {
             <script type="text/javascript">
               _uacct = "UA-295035-5";
               urchinTracker();
-            </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
+            </script>		
                     <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070219211300cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -1610,6 +1624,10 @@ module.exports = function (req, res, url) {
     } else res.end(`<html><head><script>function redir() { 
         location.href = '/agecheck?path=user/register'; 
       }</script></head><body onload="redir()"></body></html>`);
+      return true;
+    } case "/allowFlash": {
+      res.setHeader("Content-Type", "text/html; charset=utf8");
+      res.end('<a href="/">Home</a><br><br><br><br><br><br><br><center><object data="/files/flash_tree.swf" height="400" width="280" type="application/x-shockwave-flash"><param name="quality" value="high"><param name="bgcolor" value="#FAF6ED"><param name="play" value="true"><param name="loop" value="true"><param name="wmode" value="window"><param name="scale" value="showall"><param name="menu" value="true"><param name="devicefont" value="false"><param name="salign" value=""><param name="allowscriptaccess" value="sameDomain"></object></center>');
       return true;
     } default: {
       res.end('<a href="/">Home</a><br><center><p>404 Not Found</p></center>');

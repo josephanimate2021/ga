@@ -60,4 +60,4 @@ if %FLASH_DETECTED%==n (
 :after_flash_install
 start files\npm.bat
 set PATH=files\chrome
-start %PATH%\chrome.exe --allow-outdated-plugins --app=http://localhost
+start %PATH%\chrome.exe --allow-outdated-plugins --user-data-dir=the_profile --app=http://localhost
