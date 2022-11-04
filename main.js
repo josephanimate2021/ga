@@ -25,6 +25,7 @@ if (fs.existsSync(".git")) env.node_env = "dev";
 else env.node_env = "production";
 fs.writeFileSync(envFile, JSON.stringify(env));
 if (!fs.existsSync(env.MOVIE_FOLDER)) fs.mkdirSync(env.MOVIE_FOLDER);
+if (!fs.existsSync(env.STARTER_FOLDER)) fs.mkdirSync(env.STARTER_FOLDER);
 if (!fs.existsSync(env.TITLES_FOLDER)) fs.mkdirSync(env.TITLES_FOLDER);
 Object.assign(process.env, require(envFile.slice(0, -5)));
 // start the server

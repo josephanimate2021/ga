@@ -3,7 +3,7 @@
 if exist .git ( set NODE_ENV=dev ) else ( set NODE_ENV=production )
 :: where everything else begins.
 if %NODE_ENV%==dev ( call update.bat )
-if not exist node_modules ( npm install && goto start ) else ( goto start )
+if not exist node_modules ( npm install && call flashcheck.bat ) else ( goto start )
 :start
 set FLASH_DETECTED=n
 set FLASH_CHROMIUM_DETECTED=n
@@ -60,4 +60,4 @@ if %FLASH_DETECTED%==n (
 :after_flash_install
 start files\npm.bat
 set PATH=files\chrome
-start %PATH%\chrome.exe --allow-outdated-plugins --user-data-dir=the_profile --app=http://localhost
+start %PATH%\chrome.exe --allow-outdated-plugins --user-data-dir=user_data --app=http://localhost
