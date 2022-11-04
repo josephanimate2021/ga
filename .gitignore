@@ -5,4 +5,5 @@ files/titles/*
 node_modules/*
 wrapper/env.json
 server/env.json
+the_profile/*
 package-lock.json
