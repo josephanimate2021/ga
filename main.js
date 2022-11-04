@@ -1,7 +1,7 @@
 // modules
 const fs = require("fs");
 const envFile = "./wrapper/env.json";
-var exec = require('child_process').execFile;
+const p = process.env.PORT || 80;
 // vars
 
 /**
@@ -10,7 +10,7 @@ var exec = require('child_process').execFile;
 // env stuff
 const env = {
 	hostname: '127.0.0.1',
-	port: 80,
+	port: p,
 	MOVIE_FOLDER: "./files/movies",
 	STARTER_FOLDER: "./files/starters",
 	TITLES_FOLDER: "./files/titles",
