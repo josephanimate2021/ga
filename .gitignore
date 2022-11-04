@@ -6,3 +6,4 @@ node_modules/*
 wrapper/env.json
 server/env.json
 package-lock.json
+the_profile/*
