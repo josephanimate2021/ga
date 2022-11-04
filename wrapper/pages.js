@@ -51,7 +51,7 @@ module.exports = function (req, res, url) {
           <script type="text/javascript">
             _uacct = "UA-295035-5";
             urchinTracker();
-          </script>${script}	
+          </script>${script}<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>	
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070111205335cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -282,7 +282,7 @@ module.exports = function (req, res, url) {
           <script type="text/javascript">
             _uacct = "UA-295035-5";
             urchinTracker();
-          </script>		
+          </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061023094045cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -471,7 +471,7 @@ module.exports = function (req, res, url) {
           <script type="text/javascript">
             _uacct = "UA-295035-5";
             urchinTracker();
-          </script>		
+          </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061022092730cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -569,7 +569,7 @@ module.exports = function (req, res, url) {
           </script><script>function hideActions() { 
             document.getElementById("actions").style.display = "none";
             document.getElementById("info").style.display = "none"; 
-          }</script>	
+          }</script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>		
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061023093418cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -748,7 +748,7 @@ module.exports = function (req, res, url) {
             <script type="text/javascript">
               _uacct = "UA-295035-5";
               urchinTracker();
-            </script>		
+            </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
                     <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070317063626cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -917,10 +917,6 @@ module.exports = function (req, res, url) {
         </body>
       
       </html>`);
-      return true;
-    } case "/allowFlash": {
-      res.setHeader("Content-Type", "text/html; charset=utf8");
-      res.end('<a href="/">Home</a><br><br><br><br><br><br><br><center><object data="/files/flash_tree.swf" height="400" width="280" type="application/x-shockwave-flash"><param name="quality" value="high"><param name="bgcolor" value="#FAF6ED"><param name="play" value="true"><param name="loop" value="true"><param name="wmode" value="window"><param name="scale" value="showall"><param name="menu" value="true"><param name="devicefont" value="false"><param name="salign" value=""><param name="allowscriptaccess" value="sameDomain"></object></center>');
       return true;
     } case "/help": {
       res.setHeader("Content-Type", "text/html; charset=utf8");
@@ -1156,7 +1152,7 @@ module.exports = function (req, res, url) {
             <script type="text/javascript">
               _uacct = "UA-295035-5";
               urchinTracker();
-            </script>		
+            </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
                     <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070219211300cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
