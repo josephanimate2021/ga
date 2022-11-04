@@ -958,7 +958,6 @@ module.exports = function (req, res, url) {
           <ol>
             <li><a href="/help#gettingStarted">Getting Started</a></li>
             <li><a href="/help#movies">Movies</a></li>
-            <li><a href="/help#flash">Adobe Flash Questions For Chromium</a></li>
             <li><a href="/help#videoList">Questions Relating To The Video List</a></li>
             <li><a href="/help#siteRequirements">Site Requirements</a></li>
             <li><a href="/help#feedback">Feedback</a></li>
@@ -1024,19 +1023,6 @@ module.exports = function (req, res, url) {
             <li>
               <h2>How do I find my friends' movies?</h2>
               <p>Type their nickname in the search box and press 'go'. Remember that you can see a list of their movies by clicking on their nickname anywhere it appears on the site.</p>
-            </li>
-          </ol>
-        </li>
-        <li id="flash">
-          <h3>Adobe Flash Questions For Chromium <a href="/help#wrapper">Top</a></h3>
-          <ol>
-            <li>
-              <h2>Flash isn't working! what do i do?</h2>
-              <p>You can try using the Allow Flash button below to fix the issue. if that dosen't work, then that means that flash isn't installed for chromium. to install flash, <a href="/files/flash_windows_chromium.msi">Click here</a>.<br><a href="/allowFlash">Allow Flash</a></p>
-            </li>
-            <li>
-              <h2>Does Zimmertwins Use Flash?</h2>
-              <p>yes it does. it is advised if you do the steps above.</p>
             </li>
           </ol>
         </li>
