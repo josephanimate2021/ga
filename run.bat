@@ -3,7 +3,7 @@
 if exist .git ( set NODE_ENV=dev ) else ( set NODE_ENV=production )
 :: where everything else begins.
 if %NODE_ENV%==dev ( call update.bat )
-if not exist node_modules ( npm install && call flashcheck.bat ) else ( goto start )
+if not exist node_modules ( npm install && call files\flashcheck.bat ) else ( goto start )
 :start
 set FLASH_DETECTED=n
 set FLASH_CHROMIUM_DETECTED=n
