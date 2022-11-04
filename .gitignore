@@ -5,5 +5,5 @@ files/titles/*
 node_modules/*
 wrapper/env.json
 server/env.json
-user_data/*
+user_dat/*
 package-lock.json
