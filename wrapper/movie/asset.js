@@ -259,7 +259,7 @@ module.exports = function (req, res, url) {
         } case "/ajax/searchMovies/": {
           new formidable.IncomingForm().parse(req, (e, f) => {
             if (e) return;
-            f.type ||= "all";
+            if (!f.type) f.type = "all";
             const result = f.q;
             const type = f.type;
             switch (type) {
