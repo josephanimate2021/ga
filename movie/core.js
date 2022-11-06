@@ -1,5 +1,6 @@
 const movie = require("../asset/main");
 const fs = require("fs");
+const formidable = require("formidable");
 const base = Buffer.alloc(1, 0);
 
 module.exports = function (req, res, url) {
@@ -17,6 +18,13 @@ module.exports = function (req, res, url) {
             return true;
         } case "POST": {
             switch (url.pathname) {
+                case "/ajax/previewText2Video": {
+                    new formidable.IncomingForm().parse(req, (e, f) => {
+                        if (e) console.log(e);
+                        else console.log(f);
+                    });
+                    return true;
+                }
                 case "/goapi/getMovieInfo/": {
                     res.end('<watermarks></watermarks>');
                     return true;
