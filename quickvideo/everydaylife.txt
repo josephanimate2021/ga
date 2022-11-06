@@ -54,7 +54,7 @@ GoLite.settings.thumbnailChooser = {
 VoiceRecorder.defaultSettings.swf = "/template_files/go/img/script2cartoon/common/dialog/MyMicRecorder.swf";
 jQuery.extend(VoiceRecorder.defaultSettings.flashvars, {
     apiserver: "/",
-    clientThemePath: "https://josephanimate2021.github.io/static/642cd772aad8e952/<client_theme>",
+    clientThemePath: "/template_files/static/<client_theme>",
     u_info_school: "OjI6eThLWkNlQzFaNm12ekJUdUNrNmpSQURJdDltalRQWmhrdDlnWE5xVklubXVXejJGblhMQjZOTm1vbGVUNzlhYW5yblAwOFR0Yjk0WUZ0NUFaOWhBUE9hVE4wdWE4cGhNck9BQXB3bTMrVGV6MDVOK3hkd1ZjPQ=="
 });
 
