@@ -3,6 +3,20 @@ const fs = require("fs");
 const formidable = require("formidable");
 const base = Buffer.alloc(1, 0);
 
+function toAttrString(data) {
+	return typeof data == "object"
+		? Object.keys(data)
+				.filter((key) => data[key] !== null)
+				.map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+				.join("&")
+		: data.replace(/"/g, '\\"');
+}
+function toParamString(data) {
+	return Object.keys(data)
+		.map((key) => `${toAttrString(data[key])}`)
+		.join(" ");
+}
+
 module.exports = function (req, res, url) {
     switch(req.method) {
         case "GET": {
@@ -20,8 +34,8 @@ module.exports = function (req, res, url) {
             switch (url.pathname) {
                 case "/ajax/previewText2Video": {
                     new formidable.IncomingForm().parse(req, (e, f) => {
-                        if (e) console.log(e);
-                        else console.log(f);
+                        console.log(f);
+                        res.end();
                     });
                     return true;
                 }

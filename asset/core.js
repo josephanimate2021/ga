@@ -37,6 +37,13 @@ module.exports = function (req, res, url) {
     case "POST": {
       switch (req.url) {
         // i don't know what to expect here. but a blank asset error will give you other options.
+        case "/ajax/getCCCharacters": {
+          loadPost(req, res).then(data => {
+            const files = asset.charHeads(data.themeId);
+            res.end(files);
+          });
+          return true;
+        }
         case "/goapi/getUserAssets/": {
           loadPost(req, res).then(data => asset.getXmlsForZip(data)).then((buff) => {
             res.setHeader("Content-Type", "application/zip");

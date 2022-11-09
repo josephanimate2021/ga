@@ -184,79 +184,87 @@ function stepTo(step) {
 
     <a class="previous_step" href="#step1" onclick="stepTo('#step1'); return false;">Back</a>
 
-    <div class="inside">
-        <div class="character">
-            <div id="character1_title" class="title"><img src="/template_files/go/img/script2cartoon/everydaylife/step02/thumbs/bg03_a.jpg" alt=""></div>
-            <div id="character1" class="item_selector character_selector">
-                <a class="select_button prev" href="#">&lt;</a>
-                <div class="items">
-                    <div class="item selected" data-cid="0C8xO7kYl65U" data-name="" data-voice="joey" data-thumb="/char_heads/family/2487299.png"><span><img src="/template_files/2487299.png" alt=""></span></div>
-                    <div class="item" data-cid="0z1JxKx6sGek" data-name="" data-voice="amy" data-thumb="/char_heads/family/2487300.png"><span><img src="/template_files/2487300.png" alt=""></span></div>
-                    <div class="item" data-cid="0a6L9Az1X_7U" data-name="" data-voice="brian" data-thumb="/char_heads/family/2487301.png"><span><img src="/template_files/2487301.png" alt=""></span></div>
-                    <div class="item" data-cid="0Z6jBNZQ0Eac" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487302.png"><span><img src="/template_files/2487302.png" alt=""></span></div>
-                    <div class="item" data-cid="0QZgCi2tZf2E" data-name="" data-voice="emma" data-thumb="/char_heads/family/2487303.png"><span><img src="/template_files/2487303.png" alt=""></span></div>
-                    <div class="item" data-cid="0hxu4pGuL0ns" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487304.png"><span><img src="/template_files/2487304.png" alt=""></span></div>
-                    <div class="item" data-cid="0803WH6cvZug" data-name="" data-voice="jennifer" data-thumb="/char_heads/family/2487305.png"><span><img src="/template_files/2487305.png" alt=""></span></div>
-                    <div class="item" data-cid="0o8Yyunbixs4" data-name="" data-voice="brian" data-thumb="/char_heads/family/2487306.png"><span><img src="/template_files/2487306.png" alt=""></span></div>
-                    <div class="item" data-cid="0-EftFs07HKM" data-name="" data-voice="brian" data-thumb="/char_heads/family/2487307.png"><span><img src="/template_files/2487307.png" alt=""></span></div>
-                    <div class="item" data-cid="0jvXC7ies6p8" data-name="" data-voice="joey" data-thumb="/char_heads/family/2487308.png"><span><img src="/template_files/2487308.png" alt=""></span></div>
-                    <div class="item" data-cid="0Xay3rNbNiqY" data-name="" data-voice="joey" data-thumb="/char_heads/family/2487309.png"><span><img src="/template_files/2487309.png" alt=""></span></div>
-                    <div class="item" data-cid="0x1VUfBwAUUk" data-name="" data-voice="kimberly" data-thumb="/char_heads/family/2487310.png"><span><img src="/template_files/2487310.png" alt=""></span></div>
-                    <div class="item" data-cid="0P-T7QnCDoh8" data-name="" data-voice="joey" data-thumb="/char_heads/family/2487311.png"><span><img src="/template_files/2487311.png" alt=""></span></div>
-                    <div class="item" data-cid="0pyRezQ1El6k" data-name="" data-voice="kendra" data-thumb="/char_heads/family/2487312.png"><span><img src="/template_files/2487312.png" alt=""></span></div>
-                    <div class="item" data-cid="0i5nxYaBNv54" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487313.png"><span><img src="/template_files/2487313.png" alt=""></span></div>
-                    <div class="item" data-cid="0bn3URIMd9Ys" data-name="" data-voice="brian" data-thumb="/char_heads/family/2487314.png"><span><img src="/template_files/2487314.png" alt=""></span></div>
-                    <div class="item" data-cid="0_PllkZdhn-o" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487317.png"><span><img src="/template_files/2487317.png" alt=""></span></div>
-                    <div class="item" data-cid="0KXVWGDHGVqI" data-name="" data-voice="emma" data-thumb="/char_heads/family/2487318.png"><span><img src="/template_files/2487318.png" alt=""></span></div>
-                    <div class="item" data-cid="09y_C1g2vRvI" data-name="" data-voice="kimberly" data-thumb="/char_heads/family/2487319.png"><span><img src="/template_files/2487319.png" alt=""></span></div>
-                    <div class="item" data-cid="02DzR0IbvoAg" data-name="" data-voice="amy" data-thumb="/char_heads/family/2487320.png"><span><img src="/template_files/2487320.png" alt=""></span></div>
-                    <div class="item" data-cid="0jHfmHZDbd4k" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487321.png"><span><img src="/template_files/2487321.png" alt=""></span></div>
-                    <div class="item" data-cid="0i3FiP4mEBI4" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487322.png"><span><img src="/template_files/2487322.png" alt=""></span></div>
-                    <div class="item" data-cid="0yeqP-cf9peg" data-name="" data-voice="emma" data-thumb="/char_heads/family/2487323.png"><span><img src="/template_files/2487323.png" alt=""></span></div>
-                    <div class="item" data-cid="0wXKa9CK1ZiE" data-name="" data-voice="brian" data-thumb="/char_heads/family/2487324.png"><span><img src="/template_files/2487324.png" alt=""></span></div>
-                </div>
-                <a class="select_button next" href="#">&gt;</a>
-            </div>
-            <div class="name"></div>
+    	<div class="inside">
+		<div class="character">
+			<div id="character1_title" class="title"><img src="/template_files/go/img/script2cartoon/everydaylife/step02/thumbs/bg03_a.jpg" alt=""></div>
+			<div id="character1" class="item_selector character_selector">
+				<a class="select_button prev" href="#">&lt;</a>
+				<div class="items">
+					<div class="item selected" data-cid="0rf0USDVAIUw" data-name="" data-voice="joey" data-thumb="/template_files/charHeads/53774620.png"><span><img src="/template_files/53774620.png" alt=""></span></div>
+					<div class="item" data-cid="0Ut_2j5whZfc" data-name="" data-voice="amy" data-thumb="/template_files/charHeads/51900632.png"><span><img src="/template_files/51900632.png" alt=""></span></div>
+					<div class="item" data-cid="0osaDRM1A1f0" data-name="" data-voice="brian" data-thumb="/template_files/charHeads/53774420.png"><span><img src="/template_files/53774420.png" alt=""></span></div>
+					<div class="item" data-cid="0wP4OmSOgH5o" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/15748198.png"><span><img src="/template_files/15748198.png" alt=""></span></div>
 
-        </div>
+					<div class="item" data-cid="0bw5ODDSfY5A" data-name="" data-voice="emma" data-thumb="/template_files/charHeads/53777836.png" data-plus="true"><span><img src="/template_files/53777836.png" alt=""></span></div>
+					<div class="item" data-cid="0HLnChXZr380" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/53775124.png" data-plus="true"><span><img src="/template_files/53775124.png" alt=""></span></div>
+					<div class="item" data-cid="0wf5bcFn-GwE" data-name="" data-voice="jennifer" data-thumb="/template_files/charHeads/53775392.png" data-plus="true"><span><img src="/template_files/53775392.png" alt=""></span></div>
+					<div class="item" data-cid="0BcmxC00swQc" data-name="" data-voice="brian" data-thumb="/template_files/charHeads/53776587.png" data-plus="true"><span><img src="/template_files/53776587.png" alt=""></span></div>
+					<div class="item" data-cid="0G8EqebNMnNQ" data-name="" data-voice="brian" data-thumb="/template_files/charHeads/15742651.png" data-plus="true"><span><img src="/template_files/15742651.png" alt=""></span></div>
+					<div class="item" data-cid="0tfQ_1QKaBzc" data-name="" data-voice="joey" data-thumb="/template_files/charHeads/53776991.png" data-plus="true"><span><img src="/template_files/53776991.png" alt=""></span></div>
+					<div class="item" data-cid="0ARvTrXUyq7U" data-name="" data-voice="joey" data-thumb="/template_files/charHeads/15747889.png" data-plus="true"><span><img src="/template_files/15747889.png" alt=""></span></div>
+					<div class="item" data-cid="0kZ_HsGJobEQ" data-name="" data-voice="kimberly" data-thumb="/template_files/charHeads/22907070.png" data-plus="true"><span><img src="/template_files/22907070.png" alt=""></span></div>
+					<div class="item" data-cid="0x4okzFz73ws" data-name="" data-voice="joey" data-thumb="/template_files/charHeads/53777103.png" data-plus="true"><span><img src="/template_files/53777103.png" alt=""></span></div>
+					<div class="item" data-cid="0EUvJ9m3_swY" data-name="" data-voice="kendra" data-thumb="/template_files/charHeads/53776873.png" data-plus="true"><span><img src="/template_files/53776873.png" alt=""></span></div>
+					<div class="item" data-cid="02ioAtId2PfY" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/15747831.png" data-plus="true"><span><img src="/template_files/15747831.png" alt=""></span></div>
+					<div class="item" data-cid="0DEkttRWMbWs" data-name="" data-voice="brian" data-thumb="/template_files/charHeads/15747725.png" data-plus="true"><span><img src="/template_files/15747725.png" alt=""></span></div>
+					<div class="item" data-cid="0QAYN-PzhZqs" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/53776774.png" data-plus="true"><span><img src="/template_files/53776774.png" alt=""></span></div>
+					<div class="item" data-cid="0vvhbqFEXVKY" data-name="" data-voice="emma" data-thumb="/template_files/charHeads/53776403.png" data-plus="true"><span><img src="/template_files/53776403.png" alt=""></span></div>
+					<div class="item" data-cid="0c-PrBLsEf3k" data-name="" data-voice="kimberly" data-thumb="/template_files/charHeads/53776272.png" data-plus="true"><span><img src="/template_files/53776272.png" alt=""></span></div>
+					<div class="item" data-cid="0EgcqekoPuuA" data-name="" data-voice="amy" data-thumb="/template_files/charHeads/25918935.png" data-plus="true"><span><img src="/template_files/25918935.png" alt=""></span></div>
+					<div class="item" data-cid="0qc_2tN6qoMI" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/25919737.png" data-plus="true"><span><img src="/template_files/25919737.png" alt=""></span></div>
+					<div class="item" data-cid="0R41Mny2MBu0" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/25919156.png" data-plus="true"><span><img src="/template_files/25919156.png" alt=""></span></div>
+					<div class="item" data-cid="0XAjQTF_cl3Q" data-name="" data-voice="emma" data-thumb="/template_files/charHeads/53775796.png" data-plus="true"><span><img src="/template_files/53775796.png" alt=""></span></div>
+					<div class="item" data-cid="0AoElK2hpmeg" data-name="" data-voice="brian" data-thumb="/template_files/charHeads/25919810.png" data-plus="true"><span><img src="/template_files/25919810.png" alt=""></span></div>
+				</div>
+				<a class="select_button next" href="#">&gt;</a>
+			</div>
+			<div class="name"></div>
+			<div class="customlink">
+				<a class="isplus" href="javascript:GoLite.showSelectCCOverlay(0)">Use your own character</a>
+				<a class="isbasic" href="javascript:customCharSignup()">Use your own character (GoPlus only)</a>
+			</div>
+		</div>
 
-        <div class="character">
-            <div id="character2_title" class="title"><img src="/template_files/go/img/script2cartoon/everydaylife/step02/thumbs/bg03_b.jpg" alt=""></div>
-            <div id="character2" class="item_selector character_selector">
-                <a class="select_button prev" href="#">&lt;</a>
-                <div class="items">
-                    <div class="item" data-cid="0C8xO7kYl65U" data-name="" data-voice="joey" data-thumb="/char_heads/family/2487299.png" style="display: none;"><span><img src="/template_files/2487299.png" alt=""></span></div>
-                    <div class="item selected" data-cid="0x2VZE0YmXys" data-name="" data-voice="amy" data-thumb="/char_heads/family/51287869.png" style="display: none;"><span><img src="/template_files/51287869.png" alt=""></span></div>
-                    <div class="item" data-cid="0PF9tkqs1aLY" data-name="" data-voice="brian" data-thumb="/char_heads/family/51288759.png" style="display: block;"><span><img src="/template_files/51288759.png" alt=""></span></div>
-                    <div class="item" data-cid="0Z6jBNZQ0Eac" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487302.png" style="display: none;"><span><img src="/template_files/2487302.png" alt=""></span></div>
-                    <div class="item" data-cid="0QZgCi2tZf2E" data-name="" data-voice="emma" data-thumb="/char_heads/family/2487303.png" style="display: none;"><span><img src="/template_files/2487303.png" alt=""></span></div>
-                    <div class="item" data-cid="0hxu4pGuL0ns" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487304.png" style="display: none;"><span><img src="/template_files/2487304.png" alt=""></span></div>
-                    <div class="item" data-cid="0803WH6cvZug" data-name="" data-voice="jennifer" data-thumb="/char_heads/family/2487305.png" style="display: none;"><span><img src="/template_files/2487305.png" alt=""></span></div>
-                    <div class="item" data-cid="0o8Yyunbixs4" data-name="" data-voice="brian" data-thumb="/char_heads/family/2487306.png" style="display: none;"><span><img src="/template_files/2487306.png" alt=""></span></div>
-                    <div class="item" data-cid="0-EftFs07HKM" data-name="" data-voice="brian" data-thumb="/char_heads/family/2487307.png" style="display: none;"><span><img src="/template_files/2487307.png" alt=""></span></div>
-                    <div class="item" data-cid="0jvXC7ies6p8" data-name="" data-voice="joey" data-thumb="/char_heads/family/2487308.png" style="display: none;"><span><img src="/template_files/2487308.png" alt=""></span></div>
-                    <div class="item" data-cid="0Xay3rNbNiqY" data-name="" data-voice="joey" data-thumb="/char_heads/family/2487309.png" style="display: none;"><span><img src="/template_files/2487309.png" alt=""></span></div>
-                    <div class="item" data-cid="0x1VUfBwAUUk" data-name="" data-voice="kimberly" data-thumb="/char_heads/family/2487310.png" style="display: none;"><span><img src="/template_files/2487310.png" alt=""></span></div>
-                    <div class="item" data-cid="0P-T7QnCDoh8" data-name="" data-voice="joey" data-thumb="/char_heads/family/2487311.png" style="display: none;"><span><img src="/template_files/2487311.png" alt=""></span></div>
-                    <div class="item" data-cid="0pyRezQ1El6k" data-name="" data-voice="kendra" data-thumb="/char_heads/family/2487312.png" style="display: none;"><span><img src="/template_files/2487312.png" alt=""></span></div>
-                    <div class="item" data-cid="0i5nxYaBNv54" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487313.png" style="display: none;"><span><img src="/template_files/2487313.png" alt=""></span></div>
-                    <div class="item" data-cid="0bn3URIMd9Ys" data-name="" data-voice="brian" data-thumb="/char_heads/family/2487314.png" style="display: none;"><span><img src="/template_files/2487314.png" alt=""></span></div>
-                    <div class="item" data-cid="0_PllkZdhn-o" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487317.png" style="display: none;"><span><img src="/template_files/2487317.png" alt=""></span></div>
-                    <div class="item" data-cid="0KXVWGDHGVqI" data-name="" data-voice="emma" data-thumb="/char_heads/family/2487318.png" style="display: none;"><span><img src="/template_files/2487318.png" alt=""></span></div>
-                    <div class="item" data-cid="09y_C1g2vRvI" data-name="" data-voice="kimberly" data-thumb="/char_heads/family/2487319.png" style="display: none;"><span><img src="/template_files/2487319.png" alt=""></span></div>
-                    <div class="item" data-cid="02DzR0IbvoAg" data-name="" data-voice="amy" data-thumb="/char_heads/family/2487320.png" style="display: none;"><span><img src="/template_files/2487320.png" alt=""></span></div>
-                    <div class="item" data-cid="0jHfmHZDbd4k" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487321.png" style="display: none;"><span><img src="/template_files/2487321.png" alt=""></span></div>
-                    <div class="item" data-cid="0i3FiP4mEBI4" data-name="" data-voice="eric" data-thumb="/char_heads/family/2487322.png" style="display: none;"><span><img src="/template_files/2487322.png" alt=""></span></div>
-                    <div class="item" data-cid="0yeqP-cf9peg" data-name="" data-voice="emma" data-thumb="/char_heads/family/2487323.png" style="display: none;"><span><img src="/template_files/2487323.png" alt=""></span></div>
-                    <div class="item" data-cid="0wXKa9CK1ZiE" data-name="" data-voice="brian" data-thumb="/char_heads/family/2487324.png" style="display: none;"><span><img src="/template_files/2487324.png" alt=""></span></div>
-                </div>
-                <a class="select_button next" href="#">&gt;</a>
-            </div>
-            <div class="name"></div>
+		<div class="character">
+			<div id="character2_title" class="title"><img src="/template_files/go/img/script2cartoon/everydaylife/step02/thumbs/bg03_b.jpg" alt=""></div>
+			<div id="character2" class="item_selector character_selector">
+				<a class="select_button prev" href="#">&lt;</a>
+				<div class="items">
+					<div class="item" data-cid="0rf0USDVAIUw" data-name="" data-voice="joey" data-thumb="/template_files/charHeads/53774620.png"><span><img src="/template_files/53774620.png" alt=""></span></div>
+					<div class="item selected" data-cid="0Ut_2j5whZfc" data-name="" data-voice="amy" data-thumb="/template_files/charHeads/51900632.png"><span><img src="/template_files/51900632.png" alt=""></span></div>
+					<div class="item" data-cid="0osaDRM1A1f0" data-name="" data-voice="brian" data-thumb="/template_files/charHeads/53774420.png"><span><img src="/template_files/53774420.png" alt=""></span></div>
+					<div class="item" data-cid="0wP4OmSOgH5o" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/15748198.png"><span><img src="/template_files/15748198.png" alt=""></span></div>
+					<div class="item" data-cid="0bw5ODDSfY5A" data-name="" data-voice="emma" data-thumb="/template_files/charHeads/53777836.png" data-plus="true"><span><img src="/template_files/53777836.png" alt=""></span></div>
+					<div class="item" data-cid="0HLnChXZr380" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/53775124.png" data-plus="true"><span><img src="/template_files/53775124.png" alt=""></span></div>
+					<div class="item" data-cid="0wf5bcFn-GwE" data-name="" data-voice="jennifer" data-thumb="/template_files/charHeads/53775392.png" data-plus="true"><span><img src="/template_files/53775392.png" alt=""></span></div>
+					<div class="item" data-cid="0BcmxC00swQc" data-name="" data-voice="brian" data-thumb="/template_files/charHeads/53776587.png" data-plus="true"><span><img src="/template_files/53776587.png" alt=""></span></div>
+					<div class="item" data-cid="0G8EqebNMnNQ" data-name="" data-voice="brian" data-thumb="/template_files/charHeads/15742651.png" data-plus="true"><span><img src="/template_files/15742651.png" alt=""></span></div>
+					<div class="item" data-cid="0tfQ_1QKaBzc" data-name="" data-voice="joey" data-thumb="/template_files/charHeads/53776991.png" data-plus="true"><span><img src="/template_files/53776991.png" alt=""></span></div>
+					<div class="item" data-cid="0ARvTrXUyq7U" data-name="" data-voice="joey" data-thumb="/template_files/charHeads/15747889.png" data-plus="true"><span><img src="/template_files/15747889.png" alt=""></span></div>
+					<div class="item" data-cid="0kZ_HsGJobEQ" data-name="" data-voice="kimberly" data-thumb="/template_files/charHeads/22907070.png" data-plus="true"><span><img src="/template_files/22907070.png" alt=""></span></div>
+					<div class="item" data-cid="0x4okzFz73ws" data-name="" data-voice="joey" data-thumb="/template_files/charHeads/53777103.png" data-plus="true"><span><img src="/template_files/53777103.png" alt=""></span></div>
+					<div class="item" data-cid="0EUvJ9m3_swY" data-name="" data-voice="kendra" data-thumb="/template_files/charHeads/53776873.png" data-plus="true"><span><img src="/template_files/53776873.png" alt=""></span></div>
+					<div class="item" data-cid="02ioAtId2PfY" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/15747831.png" data-plus="true"><span><img src="/template_files/15747831.png" alt=""></span></div>
+					<div class="item" data-cid="0DEkttRWMbWs" data-name="" data-voice="brian" data-thumb="/template_files/charHeads/15747725.png" data-plus="true"><span><img src="/template_files/15747725.png" alt=""></span></div>
+					<div class="item" data-cid="0QAYN-PzhZqs" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/53776774.png" data-plus="true"><span><img src="/template_files/53776774.png" alt=""></span></div>
+					<div class="item" data-cid="0vvhbqFEXVKY" data-name="" data-voice="emma" data-thumb="/template_files/charHeads/53776403.png" data-plus="true"><span><img src="/template_files/53776403.png" alt=""></span></div>
+					<div class="item" data-cid="0c-PrBLsEf3k" data-name="" data-voice="kimberly" data-thumb="/template_files/charHeads/53776272.png" data-plus="true"><span><img src="/template_files/53776272.png" alt=""></span></div>
+					<div class="item" data-cid="0EgcqekoPuuA" data-name="" data-voice="amy" data-thumb="/template_files/charHeads/25918935.png" data-plus="true"><span><img src="/template_files/25918935.png" alt=""></span></div>
+					<div class="item" data-cid="0qc_2tN6qoMI" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/25919737.png" data-plus="true"><span><img src="/template_files/25919737.png" alt=""></span></div>
+					<div class="item" data-cid="0R41Mny2MBu0" data-name="" data-voice="eric" data-thumb="/template_files/charHeads/25919156.png" data-plus="true"><span><img src="/template_files/25919156.png" alt=""></span></div>
+					<div class="item" data-cid="0XAjQTF_cl3Q" data-name="" data-voice="emma" data-thumb="/template_files/charHeads/53775796.png" data-plus="true"><span><img src="/template_files/53775796.png" alt=""></span></div>
+					<div class="item" data-cid="0AoElK2hpmeg" data-name="" data-voice="brian" data-thumb="/template_files/charHeads/25919810.png" data-plus="true"><span><img src="/template_files/25919810.png" alt=""></span></div>
+				</div>
+				<a class="select_button next" href="#">&gt;</a>
+			</div>
+			<div class="name"></div>
+			<div class="customlink">
+				<a class="isplus" href="javascript:GoLite.showSelectCCOverlay(1)">Use your own character</a>
+				<a class="isbasic" href="javascript:customCharSignup()">Use your own character (GoPlus only)</a>
+			</div>
+		</div>
+	</div>
 
-        </div>
-    </div>
 
     <div class="snippets" style="display: none">
         <strong class="plus-char-txt">GoPlus Character</strong>
@@ -271,14 +279,14 @@ function stepTo(step) {
 .selectccoverlay .ccbrowsercontainer { width: 545px; height: 210px; padding: 5px 0px; margin-left: 33px; }
 .selectccoverlay .voiceselectorwidget { margin-left: 92px; }
 .selectccoverlay .ccbrowsercontainer .leftarrow, .rightarrow { position: relative; margin-left: auto; margin-right: auto; top: 72px; width: 11px; height: 28px; }
-.selectccoverlay .ccbrowsercontainer .leftarrow { background: url('/static/go/img/script2cartoon/voiceselectionwidget/btn_arrow_l.png') no-repeat 0px 0px; cursor: pointer; }
+.selectccoverlay .ccbrowsercontainer .leftarrow { background: url('/template_files/go/img/script2cartoon/voiceselectionwidget/btn_arrow_l.png') no-repeat 0px 0px; cursor: pointer; }
 .selectccoverlay .ccbrowsercontainer .disabled .leftarrow { background: none; cursor: default; }
 .selectccoverlay .ccbrowsercontainer .disabled .leftarrow:hover { background: none; cursor: default; }
-.selectccoverlay .ccbrowsercontainer .leftarrow:hover { background: url('/static/go/img/script2cartoon/voiceselectionwidget/btn_arrow_l.png') no-repeat 0px -28px; }
-.selectccoverlay .ccbrowsercontainer .rightarrow { background: url('/static/go/img/script2cartoon/voiceselectionwidget/btn_arrow_r.png') no-repeat 0px 0px; cursor: pointer; }
+.selectccoverlay .ccbrowsercontainer .leftarrow:hover { background: url('/template_files/go/img/script2cartoon/voiceselectionwidget/btn_arrow_l.png') no-repeat 0px -28px; }
+.selectccoverlay .ccbrowsercontainer .rightarrow { background: url('/template_files/go/img/script2cartoon/voiceselectionwidget/btn_arrow_r.png') no-repeat 0px 0px; cursor: pointer; }
 .selectccoverlay .ccbrowsercontainer .disabled .rightarrow { background: none; cursor: default; }
 .selectccoverlay .ccbrowsercontainer .disabled .rightarrow:hover { background: none; cursor: default; }
-.selectccoverlay .ccbrowsercontainer .rightarrow:hover { background: url('/static/go/img/script2cartoon/voiceselectionwidget/btn_arrow_r.png') no-repeat 0px -28px; }
+.selectccoverlay .ccbrowsercontainer .rightarrow:hover { background: url('/template_files/go/img/script2cartoon/voiceselectionwidget/btn_arrow_r.png') no-repeat 0px -28px; }
 .selectccoverlay .ccbrowsercontainer .leftarrowcontainer { float: left; height: 175px; width: 25px; margin-right: 10px; }
 .selectccoverlay .ccbrowsercontainer .rightarrowcontainer { float: right; height: 175px; width: 25px; margin-left: 5px; }
 .selectccoverlay .ccbrowsercontainer .selectedcc { border-width: 3px; border-style: solid; border-color: #999999 !important; }
@@ -498,7 +506,7 @@ var VoiceCatalog = (function() {
         <div class="dialog focus" data-charid="0" data-facial="default">
             <div class="num">1</div>
             <div class="char_thumb">
-                <img src="/char_heads/family/2487299.png" alt="">
+                <img src="/template_files/charHeads/51900632.png" alt="">
                 <a class="switch">Switch</a>
                 <div class="tips">Switch Actor</div>
             </div>
@@ -530,7 +538,7 @@ var VoiceCatalog = (function() {
         </div>
         <div class="dialog fake" data-charid="1">
             <div class="char_thumb">
-                <img src="/char_heads/family/51288759.png" alt="">
+                <img src="/template_files/charHeads/53774620.png" alt="">
             </div>
             <div class="box">
                 <div class="dialog_input_wrapper">
@@ -702,14 +710,14 @@ jQuery('#upgrade_confirm, #upgrade .close_btn').click(function(e) {
 <script type="text/javascript" src="/template_files/go/js/jquery/jquery.waypoints.min.js.gz.js"></script>
 <script type="text/javascript" src="/template_files/go/js/jquery/jquery.placeholder.min.js.gz.js"></script>
 <script type="text/javascript">
-jQuery.flash.expressInstall = "/static/libs/expressInstall.swf";
+jQuery.flash.expressInstall = "/template_files/libs/expressInstall.swf";
 
 var customCC_model = [];
 var reloadCCList = function() {
     jQuery.ajax({
         url: '/ajax/getCCCharacters',
         type: 'POST',
-        data: { cc_theme_id: 'family', tags: '' },
+        data: { themeId: 'family' },
         dataType: 'json',
         success: function(data, dummy1, dummy2) {
             customCC_model = jQuery.grep(data, function(cc) { return (cc.head_url && cc.thumb_url); });

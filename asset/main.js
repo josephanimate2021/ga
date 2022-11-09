@@ -47,6 +47,7 @@ module.exports = {
 		return table;
 	},
 	getChars(theme) {
+		console.log(theme);
 		const table = [];
 		if (!fUtil.exists(process.env.CHARS_FOLDER + `/${theme}`)) return table;
 		else fs.readdirSync(`${process.env.CHARS_FOLDER}/${theme}`).forEach(file => {
@@ -69,7 +70,23 @@ module.exports = {
 				table.unshift({id: id, theme: theme, title: meta.name, tags: meta.tag, copyable: meta.state});
 			}
 		});
+		console.log(table);
 		return table;
+	},
+	charHeads(theme) {
+		const table = [];
+		if (!fUtil.exists(process.env.ASSETS_FOLDER + `/charHeads/${theme}`)) return table;
+		else {
+			fs.readdirSync(process.env.ASSETS_FOLDER + `/charHeads/${theme}`).forEach(file => {
+				const dot = file.lastIndexOf(".");
+				const ext = file.substr(dot + 1);
+				const id = file.slice(0, -4);
+				const thumb = fUtil.exists(process.env.ASSETS_FOLDER + `/charHeads/${theme}/${id}.png`);
+				if (thumb) table.unshift({id: id});
+			});
+		}
+		console.log(JSON.stringify(table));
+		return JSON.stringify(table);
 	},
 	saveMovie(data) {
 		var thumb;
@@ -201,12 +218,17 @@ module.exports = {
 	saveCharacter(data) {
 		const id = fUtil.makeid(12);
 		const thumb = Buffer.from(data.thumbdata, "base64");
+		const head = Buffer.from(data.imagedata, "base64");
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.xml`, data.body);
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${id}.png`, thumb);
+		if (!fs.existsSync(process.env.DATABASES_FOLDER + `/names`)) fs.mkdirSync(process.env.DATABASES_FOLDER + `/names`);
+		if (!fs.existsSync(process.env.DATABASES_FOLDER + `/states`)) fs.mkdirSync(process.env.DATABASES_FOLDER + `/states`);
+		if (!fs.existsSync(process.env.DATABASES_FOLDER + `/tags`)) fs.mkdirSync(process.env.DATABASES_FOLDER + `/tags`);
 		fs.writeFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`, "Untitled");
 		fs.writeFileSync(process.env.DATABASES_FOLDER + `/states/${id}.txt`, "Y");
 		fs.writeFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`, "");
 		const tId = getTheme(id);
+		fs.writeFileSync(process.env.ASSETS_FOLDER + `/charHeads/${tId}/${id}.png`, head);
 		const tidFolder = fUtil.exists(process.env.CHARS_FOLDER + `/${tId}`);
 		if (!tidFolder) fs.mkdirSync(process.env.CHARS_FOLDER + `/${tId}`);
 		fs.writeFileSync(process.env.CHARS_FOLDER + `/${tId}/${id}.xml`, data.body);
