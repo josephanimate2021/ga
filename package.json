@@ -11,9 +11,5 @@
 	"main": "main.js",
 	"dependencies": {
 		"formidable": "^2.0.1"
-	},
-	"devDependencies": {
-		"electron": "^11.5.0",
-		"electron-packager": "^15.5.1"
 	}
 }
