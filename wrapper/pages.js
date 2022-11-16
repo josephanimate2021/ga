@@ -317,7 +317,7 @@ module.exports = function (req, res, url) {
       so.write("player-container");
       </script>
       </div>
-        <h2><a href="/studio?templateId=${id}">Make Movie From <span>${title || name}</span></a></h2>
+        <h2><a href="/studio?templateId=${id}${fromUrl}">Make Movie From <span>${title || name}</span></a></h2>
       </div>
       
       <p id="teaser">
@@ -340,8 +340,8 @@ module.exports = function (req, res, url) {
       </li>
       </ul>
       
-      <a id="make-from-scratch" href="/templates${
-        !url.query.uploaded ? "" : `?uploaded=${
+      <a id="make-from-scratch" href="/templates${fromUrl}${
+        !url.query.uploaded ? "" : `${questionorand(url.query.homeUrl)}uploaded=${
           url.query.uploaded
         }`
       }${
