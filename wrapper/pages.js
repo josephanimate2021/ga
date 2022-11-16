@@ -22,6 +22,7 @@ module.exports = function (req, res, url) {
     return query ? `&` : `?`;
   }
   const fromUrl = url.query.homeUrl ? `?homeUrl=${url.query.homeUrl}` : "";
+  const noruffle = url.query.noruffle ? `${questionorand(url.query.homeUrl)}noruffle=${url.query.noruffle}` : "";
   const ruffle = !url.query.noruffle ? '<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>' : "";
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
   const f = url.query.homeUrl ? `, '${fromUrl}'` : "";
@@ -921,7 +922,26 @@ module.exports = function (req, res, url) {
       
       </html>`);
       return true;
+    } case "/allowFlash": {
+      res.setHeader("Content-Type", "text/html; charset=utf8");
+      if (url.query.noruffle) res.end('<a href="/">Home</a><br><br><br><br><br><br><br><center><object data="/files/flash_tree.swf" height="400" width="280" type="application/x-shockwave-flash"><param name="quality" value="high"><param name="bgcolor" value="#FAF6ED"><param name="play" value="true"><param name="loop" value="true"><param name="wmode" value="window"><param name="scale" value="showall"><param name="menu" value="true"><param name="devicefont" value="false"><param name="salign" value=""><param name="allowscriptaccess" value="sameDomain"></object></center>');
+      else res.end(`<body onload="location.href = '/${fromUrl}'"></body>`);
+      return true;
     } case "/help": {
+      const noruffleflashtablecontents = url.query.noruffle ? `<li><a href="/help${fromUrl}#flash">Adobe Flash Questions For Chromium</a></li>` : '';
+      const norufflefilecontents = url.query.noruffle ? `<li id="flash">
+          <h3>Adobe Flash Questions For Chromium <a href="/help${fromUrl}#wrapper">Top</a></h3>
+          <ol>
+            <li>
+              <h2>Flash isn't working! what do i do?</h2>
+              <p>You can try using the Allow Flash button below to fix the issue. if that dosen't work, then that means that flash isn't installed for chromium. to install flash, <a href="/files/flash_windows_chromium.msi">Click here</a>.<br><a href="/allowFlash${fromUrl}${questionorand(url.query.homeUrl)}noruffle=${url.query.noruffle}">Allow Flash</a></p>
+            </li>
+            <li>
+              <h2>Does Zimmertwins Use Flash?</h2>
+              <p>yes it does. it is advised if you do the steps above.</p>
+            </li>
+          </ol>
+        </li>` : '';
       res.setHeader("Content-Type", "text/html; charset=utf8");
       res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local" id="help">
@@ -961,6 +981,7 @@ module.exports = function (req, res, url) {
           <ol>
             <li><a href="/help${fromUrl}#gettingStarted">Getting Started</a></li>
             <li><a href="/help${fromUrl}#movies">Movies</a></li>
+            ${noruffleflashtablecontents}
             <li><a href="/help${fromUrl}#videoList">Questions Relating To The Video List</a></li>
             <li><a href="/help${fromUrl}#siteRequirements">Site Requirements</a></li>
             <li><a href="/help${fromUrl}#feedback">Feedback</a></li>
@@ -1029,6 +1050,7 @@ module.exports = function (req, res, url) {
             </li>
           </ol>
         </li>
+        ${norufflefilecontents}
         <li id="siteRequirements">
           <h3>Site Requirements <a href="/help${fromUrl}#wrapper">Top</a></h3>
           <ol>
