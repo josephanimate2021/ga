@@ -27,7 +27,7 @@ module.exports = function (req, res, url) {
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
   const f = url.query.homeUrl ? `, '${fromUrl}'` : "";
   const accName = fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}name.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/${req.id}name.txt`, 'utf8') : "";
-  const join = fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}name.txt`) ? `<li id="links-join"><a href="javascript:logout('${accName}'${f})">Logout</a></li>` : `<li id="links-join"><a href="user/register${fromUrl}${noruffle}">Join !</a></li>`;
+  const join = fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}name.txt`) ? `<li id="links-join"><a href="javascript:logout('${accName}'${f})">Logout</a></li>` : `<li id="links-join"><a href="user/register${noruffle}${fromUrl}">Join !</a></li>`;
   const script = `<script>function logout(name, fromUrl = false) {
     const xhttp = new XMLHttpRequest();
     xhttp.open('POST', \`/ajax/logout?accountName=\${name}\${fromUrl}\`);
@@ -84,8 +84,8 @@ module.exports = function (req, res, url) {
       
       </div>
       <ul id="links">
-        <li id="links-make"><a href="starters${fromUrl}${noruffle}">Make A Movie</a></li>
-        <li id="links-watch"><a href="movie${fromUrl}${noruffle}">Watch A Movie</a></li>
+        <li id="links-make"><a href="starters${noruffle}${fromUrl}">Make A Movie</a></li>
+        <li id="links-watch"><a href="movie${noruffle}${fromUrl}">Watch A Movie</a></li>
             ${join}
         </ul>
       
@@ -99,16 +99,16 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
@@ -120,12 +120,12 @@ module.exports = function (req, res, url) {
           <div id="footer">
             <ul>
               <li><a>&copy;2006 Lost The Plot</a></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
@@ -172,16 +172,16 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}" class="active">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}" class="active">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
@@ -193,12 +193,12 @@ module.exports = function (req, res, url) {
           <div id="footer">
             <ul>
               <li><a>&copy;2006 Lost The Plot</a></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
@@ -342,7 +342,7 @@ module.exports = function (req, res, url) {
       </li>
       </ul>
       
-      <a id="make-from-scratch" href="/templates${fromUrl}${noruffle}${
+      <a id="make-from-scratch" href="/templates${noruffle}${fromUrl}${
         !url.query.uploaded ? "" : `${questionorand(url.query.homeUrl)}uploaded=${
           url.query.uploaded
         }`
@@ -351,8 +351,8 @@ module.exports = function (req, res, url) {
           url.query.id
         }`
       }">Load More Starters</a>
-      <a id="make-from-scratch" href="/studio${fromUrl}${noruffle}">Make From Scratch</a>
-      <a id="how-to-make" href="/studio${fromUrl}${noruffle}${questionorand(url.query.noruffle || url.query.homeUrl)}howto=1">How To Make A Movie</a>
+      <a id="make-from-scratch" href="/studio${noruffle}${fromUrl}">Make From Scratch</a>
+      <a id="how-to-make" href="/studio${noruffle}${fromUrl}${questionorand(url.query.noruffle || url.query.homeUrl)}howto=1">How To Make A Movie</a>
       
       <h3>Past Starters</h3>
       <ul id="past-starters" class="movie-list past-starter">
@@ -410,16 +410,16 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}" class="active">make</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}" class="active">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
@@ -431,12 +431,12 @@ module.exports = function (req, res, url) {
           <div id="footer">
             <ul>
               <li><a>&copy;2006 Lost The Plot</a></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
@@ -513,16 +513,16 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
@@ -534,12 +534,12 @@ module.exports = function (req, res, url) {
           <div id="footer">
             <ul>
               <li><a>&copy;2006 Lost The Plot</a></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
@@ -624,16 +624,16 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
@@ -645,12 +645,12 @@ module.exports = function (req, res, url) {
           <div id="footer">
             <ul>
               <li><a>&copy;2006 Lost The Plot</a></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
@@ -816,7 +816,7 @@ module.exports = function (req, res, url) {
         }`
       }">Load Less Starters</a>
       <a id="make-from-scratch" href="/studio">Make From Scratch</a>
-      <a id="how-to-make" href="/studio${fromUrl}${noruffle}${questionorand(url.query.noruffle ||url.query.homeUrl)}howto=1">How To Make A Movie</a>
+      <a id="how-to-make" href="/studio${noruffle}${fromUrl}${questionorand(url.query.noruffle ||url.query.homeUrl)}howto=1">How To Make A Movie</a>
       
       <h3>Past Starters</h3>
       <ul id="past-starters" class="movie-list past-starter">
@@ -889,16 +889,16 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
@@ -910,12 +910,12 @@ module.exports = function (req, res, url) {
           <div id="footer">
             <ul>
               <li><a>&copy;2006 Lost The Plot</a></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
@@ -924,17 +924,17 @@ module.exports = function (req, res, url) {
       return true;
     } case "/allowFlash": {
       res.setHeader("Content-Type", "text/html; charset=utf8");
-      if (url.query.noruffle) res.end(`<a href="/${fromUrl}${noruffle}">Home</a><br><br><br><br><br><br><br><center><object data="/files/flash_tree.swf" height="400" width="280" type="application/x-shockwave-flash"><param name="quality" value="high"><param name="bgcolor" value="#FAF6ED"><param name="play" value="true"><param name="loop" value="true"><param name="wmode" value="window"><param name="scale" value="showall"><param name="menu" value="true"><param name="devicefont" value="false"><param name="salign" value=""><param name="allowscriptaccess" value="sameDomain"></object></center>`);
-      else res.end(`<body onload="location.href = '/${fromUrl}${noruffle}'"></body>`);
+      if (url.query.noruffle) res.end(`<a href="/${noruffle}${fromUrl}">Home</a><br><br><br><br><br><br><br><center><object data="/files/flash_tree.swf" height="400" width="280" type="application/x-shockwave-flash"><param name="quality" value="high"><param name="bgcolor" value="#FAF6ED"><param name="play" value="true"><param name="loop" value="true"><param name="wmode" value="window"><param name="scale" value="showall"><param name="menu" value="true"><param name="devicefont" value="false"><param name="salign" value=""><param name="allowscriptaccess" value="sameDomain"></object></center>`);
+      else res.end(`<body onload="location.href = '/${noruffle}${fromUrl}'"></body>`);
       return true;
     } case "/help": {
-      const noruffleflashtablecontents = url.query.noruffle ? `<li><a href="/help${fromUrl}${noruffle}#flash">Adobe Flash Questions For Chromium</a></li>` : '';
+      const noruffleflashtablecontents = url.query.noruffle ? `<li><a href="/help${noruffle}${fromUrl}#flash">Adobe Flash Questions For Chromium</a></li>` : '';
       const norufflefilecontents = url.query.noruffle ? `<li id="flash">
-          <h3>Adobe Flash Questions For Chromium <a href="/help${fromUrl}${noruffle}#wrapper">Top</a></h3>
+          <h3>Adobe Flash Questions For Chromium <a href="/help${noruffle}${fromUrl}#wrapper">Top</a></h3>
           <ol>
             <li>
               <h2>Flash isn't working! what do i do?</h2>
-              <p>You can try using the Allow Flash button below to fix the issue. if that dosen't work, then that means that flash isn't installed for chromium. to install flash, <a href="/files/flash_windows_chromium.msi">Click here</a>.<br><a href="/allowFlash${fromUrl}${noruffle}">Allow Flash</a></p>
+              <p>You can try using the Allow Flash button below to fix the issue. if that dosen't work, then that means that flash isn't installed for chromium. to install flash, <a href="/files/flash_windows_chromium.msi">Click here</a>.<br><a href="/allowFlash${noruffle}${fromUrl}">Allow Flash</a></p>
             </li>
             <li>
               <h2>Does Zimmertwins Use Flash?</h2>
@@ -973,24 +973,24 @@ module.exports = function (req, res, url) {
                       <h1><span>Help</span></h1>
                                               <!-- begin content --><div class="node-content"><ol id="topics">
       <li id="quick">
-      <a class="button" href="/studio${fromUrl}${noruffle}${questionorand(url.query.noruffle || url.query.homeUrl)}howto=1">How To Make A Movie</a>
+      <a class="button" href="/studio${noruffle}${fromUrl}${questionorand(url.query.noruffle || url.query.homeUrl)}howto=1">How To Make A Movie</a>
       <a class="button" href="welcome">Zimmer Twins Tour</a>
       </li>
         <li id="toc">
           <h3>Table Of Contents</h3>
           <ol>
-            <li><a href="/help${fromUrl}${noruffle}#gettingStarted">Getting Started</a></li>
-            <li><a href="/help${fromUrl}${noruffle}#movies">Movies</a></li>
+            <li><a href="/help${noruffle}${fromUrl}#gettingStarted">Getting Started</a></li>
+            <li><a href="/help${noruffle}${fromUrl}#movies">Movies</a></li>
             ${noruffleflashtablecontents}
-            <li><a href="/help${fromUrl}${noruffle}#videoList">Questions Relating To The Video List</a></li>
-            <li><a href="/help${fromUrl}${noruffle}#siteRequirements">Site Requirements</a></li>
-            <li><a href="/help${fromUrl}${noruffle}#feedback">Feedback</a></li>
-            <li><a href="/help${fromUrl}${noruffle}#faq">FAQ</a></li>
+            <li><a href="/help${noruffle}${fromUrl}#videoList">Questions Relating To The Video List</a></li>
+            <li><a href="/help${noruffle}${fromUrl}#siteRequirements">Site Requirements</a></li>
+            <li><a href="/help${noruffle}${fromUrl}#feedback">Feedback</a></li>
+            <li><a href="/help${noruffle}${fromUrl}#faq">FAQ</a></li>
           </ol>
         </li>
         
         <li id="gettingStarted">
-          <h3>Getting Started <a href="/help${fromUrl}${noruffle}#wrapper">Top</a></h3>
+          <h3>Getting Started <a href="/help${noruffle}${fromUrl}#wrapper">Top</a></h3>
           <ol>
             <li>
               <h2>What's this all about?</h2>
@@ -1000,7 +1000,7 @@ module.exports = function (req, res, url) {
             </li>
             <li>
               <h2>Who are the Zimmer Twins?</h2>
-              <p>Edgar and Eva Zimmer are an ordinary pair of 12 year-olds except for one thing - they have psychic powers. They weren't always psychic though. The weirdness began when they adopted a black cat named 13. From that point on, they strange things began to happen. How strange? Well, watch some of the <a href="/starters${fromUrl}${noruffle}">starters</a> and you'll get the idea.</p>
+              <p>Edgar and Eva Zimmer are an ordinary pair of 12 year-olds except for one thing - they have psychic powers. They weren't always psychic though. The weirdness began when they adopted a black cat named 13. From that point on, they strange things began to happen. How strange? Well, watch some of the <a href="/starters${noruffle}${fromUrl}">starters</a> and you'll get the idea.</p>
             </li>
             <li>
               <h2>Do i need to be 13+ to use zimmertwins?</h2>
@@ -1009,7 +1009,7 @@ module.exports = function (req, res, url) {
           </ol>
         </li>
         <li id="movies">
-          <h3>Movies <a href="/help${fromUrl}${noruffle}#wrapper">Top</a></h3>
+          <h3>Movies <a href="/help${noruffle}${fromUrl}#wrapper">Top</a></h3>
           <ol>
             <li>
               <h2>How do I create a movie?</h2>
@@ -1020,25 +1020,25 @@ module.exports = function (req, res, url) {
             <li>
               <h2>How do I edit a movie that I've already made?</h2>
                <p>
-              First, you need to head to the <a href="/movie${fromUrl}${noruffle}">watch a movie</a> page then find a movie that you want to edit. Once you found the movie, click on it and below it, there will be 3 choices. One is download, second is delete, and third is edit. What you want to click on is the edit button and then your movie will load inside the studio for you to edit.
+              First, you need to head to the <a href="/movie${noruffle}${fromUrl}">watch a movie</a> page then find a movie that you want to edit. Once you found the movie, click on it and below it, there will be 3 choices. One is download, second is delete, and third is edit. What you want to click on is the edit button and then your movie will load inside the studio for you to edit.
                   </p>
             </li>
             <li>
               <h2>How do I delete a movie I don't want to keep anymore?</h2>
               <p>
-              First, you need to head to the <a href="/movie${fromUrl}${noruffle}">watch a movie</a> page then find a movie that you want to delete. Once you found the movie, click on it and below it, there will be 3 choices. One is download, second is delete, and third is edit. What you want to click on is the delete button and then your movie will go away from the list for good. Note: there is no turning back if you do this unless you downloaded a backup copy of your movie.
+              First, you need to head to the <a href="/movie${noruffle}${fromUrl}">watch a movie</a> page then find a movie that you want to delete. Once you found the movie, click on it and below it, there will be 3 choices. One is download, second is delete, and third is edit. What you want to click on is the delete button and then your movie will go away from the list for good. Note: there is no turning back if you do this unless you downloaded a backup copy of your movie.
                   </p>
             </li>
             <li>
               <h2>How do I download a backup copy of my movie?</h2>
               <p>
-              First, you need to head to the <a href="/movie${fromUrl}${noruffle}">watch a movie</a> page then find a movie that you want to download. Once you found the movie, click on it and below it, there will be 3 choices. One is download, second is delete, and third is edit. What you want to click on is the download button and then your movie will be saved to your files. the filename of your movie is going to be the title of your movie so that you can keep things in place. please keep that in mind.
+              First, you need to head to the <a href="/movie${noruffle}${fromUrl}">watch a movie</a> page then find a movie that you want to download. Once you found the movie, click on it and below it, there will be 3 choices. One is download, second is delete, and third is edit. What you want to click on is the download button and then your movie will be saved to your files. the filename of your movie is going to be the title of your movie so that you can keep things in place. please keep that in mind.
                   </p>
             </li>
           </ol>
         </li>
         <li id="videoList">
-          <h3>Questions relating to the videolist <a href="/help${fromUrl}${noruffle}#wrapper">Top</a></h3>
+          <h3>Questions relating to the videolist <a href="/help${noruffle}${fromUrl}#wrapper">Top</a></h3>
           <ol>
             <li>
               <h2>Why is the your movies section including the watch a movie page always blank?</h2>
@@ -1052,7 +1052,7 @@ module.exports = function (req, res, url) {
         </li>
         ${norufflefilecontents}
         <li id="siteRequirements">
-          <h3>Site Requirements <a href="/help${fromUrl}${noruffle}#wrapper">Top</a></h3>
+          <h3>Site Requirements <a href="/help${noruffle}${fromUrl}#wrapper">Top</a></h3>
           <ol>
             <li>
               <h2>What kind of computer do I need?</h2>
@@ -1069,20 +1069,20 @@ module.exports = function (req, res, url) {
           </ol>
         </li>
         <li id="feedback">
-          <h3>Feedback <a href="/help${fromUrl}${noruffle}#wrapper">Top</a></h3>
+          <h3>Feedback <a href="/help${noruffle}${fromUrl}#wrapper">Top</a></h3>
           <ol>
             <li>
               <h2>Something on the site is broken. Can you fix it?</h2>
-              <p>We certainly can try! Before you report a problem, please check our <a href="#siteRequirements">site requirements</a>. If your computer meets these requirements and something still isn't working properly, then let us know about it by using the <a href="/about/contact${fromUrl}${noruffle}">contact form</a>. Please be as specific as possible when you explain what the problem is and we'll make every effort to fix it.</p>
+              <p>We certainly can try! Before you report a problem, please check our <a href="#siteRequirements">site requirements</a>. If your computer meets these requirements and something still isn't working properly, then let us know about it by using the <a href="/about/contact${noruffle}${fromUrl}">contact form</a>. Please be as specific as possible when you explain what the problem is and we'll make every effort to fix it.</p>
             </li>
             <li>
               <h2>How can I make suggestions for the website?</h2>
-              <p>We'd love to hear from you and, unlike the Zimmer Twins, we're not psychic! To make a suggestion, use our <a href="/about/contact${fromUrl}${noruffle}">contact form</a>.</p>
+              <p>We'd love to hear from you and, unlike the Zimmer Twins, we're not psychic! To make a suggestion, use our <a href="/about/contact${noruffle}${fromUrl}">contact form</a>.</p>
             </li>
           </ol>
         </li>
         <li id="faq">
-          <h3>FAQ <a href="/help${fromUrl}${noruffle}#wrapper">Top</a></h3>
+          <h3>FAQ <a href="/help${noruffle}${fromUrl}#wrapper">Top</a></h3>
           <ol>
             <li>
               <h2>Why have an account system if all zimmertwins uses is a desktop app or web app in localhost?</h2>
@@ -1108,16 +1108,16 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}" class="active">help</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}" class="active">help</a></li>
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
@@ -1129,12 +1129,12 @@ module.exports = function (req, res, url) {
           <div id="footer">
             <ul>
               <li><span>&copy;2006 Lost The Plot</span></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
@@ -1190,16 +1190,16 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="edit[keys]" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="edit[keys]" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
@@ -1211,12 +1211,12 @@ module.exports = function (req, res, url) {
           <div id="footer">
             <ul>
               <li><a>&copy;2006 Lost The Plot</a></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
@@ -1272,16 +1272,16 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}" class="active">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}" class="active">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
@@ -1293,12 +1293,12 @@ module.exports = function (req, res, url) {
           <div id="footer">
             <ul>
               <li><a>&copy;2006 Lost The Plot</a></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
@@ -1351,16 +1351,16 @@ module.exports = function (req, res, url) {
                 <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
                 <ul id="nav">
                   <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-        <li id="nav-watch"><a href="movie${fromUrl}${noruffle}" class="active">watch</a></li>
-        <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
+        <li id="nav-watch"><a href="movie${noruffle}${fromUrl}" class="active">watch</a></li>
+        <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
         <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
-        <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-        <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+        <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+        <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
                 </ul>
         <div id="quick-search">
           <h3>search</h3>
-          <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-        <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+          <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+        <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
         </form>
         </div>
                                 <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
@@ -1372,12 +1372,12 @@ module.exports = function (req, res, url) {
             <div id="footer">
               <ul>
                 <li><a>&copy;2006 Lost The Plot</a></li>
-                <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-        <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-        <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-        <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-        <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-        <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+                <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+        <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+        <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+        <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+        <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+        <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
               </ul>
             </div>
           </body>
@@ -1432,16 +1432,16 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks${fromUrl}${noruffle}">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
+      <li id="nav-telepicks"><a href="telepicks${noruffle}${fromUrl}">telepicks</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
               </ul>
       <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
@@ -1453,19 +1453,19 @@ module.exports = function (req, res, url) {
           <div id="footer">
             <ul>
               <li><a>&copy;2006 Lost The Plot</a></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
       
       </html>`);
       else res.end(`<html><head><script>function redir() { 
-        location.href = '/user/register${fromUrl}${noruffle}'; 
+        location.href = '/user/register${noruffle}${fromUrl}'; 
       }</script></head><body onload="redir()"></body></html>`);
       return true;
     } case "/user/register": {
@@ -1499,7 +1499,7 @@ module.exports = function (req, res, url) {
           <div id="wrapper">
             <div id="content">
                       <h1><span>Let's get you signed up!</span></h1>
-                                              <!-- begin content --><form action="/ajax/createAccont/${fromUrl}${noruffle}" method="post">
+                                              <!-- begin content --><form action="/ajax/createAccont/${noruffle}${fromUrl}" method="post">
       <div class="form-item">
        <label for="edit-name">Username:</label>
        <input type="text" maxlength="64" class="form-text" name="username" id="edit-name" size="30" value=""/>
@@ -1514,40 +1514,40 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks${fromUrl}${noruffle}">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
+      <li id="nav-telepicks"><a href="telepicks${noruffle}${fromUrl}">telepicks</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
               </ul>
               <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
       
             </div>
-            <p>Already Have An Account? <a href="/user/login${fromUrl}${noruffle}">Login</a></p>
+            <p>Already Have An Account? <a href="/user/login${noruffle}${fromUrl}">Login</a></p>
              
           </div>
           <div id="footer">
             <ul>
               <li><span>&copy;2007 Lost The Plot</span></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
       
       </html>`);
       else res.end(`<html><head><script>function redir() { 
-        location.href = '/agecheck${fromUrl}${noruffle}${questionorand(url.query.noruffle || url.query.homeUrl)}path=user/register'; 
+        location.href = '/agecheck${noruffle}${fromUrl}${questionorand(url.query.noruffle || url.query.homeUrl)}path=user/register'; 
       }</script></head><body onload="redir()"></body></html>`);
       return true;
     } case "/user/login": {
@@ -1582,7 +1582,7 @@ module.exports = function (req, res, url) {
           <div id="wrapper">
             <div id="content">
                       <h1><span>Login</span></h1>
-                                              <!-- begin content --><form action="/ajax/login${fromUrl}${noruffle}" method="post">
+                                              <!-- begin content --><form action="/ajax/login${noruffle}${fromUrl}" method="post">
       <div class="form-item">
        <label for="edit-name">Username:</label>
        <input type="text" maxlength="64" class="form-text" name="username" id="edit-name" size="30" value=""/>
@@ -1597,43 +1597,43 @@ module.exports = function (req, res, url) {
               <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
-      <li id="nav-watch"><a href="movie${fromUrl}${noruffle}">watch</a></li>
-      <li id="nav-make"><a href="starters${fromUrl}${noruffle}">make</a></li>
-      <li id="nav-telepicks"><a href="telepicks${fromUrl}${noruffle}">telepicks</a></li>
-      <li id="nav-extras"><a href="extras${fromUrl}${noruffle}">extras</a></li>
-      <li id="nav-help"><a href="help${fromUrl}${noruffle}">help</a></li>
+      <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
+      <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
+      <li id="nav-telepicks"><a href="telepicks${noruffle}${fromUrl}">telepicks</a></li>
+      <li id="nav-extras"><a href="extras${noruffle}${fromUrl}">extras</a></li>
+      <li id="nav-help"><a href="help${noruffle}${fromUrl}">help</a></li>
               </ul>
               <div id="quick-search">
         <h3>search</h3>
-        <form action="/ajax/searchMovies/${fromUrl}${noruffle}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
-      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${fromUrl}${noruffle}">advanced search</a>
+        <form action="/ajax/searchMovies/${noruffle}${fromUrl}" method="post"><input type="text" class="form-text" name="q" id="sidebar-search-keyword" maxlength="50" size="10" value=""/>
+      <input type="submit" class="form-submit" value="Go"/><a href="movie/search${noruffle}${fromUrl}">advanced search</a>
       </form>
       </div>
                               <a target="_blank" href="http://www.jumeauxzimmer.ca/">Zimmertwins 2020 Archive</a>
       
             </div>
-            <p>Don't Have An Account? <a href="/user/register${fromUrl}${noruffle}">Register</a></p>
+            <p>Don't Have An Account? <a href="/user/register${noruffle}${fromUrl}">Register</a></p>
              
           </div>
           <div id="footer">
             <ul>
               <li><span>&copy;2007 Lost The Plot</span></li>
-              <li><a href="about/terms${fromUrl}${noruffle}">terms of use</a></li>
-      <li><a href="about/privacy${fromUrl}${noruffle}">privacy policy</a></li>
-      <li><a href="about/conduct${fromUrl}${noruffle}">code of conduct</a></li>
-      <li><a href="about/parents${fromUrl}${noruffle}">parents</a></li>
-      <li><a href="about/contact${fromUrl}${noruffle}">contact</a></li>
-      <li><a href="about/credits${fromUrl}${noruffle}">credits</a></li>
+              <li><a href="about/terms${noruffle}${fromUrl}">terms of use</a></li>
+      <li><a href="about/privacy${noruffle}${fromUrl}">privacy policy</a></li>
+      <li><a href="about/conduct${noruffle}${fromUrl}">code of conduct</a></li>
+      <li><a href="about/parents${noruffle}${fromUrl}">parents</a></li>
+      <li><a href="about/contact${noruffle}${fromUrl}">contact</a></li>
+      <li><a href="about/credits${noruffle}${fromUrl}">credits</a></li>
             </ul>
           </div>
         </body>
       
       </html>`);
       else res.end(`<html><head><script>function redir() { 
-        location.href = '/${fromUrl}${noruffle}'; 
+        location.href = '/${noruffle}${fromUrl}'; 
       }</script></head><body onload="redir()"></body></html>`);
     } else res.end(`<html><head><script>function redir() { 
-        location.href = '/agecheck${fromUrl}${noruffle}${questionorand(url.query.noruffle || url.query.homeUrl)}path=user/register'; 
+        location.href = '/agecheck${noruffle}${fromUrl}${questionorand(url.query.noruffle || url.query.homeUrl)}path=user/register'; 
       }</script></head><body onload="redir()"></body></html>`);
       return true;
     } default: {
