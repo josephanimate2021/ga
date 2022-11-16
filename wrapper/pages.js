@@ -21,7 +21,7 @@ module.exports = function (req, res, url) {
     if (!query) query = url.query.uploaded;
     return query ? `&` : `?`;
   }
-  const fromUrl = url.query.homeUrl ? `?homeUrl=${url.query.homeUrl}` : "";
+  const fromUrl = url.query.homeUrl ? `${questionorand(url.query.noruffle)}homeUrl=${url.query.homeUrl}` : "";
   const noruffle = url.query.noruffle ? `${questionorand(url.query.homeUrl)}noruffle=${url.query.noruffle}` : "";
   const ruffle = !url.query.noruffle ? '<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>' : "";
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
