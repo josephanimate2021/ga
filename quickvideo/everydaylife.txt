@@ -458,7 +458,7 @@ var VoiceCatalog = (function() {
         </div>
         <div class="box">
             <div class="dialog_input_wrapper">
-                <textarea class="dialog_input" name="script_text[]"></textarea>
+                <textarea class="dialog_input" name="text"></textarea>
                 <span class="label">Type in or Record Your dialog</span>
             </div>
             <div class="counter" style="display:none;"></div>
@@ -512,7 +512,7 @@ var VoiceCatalog = (function() {
             </div>
             <div class="box">
                 <div class="dialog_input_wrapper">
-                    <textarea class="dialog_input" name="script_text[]"></textarea>
+                    <textarea class="dialog_input" name="text"></textarea>
                     <span class="label" style="opacity: 1;">Type in or Record Your dialog</span>
                 </div>
                 <div class="counter" style="display: none;">180 characters remaining</div>
@@ -544,7 +544,7 @@ var VoiceCatalog = (function() {
                 <div class="dialog_input_wrapper">
                     <div class="langarea">
                     </div>
-                    <textarea id="fake_dialog_input" class="dialog_input" name="script_text[]"></textarea>
+                    <textarea id="fake_dialog_input" class="dialog_input" name="text"></textarea>
                 </div>
                 <label for="fake_dialog_input" class="dialog_input_message">
                     <span class="basic" style="display: none;">Add as many as 10 dialog lines for free.<br>Upgrade to GoPlus to add up to 20.</span>
