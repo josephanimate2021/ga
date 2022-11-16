@@ -102,7 +102,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
@@ -175,7 +175,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}" class="active">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
@@ -413,7 +413,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}" class="active">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
@@ -516,7 +516,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
@@ -627,7 +627,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
@@ -787,7 +787,7 @@ module.exports = function (req, res, url) {
       so.write("player-container");
       </script>
       </div>
-        <h2><a href="/studio?templateId=${id}">Make Movie From <span>${title || name}</span></a></h2>
+        <h2><a href="/studio?templateId=${id}${fromUrl}${url.query.noruffle ? `&noruffle=${url.query.noruffle}` : ""}">Make Movie From <span>${title || name}</span></a></h2>
       </div>
       
       <p id="teaser">
@@ -892,7 +892,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
@@ -978,7 +978,7 @@ module.exports = function (req, res, url) {
                                               <!-- begin content --><div class="node-content"><ol id="topics">
       <li id="quick">
       <a class="button" href="/studio${noruffle}${fromUrl}${questionorand(url.query.noruffle || url.query.homeUrl)}howto=1">How To Make A Movie</a>
-      <a class="button" href="welcome">Zimmer Twins Tour</a>
+      <a class="button" href="welcome${noruffle}${fromUrl}">Zimmer Twins Tour</a>
       </li>
         <li id="toc">
           <h3>Table Of Contents</h3>
@@ -1111,7 +1111,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
@@ -1193,7 +1193,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
@@ -1275,7 +1275,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
@@ -1354,7 +1354,7 @@ module.exports = function (req, res, url) {
               <div id="sidebar">
                 <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
                 <ul id="nav">
-                  <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                  <li id="nav-home"><a href="${homeUrl()}">home</a></li>
         <li id="nav-watch"><a href="movie${noruffle}${fromUrl}" class="active">watch</a></li>
         <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
         <li id="nav-telepicks"><a target="_blank" href="https://www.youtube.com/channel/UCCVQTNiEGqQBD-qXls5VS6g/videos">telepicks</a></li>
@@ -1435,7 +1435,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a href="telepicks${noruffle}${fromUrl}">telepicks</a></li>
@@ -1517,7 +1517,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a href="telepicks${noruffle}${fromUrl}">telepicks</a></li>
@@ -1600,7 +1600,7 @@ module.exports = function (req, res, url) {
             <div id="sidebar">
               <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
-                <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
+                <li id="nav-home"><a href="${homeUrl()}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
       <li id="nav-make"><a href="starters${noruffle}${fromUrl}">make</a></li>
       <li id="nav-telepicks"><a href="telepicks${noruffle}${fromUrl}">telepicks</a></li>
