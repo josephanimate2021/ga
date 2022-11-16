@@ -22,6 +22,7 @@ module.exports = function (req, res, url) {
     return query ? `&` : `?`;
   }
   const fromUrl = url.query.homeUrl ? `?homeUrl=${url.query.homeUrl}` : "";
+  const ruffle = !url.query.noruffle ? '<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>' : "";
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
   const f = url.query.homeUrl ? `, '${fromUrl}'` : "";
   const accName = fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}name.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/${req.id}name.txt`, 'utf8') : "";
@@ -57,7 +58,7 @@ module.exports = function (req, res, url) {
           <script type="text/javascript">
             _uacct = "UA-295035-5";
             urchinTracker();
-          </script>${script}<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>	
+          </script>${script}${ruffle}	
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070111205335cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -288,7 +289,7 @@ module.exports = function (req, res, url) {
           <script type="text/javascript">
             _uacct = "UA-295035-5";
             urchinTracker();
-          </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
+          </script>${ruffle}			
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061023094045cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -475,7 +476,7 @@ module.exports = function (req, res, url) {
           <script type="text/javascript">
             _uacct = "UA-295035-5";
             urchinTracker();
-          </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
+          </script>${ruffle}			
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061022092730cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -573,7 +574,7 @@ module.exports = function (req, res, url) {
           </script><script>function hideActions() { 
             document.getElementById("actions").style.display = "none";
             document.getElementById("info").style.display = "none"; 
-          }</script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>		
+          }</script>${ruffle}		
               <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20061023093418cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -752,7 +753,7 @@ module.exports = function (req, res, url) {
             <script type="text/javascript">
               _uacct = "UA-295035-5";
               urchinTracker();
-            </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
+            </script>${ruffle}			
                     <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070317063626cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
@@ -1140,7 +1141,7 @@ module.exports = function (req, res, url) {
             <script type="text/javascript">
               _uacct = "UA-295035-5";
               urchinTracker();
-            </script><script src="https://unpkg.com/@ruffle-rs/ruffle"></script>			
+            </script>${ruffle}			
                     <link rel="stylesheet" type="text/css" href="https://web.archive.org/web/20070219211300cs_/http://www.zimmertwins.ca/themes/zimmertwins/css/shared.css"/>
           <!--[if IE]><link rel="stylesheet" type="text/css" href="themes/zimmertwins/css/ie-win.css" media="screen" /><![endif]-->
         </head>
