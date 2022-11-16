@@ -22,7 +22,11 @@ module.exports = function (req, res, url) {
     return query ? `&` : `?`;
   }
   const fromUrl = url.query.homeUrl ? `${questionorand(url.query.noruffle)}homeUrl=${url.query.homeUrl}` : "";
-  const noruffle = url.query.noruffle ? `${questionorand(url.query.homeUrl)}noruffle=${url.query.noruffle}` : "";
+  const noruffle = url.query.noruffle ? `?noruffle=${url.query.noruffle}` : "";
+  function homeUrl() {
+    if (url.query.homeUrl && url.query.noruffle) return url.query.homeUrl;
+    else return '/' + noruffle;
+  }
   const ruffle = !url.query.noruffle ? '<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>' : "";
   const urlPrefix = req.headers.host == "localhost" ? "http" : req.headers.host == `localhost:${process.env.port}` ? "http" : "https";
   const f = url.query.homeUrl ? `, '${fromUrl}'` : "";
@@ -96,7 +100,7 @@ module.exports = function (req, res, url) {
       <!-- end content -->			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
@@ -169,7 +173,7 @@ module.exports = function (req, res, url) {
       <!-- end content -->			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}" class="active">watch</a></li>
@@ -407,7 +411,7 @@ module.exports = function (req, res, url) {
       <!-- end content -->			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
@@ -510,7 +514,7 @@ module.exports = function (req, res, url) {
       <!-- end content -->			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
@@ -621,7 +625,7 @@ module.exports = function (req, res, url) {
  			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
@@ -886,7 +890,7 @@ module.exports = function (req, res, url) {
       <!-- end content -->			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
@@ -1105,7 +1109,7 @@ module.exports = function (req, res, url) {
       </ol></div><!-- end content -->			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
@@ -1187,7 +1191,7 @@ module.exports = function (req, res, url) {
       </div></div><!-- end content -->			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
@@ -1269,7 +1273,7 @@ module.exports = function (req, res, url) {
       <!-- end content -->			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
@@ -1348,7 +1352,7 @@ module.exports = function (req, res, url) {
         <!-- end content -->			</div>
         
               <div id="sidebar">
-                <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+                <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
                 <ul id="nav">
                   <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
         <li id="nav-watch"><a href="movie${noruffle}${fromUrl}" class="active">watch</a></li>
@@ -1429,7 +1433,7 @@ module.exports = function (req, res, url) {
       <!-- end content -->			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
@@ -1511,7 +1515,7 @@ module.exports = function (req, res, url) {
       <!-- end content -->			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
@@ -1594,7 +1598,7 @@ module.exports = function (req, res, url) {
       <!-- end content -->			</div>
       
             <div id="sidebar">
-              <a id="logo" href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Zimmer Twins</a>
+              <a id="logo" href="${homeUrl()}">Zimmer Twins</a>
               <ul id="nav">
                 <li id="nav-home"><a href="${!url.query.homeUrl ? "" : url.query.homeUrl}${noruffle}">home</a></li>
       <li id="nav-watch"><a href="movie${noruffle}${fromUrl}">watch</a></li>
@@ -1637,7 +1641,7 @@ module.exports = function (req, res, url) {
       }</script></head><body onload="redir()"></body></html>`);
       return true;
     } default: {
-      res.end(`<a href="${!url.query.homeUrl ? "/" : url.query.homeUrl}${noruffle}">Home</a><br><center><p>404 Not Found</p></center>`);
+      res.end(`<a href="${homeUrl()}">Home</a><br><center><p>404 Not Found</p></center>`);
       return;
     }
   }
