@@ -1,5 +1,7 @@
 const loadPost = require('../req/body');
 const {zipList, zipTheme} = require("../fileUtil");
+const fUtil = require("../fileUtil");
+const nodezip = require("node-zip");
 const fs = require("fs");
 
 module.exports = function (req, res, url) {
@@ -39,7 +41,6 @@ module.exports = function (req, res, url) {
     }
     case "POST": {
       switch (req.url) {
-        case "/goapi/getThemeList/?":
         case "/goapi/getThemeList/": {
           zipList().then(b => {
             if (b = "themelist.zip written.") fs.createReadStream("themelist.zip").pipe(res);
@@ -54,14 +55,11 @@ module.exports = function (req, res, url) {
             }).catch(e => console.log(e));
           });
           return true;
-        } case "/goapi/getMovie/": {
-          try {
-            console.log("b");
-            res.end(fs.readFileSync(process.env.MOVIE_FOLDER + `/${url.query.movieId}.zip`));
-          } catch (e) {
-            console.log("e");
-            res.end(fs.readFileSync(process.env.STARTER_FOLDER + `/${url.query.movieId}.zip`));
-          }
+        } case "/goapi/getThemeList/?": {
+          const zip = nodezip.create();
+          const buffer = fs.readFileSync("./files/themes/list.xml");
+          fUtil.addToZip(zip, "themelist.xml", buffer);
+          res.end(zip.zip());
           return true;
         }
       }
