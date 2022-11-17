@@ -39,6 +39,7 @@ module.exports = function (req, res, url) {
     }
     case "POST": {
       switch (req.url) {
+        case "/goapi/getThemeList/?":
         case "/goapi/getThemeList/": {
           zipList().then(b => {
             if (b = "themelist.zip written.") fs.createReadStream("themelist.zip").pipe(res);
