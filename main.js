@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const env = {
   hostname: '127.0.0.1',
-  port: 80,
+  port: process.env.PORT || 80,
   MOVIE_FOLDER: "./files/movies",
   STARTER_FOLDER: "./files/starters",
   ASSETS_FOLDER: "./files/assets",
@@ -67,7 +67,7 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(process.env.PORT || env.port, env.hostname, () => {
+server.listen(env.port, env.hostname, () => {
   if (env.port == 80) console.log(`Server running at http://localhost/`);
   else console.log(`Server running at http://localhost:${env.port}/`);
 });
