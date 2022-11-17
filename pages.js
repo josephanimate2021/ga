@@ -1,7 +1,7 @@
 const fs = require("fs"),
-asset = require("./asset/main"),
-fUtil = require("./fileUtil"),
-env = require("./env");
+      asset = require("./asset/main"),
+      fUtil = require("./fileUtil"),
+      env = require("./env");
 aniSwfUrl = env.SWF_URL,
 aniStoreUrl = env.STORE_URL,
 aniClientUrl = env.CLIENT_URL;
