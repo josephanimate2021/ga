@@ -52,12 +52,21 @@ module.exports = function (req, res, url) {
             zipTheme(data.themeId).then(b => {
               if (b = "theme.zip written.") fs.createReadStream("theme.zip").pipe(res);
               else res.end();
-            }).catch(e => console.log(e));
+            }).catch(e => {
+              try {
+                const zip = nodezip.create();
+                const buffer = fs.readFileSync(`./themes/${data.themeId}.xml`);
+                fUtil.addToZip(zip, "theme.xml", buffer);
+                res.end(zip.zip());
+              } catch (e) {
+                console.log(e);
+              }
+            });
           });
           return true;
         } case "/goapi/getThemeList/?": {
           const zip = nodezip.create();
-          const buffer = fs.readFileSync("./files/themes/list.xml");
+          const buffer = fs.readFileSync("./themes/_themelist.xml");
           fUtil.addToZip(zip, "themelist.xml", buffer);
           res.end(zip.zip());
           return true;
