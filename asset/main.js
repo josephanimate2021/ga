@@ -60,7 +60,7 @@ module.exports = {
 				const buffer = fs.readFileSync(`${process.env.CHARS_FOLDER}/${theme}/${id}.xml`);
 				const beg = buffer.indexOf(`theme_id="`) + 10;
 				const end = buffer.indexOf(`"`, beg);
-				theme ||= buffer.subarray(beg, end).toString();
+				if (!theme) theme = buffer.subarray(beg, end).toString();
 				const meta = {
 					name: fs.readFileSync(process.env.DATABASES_FOLDER + `/names/${id}.txt`),
 					tag: fs.readFileSync(process.env.DATABASES_FOLDER + `/tags/${id}.txt`),
