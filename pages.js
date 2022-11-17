@@ -1,7 +1,7 @@
 const fs = require("fs"),
-      asset = require("./asset/main"),
-      fUtil = require("./fileUtil"),
-      env = require("./env");
+asset = require("./asset/main"),
+fUtil = require("./fileUtil"),
+env = require("./env");
 aniSwfUrl = env.SWF_URL,
 aniStoreUrl = env.STORE_URL,
 aniClientUrl = env.CLIENT_URL;
@@ -125,7 +125,7 @@ module.exports = function (req, res, url) {
         function characterSaved()
         {
             SetCookie('cc_saved', '1', 1, '/');
-            window.location = '/studio?tray=${tId}';
+            window.location = '/studio?tray=${tId || "custom"}';
         }
         </script>
             </div>
@@ -326,7 +326,7 @@ module.exports = function (req, res, url) {
                         <a class="close-button" href="javascript:hidePreviewer()">X</a>
                         <object data="${aniSwfUrl}/player.swf" type="application/x-shockwave-flash" id="preview_player">
                             <!-- The flashvars are a huge mess, have fun looking at them. :) -->
-                            <param name="flashvars" value="apiserver=/&storePath=${aniStoreUrl}/<store>&ut=30&clientThemePath=${aniClientUrl}/<client_theme>&isInitFromExternal=1&isWide=1&startFrame=1&autostart=1">
+                            <param name="flashvars" value="apiserver=/&storePath=${!url.query.v ? aniStoreUrl : "https://josephanimate2021.github.io/store/50"}/<store>&ut=30&clientThemePath=${!url.query.v ? aniClientUrl : "https://josephanimate2021.github.io/static/477"}/<client_theme>&isInitFromExternal=1&isWide=1&startFrame=1&autostart=1">
                             <param name="allowScriptAccess" value="always">
                             <param name="allowFullScreen" value="true">
                         </object>
@@ -346,9 +346,9 @@ module.exports = function (req, res, url) {
                 <!-- Video Studio -->
                 <main id="studio_holder">
                 
-                <object data="${aniSwfUrl}/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
+                <object data="${!url.query.v ? aniSwfUrl : `https://josephanimate2021.github.io/animation/${url.query.v}`}/go_full.swf" type="application/x-shockwave-flash" id="video_studio">
                     <!-- The flashvars are a huge mess, have fun looking at them. :) -->
-                    <param name="flashvars" value="movieId=${url.query.movieId || ""}&apiserver=/&storePath=${aniStoreUrl}/<store>&isEmbed=1&ctc=go&ut=30&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=${aniClientUrl}/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/ajax/redirect&tray=${url.query.tray || "custom"}">            
+                    <param name="flashvars" value="movieId=${url.query.movieId || ""}&apiserver=/&storePath=${!url.query.v ? aniStoreUrl : "https://josephanimate2021.github.io/store/50"}/<store>&isEmbed=1&ctc=go&ut=30&bs=default&appCode=go&page=&siteId=go&lid=13&isLogin=Y&retut=1&clientThemePath=${!url.query.v ? aniClientUrl : "https://josephanimate2021.github.io/static/477"}/<client_theme>&tlang=en_US&goteam_draft_only=1&isWide=1&collab=0&nextUrl=/ajax/redirect&tray=${url.query.tray || "custom"}">            
                     <param name="allowScriptAccess" value="always">
                     <param name="allowFullScreen" value="true">
                 </object>
