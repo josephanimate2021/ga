@@ -42,10 +42,15 @@ module.exports = function (req, res, url) {
     case "POST": {
       switch (req.url) {
         case "/goapi/getThemeList/": {
-          zipList().then(b => {
-            if (b = "themelist.zip written.") fs.createReadStream("themelist.zip").pipe(res);
-            else res.end();
-          }).catch(e => console.log(e));
+          try {
+            const buffer = fs.readFileSync(`./files/themes/list.xml`);
+            zip.file("themelist.xml", buffer);
+            zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(res).on('finish', function () {
+              res.end();
+            });
+          } catch (err) {
+            console.error(err);
+          }
           return true;
         } case "/goapi/getTheme/": {
           loadPost(req, res).then(data => {
