@@ -44,6 +44,7 @@ module.exports = function (req, res, url) {
         case "/goapi/getThemeList/": {
           try {
             const buffer = fs.readFileSync(`./files/themes/list.xml`);
+            res.setHeader("Content-Type", "application/zip");
             zip.file("themelist.xml", buffer);
             zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(res).on('finish', function () {
               res.end();
@@ -56,6 +57,7 @@ module.exports = function (req, res, url) {
           loadPost(req, res).then(data => {
             try {
               const buffer = fs.readFileSync(`./files/themes/${data.themeId}.xml`);
+              res.setHeader("Content-Type", "application/zip");
               zip.file("theme.xml", buffer);
               zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(res).on('finish', function () {
                 res.end();
