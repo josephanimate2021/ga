@@ -3,6 +3,8 @@ const loadPost = require("../req/body");
 const formidable = require("formidable");
 const asset = require('./main');
 const fUtil = require('../fileUtil');
+const jszip = require('jszip');
+const zip = new jszip;
 const fs = require('fs');
 const xml = require('../xml');
 const base = Buffer.alloc(1, 0);
@@ -38,10 +40,36 @@ module.exports = function (req, res, url) {
       switch (req.url) {
         // i don't know what to expect here. but a blank asset error will give you other options.
         case "/goapi/getUserAssets/": {
-          loadPost(req, res).then(data => asset.getXmlsForZip(data)).then((buff) => {
+          loadPost(req, res).then(data => {
             res.setHeader("Content-Type", "application/zip");
             res.write(base);
-            res.end(buff);
+            var xml, files;
+            switch (data.type) {
+              case "bg": {
+                files = asset.getBackgrounds();
+                xml = `<ugc more="0">${files.map(v => `<background subtype="0" id="${v.id}" name="${v.title}" enable="Y"/>`).join("")}</ugc>`;
+                break;
+              } case "movie": {
+                files = asset.getStarters();
+                xml = `<ugc more="0">${files.map(v => `<movie id="${v.id}" enc_asset_id="${v.id}" path="${process.env.STARTER_FOLDER}/${
+                  v.id
+                }" numScene="1" title="${v.title}" thumbnail_url="/assets/${v.id}.png"><tags>${v.tags}</tags></movie>`).join("")}</ugc>`;
+                break;
+              } default: {
+                xml = `<ugc more="0"></ugc>`;
+                break;
+              }
+            }
+            zip.file("desc.xml", Buffer.from(xml));
+            asset.getFolders(data.type).then(folder => {
+              asset.getFiles(folder).then(file => {
+                const buffer = fs.readFileSync(`${folder}/${file}`);
+                zip.file(`${data.type}/${file}`, buffer);
+              }).catch(e => console.log(e));
+            }).catch(e => console.log(e));
+            zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(res).on('finish', function () {
+              res.end();
+            });
           }).catch(e => console.log(e));
           return true;
         } case "/goapi/deleteAsset/": {
