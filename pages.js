@@ -1,6 +1,7 @@
 const fs = require("fs"),
 asset = require("./asset/main"),
 fUtil = require("./fileUtil"),
+get = require("./req/get"),
 env = require("./env");
 aniSwfUrl = env.SWF_URL,
 aniStoreUrl = env.STORE_URL,
@@ -20,8 +21,56 @@ module.exports = function (req, res, url) {
     } case "/": {
         if (!fUtil.exists(`${process.env.MOVIE_FOLDER}/xmls`)) fs.mkdirSync(`${process.env.MOVIE_FOLDER}/xmls`);
         const files = asset.listMovies();
-        html = `<html><head><title>Your Videos</title></head><body><center><h1>This LVM Clone is currently on it's beta stage right now and is most likely to be unstable. Alot of fixes are being added constantly in order to make this lvm clone stable. <br><a href="/charcreator">Create a character</a> <a href="/studio">Make a video</a></h1><br><h2>How am i supposed to record videos on here?</h2><br><h3>You are pretty lucky that the preview window has a fullscreen option on the player. all you need to do is pull out your screen recorder, do what you would normally do, and then put the player on full screen. simple as that :)</h3><br><h2>What do i do if i accidently closed the video editor?</h2><br><h3>you are pretty lucky that this list of your movies contain a download link next to each one of your movies. they are there so that way you can download them. after your movie is downloaded, extract the zip file like how you would normally do it and you have your movie xml right there!</h3></center><br><center><h2>Your Movies</h2></center><br>${files.map(v => `${v.html}`).join('') || '<center><h3>You currently have no movies right now. <a href="/studio">Create one now</a></h3></center>'}</body></html>`;
+        html = `<html><head><title>Your Videos</title></head><body><center><h1>This LVM Clone is currently on it's beta stage right now and is most likely to be unstable. Alot of fixes are being added constantly in order to make this lvm clone stable. <br><a href="/charcreator">Create a character</a> <a href="/studio">Make a video</a> <a href="/settings">Settings</a></h1><br><h2>How am i supposed to record videos on here?</h2><br><h3>You are pretty lucky that the preview window has a fullscreen option on the player. all you need to do is pull out your screen recorder, do what you would normally do, and then put the player on full screen. simple as that :)</h3><br><h2>What do i do if i accidently closed the video editor?</h2><br><h3>you are pretty lucky that this list of your movies contain a download link next to each one of your movies. they are there so that way you can download them. after your movie is downloaded, extract the zip file like how you would normally do it and you have your movie xml right there!</h3></center><br><center><h2>Your Movies</h2></center><br>${files.map(v => `${v.html}`).join('') || '<center><h3>You currently have no movies right now. <a href="/studio">Create one now</a></h3></center>'}</body></html>`;
         break;
+    } case "/settings": {
+        const themeListMeta = fs.existsSync(process.env.DATABASES_FOLDER + `/themeListMeta.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/themeListMeta.txt`, 'utf8') : "ON";
+        const themeListOPMeta = fs.existsSync(process.env.DATABASES_FOLDER + `/themeListOPMeta.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/themeListOPMeta.txt`, 'utf8') : "off";
+        html = `<html><head><title>Settings</title></head><body><a href="/">Home</a><br><center><h1>Settings</h1><br><h2><a href="/ajax/settings/update?change=themelist&switch=${themeListOPMeta}">Truncated Themelist: ${themeListMeta}</h2></body></html>`;
+        break;
+    } case "/ajax/settings/update": {
+        // check to see if the themelist meta files exist
+        if (!fs.existsSync(process.env.DATABASES_FOLDER + `/themeListMeta.txt`)) {
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/themeListMeta.txt`, "ON");
+        }
+        if (!fs.existsSync(process.env.DATABASES_FOLDER + `/themeListOPMeta.txt`)) {
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/themeListMeta.txt`, "off");
+        }
+        const change = url.query.change;
+        const swi = url.query.switch;
+        switch (change) {
+            case "themelist": {
+                if (swi == "off") {
+                    // change status and perms
+                    fs.writeFileSync(process.env.DATABASES_FOLDER + `/themeListMeta.txt`, "OFF");
+                    fs.writeFileSync(process.env.DATABASES_FOLDER + `/themeListOPMeta.txt`, "on");
+                    // peform the action
+                    get('https://raw.githubusercontent.com/GoAnimate-Wrapper/GoAnimate-Wrapper/0fd5994679f713c65d9e121a9f695abee65fb866/_THEMES/themelist.xml?raw=true').then(content => {
+                        fs.unlinkSync('./files/themes/list.xml');
+                        fs.writeFileSync('./files/themes/list.xml', content);
+                    });
+                    // redirect the user back to the settings page
+                    res.statusCode = 302;
+                    res.setHeader("Location", "/settings");
+                    res.end();
+                } else if (swi == "on") {
+                    // change status and perms
+                    fs.writeFileSync(process.env.DATABASES_FOLDER + `/themeListMeta.txt`, "ON");
+                    fs.writeFileSync(process.env.DATABASES_FOLDER + `/themeListOPMeta.txt`, "off");
+                    // peform the action
+                    get('https://raw.githubusercontent.com/josephanimate2021/ga/main/files/themes/list.xml?raw=true').then(content => {
+                        fs.unlinkSync('./files/themes/list.xml');
+                        fs.writeFileSync('./files/themes/list.xml', content);
+                    });
+                    // redirect the user back to the settings page
+                    res.statusCode = 302;
+                    res.setHeader("Location", "/settings");
+                    res.end();
+                }
+                break;
+            }
+        }
+        return true;
     } case "/charcreator": {
 	    res.setHeader("Content-Type", "text/html; charset=utf8");
 	    switch (url.query.themeId) {
