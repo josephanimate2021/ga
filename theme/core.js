@@ -1,6 +1,8 @@
 const loadPost = require('../req/body');
 const {zipList, zipTheme} = require("../fileUtil");
 const fs = require("fs");
+const JSZip = require('jszip');
+const zip = new JSZip;
 
 module.exports = function (req, res, url) {
   switch (req.method) { 
@@ -47,7 +49,15 @@ module.exports = function (req, res, url) {
           return true;
         } case "/goapi/getTheme/": {
           loadPost(req, res).then(data => {
-            zipTheme(data.themeId).then(b => res.end(b)).catch(e => console.log(e));
+            try {
+              const buffer = fs.readFileSync(`./files/themes/${data.themeId}.xml`);
+              zip.file("theme.xml", buffer);
+              zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(res).on('finish', function () {
+                res.end();
+              });
+            } catch (err) {
+              console.error(err);
+            }
           });
           return true;
         }
