@@ -53,15 +53,6 @@ module.exports = function (req, res, url) {
             }).catch(e => console.log(e));
           });
           return true;
-        } case "/goapi/getMovie/": {
-          try {
-            console.log("b");
-            res.end(fs.readFileSync(process.env.MOVIE_FOLDER + `/${url.query.movieId}.zip`));
-          } catch (e) {
-            console.log("e");
-            res.end(fs.readFileSync(process.env.STARTER_FOLDER + `/${url.query.movieId}.zip`));
-          }
-          return true;
         }
       }
     }
