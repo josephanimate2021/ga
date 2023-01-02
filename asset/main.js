@@ -184,7 +184,7 @@ module.exports = {
 	},
 	getStarters() {
 		const table = [];
-		if (!fUtil.exists(process.env.STARTER_FOLDER + `/xmls`)) return;
+		if (!fUtil.exists(process.env.STARTER_FOLDER + `/xmls`)) fs.mkdirSync(process.env.STARTER_FOLDER + `/xmls`);
 		fs.readdirSync(process.env.STARTER_FOLDER + '/xmls').forEach(file => {
 			const id = file.slice(0, -4);
 			if (
