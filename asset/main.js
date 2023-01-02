@@ -2,7 +2,6 @@ const fs = require('fs');
 const fUtil = require("../fileUtil");
 const get = require("../req/get");
 const jszip = require('jszip');
-const nodezip = require("node-zip");
 const functions = require("../movie/main");
 const unzipMovieForList = async (id) => {
 	const fileContent = fs.readFileSync(process.env.MOVIE_FOLDER + `/${id}.zip`);
@@ -184,7 +183,7 @@ module.exports = {
 	},
 	getStarters() {
 		const table = [];
-		if (!fUtil.exists(process.env.STARTER_FOLDER + `/xmls`)) fs.mkdirSync(process.env.STARTER_FOLDER + `/xmls`);
+		if (!fUtil.exists(process.env.STARTER_FOLDER + `/xmls`)) return table;
 		fs.readdirSync(process.env.STARTER_FOLDER + '/xmls').forEach(file => {
 			const id = file.slice(0, -4);
 			if (
@@ -255,40 +254,6 @@ module.exports = {
 	},
 	getFiles(folder) {
 		return new Promise((res) => fs.readdirSync(folder).forEach(file => res(file)));
-	},
-	async getXmlsForZip(data) {
-		var xml, files;
-		switch (data.type) {
-			case "bg": {
-				files = this.getBackgrounds();
-				xml = `<ugc more="0">${
-					files.map(v => `<background subtype="0" id="${v.id}" name="${v.title}" enable="Y"/>`).join("")
-				}</ugc>`;
-				break;
-			} case "movie": {
-				files = this.getStarters();
-				xml = `<ugc more="0">${
-					files.map(v => `<movie id="${v.id}" enc_asset_id="${v.id}" path="${process.env.STARTER_FOLDER}/${
-						v.id
-					}" numScene="1" title="${v.title}" thumbnail_url="/assets/${v.id}.png"><tags>${v.tags}</tags></movie>`).join("")
-				}</ugc>`;
-				break;
-			} default: {
-				xml = `<ugc more="0"></ugc>`;
-				break;
-			}
-		}
-		const zip = nodezip.create();
-		fUtil.addToZip(zip, "desc.xml", Buffer.from(xml));
-	
-		this.getFolders(data.type).then(folder => {
-			this.getFiles(folder).then(file => {
-				const buffer = fs.readFileSync(`${folder}/${file}`);
-				fUtil.addToZip(zip, `${data.type}/${file}`, buffer);
-			}).catch(e => console.log(e));
-		}).catch(e => console.log(e));
-
-		return await zip.zip();
 	},
 	getXmls(data) {
 		return new Promise((res) => {
