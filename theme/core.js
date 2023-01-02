@@ -1,5 +1,7 @@
 const loadPost = require('../req/body');
+const get = require('../req/get');
 const {zipList, zipTheme} = require("../fileUtil");
+const env = require("../env");
 const fs = require("fs");
 const JSZip = require('jszip');
 const zip = new JSZip;
@@ -56,11 +58,12 @@ module.exports = function (req, res, url) {
         } case "/goapi/getTheme/": {
           loadPost(req, res).then(data => {
             try {
-              const buffer = fs.readFileSync(`./files/themes/${data.themeId}.xml`);
-              res.setHeader("Content-Type", "application/zip");
-              zip.file("theme.xml", buffer);
-              zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(res).on('finish', function () {
-                res.end();
+              get(env.STORE_URL + `/${data.themeId}/theme.xml`).then(buffer => {
+                res.setHeader("Content-Type", "application/zip");
+                zip.file("theme.xml", buffer);
+                zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true }).pipe(res).on('finish', function () {
+                  res.end();
+                });
               });
             } catch (err) {
               console.error(err);
