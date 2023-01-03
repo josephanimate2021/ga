@@ -84,12 +84,20 @@ module.exports = function (req, res, url) {
 			    fs.writeFileSync(process.env.DATABASES_FOLDER + `/darkModeMetaOP.txt`, "light");
 			    // peform the action
 			    fs.writeFileSync(process.env.DATABASES_FOLDER + `/darkModeMetaHtml.txt`, ' class="dark"');
+			    // redirect the user back to the settings page
+			    res.statusCode = 302;
+			    res.setHeader("Location", "/settings");
+			    res.end();
 		    } else if (swi == "light") {
 			    // change status and perms
 			    fs.writeFileSync(process.env.DATABASES_FOLDER + `/darkModeMeta.txt`, "OFF");
 			    fs.writeFileSync(process.env.DATABASES_FOLDER + `/darkModeMetaOP.txt`, "dark");
 			    // peform the action
 			    fs.unlinkSync(process.env.DATABASES_FOLDER + `/darkModeMetaHtml.txt`);
+			    // redirect the user back to the settings page
+			    res.statusCode = 302;
+			    res.setHeader("Location", "/settings");
+			    res.end();
 		    }
 		    break;
 	    }
