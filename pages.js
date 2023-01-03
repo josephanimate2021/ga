@@ -26,7 +26,9 @@ module.exports = function (req, res, url) {
     } case "/settings": {
         const themeListMeta = fs.existsSync(process.env.DATABASES_FOLDER + `/themeListMeta.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/themeListMeta.txt`, 'utf8') : "ON";
         const themeListOPMeta = fs.existsSync(process.env.DATABASES_FOLDER + `/themeListOPMeta.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/themeListOPMeta.txt`, 'utf8') : "off";
-        html = `<html><head><title>Settings</title></head><body><a href="/">Home</a><br><center><h1>Settings</h1><br><h2><a href="/ajax/settings/update?change=themelist&switch=${themeListOPMeta}">Truncated Themelist: ${themeListMeta}</h2></body></html>`;
+	    const darkModeMeta = fs.existsSync(process.env.DATABASES_FOLDER + `/darkModeMeta.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/darkModeMeta.txt`, 'utf8') : "OFF";
+        const darkModeMetaOP = fs.existsSync(process.env.DATABASES_FOLDER + `/darkModeMetaOP.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/darkModeMetaOP.txt`, 'utf8') : "dark";
+        html = `<html><head><title>Settings</title></head><body><a href="/">Home</a><br><center><h1>Settings</h1><br><h2><a href="/ajax/settings/update?change=themelist&switch=${themeListOPMeta}">Truncated Themelist: ${themeListMeta}</h2><br><h2><a href="/ajax/settings/update?change=mode&switch=${darkModeMetaOP}">Dark Mode: ${darkModeMeta}</h2></body></html>`;
         break;
     } case "/ajax/settings/update": {
         // check to see if the themelist meta files exist
@@ -35,6 +37,13 @@ module.exports = function (req, res, url) {
         }
         if (!fs.existsSync(process.env.DATABASES_FOLDER + `/themeListOPMeta.txt`)) {
             fs.writeFileSync(process.env.DATABASES_FOLDER + `/themeListMeta.txt`, "off");
+        }
+	// check to see if the dark mode meta files exist
+        if (!fs.existsSync(process.env.DATABASES_FOLDER + `/darkModeMeta.txt`)) {
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/darkModeMeta.txt`, "OFF");
+        }
+        if (!fs.existsSync(process.env.DATABASES_FOLDER + `/darkModeMetaOP.txt`)) {
+            fs.writeFileSync(process.env.DATABASES_FOLDER + `/darkModeMetaOP.txt`, "dark");
         }
         const change = url.query.change;
         const swi = url.query.switch;
@@ -68,7 +77,22 @@ module.exports = function (req, res, url) {
                     res.end();
                 }
                 break;
-            }
+            } case "mode": {
+		    if (swi == "dark") {
+			    // change status and perms
+			    fs.writeFileSync(process.env.DATABASES_FOLDER + `/darkModeMeta.txt`, "ON");
+			    fs.writeFileSync(process.env.DATABASES_FOLDER + `/darkModeMetaOP.txt`, "light");
+			    // peform the action
+			    fs.writeFileSync(process.env.DATABASES_FOLDER + `/darkModeMetaHtml.txt`, ' class="dark"');
+		    } else if (swi == "light") {
+			    // change status and perms
+			    fs.writeFileSync(process.env.DATABASES_FOLDER + `/darkModeMeta.txt`, "OFF");
+			    fs.writeFileSync(process.env.DATABASES_FOLDER + `/darkModeMetaOP.txt`, "dark");
+			    // peform the action
+			    fs.unlinkSync(process.env.DATABASES_FOLDER + `/darkModeMetaHtml.txt`);
+		    }
+		    break;
+	    }
         }
         return true;
     } case "/charcreator": {
