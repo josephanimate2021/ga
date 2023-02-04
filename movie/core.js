@@ -1,4 +1,4 @@
-const movie = require("../asset/main");
+const movie = require("./main");
 const fs = require("fs");
 const formidable = require("formidable");
 const base = Buffer.alloc(1, 0);

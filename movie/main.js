@@ -1,13 +1,13 @@
-const fs = require("fs");
-const nodezip = require("node-zip");
-const xmldoc = require("xmldoc");
-const env = require("../env");
-const get = require("../req/get");
-const source = env.CLIENT_URL;
-const store = env.STORE_URL;
-const header = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-const fUtil = require("../fileUtil");
-const asset = require("../asset/main");
+var themeFolder = process.env.THEME_FOLDER;
+var mp3Duration = require("mp3-duration");
+var source = process.env.CLIENT_URL;
+var header = process.env.XML_HEADER;
+var get = require("../req/get");
+var fUtil = require("../fileUtil");
+var nodezip = require("node-zip");
+var store = process.env.STORE_URL;
+var xmldoc = require("xmldoc");
+var fs = require("fs");
 
 function name2Font(font) {
 	switch (font) {
@@ -21,6 +21,8 @@ function name2Font(font) {
 			return "FontFileTokyo";
 		case "Accidental Presidency":
 			return "FontFileAccidental";
+		case "BodoniXT":
+			return "FontFileBodoniXT";
 		case "Budmo Jiggler":
 			return "FontFileBJiggler";
 		case "Budmo Jigglish":
@@ -33,198 +35,530 @@ function name2Font(font) {
 			return "FontFileHoney";
 		case "I hate Comic Sans":
 			return "FontFileIHate";
+		case "Impact Label":
+			return "FontFileImpactLabel";
 		case "loco tv":
 			return "FontFileLocotv";
 		case "Mail Ray Stuff":
 			return "FontFileMailRay";
-		case "Mia\'s Scribblings ~":
+		case "Mia's Scribblings ~":
 			return "FontFileMia";
+		case "Shanghai":
+			return "FontFileShanghai";
+		case "Comic Book":
+			return "FontFileComicBook";
+		case "Wood Stamp":
+			return "FontFileWoodStamp";
+		case "Brawler":
+			return "FontFileBrawler";
 		case "Coming Soon":
 			return "FontFileCSoon";
+		case "Glegoo":
+			return "FontFileGlegoo";
 		case "Lilita One":
 			return "FontFileLOne";
 		case "Telex Regular":
 			return "FontFileTelex";
+		case "Claire Hand":
+			return "FontFileClaireHand";
+		case "Oswald":
+			return "FontFileOswald";
+		case "Poiret One":
+			return "FontFilePoiretOne";
+		case "Raleway":
+			return "FontFileRaleway";
+		case "Bangers":
+			return "FontFileBangers";
+		case "Creepster":
+			return "FontFileCreepster";
+		case "BlackoutMidnight":
+			return "FontFileBlackoutMidnight";
+		case "BlackoutSunrise":
+			return "FontFileBlackoutSunrise";
+		case "Junction":
+			return "FontFileJunction";
+		case "LeagueGothic":
+			return "FontFileLeagueGothic";
+		case "LeagueSpartan":
+			return "FontFileLeagueSpartan";
+		case "OstrichSansMedium":
+			return "FontFileOstrichSansMedium";
+		case "Prociono":
+			return "FontFileProciono";
+		case "Lato":
+			return "FontFileLato";
+		case "Alegreya Sans SC":
+			return "FontFileAlegreyaSansSC";
+		case "Barrio":
+			return "FontFileBarrio";
+		case "Bungee Inline":
+			return "FontFileBungeeInline";
+		case "Bungee Shade":
+			return "FontFileBungeeShade";
+		case "Gochi Hand":
+			return "FontFileGochiHand";
+		case "IM Fell English SC":
+			return "FontFileIMFellEnglishSC";
+		case "Josefin":
+			return "FontFileJosefin";
+		case "Kaushan":
+			return "FontFileKaushan";
+		case "Lobster":
+			return "FontFileLobster";
+		case "Montserrat":
+			return "FontFileMontserrat";
+		case "Mouse Memoirs":
+			return "FontFileMouseMemoirs";
+		case "Patrick Hand":
+			return "FontFilePatrickHand";
+		case "Permanent Marker":
+			return "FontFilePermanentMarker";
+		case "Satisfy":
+			return "FontFileSatisfy";
+		case "Sriracha":
+			return "FontFileSriracha";
+		case "Teko":
+			return "FontFileTeko";
+		case "Vidaloka":
+			return "FontFileVidaloka";
 		case "":
 		case null:
-			return '';
+			return "";
 		default:
-			return `FontFile${font.replace(/\s/g, '')}`;
+			return `FontFile${font}`;
+	}
+}
+
+function useBase64(aId) {
+	if (aId.endsWith("-starter.xml")) return true;
+	switch (aId.substr(aId.lastIndexOf(".") + 1)) {
+		case "xml":
+			return false;
+		default:
+			return true;
 	}
 }
 
 module.exports = {
-    async basicParse(zip, themes, file, type, subtype) {
-        const pieces = file.split(".");
-        const themeId = pieces[0];
+	/**
+	 * @summary Reads an XML buffer, decodes the elements, and returns a PK stream the LVM can parse.
+	 * @param {Buffer} xmlBuffer
+	 * @param {string} mId
+	 * @returns {Promise<{zipBuf:Buffer,caché:{[aId:string]:Buffer}}>}
+	 *
+	async packMovie(xmlBuffer, mId = null) {
+		if (xmlBuffer.length == 0) throw null;
+		var zip = nodezip.create();
+		var themes = { common: true };
+		var ugcString = `${header}<theme id="ugc" name="ugc">`;
+		var assetBuffers = {};
+		var ugcData = {};
 
-        const ext = pieces.pop();
-        pieces[pieces.length - 1] += "." + ext;
-        pieces.splice(1, 0, type);
+		fUtil.addToZip(zip, "movie.xml", xmlBuffer);
+		var xml = new xmldoc.XmlDocument(xmlBuffer);
 
-        const filename = pieces.join(".");
-        if (themeId == "ugc") {
-            const id = pieces[2];
-            try {
-                asset.getFolders(type).then(folder => {
-                    const buffer = fs.readFileSync(`${folder}/${filename}`);
-                    fUtil.addToZip(zip, filename, buffer);
+		var elements = xml.children;
+		for (var eK in elements) {
+			var element = elements[eK];
+			switch (element.name) {
+				case "scene": {
+					for (var pK in element.children) {
+						var piece = element.children[pK];
+						var data = piece.name;
+						if (data == "effectAsset") {
+							data = "effect";
+						}
 
-                    if (type == "prop" && subtype == "video") {
-                        pieces[2] = pieces[2].slice(0, -3) + "png";
-                        const filename = pieces.join(".")
-                        const buff = fs.readFileSync(folder + "/" + pieces[2], true);
-                        fUtil.addToZip(zip, filename, buff);
-                    }
-                }).catch(e => console.log(e));
-            } catch (e) {
-                console.error(`WARNING: ${id}:`, e);
-                return;
-            }
-        } else get(`${store}/${pieces.join("/")}`).then(buff => fUtil.addToZip(zip, filename, buff)).catch(e => console.log(e));
+						switch (data) {
+							case "durationSetting":
+							case "trans":
+								break;
+							case "bg":
+							case "effect":
+							case "prop": {
+								var file = piece.childNamed("file");
+								if (!file) continue;
+								var val = file.val;
 
-        themes[themeId] = true;
-    },
-    async packMovie(xmlBuffer) {
-        if (xmlBuffer.length == 0) throw null;
+								if (val.startsWith("ugc")) {
+									var aId = val.substr(4);
+									ugcData[aId] = { type: data, subtype: data, name: aId };
+								} else {
+									var slices = val.split(".");
+									var ext = slices.pop();
+									slices.splice(1, 0, data);
+									slices[slices.length - 1] += `.${ext}`;
 
-        const zip = nodezip.create();
-        const themes = { common: true };
-        var ugc = `${header}<theme id="ugc" name="ugc">`;
-        fUtil.addToZip(zip, "movie.xml", xmlBuffer);
+									var fileName = slices.join(".");
+									if (!zip[fileName]) {
+										var buff = await get(`${store}/${slices.join("/")}`);
+										fUtil.addToZip(zip, fileName, buff);
+										themes[slices[0]] = true;
+									}
+								}
+								break;
+							}
+							case "char": {
+								var val = piece.childNamed("action").val;
+								var slices = val.split(".");
 
-        const film = new xmldoc.XmlDocument(xmlBuffer);
-        for (const eI in film.children) {
-            const elem = film.children[eI];
+								var theme, ccTheme, fileName, buffer;
+								switch (slices[slices.length - 1]) {
+									case "xml": {
+										theme = slices[0];
+										var id = slices[1];
+										fileName = `${theme}.char.${id}.xml`;
+										var prefix = id.substr(0, id.indexOf("-"));
 
-            switch (elem.name) {
-                case "sound": {
-                    const file = elem.childNamed("sfile")?.val;
-                    if (!file) continue;
-				
-                    await this.basicParse(zip, themes, file, elem.name)
-                    break;
-                }
+										switch (prefix) {
+											case "C":
+												break;
+											case "c":
+											default:
+												try {
+													ccTheme = await char.getTheme(id);
+												} catch (e) {
+													ccTheme = "family";
+												}
+												break;
+										}
+										break;
+									}
+									case "swf": {
+										var ch = slices[1];
+										var model = slices[2];
+										ccTheme = theme = slices[0];
+										var url = `${store}/${theme}/char/${ch}/${model}.swf`;
+										fileName = `${theme}.char.${ch}.${model}.swf`;
+										buffer = await get(url);
+										break;
+									}
+								}
 
-                case "scene": {
-                    for (const e2I in elem.children) {
-                        const elem2 = elem.children[e2I];
+								var ugcCharSubs = [];
+								for (let ptK in piece.children) {
+									var part = piece.children[ptK];
+									if (!part.children) continue;
 
-                        let tag = elem2.name;
-                        if (tag == "effectAsset") tag = "effect";
+									var file = part.childNamed("file");
+									if (!file) continue;
+									var fName = file ? file.val : part.val;
+									var slicesP = fName.split(".");
+									if (slicesP[0] == "ugc") {
+										switch (part.name) {
+											case "head":
+												ugcCharSubs[slicesP[3]] = "facial";
+												break;
+											case "action":
+												ugcCharSubs[slicesP[2]] = "action";
+												break;
+											default:
+												continue;
+										}
+									} else if (slicesP.length > 1) {
+										var urlF, fileF;
+										switch (part.name) {
+											case "head":
+												urlF = "char";
+												fileF = "prop";
+												break;
+											case "prop":
+												urlF = "prop";
+												fileF = "prop";
+												break;
+											default:
+												continue;
+										}
 
-                        switch (tag) {
-                            case "durationSetting":
-                            case "trans": break;
-                            case "bg":
-                            case "effect":
-                            case "prop": {
-                                const file = elem2.childNamed("file")?.val;
-                                if (!file) continue;
-							
-                                await this.basicParse(zip, themes, file, tag, elem2.attr.subtype);
-                                break;
-                            }
-						
-                            case "char": {
-                                let file = elem2.childNamed("action")?.val;
-                                if (!file) continue;
-                                const pieces = file.split(".");
-                                const themeId = pieces[0];
+										slicesP.pop(), slicesP.splice(1, 0, urlF);
+										var urlP = `${store}/${slicesP.join("/")}.swf`;
 
-                                const ext = pieces.pop();
-                                pieces[pieces.length - 1] += "." + ext;
-                                pieces.splice(1, 0, elem2.name);
-	
-                                if (themeId == "ugc") {
-                                    pieces.splice(3, 1);
+										slicesP.splice(1, 1, fileF);
+										var fileP = `${slicesP.join(".")}.swf`;
+										if (!zip[fileP]) {
+											fUtil.addToZip(zip, fileP, await get(urlP));
+										}
+									}
+								}
 
-                                    const id = pieces[2];
-                                    try {
-                                        const buffer = await char.load(id);
-                                        const filename = pieces.join(".");
-                                        const data = {
-                                            type: "char"
-                                        };
-                                        ugc += asset.getXmls(data);
-                                        fUtil.addToZip(zip, filename + ".xml", buffer);
-                                    } catch (e) {
-                                        console.error(`WARNING: ${id}:`, e);
-                                        continue;
-                                    }
-                                } else {
-                                    get(`${store}/${pieces.join("/")}`).then(buff => {
-                                        const filename = pieces.join(".");
+								themes[theme] = true;
+								if (buffer) fUtil.addToZip(zip, fileName, buffer);
+								if (ugcData[id]) {
+									Object.assign(ugcData[id].subs, ugcCharSubs);
+								} else if (id) {
+									ugcData[id] = {
+										type: "char",
+										subs: ugcCharSubs,
+										theme: ccTheme,
+									};
+								}
+								break;
+							}
+							case "bubbleAsset": {
+								var bubble = piece.childNamed("bubble");
+								var text = bubble.childNamed("text");
+								var font = `${name2Font(text.attr.font)}.swf`;
+								var fontSrc = `${source}/go/font/${font}`;
+								if (!zip[font]) {
+									fUtil.addToZip(zip, font, await get(fontSrc));
+								}
+								break;
+							}
+						}
+					}
+					break;
+				}
 
-                                        fUtil.addToZip(zip, filename, buff);
-                                    }).catch(e => console.log(e));
-                                }
+				case "sound": {
+					var sfile = element.childNamed("sfile").val;
+					var file = sfile.substr(sfile.indexOf(".") + 1);
 
-                                for (const e3I in elem2.children) {
-                                    const elem3 = elem2.children[e3I];
-                                    if (!elem3.children) continue;
+					var ttsData = element.childNamed("ttsdata");
+					if (sfile.endsWith(".swf")) {
+						var slices = sfile.split(".");
+						var [theme, name] = slices;
+						var url = `${store}/${theme}/sound/${name}.swf`;
+						var fileName = `${theme}.sound.${name}.swf`;
+						if (!zip[fileName]) {
+							var buffer = await get(url);
+							fUtil.addToZip(zip, fileName, buffer);
+						}
+						ugcString += `<sound subtype="sound" id="${name}.swf" name="${name}.swf" downloadtype="progressive"/>`;
+					} else if (sfile.startsWith("ugc.")) {
+						var subtype, fileName;
+						if (ttsData) {
+							var text = ttsData.childNamed("text").val;
+							var vName = ttsData.childNamed("voice").val;
+							var vInfo = ttsInfo.voices[vName];
+							if (vInfo) {
+								fileName = `[${vInfo.desc}] ${text.replace(/"/g, '\\"')}`;
+							} else {
+								fileName = text.replace(/"/g, '\\"');
+							}
+							subtype = "tts";
+						} else {
+							subtype = "sound";
+							fileName = file;
+						}
 
-                                    file = elem3.childNamed("file")?.val;
-                                    if (!file) continue;
-                                    const pieces2 = file.split(".");
+						ugcData[file] = {
+							type: "sound",
+							subtype: subtype,
+							name: fileName,
+						};
+					}
+					break;
+				}
 
-                                    if (elem3.name != "head") await this.basicParse(zip, file, "prop");
-                                    else {
-                                        if (pieces2[0] == "ugc") continue;
-                                        pieces2.pop(), pieces2.splice(1, 0, "char");
-                                        get(`${store}/${pieces2.join("/")}.swf`).then(buff => {
+				case "cc_char": {
+					var beg = element.startTagPosition - 1;
+					var end = xmlBuffer.indexOf("</cc_char>", beg) + 10;
+					var sub = xmlBuffer.subarray(beg, end);
 
-                                            pieces2.splice(1, 1, "prop");
-                                            const filename = `${pieces2.join(".")}.swf`;
-                                            fUtil.addToZip(zip, filename, buff);
-                                        }).catch(e => console.log(e));
-                                    }
+					var fileName = element.attr.file_name;
+					var id = fileName.substr(9, fileName.indexOf(".", 9) - 9);
+					var theme = await char.getTheme(await char.save(sub, id));
+					if (ugcData[id]) ugcData[id].theme = theme;
+					themes[theme] = true;
 
-                                    themes[pieces2[0]] = true;
-                                }
+					fUtil.addToZip(zip, fileName, sub);
+					//assetBuffers[`${id}.xml`] = sub;
+					break;
+				}
 
-                                themes[themeId] = true;
-                                break;
-                            }
+				case "asset": {
+					if (!mId) continue;
+					var aId = element.attr.id;
+					var m = useBase64(aId) ? "base64" : "utf8";
+					var b = Buffer.from(element.val, m);
+					var t = ugcData[aId];
+					if (!t) continue;
 
-                            case 'bubbleAsset': {
-                                const bubble = elem2.childNamed("bubble");
-                                const text = bubble.childNamed("text");
+					switch (t.subtype) {
+						case "tts":
+						case "sound": {
+							var d = await new Promise((res) => mp3Duration(b, (e, d) => e || res(Math.floor(1e3 * d))));
+							ugcString += `<sound subtype="${t.subtype}" id="${aId}" name="${t.name}" downloadtype="progressive" duration="${d}"/>`;
+							break;
+						}
+						case "bg":
+							ugcString += `<background id="${aId}" thumb="${aId}" aid="${aId}" enc_asset_id="${aId}"/>`;
+					}
+					assetBuffers[aId] = b;
+					break;
+				}
+			}
+		}
 
-                                // arial doesn't need to be added
-                                if (text.attr.font == "Arial") continue;
+		if (themes.family) {
+			delete themes.family;
+			themes.custom = true;
+		}
 
-                                const filename = `${name2Font(text.attr.font)}.swf`;
-                                get(`${source}/go/font/${filename}`).then(buff => fUtil.addToZip(zip, filename, buff)).catch(e => {
-                                    console.log(e);
-                                });
-                                break;
-                            }
-                        }
-                    }
-                    break;
-                }
-            }
-        }
+		if (themes.cc2) {
+			delete themes.cc2;
+			themes.action = true;
+		}
 
-        if (themes.family) {
-            delete themes.family;
-            themes.custom = true;
-        }
+		for (const t in themes) {
+			switch (t) {
+				case "common":
+					break;
+				case "ugc":
+				default:
+					continue;
+			}
+			var file = fs.readFileSync(`${themeFolder}/${t}.xml`);
+			fUtil.addToZip(zip, `${t}.xml`, file);
+		}
 
-        if (themes.cc2) {
-            delete themes.cc2;
-            themes.action = true;
-        }
+		for (const id in ugcData) {
+			var data = ugcData[id];
+			switch (data.type) {
+				case "char": {
+					if (data.theme === undefined) {
+						console.warn("Character theme undefined.");
+						continue;
+					}
 
-        const themeKs = Object.keys(themes);
-        themeKs.forEach(t => {
-            if (t == 'ugc') return;
-            get(`${store}/${t}/theme.xml`).then(buff => fUtil.addToZip(zip, `${t}.xml`, buff)).catch(e => console.log(e));
-        });
-        const buff = Buffer.from(`${header}<themes>${themeKs.map(t => `<theme>${t}</theme>`).join('')}</themes>`);
-        fUtil.addToZip(zip, 'themelist.xml', buff);
-        fUtil.addToZip(zip, 'ugc.xml', Buffer.from(ugc + `</theme>`));
-        return await zip.zip();
-    },
+					var subs = "";
+					for (var subId in data.subs) subs += `<${data.subs[subId]} id="${subId}.xml" enable="Y"/>`;
+					ugcString += `<char id="${id}"cc_theme_id="${data.theme}"><tags/>${subs}</char>`;
+					try {
+						var buffer = await char.load(id);
+						fUtil.addToZip(zip, `ugc.${data.type}.${id}.xml`, buffer);
+					} catch (e) {}
+				}
+				case "sound":
+					continue;
+			}
+			var buffer = assetBuffers[id];
+			fUtil.addToZip(zip, `ugc.${data.type}.${id}`, buffer);
+		}
+
+		var themeKs = Object.keys(themes);
+		var themelist = Buffer.from(
+			`${header}<themes>${themeKs
+				.map((t) => {
+					return `<theme>${t}</theme>`;
+				})
+				.join("")}</themes>`
+		);
+
+		fUtil.addToZip(zip, "themelist.xml", themelist);
+		fUtil.addToZip(zip, "ugc.xml", Buffer.from(ugcString + `</theme>`));
+		return { zipBuf: await zip.zip(), caché: assetBuffers };
+	},
+	/**
+	 * @summary Given a PK stream from the LVM, returns an XML buffer to save locally.
+	 * @param {nodezip.ZipFile} zipFile
+	 * @param {Buffer} thumb
+	 * @param {{[aId:string]:Buffer}} assetBuffers
+	 * @returns {Promise<Buffer>}
+	 *
+	async unpackMovie(zipFile, thumb = null, assetBuffers = null) {
+		return new Promise((res) => {
+			var pieces = [];
+			var stream = zipFile["movie.xml"].toReadStream();
+			stream.on("data", (b) => pieces.push(b));
+			stream.on("end", async () => {
+				var mainSlice = Buffer.concat(pieces).slice(0, -7);
+				var xmlBuffers = [];
+				var charBuffers = {};
+				var assetRemap = {};
+
+				// Remaps UGC asset IDs to match the current Wrapper environment.
+				for (let c = 0, end; ; c = mainSlice.indexOf("ugc.", c) + 4) {
+					if (c == 0) continue;
+					else if (c == 3) {
+						xmlBuffers.push(mainSlice.subarray(end));
+						break;
+					}
+
+					xmlBuffers.push(mainSlice.subarray(end, c));
+					end = mainSlice.indexOf("<", c + 1);
+					var assetId = mainSlice.subarray(c, end).toString();
+					var index = assetId.indexOf("-");
+					var prefix = assetId.substr(0, index);
+					switch (prefix) {
+						case "c": {
+							var t = new Date().getTime();
+							var dot = assetId.indexOf(".");
+							var charId = assetId.substr(0, dot);
+							var saveId = assetRemap[charId];
+							if (!assetRemap[charId]) {
+								saveId = assetRemap[charId] = `C-${~~(1e4 * Math.random())}-${t}`;
+							}
+
+							var remainder = assetId.substr(dot);
+							xmlBuffers.push(Buffer.from(saveId + remainder));
+							try {
+								charBuffers[saveId] = await char.load(charId);
+							} catch (e) {}
+							break;
+						}
+						case "C": {
+							var dot = assetId.indexOf(".");
+							var charId = assetId.substr(0, dot);
+							charBuffers[charId] = await char.load(charId);
+							xmlBuffers.push(Buffer.from(assetId));
+							break;
+						}
+						default: {
+							xmlBuffers.push(Buffer.from(assetId));
+							break;
+						}
+					}
+				}
+
+				// Appends base-64 encoded assets into XML.
+				if (assetBuffers)
+					for (let aId in assetBuffers) {
+						var dot = aId.lastIndexOf(".");
+						var dash = aId.lastIndexOf("-");
+						//var mode = aId.substr(dash + 1, dot - dash - 1);
+
+						if (useBase64(aId)) {
+							var assetString = assetBuffers[aId].toString("base64");
+							xmlBuffers.push(Buffer.from(`<asset id="${aId}">${assetString}</asset>`));
+						} else xmlBuffers.push(Buffer.from(`<asset id="${aId}">${assetBuffers[aId]}</asset>`));
+					}
+
+				var hLen = header.length;
+				for (let id in charBuffers) {
+					var buff = charBuffers[id];
+					var hasHeader = buff.subarray(0, hLen / 2).toString() == header.substr(0, hLen / 2);
+					var start = buff.includes("file_name") ? buff.indexOf(".xml") + 6 : hasHeader ? hLen + 9 : 9;
+					xmlBuffers.push(Buffer.from(`<cc_char file_name='ugc.char.${id}.xml' ${buff.subarray(start)}`));
+				}
+
+				if (thumb) {
+					var thumbString = thumb.toString("base64");
+					xmlBuffers.push(Buffer.from(`<thumb>${thumbString}</thumb>`));
+				}
+
+				xmlBuffers.push(Buffer.from(`</film>`));
+				res(Buffer.concat(xmlBuffers));
+			});
+		});
+	},
+	/**
+	 *
+	 * @param {Buffer} xml
+	 * @param {mId} mId
+	 *
+	async unpackXml(xml, mId) {
+		var i = mId.indexOf("-");
+		var prefix = mId.substr(0, i);
+		var suffix = mId.substr(i + 1);
+		if (prefix == "m") {
+			var beg = xml.lastIndexOf("<thumb>");
+			var end = xml.lastIndexOf("</thumb>");
+			if (beg > -1 && end > -1) {
+				var sub = Buffer.from(xml.subarray(beg + 7, end).toString(), "base64");
+				fs.writeFileSync(fUtil.getFileIndex("thumb-", ".png", suffix), sub);
+			}
+			fs.writeFileSync(fUtil.getFileIndex("movie-", ".xml", suffix), xml);
+		}
+	}, */
 };

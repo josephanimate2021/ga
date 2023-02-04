@@ -41,11 +41,9 @@ if (!fs.existsSync(env.CHARS_FOLDER)) fs.mkdirSync(env.CHARS_FOLDER);
 if (!fs.existsSync(env.DATABASES_FOLDER)) fs.mkdirSync(env.DATABASES_FOLDER);
 
 // basic utilities
-const theme = require("./theme/core");
 const fonts = require("./fonts");
 const charHead = require("./charHead");
 const movie = require("./movie/core");
-const asset = require("./asset/core");
 const quickvideo = require("./quickvideo");
 const quickvideo_files = require("./quickvideo_files");
 const font = require("./font");
@@ -60,8 +58,6 @@ const utilities = [
   quickvideo,
   font,
   movie,
-  asset,
-  theme,
   crossdomain,
   pages
 ];
