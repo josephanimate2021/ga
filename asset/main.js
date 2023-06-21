@@ -302,7 +302,7 @@ module.exports = {
 			case "bg": {
 				files = this.getBackgrounds();
 				xml = `<ugc more="0">${
-					files.map(v => `<background subtype="0" id="${v.id}" name="${v.title}" enable="Y"/>`).join("")
+					files.map(v => `<background subtype="0" enc_asset_id="${v.id}" id="${v.id}" name="${v.title}" enable="Y"/>`).join("")
 				}</ugc>`;
 				break;
 			} case "movie": {
@@ -343,7 +343,7 @@ module.exports = {
 				case "bg": {
 					files = this.getBackgrounds();
 					xml = `<ugc more="0">${
-						files.map(v => `<background subtype="0" id="${v.id}" name="${v.title}" enable="Y"/>`).join("")
+						files.map(v => `<background subtype="0" enc_asset_id="${v.id}" id="${v.id}" name="${v.title}" enable="Y"/>`).join("")
 					}</ugc>`;
 					break;
 				} case "movie": {
@@ -368,7 +368,7 @@ module.exports = {
 					xml = `<ugc more="0">${
 						files.map(v => `<char id="${
 							v.id
-						}" name="${v.title}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}.png" copyable="${
+						}" name="${v.title}" enc_asset_id="${v.id}" cc_theme_id="${v.theme}" thumbnail_url="/assets/${v.id}.png" copyable="${
 							v.copyable
 						}"><tags>${v.tags || ""}</tags></char>`).join('')
 					}</ugc>`;
@@ -382,7 +382,7 @@ module.exports = {
 							v.holdable
 						}" headable="${v.headable}" placeable="${
 							v.placeable
-						}" wearable="${v.wearable}" facing="left" width="0" height="0" asset_url="/assets/${v.id}"/>`).join('')
+						}" wearable="${v.wearable}" enc_asset_id="${v.id}" facing="left" width="0" height="0" asset_url="/assets/${v.id}"/>`).join('')
 					}</ugc>`;
 					break;
 				} default: {
