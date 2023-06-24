@@ -1,3 +1,7 @@
+const https = require("https");
+const ffmpeg = require("fluent-ffmpeg");
+ffmpeg.setFfmpegPath(require("@ffmpeg-installer/ffmpeg").path);
+const mp3Duration = require("mp3-duration");
 module.exports = {
   handleError(e) { // handles the error for both the ternimal and the lvm
     console.log(e);
