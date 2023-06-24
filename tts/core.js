@@ -1,12 +1,8 @@
 const https = require("https");
 const request = require('request');
 const loadPost = require("../req/body");
-const ffmpeg = require("fluent-ffmpeg");
-const tempfile = require("tempfile");
-ffmpeg.setFfmpegPath(require("@ffmpeg-installer/ffmpeg").path);
 const fs = require("fs");
 const fUtil = require("../fileUtil");
-const mp3Duration = require("mp3-duration");
 const tts = require("./main");
 let xml;
 let xmlSucess = false;
@@ -49,7 +45,7 @@ module.exports = function(req, res, url) {
                     },
                     json: true
                 }, async (error, response, body) => {
-                    if (error) return res.end(handleError(error));
+                    if (error) return res.end(tts.handleError(error));
                     let json = await tts.checkSpeakStatus(body.uuid);
                     while (json.path === null) json = await tts.checkSpeakStatus(body.uuid);
                     https.get(json.path, (r) => tts.convertToMp3(r, "wav").then(buff => {
