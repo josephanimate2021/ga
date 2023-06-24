@@ -42,11 +42,13 @@ if (!fs.existsSync(env.DATABASES_FOLDER)) fs.mkdirSync(env.DATABASES_FOLDER);
 const theme = require("./theme/core");
 const movie = require("./movie/core");
 const asset = require("./asset/core");
+const tts = require("./tts/core");
 const pages = require("./pages");
 const crossdomain = require("./crossdomain");
 const url = require('url');
 
 const utilities = [
+  tts,
   movie,
   asset,
   theme,
