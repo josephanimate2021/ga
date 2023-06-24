@@ -128,7 +128,11 @@ module.exports = function(req, res, url) {
                 });
             });
             break;
-        } default: return;
+        } case "/goapi/getAsset/": {
+            loadPost(req, res).then(data => res.end(fs.readFileSync(`./sounds/${data.assetId}`)))
+            break;
+        }
+        default: return;
     }
     return true;
 }
