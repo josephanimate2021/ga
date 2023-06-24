@@ -11,15 +11,18 @@ function handleError(e) { // handles the error for both the ternimal and the lvm
 }
 const fUtil = require("../fileUtil");
 const mp3Duration = require("mp3-duration");
-const { error } = require("console");
 function sampleUrl(id) {
     return new Promise((res, rej) => {
         https.get(`https://api.uberduck.ai/voices/${id}/samples`, (r) => {
             let buffers = [];
             r.on("data", (b) => buffers.push(b)).on("end", () => {
-                const json = JSON.parse(Buffer.concat(buffers));
-                if (json[0]) res(json[0].url);
-                else res("");
+                try {
+                    const json = JSON.parse(Buffer.concat(buffers));
+                    if (json[0]) res(json[0].url);
+                    else res("");
+                } catch (e) {
+                    rej(e);
+                }
             }).on("error", rej);
         }).on("error", rej);
     });
@@ -28,7 +31,7 @@ function duration(data) {
     return new Promise((res, rej) => {
         mp3Duration(data, (e, duration) => {
             if (e || !duration) {
-                return rej(e);
+                return rej(e || "Unable to retreive buffer duration");
             }
             const dur = duration * 1e3;
             res(dur);
@@ -50,8 +53,12 @@ function checkSpeakStatus(id) {
         https.get(`https://api.uberduck.ai/speak-status?uuid=${id}`, (r) => {
             let buffers = [];
             r.on("data", (b) => buffers.push(b)).on("end", () => {
-                const json = JSON.parse(Buffer.concat(buffers));
-                res(json);
+                try {
+                    const json = JSON.parse(Buffer.concat(buffers));
+                    res(json);
+                } catch (e) {
+                    rej(e);
+                }
             }).on("error", rej);
         }).on("error", rej);
     });
@@ -61,15 +68,18 @@ function voiceDetail(id) {
         https.get(`https://api.uberduck.ai/voices/${id}/detail`, (r) => {
             let buffers = [];
             r.on("data", (b) => buffers.push(b)).on("end", () => {
-                const json = JSON.parse(Buffer.concat(buffers));
-                res(json);
+                try {
+                    const json = JSON.parse(Buffer.concat(buffers));
+                    res(json);
+                } catch (e) {
+                    rej(e);
+                }
             }).on("error", rej);
         }).on("error", rej);
     });
 }
 let xml;
 let xmlSucess = false;
-const errorJson = {};
 https.get('https://api.uberduck.ai/voices?mode=tts-basic&language=english&is_commercial=false&is_private=false&slim=false', (r) => {
     let buffers = [];
     r.on("data", (b) => buffers.push(b)).on("end", async () => {
@@ -80,7 +90,6 @@ https.get('https://api.uberduck.ai/voices?mode=tts-basic&language=english&is_com
                 xml += `<voice id="${voice.voicemodel_uuid}" desc="${voice.display_name}" sex="M" demo-url="${await sampleUrl(voice.voicemodel_uuid)}" country="US" plus="N"/>`;
             }
         } catch (e) {
-            errorJson.error = e;
             console.log(e);
         }
     });
