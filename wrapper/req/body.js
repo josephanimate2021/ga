@@ -1,27 +1,27 @@
-module.exports = function (req, res) {
+/**
+ * @summary A Request Body Parser For Zimmer Twins
+ * @param {ReadableStream} req 
+ * @returns {Promise}
+ */
+module.exports = req => {
 	return new Promise((res, rej) => {
-		var data = "";
+		// Variables
+		var data = [];
 		var pData;
-
-		req.on("data", v => {
-			data += v
-			if (data.length > 1e10) {
-				data = "";
-				res.writeHead(413);
-				res.end();
-				req.connection.destroy();
-				rej();
-			}
-		});
-
+		// Get all data for the pData variable
+		req.on("data", v => data.push(v));
+		// send the fetched data to the pData variable
 		req.on("end", () => {
 			try {
-				pData = JSON.parse(data.toString());
+				pData = JSON.parse(Buffer.concat(data));
 			} catch (e) {
-				const params = new URLSearchParams(data.toString());
+				const params = new URLSearchParams(Buffer.concat(data).toString());
 				pData = Object.fromEntries(params);
 			}
-			res(pData)
+			console.log(pData);
+			res(pData);
 		});
+		// spit out an error if something goes wrong.
+		req.on("error", rej);
 	});
 }

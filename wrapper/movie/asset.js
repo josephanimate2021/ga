@@ -347,11 +347,14 @@ module.exports = function (req, res, url) {
                   userid: f.userid
                 }
               };
+              const params2 = new URLSearchParams({
+                watchurl: "/node?id=" + params.meta.movieid
+              }).toString();
               fs.writeFileSync(env.MOVIE_FOLDER + `/${params.meta.movieid}.txt`, toObjectString(params));
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
               fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.txt`, params.meta.movieid);
-              res.end("watchurl=/node?id=" + params.meta.movieid);
+              res.end(params2);
             } else if (fs.existsSync(env.DATABASES_FOLDER + `/starterIdSection.txt`)) {
               const id = fs.readFileSync(env.DATABASES_FOLDER + `/starterIdSection.txt`);
               var user;
@@ -376,6 +379,9 @@ module.exports = function (req, res, url) {
                   userid: f.userid
                 }
               };
+              const params2 = new URLSearchParams({
+                watchurl: "/node?id=" + params.meta.movieid
+              }).toString();
               if (fs.existsSync(env.DATABASES_FOLDER + `/name.txt`)) {
                 fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-owner.txt`, params.username);
               }
@@ -384,7 +390,7 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-starter.txt`, params.meta.starterid);
               fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.txt`, params.meta.movieid);
-              res.end("watchurl=/node?id=" + params.meta.movieid);
+              res.end(params2);
             } else {
               var user;
               if (fs.existsSync(env.DATABASES_FOLDER + `/name.txt`)) user = fs.readFileSync(env.DATABASES_FOLDER + `/name.txt`, 'utf8');
@@ -401,6 +407,9 @@ module.exports = function (req, res, url) {
                   userid: f.userid
                 }
               };
+              const params2 = new URLSearchParams({
+                watchurl: "/node?id=" + params.meta.movieid
+              }).toString();
               if (fs.existsSync(env.DATABASES_FOLDER + `/name.txt`)) {
                 fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-owner.txt`, params.username);
               }
@@ -408,7 +417,7 @@ module.exports = function (req, res, url) {
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-title.txt`, params.meta.title);
               fs.writeFileSync(env.DATABASES_FOLDER + `/${params.meta.movieid}-desc.txt`, params.meta.description);
               fs.writeFileSync(env.TITLES_FOLDER + `/${params.meta.title}.txt`, params.meta.movieid);
-              res.end("watchurl=/node?id=" + params.meta.movieid);
+              res.end(params2);
             }
           });
           return true;

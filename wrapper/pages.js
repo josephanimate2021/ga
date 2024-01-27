@@ -1463,7 +1463,7 @@ module.exports = function (req, res, url) {
       return true;
     } case "/user/register": {
       const age = fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`) : "";
-      if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end(process.env.HOME_HTML + "<center>Access Denied</center>");
+      if (age <= "12") res.end(process.env.HOME_HTML + "<center>Access Denied</center>");
       else if (fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
         <head>
@@ -1545,7 +1545,7 @@ module.exports = function (req, res, url) {
       return true;
     } case "/user/login": {
       const age = fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`) ? fs.readFileSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`) : "";
-      if (age == "1" || age == "2" || age == "3" || age == "4" || age == "5" || age == "6" || age == "7" || age == "8" || age == "9" || age == "10" || age == "11" || age == "12") res.end(process.env.HOME_HTML + "<center>Access Denied</center>");
+      if (age <= "12") res.end(process.env.HOME_HTML + "<center>Access Denied</center>");
       else if (fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}age.txt`)) {
         if (!fs.existsSync(process.env.DATABASES_FOLDER + `/${req.id}name.txt`)) res.end(`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" lang="en-local">
