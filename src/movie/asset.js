@@ -7,24 +7,7 @@ const {
 import fUtil from "../fileUtil.js";
 import fs from "fs";
 import formidable, {errors as formidableErrors} from 'formidable';
-import starter from './starter.js';
 const home = process.env.HOME_HTML;
-function toAttrString(data) {
-	return typeof data == "object"
-		? Object.keys(data)
-				.filter((key) => data[key] !== null)
-				.map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-				.join("&")
-		: data.replace(/"/g, '\\"');
-}
-function toParamString(data) {
-	return Object.keys(data)
-		.map((key) => `${toAttrString(data[key])}`)
-		.join(" ");
-}
-function toObjectString(data) {
-	return `${toParamString(data)}`;
-}
 export default async (req, res, url) => {
 	const cookieManager = new CookieManager();
 	const currentCookie = cookieManager.get(req);
@@ -311,7 +294,7 @@ export default async (req, res, url) => {
 					const file = `${f.movieid[0]}.txt`;
 					res.end(!fs.existsSync(env.MOVIE_FOLDER + `/${fUtil.getFullFile(env.MOVIE_FOLDER, file)}`) ? fs.readFileSync(
 						env.STARTER_FOLDER + `/${fUtil.getFullFile(env.STARTER_FOLDER, file)}`
-					) : fs.readFileSync(env.MOVIE_FOLDER + `/${file}`));
+					) : fs.readFileSync(env.MOVIE_FOLDER + `/${fUtil.getFullFile(env.MOVIE_FOLDER, file)}`));
 					break;
 				} case "/ajax/logout": {
 					console.log(currentCookie);
